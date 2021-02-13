@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+.page {
+  margin: 1rem;
+}
+
+.table-toolbar {
+  margin-bottom: 0.5rem;
+}
+
+.full-width {
+  width: 100%
+}

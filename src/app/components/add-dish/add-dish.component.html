@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>Add New Dish</h1>
+<mat-dialog-content>
+  <form [formGroup]="dishForm">
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Dish Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Fat (per 100g)</mat-label>
+        <input matInput type="number" formControlName="fat" />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Protein (per 100g)</mat-label>
+        <input matInput type="number" formControlName="protein" />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Carbs (per 100g)</mat-label>
+        <input matInput type="number" formControlName="carbohydrate" />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Calories (per 100g)</mat-label>
+        <input matInput type="number" formControlName="calories" />
+      </mat-form-field>
+    </p>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="dishForm.value"
+    color="accent"
+    cdkFocusInitial
+  >
+    Add
+  </button>
+</mat-dialog-actions>
