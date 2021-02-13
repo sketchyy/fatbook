@@ -17,6 +17,7 @@ import {  MatSortModule } from '@angular/material/sort';
 import {  MatDialogModule } from '@angular/material/dialog';
 import {  MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DishesTableComponent } from './components/dishes-table/dishes-table.component';
 import { AddDishComponent } from './components/add-dish/add-dish.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -49,7 +50,8 @@ import { AddEatingComponent } from './components/add-eating/add-eating.component
     MatSortModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -39,6 +39,15 @@ export class DishesPageComponent implements OnInit {
       });
   }
 
+  onDeleteDishClick(dishName: string) {
+    const confirmation = confirm("Are you sure?");
+
+    if (confirmation) {
+      this.dishesStorage.delete(dishName)
+      this.loadData();
+    }
+  }
+
   private loadData() {
     this.tableData$ = this.dishesStorage.getAll();
   }

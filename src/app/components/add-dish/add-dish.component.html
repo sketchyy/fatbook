@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>Add New Dish</h1>
 <mat-dialog-content>
-  <form [formGroup]="dishForm">
+  <form [formGroup]="dishForm" (keyup.enter)="onSubmit()">
     <p>
       <mat-form-field class="full-width">
         <mat-label>Dish Name</mat-label>
@@ -9,25 +9,25 @@
     </p>
     <p>
       <mat-form-field class="full-width">
-        <mat-label>Fat (per 100g)</mat-label>
+        <mat-label>Fat (per 100 g.)</mat-label>
         <input matInput type="number" formControlName="fat" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field class="full-width">
-        <mat-label>Protein (per 100g)</mat-label>
+        <mat-label>Protein (per 100 g.)</mat-label>
         <input matInput type="number" formControlName="protein" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field class="full-width">
-        <mat-label>Carbs (per 100g)</mat-label>
+        <mat-label>Carbs (per 100 g.)</mat-label>
         <input matInput type="number" formControlName="carbohydrate" />
       </mat-form-field>
     </p>
     <p>
       <mat-form-field class="full-width">
-        <mat-label>Calories (per 100g)</mat-label>
+        <mat-label>Calories (per 100 g.)</mat-label>
         <input matInput type="number" formControlName="calories" />
       </mat-form-field>
     </p>

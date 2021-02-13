@@ -2,5 +2,5 @@
   <div class="table-toolbar">
     <button mat-raised-button color="accent" (click)="onAddDishClick()">Add Dish</button>
   </div>
-  <cd-dishes-table [data]="tableData$ | async"></cd-dishes-table>
+  <cd-dishes-table [data]="tableData$ | async" (deleteClick)="onDeleteDishClick($event)"></cd-dishes-table>
 </div>

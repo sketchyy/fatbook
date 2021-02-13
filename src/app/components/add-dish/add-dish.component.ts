@@ -23,8 +23,8 @@ export class AddDishComponent implements OnInit  {
     })
   }
 
-  closeDialog() {
-    this.dialogRef.close('Pizza!');
+  onSubmit() {
+    this.dialogRef.close(this.dishForm.value);
   }
 
 }

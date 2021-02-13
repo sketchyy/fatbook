@@ -16,11 +16,18 @@ table {
   width: 100%;
 }
 
-
 .table-toolbar {
   margin-bottom: 0.5rem;
 }
 
 .full-width {
   width: 100%
+}
+
+.mat-column-actions {
+  width: 50px
+}
+
+.mat-footer-cell {
+  font-weight: bold;
 }

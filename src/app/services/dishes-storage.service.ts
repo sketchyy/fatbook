@@ -10,52 +10,28 @@ export class DishesStorageService {
   storage: Dish[] = [
     {
       id: 'id-1',
-      name: 'Test Dish 1',
-      fat: 10,
+      name: 'Картофель',
+      fat: 3,
       protein: 11,
-      carbohydrate: 50,
-      calories: 1000,
+      carbohydrate: 40,
+      calories: 120,
     },
     {
       id: 'id-2',
-      name: 'Test Dish 2',
-      fat: 10,
-      protein: 11,
-      carbohydrate: 50,
-      calories: 1000,
+      name: 'Гречка с курицей',
+      fat: 5,
+      protein: 10,
+      carbohydrate: 30,
+      calories: 200,
     },
     {
       id: 'id-3',
-      name: 'Test Dish 3',
-      fat: 10,
-      protein: 11,
-      carbohydrate: 50,
-      calories: 1000,
-    },
-    {
-      id: 'id-4',
-      name: 'Test Dish 4',
-      fat: 10,
-      protein: 11,
-      carbohydrate: 50,
-      calories: 1000,
-    },
-    {
-      id: 'id-5',
-      name: 'Test Dish 5',
-      fat: 10,
-      protein: 11,
-      carbohydrate: 50,
-      calories: 1000,
-    },
-    {
-      id: 'id-6',
-      name: 'Test Dish 6',
-      fat: 10,
-      protein: 11,
-      carbohydrate: 50,
-      calories: 1000,
-    },
+      name: 'Кофе со сливками',
+      fat: 1,
+      protein: 1.5,
+      carbohydrate: 6.5,
+      calories: 100,
+    }
   ];
 
   constructor() {}
@@ -65,7 +41,7 @@ export class DishesStorageService {
   }
 
   getDishNames() {
-    return of(this.storage.map(dish => dish.name))
+    return this.storage.map((dish) => dish.name);
   }
 
   add(dish: Dish) {
@@ -73,7 +49,9 @@ export class DishesStorageService {
     this.storage = this.storage.concat(dish);
   }
 
-  delete(dish: Dish) {}
+  delete(dishName: string) {
+    this.storage = this.storage.filter((dish) => dish.name !== dishName);
+  }
 
   findByName(name: string): Dish {
     return this.storage.find((dish) => dish.name === name);

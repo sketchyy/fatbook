@@ -1,6 +1,17 @@
 <div class="page">
   <div class="table-toolbar">
-    <button mat-raised-button color="accent" (click)="onAddDishClick()">Add Eating</button>
+    <button mat-raised-button color="accent" (click)="onAddEatingClick()">
+      Add Eating
+    </button>
   </div>
-  <cd-eatings-table [data]="tableData$ | async"></cd-eatings-table>
+
+  <div *ngFor="let day of week">
+    <div *ngIf="tableData.get(day).length > 0">
+      <h2>{{ day | date: "mediumDate" }}</h2>
+      <cd-eatings-table
+        [data]="tableData.get(day)"
+        (deleteClick)="onDeleteEatingClick($event)"
+      ></cd-eatings-table>
+    </div>
+  </div>
 </div>

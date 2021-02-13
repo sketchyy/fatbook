@@ -2,13 +2,14 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Dish } from 'src/app/models/dish';
 
 @Component({
   selector: 'cd-dishes-table',
@@ -22,12 +23,15 @@ export class DishesTableComponent implements AfterViewInit {
     this.dataSource.data = value;
   }
 
+  @Output() deleteClick = new EventEmitter<string>();
+
   displayedColumns: string[] = [
     'name',
     'fat',
     'protein',
     'carbohydrate',
     'calories',
+    'actions',
   ];
   dataSource = new MatTableDataSource([]);
 
@@ -35,5 +39,9 @@ export class DishesTableComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+  }
+
+  onDeleteClick(dishName: string) {
+    this.deleteClick.emit(dishName);
   }
 }
