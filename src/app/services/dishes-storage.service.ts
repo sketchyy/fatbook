@@ -64,6 +64,10 @@ export class DishesStorageService {
     return of(this.storage);
   }
 
+  getDishNames() {
+    return of(this.storage.map(dish => dish.name))
+  }
+
   add(dish: Dish) {
     dish.id = uuidv4();
     this.storage = this.storage.concat(dish);
@@ -71,5 +75,7 @@ export class DishesStorageService {
 
   delete(dish: Dish) {}
 
-  findByName(name: string) {}
+  findByName(name: string): Dish {
+    return this.storage.find((dish) => dish.name === name);
+  }
 }

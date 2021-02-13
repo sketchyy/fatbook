@@ -1,1 +1,41 @@
-<p>eatings-table works!</p>
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="time">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>time</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.time | date: "mediumDate" }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dishName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>dish</th>
+    <td mat-cell *matCellDef="let element">{{ element.dishName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="portionSize">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>portion</th>
+    <td mat-cell *matCellDef="let element">{{ element.portionSize }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fat">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>fat</th>
+    <td mat-cell *matCellDef="let element">{{ element.fat }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="protein">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>protein</th>
+    <td mat-cell *matCellDef="let element">{{ element.protein }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="carbohydrate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>carbohydrate</th>
+    <td mat-cell *matCellDef="let element">{{ element.carbohydrate }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="calories">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>calories</th>
+    <td mat-cell *matCellDef="let element">{{ element.calories }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

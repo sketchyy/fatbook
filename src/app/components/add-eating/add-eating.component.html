@@ -1,1 +1,28 @@
-<p>add-eating works!</p>
+<h1 mat-dialog-title>Add New Eating</h1>
+<mat-dialog-content>
+  <form [formGroup]="eatingForm">
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Dish Name</mat-label>
+        <input matInput formControlName="dishName" />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Portion Size</mat-label>
+        <input matInput type="number" formControlName="portionSize" />
+      </mat-form-field>
+    </p>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="eatingForm.value"
+    color="accent"
+    cdkFocusInitial
+  >
+    Add
+  </button>
+</mat-dialog-actions>

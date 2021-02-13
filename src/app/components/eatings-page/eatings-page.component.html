@@ -1,1 +1,6 @@
-<p>eatings-page works!</p>
+<div class="page">
+  <div class="table-toolbar">
+    <button mat-raised-button color="accent" (click)="onAddDishClick()">Add Eating</button>
+  </div>
+  <cd-eatings-table [data]="tableData$ | async"></cd-eatings-table>
+</div>
