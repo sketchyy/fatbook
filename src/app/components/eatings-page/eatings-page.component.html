@@ -5,13 +5,21 @@
     </button>
   </div>
 
-  <div *ngFor="let day of week">
-    <div *ngIf="tableData.get(day).length > 0">
-      <h2>{{ day | date: "mediumDate" }}</h2>
-      <cd-eatings-table
-        [data]="tableData.get(day)"
+  <!-- <cd-eatings-table
+        [data]="tableData$ | async"
         (deleteClick)="onDeleteEatingClick($event)"
-      ></cd-eatings-table>
+      ></cd-eatings-table> -->
+
+
+  <div *ngFor="let day of week">
+    <div *ngIf="tableData.get(day) | async as eatingsForDay">
+      <ng-container *ngIf="eatingsForDay.length > 0">
+        <h2>{{ day | date: "mediumDate" }}</h2>
+        <cd-eatings-table
+          [data]="eatingsForDay"
+          (deleteClick)="onDeleteEatingClick($event)"
+        ></cd-eatings-table>
+      </ng-container>
     </div>
   </div>
 </div>

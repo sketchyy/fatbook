@@ -1,3 +1,4 @@
+import { EatingUserInput } from './../../models/eating-user-input';
 import { WeekGeneratorService } from './../../services/week-generator.service';
 import { EatingsStorageService } from './../../services/eatings-storage.service';
 import { AddEatingComponent } from './../add-eating/add-eating.component';
@@ -16,7 +17,8 @@ import { Eating } from 'src/app/models/eating';
 export class EatingsPageComponent implements OnInit {
   tableData$: Observable<Eating[]>;
   week: Date[];
-  tableData: Map<Date, Eating[]> = new Map();
+  tableData: Map<Date, Observable<Eating[]>> = new Map();
+  dishNames: any[];
 
   constructor(
     private dialog: MatDialog,
@@ -27,24 +29,31 @@ export class EatingsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.week = this.weekGenerator.createWeekFromToday();
-    this.loadData();
+
+
+    this.week.forEach(day => {
+      this.tableData.set(day, this.eatingsStorage.getForDay(day))
+    })
+
+    this.tableData$ = this.eatingsStorage.items$;
+     this.dishesStorage.dishNames$.subscribe(dishNames => this.dishNames = dishNames);
+    // this.loadData();
   }
 
   onAddEatingClick() {
-    const dishNames = this.dishesStorage.getDishNames();
 
     let dialogRef = this.dialog.open(AddEatingComponent, {
       height: '325px',
       width: '500px',
-      data: { dishNames },
+      data: { dishNames: this.dishNames },
     });
 
     dialogRef
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
-      .subscribe((result: Eating) => {
+      .subscribe((result: EatingUserInput) => {
         this.eatingsStorage.add(result);
-        this.loadData();
+        // this.loadData();
       });
   }
 
@@ -52,16 +61,16 @@ export class EatingsPageComponent implements OnInit {
     const confirmation = confirm('Are you sure?');
 
     if (confirmation) {
-      this.eatingsStorage.delete(eating);
-      this.loadData();
+      this.eatingsStorage.delete(eating.id);
     }
   }
 
   private loadData() {
-    this.week.forEach(day => {
+
+    /* this.week.forEach(day => {
       const eatingsPerDay = this.eatingsStorage.getForDay(day);
       this.tableData.set(day, eatingsPerDay);
-    })
+    }) */
   }
 
 

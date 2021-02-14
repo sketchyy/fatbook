@@ -17,10 +17,10 @@ export class DishesPageComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private dishesStorage: DishesStorageService
-  ) {}
+    private dishesStorage: DishesStorageService,
+    ) {}
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.loadData();
   }
 
@@ -39,16 +39,16 @@ export class DishesPageComponent implements OnInit {
       });
   }
 
-  onDeleteDishClick(dishName: string) {
+  onDeleteDishClick(dishId: string) {
     const confirmation = confirm("Are you sure?");
 
     if (confirmation) {
-      this.dishesStorage.delete(dishName)
+      this.dishesStorage.delete(dishId)
       this.loadData();
     }
   }
 
   private loadData() {
-    this.tableData$ = this.dishesStorage.getAll();
+    this.tableData$ = this.dishesStorage.items$;
   }
 }

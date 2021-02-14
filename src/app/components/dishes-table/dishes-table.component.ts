@@ -20,7 +20,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class DishesTableComponent implements AfterViewInit {
   @Input()
   set data(value) {
-    this.dataSource.data = value;
+    if (value) {
+      this.dataSource.data = value;
+    }
   }
 
   @Output() deleteClick = new EventEmitter<string>();
@@ -41,7 +43,7 @@ export class DishesTableComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  onDeleteClick(dishName: string) {
-    this.deleteClick.emit(dishName);
+  onDeleteClick(dishId: string) {
+    this.deleteClick.emit(dishId);
   }
 }

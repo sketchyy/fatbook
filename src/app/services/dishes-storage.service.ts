@@ -1,59 +1,43 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { Dish } from '../models/dish';
 import { v4 as uuidv4 } from 'uuid';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DishesStorageService {
-  storage: Dish[] = [
-    {
-      id: 'id-1',
-      name: 'Картофель',
-      fat: 3,
-      protein: 11,
-      carbohydrate: 40,
-      calories: 120,
-    },
-    {
-      id: 'id-2',
-      name: 'Гречка с курицей',
-      fat: 5,
-      protein: 10,
-      carbohydrate: 30,
-      calories: 200,
-    },
-    {
-      id: 'id-3',
-      name: 'Кофе со сливками',
-      fat: 1,
-      protein: 1.5,
-      carbohydrate: 6.5,
-      calories: 100,
-    }
-  ];
+  private _items$: Observable<Dish[]>;
 
-  constructor() {}
-
-  getAll() {
-    return of(this.storage);
+  get items$() {
+    return this._items$;
   }
 
-  getDishNames() {
-    return this.storage.map((dish) => dish.name);
+  get dishNames$() {
+    return this._items$.pipe(
+      map((dishes) => {
+        return dishes.map((d) => ({ id: d.id, name: d.name }));
+      })
+    );
+  }
+
+  constructor(private firestore: AngularFirestore) {
+    this._items$ = this.firestore
+      .collection<Dish>('dishes')
+      .valueChanges({ idField: 'id' });
   }
 
   add(dish: Dish) {
-    dish.id = uuidv4();
-    this.storage = this.storage.concat(dish);
+    this.firestore.collection('dishes').add(dish);
   }
 
-  delete(dishName: string) {
-    this.storage = this.storage.filter((dish) => dish.name !== dishName);
+  delete(id: string) {
+    this.firestore.collection('dishes').doc(id).delete();
   }
 
-  findByName(name: string): Dish {
-    return this.storage.find((dish) => dish.name === name);
+  getById(id: string) {
+    return this.firestore.collection<Dish>('dishes').doc(id).get();
   }
 }

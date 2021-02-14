@@ -1,6 +1,7 @@
 import { Dish } from './dish';
 
 export interface Eating {
+  id?: string;
   time: Date;
   dishName: string;
   portionSize: number;

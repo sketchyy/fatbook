@@ -1,4 +1,4 @@
 export interface EatingUserInput {
-  dishName: string;
+  dish: { id: string, name: string};
   portionSize: number;
 }

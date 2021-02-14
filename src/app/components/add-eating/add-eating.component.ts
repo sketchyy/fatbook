@@ -11,25 +11,25 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class AddEatingComponent implements OnInit {
   eatingForm: FormGroup;
-  options: string[];
-  filteredOptions: Observable<string[]>;
+  options: any[];
+  filteredOptions: Observable<any[]>;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {dishNames: string[]},
+    @Inject(MAT_DIALOG_DATA) public data: {dishNames: any[]},
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddEatingComponent>
   ) {}
 
   ngOnInit() {
     this.eatingForm = this.fb.group({
-      dishName: null,
+      dish: null,
       portionSize: null,
     });
 
     this.options = this.data.dishNames;
 
-    this.filteredOptions = this.eatingForm.get('dishName').valueChanges.pipe(
-      startWith(''),
+    this.filteredOptions = this.eatingForm.get('dish').valueChanges.pipe(
+      startWith({name: ''}),
       map((value) => this._filter(value))
     );
   }
@@ -38,11 +38,16 @@ export class AddEatingComponent implements OnInit {
     this.dialogRef.close(this.eatingForm.value);
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  displayFn(eating: any): string {
+    return eating && eating.name ? eating.name : '';
+  }
+
+  private _filter(value: any): string[] {
+    const filterValue = value.name.toLowerCase();
 
     return this.options.filter((option) =>
-      option.toLowerCase().includes(filterValue)
+      option.name.toLowerCase().includes(filterValue)
     );
   }
+
 }

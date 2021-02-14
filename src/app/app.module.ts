@@ -23,6 +23,9 @@ import { AddDishComponent } from './components/add-dish/add-dish.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EatingsTableComponent } from './components/eatings-table/eatings-table.component';
 import { AddEatingComponent } from './components/add-eating/add-eating.component';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,8 @@ import { AddEatingComponent } from './components/add-eating/add-eating.component
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

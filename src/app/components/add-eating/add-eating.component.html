@@ -9,15 +9,15 @@
           placeholder="Pick one"
           aria-label="Number"
           matInput
-          formControlName="dishName"
+          formControlName="dish"
           [matAutocomplete]="auto"
         />
-        <mat-autocomplete #auto="matAutocomplete">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
           <mat-option
             *ngFor="let option of filteredOptions | async"
             [value]="option"
           >
-            {{ option }}
+            {{ option.name }}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>

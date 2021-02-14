@@ -1,89 +1,71 @@
-import { DishesStorageService } from 'src/app/services/dishes-storage.service';
-import { EatingUserInput } from './../models/eating-user-input';
-import { Eating } from './../models/eating';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as dayjs from 'dayjs';
+import { Observable } from 'rxjs';
+import { DishesStorageService } from 'src/app/services/dishes-storage.service';
+
+import { Dish } from '../models/dish';
+import { Eating } from './../models/eating';
+import { EatingUserInput } from './../models/eating-user-input';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EatingsStorageService {
-  storage: Eating[] = [
-    {
-      time: new Date(2021, 1, 13),
-      dishName: 'new test meal 1',
-      portionSize: 100,
-      fat: 1,
-      protein: 1,
-      carbohydrate: 1,
-      calories: 1,
-    },
-    {
-      time: new Date(2021, 1, 12),
-      dishName: 'new test meal 2',
-      portionSize: 100,
-      fat: 1,
-      protein: 1,
-      carbohydrate: 1,
-      calories: 1,
-    },
-    {
-      time: new Date(2021, 1, 12),
-      dishName: 'new test meal 3',
-      portionSize: 100,
-      fat: 1,
-      protein: 1,
-      carbohydrate: 1,
-      calories: 1,
-    },
-    {
-      time: new Date(2021, 1, 11),
-      dishName: 'new test meal 4',
-      portionSize: 100,
-      fat: 1,
-      protein: 1,
-      carbohydrate: 1,
-      calories: 1,
-    },
-  ];
+  private _items$: Observable<Eating[]>;
 
-  constructor(private dishesStorage: DishesStorageService) {}
+  get items$() {
+    return this._items$;
+  }
 
-  getAll() {
-    return of(this.storage);
+  constructor(
+    private dishesStorage: DishesStorageService,
+    private firestore: AngularFirestore
+  ) {
+    this._items$ = this.firestore
+      .collection<Eating>('eatings')
+      .valueChanges({ idField: 'id' });
   }
 
   getForDay(day: Date) {
-    return this.storage.filter((eating) => {
-      const wrapped = dayjs(eating.time);
-      const sameDay =
-        wrapped.isSame(day, 'year') &&
-        wrapped.isSame(day, 'month') &&
-        wrapped.isSame(day, 'day');
+    const startDate = dayjs(day)
+      .set('hour', 0)
+      .set('minute', 0)
+      .set('second', 0)
+      .toDate();
+    const endDate = dayjs(day)
+      .set('hour', 0)
+      .set('minute', 0)
+      .set('second', 0)
+      .add(1, 'day')
+      .toDate();
 
-      return sameDay;
-    });
+    return this.firestore
+      .collection<Eating>('eatings', (ref) =>
+        ref.where('time', '>=', startDate).where('time', '<', endDate)
+      )
+      .valueChanges();
   }
 
   add(userInput: EatingUserInput) {
-    const eating: Eating = this.enrichEating(userInput);
+    this.dishesStorage.getById(userInput.dish.id).subscribe((doc) => {
+      const dish = doc.data();
+      const eating: Eating = this.enrichEating(userInput, dish);
 
-    this.storage = this.storage.concat(eating);
+      this.firestore.collection<Eating>('eatings').add(eating);
+    });
   }
 
-  delete(eating: Eating) {
-    this.storage = this.storage.filter((e) => eating !== e);
+  delete(id: string) {
+    this.firestore.collection('eatings').doc(id).delete();
   }
 
-  private enrichEating(userInput: EatingUserInput): Eating {
-    const dish = this.dishesStorage.findByName(userInput.dishName);
-
+  private enrichEating(userInput: EatingUserInput, dish: Dish) {
     const portionCoefficient = userInput.portionSize / 100;
 
     return {
       time: new Date(),
-      dishName: userInput.dishName,
+      dishName: dish.name,
       portionSize: userInput.portionSize,
       fat: dish.fat * portionCoefficient,
       protein: dish.protein * portionCoefficient,

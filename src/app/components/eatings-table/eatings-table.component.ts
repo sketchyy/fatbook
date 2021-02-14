@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Eating } from 'src/app/models/eating';
@@ -18,7 +11,9 @@ import { Eating } from 'src/app/models/eating';
 export class EatingsTableComponent {
   @Input()
   set data(value: Eating[]) {
-    this.dataSource.data = value;
+    if (value) {
+      this.dataSource.data = value;
+    }
   }
 
   @Output() deleteClick = new EventEmitter<Eating>();
@@ -45,6 +40,13 @@ export class EatingsTableComponent {
   }
 
   getTotals(column: string) {
-    return this.dataSource.data.reduce((result, curr) => result + curr[column], 0);
+    if (!this.dataSource.data) {
+      return 0;
+    }
+
+    return this.dataSource.data.reduce(
+      (result, curr) => result + curr[column],
+      0
+    );
   }
 }
