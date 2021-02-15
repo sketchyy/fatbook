@@ -13,9 +13,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
-import {  MatSortModule } from '@angular/material/sort';
-import {  MatDialogModule } from '@angular/material/dialog';
-import {  MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DishesTableComponent } from './components/dishes-table/dishes-table.component';
@@ -26,6 +26,9 @@ import { AddEatingComponent } from './components/add-eating/add-eating.component
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     DishesTableComponent,
     AddDishComponent,
     EatingsTableComponent,
-    AddEatingComponent
+    AddEatingComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,9 +60,11 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    AngularFireAuthModule,
+    AngularFireAuthGuardModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

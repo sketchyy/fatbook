@@ -3,27 +3,44 @@ import { EatingsPageComponent } from './components/eatings-page/eatings-page.com
 import { DishesPageComponent } from './components/dishes-page/dishes-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {
+  AngularFireAuthGuard,
+  hasCustomClaim,
+  redirectUnauthorizedTo,
+  redirectLoggedInTo,
+  canActivate,
+} from '@angular/fire/auth-guard';
+import { LoginComponent } from './components/login/login.component';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const redirectLoggedInToEatings = () => redirectLoggedInTo(['dishes']);
 
 const routes: Routes = [
   {
     path: 'dishes',
-    component: DishesPageComponent
+    component: DishesPageComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'eatings',
-    component: EatingsPageComponent
+    component: EatingsPageComponent,
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    ...canActivate(redirectLoggedInToEatings),
   },
   {
     path: '',
     redirectTo: 'eatings',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
-  { path: '**', component: NotFoundComponent },  // Wildcard route for a 404 page
-
+  { path: '**', component: NotFoundComponent }, // Wildcard route for a 404 page
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

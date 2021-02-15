@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "calories-diary-3fa55": {
+      "hosting": {
+        "calories-diary": [
+          "calories-diary-3fa55"
+        ]
+      }
+    }
+  }
+}

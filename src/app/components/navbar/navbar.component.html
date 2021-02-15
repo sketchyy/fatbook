@@ -8,4 +8,9 @@
       >Dishes</a
     >
   </div>
+  <div class="spacer"></div>
+  <div *ngIf="auth.user | async as user">
+    <span class="username">Hi, {{ user.displayName }}!</span>
+    <button mat-stroked-button (click)="logout()">Logout</button>
+  </div>
 </mat-toolbar>
