@@ -13,7 +13,7 @@ import { IngredientDialogComponent } from './../ingredient-dialog/ingredient-dia
     <div class="page">
       <div class="table-toolbar">
         <button mat-raised-button color="accent" (click)="onAddClick()">
-          Add Dish
+          Add Ingredient
         </button>
       </div>
       <cd-ingredients-table

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Dish } from 'src/app/models/dish';
-import { DishesStorageService } from 'src/app/services/dishes-storage.service';
+import { DishesStorageService } from 'src/app/dishes/services/dishes-storage.service';
 
 import { AddDishComponent } from './../add-dish/add-dish.component';
 

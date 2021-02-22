@@ -1,13 +1,13 @@
-import { EatingUserInput } from './../../models/eating-user-input';
-import { WeekGeneratorService } from './../../services/week-generator.service';
 import { EatingsStorageService } from './../../services/eatings-storage.service';
 import { AddEatingComponent } from './../add-eating/add-eating.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DishesStorageService } from 'src/app/services/dishes-storage.service';
+import { DishesStorageService } from 'src/app/dishes/services/dishes-storage.service';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Eating } from 'src/app/models/eating';
+import { WeekGeneratorService } from 'src/app/core/services/week-generator.service';
+import { EatingUserInput } from 'src/app/models/eating-user-input';
 
 @Component({
   selector: 'cd-eatings-page',

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './core/components/login/login.component';
+import { NotFoundComponent } from './core/components/not-found/not-found.component';
 
-import { DishesPageComponent } from './components/dishes-page/dishes-page.component';
-import { EatingsPageComponent } from './components/eatings-page/eatings-page.component';
-import { LoginComponent } from './components/login/login.component';
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DishesPageComponent } from './dishes/components/dishes-page/dishes-page.component';
+import { EatingsPageComponent } from './eatings/components/eatings-page/eatings-page.component';
 import { IngredientsPageComponent } from './ingredients/components/ingredients-page/ingredients-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);

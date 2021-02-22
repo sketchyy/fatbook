@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
-import { Dish } from '../models/dish';
+import { Dish } from '../../models/dish';
 import { v4 as uuidv4 } from 'uuid';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';

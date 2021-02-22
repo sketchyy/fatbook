@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as dayjs from 'dayjs';
 import { Observable } from 'rxjs';
-import { DishesStorageService } from 'src/app/services/dishes-storage.service';
+import { DishesStorageService } from 'src/app/dishes/services/dishes-storage.service';
+import { Dish } from 'src/app/models/dish';
+import { Eating } from 'src/app/models/eating';
+import { EatingUserInput } from 'src/app/models/eating-user-input';
 
-import { Dish } from '../models/dish';
-import { Eating } from './../models/eating';
-import { EatingUserInput } from './../models/eating-user-input';
 
 @Injectable({
   providedIn: 'root',
