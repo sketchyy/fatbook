@@ -1,5 +1,5 @@
 export interface Dish {
-  id: string;
+  id?: string;
   name: string;
   fat: number;
   protein: number;
