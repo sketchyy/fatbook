@@ -26,7 +26,7 @@ export class DishesPageComponent implements OnInit {
 
   onAddDishClick() {
     let dialogRef = this.dialog.open(AddDishComponent, {
-      height: '575px',
+      // height: '575px',
       width: '500px',
     });
 

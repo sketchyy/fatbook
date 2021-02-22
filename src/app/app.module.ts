@@ -14,6 +14,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
@@ -67,6 +68,7 @@ import { IngredientsTableComponent } from './ingredients/components/ingredients-
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
+    MatGridListModule,
     AngularFireAuthModule,
     AngularFireAuthGuardModule
   ],

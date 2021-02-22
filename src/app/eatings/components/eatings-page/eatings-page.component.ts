@@ -64,14 +64,4 @@ export class EatingsPageComponent implements OnInit {
       this.eatingsStorage.delete(eating.id);
     }
   }
-
-  private loadData() {
-
-    /* this.week.forEach(day => {
-      const eatingsPerDay = this.eatingsStorage.getForDay(day);
-      this.tableData.set(day, eatingsPerDay);
-    }) */
-  }
-
-
 }

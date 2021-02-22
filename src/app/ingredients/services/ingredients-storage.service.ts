@@ -14,10 +14,10 @@ export class IngredientsStorageService {
     return this._items$;
   }
 
-  get dishNames$() {
+  get selectOptions$() {
     return this._items$.pipe(
-      map((dishes) => {
-        return dishes.map((d) => ({ id: d.id, name: d.name }));
+      map((ingredients) => {
+        return ingredients.map((d) => ({ id: d.id, name: d.name }));
       })
     );
   }

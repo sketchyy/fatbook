@@ -1,0 +1,15 @@
+.sub-header, .form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.dynamic-form {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.weight-input {
+  max-width: 100px;
+}

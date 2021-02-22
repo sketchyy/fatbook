@@ -1,36 +1,52 @@
 <h1 mat-dialog-title>Add New Dish</h1>
 <mat-dialog-content>
   <form [formGroup]="dishForm" (keyup.enter)="onSubmit()">
-    <p>
+    <div>
       <mat-form-field class="full-width">
         <mat-label>Dish Name</mat-label>
         <input matInput formControlName="name" />
       </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="full-width">
-        <mat-label>Fat (per 100 g.)</mat-label>
-        <input matInput type="number" formControlName="fat" />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="full-width">
-        <mat-label>Protein (per 100 g.)</mat-label>
-        <input matInput type="number" formControlName="protein" />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="full-width">
-        <mat-label>Carbs (per 100 g.)</mat-label>
-        <input matInput type="number" formControlName="carbohydrate" />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="full-width">
-        <mat-label>Calories (per 100 g.)</mat-label>
-        <input matInput type="number" formControlName="calories" />
-      </mat-form-field>
-    </p>
+    </div>
+    <div formArrayName="ingredients">
+      <div class="sub-header">
+        <strong>Ingredients list (total {{ ingredients.length }})</strong>
+        <button
+          mat-mini-fab
+          color="primary"
+          class="mr2"
+          aria-label="Remove dish"
+          (click)="addIngredient()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <div class="dynamic-form">
+        <div
+          *ngFor="let ingredient of ingredients.controls; index as i"
+          [formGroup]="ingredient"
+          class="form-row"
+        >
+          <mat-form-field class="flex-1 mr2">
+            <mat-label>Ingredient</mat-label>
+            <input matInput type="number" formControlName="id" />
+          </mat-form-field>
+          <mat-form-field class="weight-input mr2">
+            <mat-label>Weight (g.)</mat-label>
+            <input matInput type="number" formControlName="weight" />
+          </mat-form-field>
+          <button
+            mat-mini-fab
+            color="secondary"
+            class="mr2"
+            aria-label="Remove dish"
+            (click)="deleteIngredient(i)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
