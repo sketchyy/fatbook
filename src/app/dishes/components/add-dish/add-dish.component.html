@@ -33,6 +33,8 @@
             [suggestions]="ingredientOptions"
             (completeMethod)="search($event)"
             field="name"
+            appendTo="body"
+            completeOnFocus="true"
           ></p-autoComplete>
         </div>
         <div class="p-field p-col">

@@ -1,9 +1,6 @@
-import { IngredientRef } from './ingredient-ref';
+import { DishIngredient } from './dish-ingredient';
 
 export interface DishUserInput {
   name: string;
-  ingredients: {
-    ingredient: IngredientRef;
-    weight: number;
-  }[];
+  ingredients: DishIngredient[];
 }

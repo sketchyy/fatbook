@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, SnapshotAction } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { IngredientRef } from 'src/app/models/ingredient-ref';
@@ -11,27 +11,7 @@ import { Ingredient } from './../../models/ingredient';
 })
 // TODO: rename to IngredientsService
 export class IngredientsStorageService {
-  private _items$: Observable<Ingredient[]>;
-
-  get items$() {
-    return this._items$;
-  }
-
-  get selectOptions$() {
-    return this._items$.pipe(
-      map((ingredients) => {
-        return ingredients.map((d) => ({ id: d.id, name: d.name }));
-      })
-    );
-  }
-
-  constructor(
-    private db: AngularFireDatabase
-  ) {
-    // this._items$ = this.firestore
-    //   .collection<Ingredient>('ingredients')
-    //   .valueChanges({ idField: 'id' });
-  }
+  constructor(private db: AngularFireDatabase) {}
 
   getAll(): Observable<Ingredient[]> {
     return this.db
@@ -52,7 +32,19 @@ export class IngredientsStorageService {
     return this.db.object('/ingredients/' + id).remove();
   }
 
-  getIngredientsByIds(ids: string[]) {
+  getByIds(ids: string[]): Promise<Ingredient[]> {
+    return this.db
+      .list<Ingredient>('/ingredients')
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map((changes) =>
+          changes
+          .filter(c => ids.includes(c.payload.key) )
+          .map((c) => ({ id: c.payload.key, ...c.payload.val() }))
+        )
+      )
+      .toPromise();
     // return this.firestore
     //   .collection<Ingredient>('ingredients', (ref) =>
     //     ref.where('id', 'array-contains', ids)
@@ -63,21 +55,28 @@ export class IngredientsStorageService {
 
   getDocRef(id: string) {
     // console.log('ID', id);
-
     // return this.firestore.collection<Ingredient>('ingredients').doc(id).ref;
   }
 
   /* Firebase doesn't support fuzzy search with like operator and ignore case, so load all on client and filter here */
   findByName(query: string): Observable<IngredientRef[]> {
-    return this.items$.pipe(
-      take(1),
-      map((response) => {
-        return response
-          .filter((ingr: Ingredient) =>
-            ingr.name.toLocaleLowerCase().startsWith(query.toLocaleLowerCase())
-          )
-          .map((ingr: Ingredient) => ({ name: ingr.name, id: ingr.id }));
-      })
-    );
+    return this.db
+      .list<Ingredient>('/ingredients', (ref) => ref.orderByChild('name'))
+      .snapshotChanges()
+      .pipe(
+        take(1),
+        map((changes) =>
+          changes.filter((item: SnapshotAction<Ingredient>) => {
+            const itemName = item.payload.val().name.toLocaleLowerCase();
+            return itemName.startsWith(query.toLocaleLowerCase());
+          })
+        ),
+        map((changes) =>
+          changes.map((c) => ({
+            id: c.payload.key,
+            name: c.payload.val().name,
+          }))
+        )
+      );
   }
 }

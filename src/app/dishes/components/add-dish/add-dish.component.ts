@@ -4,6 +4,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { IngredientRef } from 'src/app/models/ingredient-ref';
 
 import { IngredientsStorageService } from './../../../ingredients/services/ingredients-storage.service';
+import { DishUserInput } from './../../../models/dish-user-input';
 
 @Component({
   selector: 'cd-add-dish',
@@ -48,7 +49,15 @@ export class AddDishComponent implements OnInit {
   }
 
   onSubmit() {
-    this.ref.close(this.dishForm.value);
+    const userInput: DishUserInput = {
+      name: this.dishForm.get('name').value,
+      ingredients: this.ingredients.value.map((i) => ({
+        id: i.ingredient.id,
+        weight: i.weight,
+      })),
+    };
+
+    this.ref.close(userInput);
   }
 
   onCancel() {

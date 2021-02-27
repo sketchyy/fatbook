@@ -1,4 +1,4 @@
-import { DocumentReference } from '@angular/fire/firestore';
+import { DishIngredientDto } from './dish-dto';
 
 export interface DishDto {
   id?: string;
@@ -8,9 +8,4 @@ export interface DishDto {
   fats: number;
   carbs: number;
   calories: number;
-}
-
-export interface DishIngredientDto {
-  ref: DocumentReference;
-  weight: number;
 }

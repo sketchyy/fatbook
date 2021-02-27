@@ -1,4 +1,4 @@
-import { Ingredient } from './ingredient';
+import { DishIngredient } from './dish-ingredient';
 
 export interface Dish {
   id?: string;
@@ -10,7 +10,3 @@ export interface Dish {
   calories?: number;
 }
 
-export interface DishIngredient {
-  ingredient: Ingredient;
-  weight: number;
-}
