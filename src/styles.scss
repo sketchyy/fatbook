@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/saga-blue/theme.css";
+@import "~primeng/resources/primeng.min.css";
 
 html,
 body {
@@ -47,4 +50,13 @@ table {
 
 .flex-1 {
   flex: 1;
+}
+
+.p-dialog .p-dialog-content {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.p-field > label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
 }

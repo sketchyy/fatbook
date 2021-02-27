@@ -1,11 +1,16 @@
-import { IngredientSelectItem } from './ingredient-select-item';
+import { Ingredient } from './ingredient';
 
 export interface Dish {
   id?: string;
   name: string;
-  ingredients: IngredientSelectItem[];
-  fat?: number;
-  protein?: number;
-  carbohydrate?: number;
+  ingredients: DishIngredient[];
+  proteins?: number;
+  fats?: number;
+  carbs?: number;
   calories?: number;
+}
+
+export interface DishIngredient {
+  ingredient: Ingredient;
+  weight: number;
 }

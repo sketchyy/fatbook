@@ -36,7 +36,7 @@ export class EatingsPageComponent implements OnInit {
     })
 
     this.tableData$ = this.eatingsStorage.items$;
-     this.dishesStorage.dishNames$.subscribe(dishNames => this.dishNames = dishNames);
+     /* this.dishesStorage.dishNames$.subscribe(dishNames => this.dishNames = dishNames); */
     // this.loadData();
   }
 

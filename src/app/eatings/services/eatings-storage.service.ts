@@ -48,12 +48,12 @@ export class EatingsStorageService {
   }
 
   add(userInput: EatingUserInput) {
-    this.dishesStorage.getById(userInput.dish.id).subscribe((doc) => {
+    /* this.dishesStorage.getById(userInput.dish.id).subscribe((doc) => {
       const dish = doc.data();
       const eating: Eating = this.enrichEating(userInput, dish);
 
       this.firestore.collection<Eating>('eatings').add(eating);
-    });
+    }); */
   }
 
   delete(id: string) {
@@ -67,9 +67,9 @@ export class EatingsStorageService {
       time: new Date(),
       dishName: dish.name,
       portionSize: userInput.portionSize,
-      fat: dish.fat * portionCoefficient,
-      protein: dish.protein * portionCoefficient,
-      carbohydrate: dish.carbohydrate * portionCoefficient,
+      fat: dish.fats * portionCoefficient,
+      protein: dish.proteins * portionCoefficient,
+      carbohydrate: dish.carbs * portionCoefficient,
       calories: dish.calories * portionCoefficient,
     };
   }

@@ -29,9 +29,9 @@ export class DishesTableComponent implements AfterViewInit {
 
   displayedColumns: string[] = [
     'name',
-    'fat',
-    'protein',
-    'carbohydrate',
+    'proteins',
+    'fats',
+    'carbs',
     'calories',
     'actions',
   ];

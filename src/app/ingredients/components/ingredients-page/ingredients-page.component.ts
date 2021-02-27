@@ -32,7 +32,7 @@ export class IngredientsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.tableData$ = this.ingredientsStorage.items$;
+    this.tableData$ = this.ingredientsStorage.getAll();
   }
 
   onAddClick() {
@@ -45,7 +45,7 @@ export class IngredientsPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
       .subscribe((result: Ingredient) => {
-        this.ingredientsStorage.add(result);
+        this.ingredientsStorage.create(result);
       });
   }
 
