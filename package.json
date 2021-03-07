@@ -24,6 +24,7 @@
     "@angular/router": "~11.2.0",
     "dayjs": "^1.10.4",
     "firebase": "^7.0 || ^8.0",
+    "lodash-es": "^4.17.21",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
     "primeng": "^11.2.3",

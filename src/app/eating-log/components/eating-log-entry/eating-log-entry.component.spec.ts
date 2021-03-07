@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EatingsPageComponent } from './eatings-page.component';
+import { EatingLogEntryComponent } from './eating-log-entry.component';
 
-describe('EatingsPageComponent', () => {
-  let component: EatingsPageComponent;
-  let fixture: ComponentFixture<EatingsPageComponent>;
+describe('EatingLogEntryComponent', () => {
+  let component: EatingLogEntryComponent;
+  let fixture: ComponentFixture<EatingLogEntryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EatingsPageComponent ]
+      declarations: [ EatingLogEntryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EatingsPageComponent);
+    fixture = TestBed.createComponent(EatingLogEntryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

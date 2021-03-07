@@ -1,0 +1,83 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="testField">Test Field</label>
+      <input id="testField" type="text" formControlName="testField" pInputText />
+    </div>
+  </div>
+  <div class="footer">
+    <button
+      pButton
+      label="Cancel"
+      class="p-button-text p-button-secondary"
+      (click)="onCancel()"
+    ></button>
+    <button pButton label="Add" type="submit"></button>
+  </div>
+</form>
+
+<!-- <form [formGroup]="dishForm" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+  <div>
+    {{ dishForm.value | json }}
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="dishName">Dish Name</label>
+        <input id="dishName" type="text" formControlName="name" pInputText />
+      </div>
+    </div>
+    <div formArrayName="ingredients">
+      <div class="sub-header">
+        <strong>Ingredients list (total {{ ingredients.length }})</strong>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-plus"
+          class="p-button-rounded"
+          (click)="addIngredient()"
+        ></button>
+      </div>
+
+      <div
+        *ngFor="let ingredient of ingredients.controls; index as i"
+        [formGroup]="ingredient"
+        class="p-fluid p-formgrid p-grid p-ai-center"
+      >
+        <div class="p-field p-col">
+          <label for="ingredient">Ingredient</label>
+          <p-autoComplete
+            id="ingredient"
+            formControlName="ingredient"
+            [suggestions]="ingredientOptions"
+            (completeMethod)="search($event)"
+            field="name"
+            appendTo="body"
+            completeOnFocus="true"
+          ></p-autoComplete>
+        </div>
+        <div class="p-field p-col">
+          <label for="weight">Weight (g.)</label>
+          <input id="weight" type="text" formControlName="weight" pInputText />
+        </div>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-secondary"
+          (click)="deleteIngredient(i)"
+        ></button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <button
+      pButton
+      label="Cancel"
+      class="p-button-text p-button-secondary"
+      (click)="onCancel()"
+    ></button>
+    <button pButton label="Add" type="submit"></button>
+  </div>
+</form>
+ -->

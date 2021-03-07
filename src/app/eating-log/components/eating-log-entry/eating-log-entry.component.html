@@ -1,0 +1,19 @@
+<p-panel toggleable="true" collapsed="true">
+  <ng-template pTemplate="header">
+    <h4>{{ logDay.timestamp | date: "mediumDate" }}</h4>
+
+    <div *ngFor="let value of foodValues">
+      <div class="valueTitle">{{ value | titlecase }}</div>
+      <div class="valueText">
+        {{ logDay.totals && logDay.totals[value] | number: "1.0-2" }}
+      </div>
+    </div>
+  </ng-template>
+
+  <div>
+    <cd-data-table
+      [rowData]="eatings"
+      [colDefs]="columns"
+    ></cd-data-table>
+  </div>
+</p-panel>

@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,10 +18,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
 import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,28 +33,32 @@ import { NotFoundComponent } from './core/components/not-found/not-found.compone
 import { AddDishComponent } from './dishes/components/add-dish/add-dish.component';
 import { DishesPageComponent } from './dishes/components/dishes-page/dishes-page.component';
 import { DishesTableComponent } from './dishes/components/dishes-table/dishes-table.component';
-import { AddEatingComponent } from './eatings/components/add-eating/add-eating.component';
-import { EatingsPageComponent } from './eatings/components/eatings-page/eatings-page.component';
-import { EatingsTableComponent } from './eatings/components/eatings-table/eatings-table.component';
+import {
+  EatingLogEntryDialogComponent,
+} from './eating-log/components/eating-log-entry-dialog/eating-log-entry-dialog.component';
+import { EatingLogEntryComponent } from './eating-log/components/eating-log-entry/eating-log-entry.component';
+import { EatingLogPageComponent } from './eating-log/components/eating-log-page/eating-log-page.component';
 import { IngredientDialogComponent } from './ingredients/components/ingredient-dialog/ingredient-dialog.component';
 import { IngredientsPageComponent } from './ingredients/components/ingredients-page/ingredients-page.component';
 import { IngredientsTableComponent } from './ingredients/components/ingredients-table/ingredients-table.component';
+import { DataTableComponent } from './shared/components/data-table/data-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    EatingsPageComponent,
     DishesPageComponent,
     NotFoundComponent,
     DishesTableComponent,
     AddDishComponent,
-    EatingsTableComponent,
-    AddEatingComponent,
     LoginComponent,
     IngredientsPageComponent,
     IngredientsTableComponent,
     IngredientDialogComponent,
+    EatingLogEntryComponent,
+    EatingLogPageComponent,
+    EatingLogEntryDialogComponent,
+    DataTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,8 @@ import { IngredientsTableComponent } from './ingredients/components/ingredients-
     DynamicDialogModule,
     ButtonModule,
     InputTextModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    PanelModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
