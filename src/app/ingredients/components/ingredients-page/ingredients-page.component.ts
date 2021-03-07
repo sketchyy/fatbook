@@ -23,6 +23,7 @@ import { IngredientDialogComponent } from './../ingredient-dialog/ingredient-dia
       <cd-data-table
         [colDefs]="colDefs"
         [rowData]="tableData$ | async"
+        (rowRemoved)="onRowRemoved($event)"
       ></cd-data-table>
     </div>
   `,
@@ -60,12 +61,8 @@ export class IngredientsPageComponent implements OnInit {
       });
   }
 
-  onDeleteClick(ingredientId: any) {
-    const confirmation = confirm('Are you sure?');
-
-    if (confirmation) {
-      this.ingredientsService.delete(ingredientId);
-    }
+  onRowRemoved(ingredientId: any) {
+    this.ingredientsService.delete(ingredientId);
   }
 
   createMocks() {

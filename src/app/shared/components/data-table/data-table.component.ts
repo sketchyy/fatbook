@@ -28,7 +28,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @Output() deleteClick = new EventEmitter<string>();
+  @Output() rowRemoved = new EventEmitter<string>();
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -38,7 +38,10 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngOnInit() {
-    this.displayedColumns = this.colDefs.map((colDef) => colDef.field);
+    this.displayedColumns = [
+      ...this.colDefs.map((colDef) => colDef.field),
+      'actions'
+    ];
   }
 
   ngAfterViewInit() {
@@ -46,7 +49,11 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteClick(id: string) {
-    this.deleteClick.emit(id);
+    const confirmation = confirm('Are you sure?');
+
+    if (confirmation) {
+      this.rowRemoved.emit(id);
+    }
   }
 
   private flattenData(givenData: any[]) {
@@ -54,7 +61,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       return this.colDefs.reduce((newRow, colDef) => {
         newRow[colDef.field] = get(givenRow, colDef.field);
         return newRow;
-      }, {});
+      }, { id: givenRow.id });
     });
   }
 }

@@ -12,7 +12,20 @@ import { ColDef } from 'src/app/shared/models/data-table';
 
 @Component({
   selector: 'cd-dishes-page',
-  templateUrl: './dishes-page.component.html',
+  template: `
+    <div class="page">
+      <div class="table-toolbar">
+        <button mat-raised-button color="accent" (click)="onAddDishClick()">
+          Add Dish
+        </button>
+      </div>
+      <cd-data-table
+        [colDefs]="colDefs"
+        [rowData]="tableData$ | async"
+        (rowRemoved)="onDeleteDishClick($event)"
+      ></cd-data-table>
+    </div>
+  `,
   styleUrls: ['./dishes-page.component.scss'],
   providers: [DialogService],
 })
@@ -50,15 +63,6 @@ export class DishesPageComponent implements OnInit {
   }
 
   onDeleteDishClick(dishId: string) {
-    const confirmation = confirm('Are you sure?');
-
-    if (confirmation) {
-      this.dishesStorage.delete(dishId);
-      this.loadData();
-    }
-  }
-
-  private loadData() {
-    // this.tableData$ = this.dishesStorage.items$;
+    this.dishesStorage.delete(dishId);
   }
 }

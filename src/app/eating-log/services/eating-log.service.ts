@@ -1,9 +1,8 @@
-import { LogDay } from 'src/app/models/log-day';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as dayjs from 'dayjs';
 import { Observable } from 'rxjs';
+import { LogDay } from 'src/app/models/log-day';
 import { LogEating } from 'src/app/models/log-eating';
 
 @Injectable({
@@ -75,8 +74,26 @@ export class EatingLogService {
     logDay.totals.fats += newEating.totals.fats;
     logDay.totals.carbs += newEating.totals.carbs;
     logDay.totals.calories += newEating.totals.calories;
+
     this.firestore
       .doc(`users/${this.userId}/log-days/${newEatingDay}`)
+      .set(logDay, { merge: true });
+  }
+
+  async removeEating(logDayId: string, eating: LogEating) {
+    // Remove eating
+    this.firestore.doc(`users/${this.userId}/log-days/${logDayId}/eatings/${eating.id}`).delete();
+
+    // Update log day totals
+    const logDay = await this.getOrCreateLogDay(logDayId, eating);
+
+    logDay.totals.proteins -= eating.totals.proteins;
+    logDay.totals.fats -= eating.totals.fats;
+    logDay.totals.carbs -= eating.totals.carbs;
+    logDay.totals.calories -= eating.totals.calories;
+
+    this.firestore
+      .doc(`users/${this.userId}/log-days/${logDayId}`)
       .set(logDay, { merge: true });
   }
 

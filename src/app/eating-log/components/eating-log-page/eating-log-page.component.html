@@ -1,7 +1,0 @@
-<div class="page">
-  <button pButton label="Add Eating" (click)="onAddClick()"></button>
-  <button pButton label="Add Mocks" (click)="pushMocks()"></button>
-  <div *ngFor="let logDay of logDays$ | async" class="mb2">
-    <cd-eating-log-entry [logDay]="logDay" [eatings]="eatings$[logDay.id] | async"></cd-eating-log-entry>
-  </div>
-</div>

@@ -11,7 +11,17 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'cd-eating-log-page',
-  templateUrl: './eating-log-page.component.html',
+  template: ` <div class="page">
+    <button pButton label="Add Eating" (click)="onAddClick()"></button>
+    <button pButton label="Add Mocks" (click)="pushMocks()"></button>
+    <div *ngFor="let logDay of logDays$ | async" class="mb2">
+      <cd-eating-log-entry
+        [logDay]="logDay"
+        [eatings]="eatings$[logDay.id] | async"
+        (eatingRemoved)="onEatingRemove(logDay.id, $event)"
+      ></cd-eating-log-entry>
+    </div>
+  </div>`,
   styleUrls: ['./eating-log-page.component.scss'],
 })
 export class EatingLogPageComponent implements OnInit {
@@ -47,11 +57,11 @@ export class EatingLogPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
       .subscribe((result: any) => {
-        console.log('RESULT', result);
-
         this.eatingLogService.create(result);
-
-        // this.dishesStorage.create(result);
       });
+  }
+
+  onEatingRemove(logDayId: string, eating: LogEating) {
+    this.eatingLogService.removeEating(logDayId, eating);
   }
 }
