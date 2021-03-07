@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Ingredient } from 'src/app/models/ingredient';
 
 import { Dish } from '../../models/dish';
-import { IngredientsStorageService } from './../../ingredients/services/ingredients-storage.service';
+import { IngredientsService } from '../../ingredients/services/ingredients.service';
 import { DishUserInput } from './../../models/dish-user-input';
 
 @Injectable({
@@ -16,7 +16,7 @@ import { DishUserInput } from './../../models/dish-user-input';
 export class DishesStorageService {
   constructor(
     private db: AngularFireDatabase,
-    private ingridientsStorage: IngredientsStorageService
+    private ingridientsStorage: IngredientsService
   ) {}
 
   getAll(): Observable<Dish[]> {

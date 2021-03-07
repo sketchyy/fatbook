@@ -1,8 +1,8 @@
+import { FoodValue } from './food-value';
+
 export interface Ingredient {
   id?: string;
   name: string;
-  proteins: number;
-  fats: number;
-  carbs: number;
-  calories: number;
+  foodValue: FoodValue;
+  created?: number;
 }

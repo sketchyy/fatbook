@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { IngredientRef } from 'src/app/models/ingredient-ref';
 
-import { IngredientsStorageService } from './../../../ingredients/services/ingredients-storage.service';
+import { IngredientsService } from '../../../ingredients/services/ingredients.service';
 import { DishUserInput } from './../../../models/dish-user-input';
 
 @Component({
@@ -23,7 +23,7 @@ export class AddDishComponent implements OnInit {
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private fb: FormBuilder,
-    private ingredientsStorage: IngredientsStorageService
+    private ingredientsStorage: IngredientsService
   ) {}
 
   ngOnInit() {
@@ -65,8 +65,8 @@ export class AddDishComponent implements OnInit {
   }
 
   search({ query }) {
-    this.ingredientsStorage.findByName(query).subscribe((response) => {
+    /* this.ingredientsStorage.findByName(query).subscribe((response) => {
       this.ingredientOptions = response;
-    });
+    }); */
   }
 }

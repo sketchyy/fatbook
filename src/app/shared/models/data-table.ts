@@ -1,4 +1,4 @@
-export type ColType = 'number' | 'text' | 'date';
+export type ColType = 'number' | 'text' | 'date' | 'title';
 
 export interface ColDef {
   field: string;

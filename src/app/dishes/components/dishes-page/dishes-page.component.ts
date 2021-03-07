@@ -1,3 +1,4 @@
+import { Ingredient } from 'src/app/models/ingredient';
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';

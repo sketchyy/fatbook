@@ -5,7 +5,13 @@
     </th>
     <td mat-cell *matCellDef="let element">
       <ng-container
-        [ngTemplateOutlet]="colDef.type === 'number' ? numberCell : textCell"
+        [ngTemplateOutlet]="
+          colDef.type === 'number'
+            ? numberCell
+            : colDef.type === 'title'
+            ? titleCell
+            : textCell
+        "
         [ngTemplateOutletContext]="{ cellValue: element[colDef.field] }"
       ></ng-container>
     </td>
@@ -31,6 +37,10 @@
 
 <ng-template #numberCell let-cellValue="cellValue">{{
   cellValue | number: "1.0-2"
+}}</ng-template>
+
+<ng-template #titleCell let-cellValue="cellValue">{{
+  cellValue | titlecase
 }}</ng-template>
 
 <ng-template #textCell let-cellValue="cellValue">{{ cellValue }}</ng-template>

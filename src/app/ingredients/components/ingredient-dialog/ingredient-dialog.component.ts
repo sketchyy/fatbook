@@ -18,10 +18,12 @@ export class IngredientDialogComponent implements OnInit {
   ngOnInit() {
     this.formGroup = this.fb.group({
       name: null,
-      proteins: null,
-      fats: null,
-      carbs: null,
-      calories: null,
+      foodValue: this.fb.group({
+        proteins: null,
+        fats: null,
+        carbs: null,
+        calories: null,
+      }),
     });
   }
 
