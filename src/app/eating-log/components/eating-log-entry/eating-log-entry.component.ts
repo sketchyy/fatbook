@@ -14,7 +14,8 @@ export class EatingLogEntryComponent implements OnInit {
   @Input() eatings: LogEating[];
 
   columns: ColDef[] = [
-    { field: 'dishName', header: 'Dish Name' },
+    { field: 'dish.name', header: 'Dish Name', type: 'title' },
+    { field: 'servingWeight', header: 'Serving (g)', type: 'number' },
     { field: 'totals.proteins', header: 'Proteins', type: 'number' },
     { field: 'totals.fats', header: 'Fats', type: 'number' },
     { field: 'totals.carbs', header: 'Carbs', type: 'number' },

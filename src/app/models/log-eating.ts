@@ -1,10 +1,10 @@
+import { Dish } from 'src/app/models/dish';
 import { FoodValue } from './food-value';
 
 export interface LogEating {
   id?: string;
   timestamp: number;
-  dishId: string;
-  dishName: string;
+  dish: Dish;
   servingWeight: number;
   totals: FoodValue;
 }

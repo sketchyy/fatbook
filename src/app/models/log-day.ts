@@ -1,7 +1,7 @@
 import { FoodValue } from './food-value';
 
 export interface LogDay {
-  id: string;
+  id?: string;
   timestamp: number;
   totals: FoodValue;
 }

@@ -36,6 +36,28 @@ export class DishesService {
     return this.firestore.doc('/dishes/' + id).delete();
   }
 
+  findByName(query: string) {
+    console.log('query', query);
+
+    return this.firestore
+      .collection<Dish>('/dishes', (ref) => {
+        if (query) {
+          const queryStart = query.toLowerCase();
+          const queryEnd = queryStart.replace(/.$/, (c) =>
+            String.fromCharCode(c.charCodeAt(0) + 1)
+          );
+
+          return ref
+            .orderBy('name')
+            .where('name', '>=', queryStart)
+            .where('name', '<', queryEnd);
+        } else {
+          return ref.orderBy('name').limit(20);
+        }
+      })
+      .valueChanges();
+  }
+
   private sumValue(dishUserInput: DishUserInput, fieldName: string) {
     return dishUserInput.dishIngredients.reduce((result, dishIngredient) => {
       result +=

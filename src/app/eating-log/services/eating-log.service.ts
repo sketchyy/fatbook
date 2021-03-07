@@ -1,3 +1,4 @@
+import { LogDay } from 'src/app/models/log-day';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -5,16 +6,11 @@ import * as dayjs from 'dayjs';
 import { Observable } from 'rxjs';
 import { LogEating } from 'src/app/models/log-eating';
 
-import { LogDay } from './../../models/log-day';
-
 @Injectable({
   providedIn: 'root',
 })
 export class EatingLogService {
-  constructor(
-    private firestore: AngularFirestore,
-    private db: AngularFireDatabase
-  ) {}
+  constructor(private firestore: AngularFirestore) {}
 
   userId = 'testuser'; // TODO: populate actual userId
 
@@ -55,45 +51,59 @@ export class EatingLogService {
       .valueChanges({ idField: 'id' });
   }
 
-  async create(userInput) {
-    const newEating: LogEating = {
-      timestamp: dayjs('03-Mar-2021').toDate().getTime(), // TODO: datepicker
-      // timestamp
-      dishId: '-MUXmkGEPrDg7_6cOh5W',
-      dishName: 'Test Dish',
-      servingWeight: 200,
-      totals: null,
-    };
+  async create(newEating: LogEating) {
+    const newEatingDay = dayjs(newEating.timestamp).format('DD-MMM-YYYY');
 
-    // Calculate eating food value and save it to db
-    const dish = (
-      await this.db.database.ref('/dishes/' + newEating.dishId).get()
-    ).val();
-
+    // Calculate eating food value
     newEating.totals = {
-      proteins: (dish.proteins * newEating.servingWeight) / 100,
-      fats: (dish.fats * newEating.servingWeight) / 100,
-      carbs: (dish.carbs * newEating.servingWeight) / 100,
-      calories: (dish.calories * newEating.servingWeight) / 100,
+      proteins:
+        (newEating.dish.totals.proteins * newEating.servingWeight) / 100,
+      fats: (newEating.dish.totals.fats * newEating.servingWeight) / 100,
+      carbs: (newEating.dish.totals.carbs * newEating.servingWeight) / 100,
+      calories:
+        (newEating.dish.totals.calories * newEating.servingWeight) / 100,
     };
+
     this.firestore
-      .collection(`users/${this.userId}/log-days/03-Mar-2021/eatings`)
+      .collection(`users/${this.userId}/log-days/${newEatingDay}/eatings`)
       .add(newEating);
 
-    // update logday totals and save it to db
-    const logDay = (
-      await this.firestore
-        .doc(`users/${this.userId}/log-days/03-Mar-2021`)
-        .get()
-        .toPromise()
-    ).data() as any;
+    // update day totals and save it to db
+    const logDay = await this.getOrCreateLogDay(newEatingDay, newEating);
+
     logDay.totals.proteins += newEating.totals.proteins;
     logDay.totals.fats += newEating.totals.fats;
     logDay.totals.carbs += newEating.totals.carbs;
     logDay.totals.calories += newEating.totals.calories;
     this.firestore
-      .doc(`users/${this.userId}/log-days/03-Mar-2021`)
+      .doc(`users/${this.userId}/log-days/${newEatingDay}`)
       .set(logDay, { merge: true });
+  }
+
+  private async getOrCreateLogDay(
+    dayFormatted: string,
+    newEating: LogEating
+  ): Promise<LogDay> {
+    let logDay: LogDay = (
+      await this.firestore
+        .doc(`users/${this.userId}/log-days/${dayFormatted}`)
+        .get()
+        .toPromise()
+    ).data() as any;
+
+    if (!logDay) {
+      logDay = {
+        timestamp: newEating.timestamp,
+        totals: {
+          proteins: 0,
+          fats: 0,
+          carbs: 0,
+          calories: 0,
+        },
+      };
+    }
+
+    return logDay;
   }
 }
 
