@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { DishesStorageService } from 'src/app/dishes/services/dishes-storage.service';
+import { DishesService } from 'src/app/dishes/services/dishes.service';
 import { Dish } from 'src/app/models/dish';
 
 import { DishUserInput } from './../../../models/dish-user-input';
 import { AddDishComponent } from './../add-dish/add-dish.component';
+import { ColDef } from 'src/app/shared/models/data-table';
 
 @Component({
   selector: 'cd-dishes-page',
@@ -17,10 +18,17 @@ import { AddDishComponent } from './../add-dish/add-dish.component';
 })
 export class DishesPageComponent implements OnInit {
   tableData$: Observable<Dish[]>;
+  colDefs: ColDef[] = [
+    { field: 'name', header: 'Name', type: 'title' },
+    { field: 'totals.proteins', header: 'Proteins', type: 'number' },
+    { field: 'totals.fats', header: 'Fats', type: 'number' },
+    { field: 'totals.carbs', header: 'Carbs', type: 'number' },
+    { field: 'totals.calories', header: 'Calories', type: 'number' },
+  ];
 
   constructor(
     private dialogSerivce: DialogService,
-    private dishesStorage: DishesStorageService
+    private dishesStorage: DishesService
   ) {}
 
   ngOnInit(): void {

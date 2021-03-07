@@ -1,12 +1,10 @@
-import { DishIngredient } from './dish-ingredient';
+import { Ingredient } from 'src/app/models/ingredient';
+import { FoodValue } from './food-value';
 
 export interface Dish {
   id?: string;
   name: string;
-  ingredients: DishIngredient[];
-  proteins?: number;
-  fats?: number;
-  carbs?: number;
-  calories?: number;
+  totals: FoodValue;
+  ingredients: Ingredient[];
 }
 

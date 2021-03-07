@@ -32,15 +32,11 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { AddDishComponent } from './dishes/components/add-dish/add-dish.component';
 import { DishesPageComponent } from './dishes/components/dishes-page/dishes-page.component';
-import { DishesTableComponent } from './dishes/components/dishes-table/dishes-table.component';
-import {
-  EatingLogEntryDialogComponent,
-} from './eating-log/components/eating-log-entry-dialog/eating-log-entry-dialog.component';
+import { EatingLogEntryDialogComponent } from './eating-log/components/eating-log-entry-dialog/eating-log-entry-dialog.component';
 import { EatingLogEntryComponent } from './eating-log/components/eating-log-entry/eating-log-entry.component';
 import { EatingLogPageComponent } from './eating-log/components/eating-log-page/eating-log-page.component';
 import { IngredientDialogComponent } from './ingredients/components/ingredient-dialog/ingredient-dialog.component';
 import { IngredientsPageComponent } from './ingredients/components/ingredients-page/ingredients-page.component';
-import { IngredientsTableComponent } from './ingredients/components/ingredients-table/ingredients-table.component';
 import { DataTableComponent } from './shared/components/data-table/data-table.component';
 
 @NgModule({
@@ -49,11 +45,9 @@ import { DataTableComponent } from './shared/components/data-table/data-table.co
     NavbarComponent,
     DishesPageComponent,
     NotFoundComponent,
-    DishesTableComponent,
     AddDishComponent,
     LoginComponent,
     IngredientsPageComponent,
-    IngredientsTableComponent,
     IngredientDialogComponent,
     EatingLogEntryComponent,
     EatingLogPageComponent,

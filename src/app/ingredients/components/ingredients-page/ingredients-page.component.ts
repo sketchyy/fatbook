@@ -1,11 +1,11 @@
-import { ColDef } from './../../../shared/models/data-table';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { Ingredient } from './../../../models/ingredient';
 import { IngredientsService } from '../../services/ingredients.service';
+import { Ingredient } from './../../../models/ingredient';
+import { ColDef } from './../../../shared/models/data-table';
 import { IngredientDialogComponent } from './../ingredient-dialog/ingredient-dialog.component';
 
 @Component({

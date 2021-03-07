@@ -7,9 +7,9 @@
         <input id="dishName" type="text" formControlName="name" pInputText />
       </div>
     </div>
-    <div formArrayName="ingredients">
+    <div formArrayName="dishIngredients">
       <div class="sub-header">
-        <strong>Ingredients list (total {{ ingredients.length }})</strong>
+        <strong>Ingredients list (total {{ dishIngredients.length }})</strong>
         <button
           pButton
           pRipple
@@ -21,7 +21,7 @@
       </div>
 
       <div
-        *ngFor="let ingredient of ingredients.controls; index as i"
+        *ngFor="let ingredient of dishIngredients.controls; index as i"
         [formGroup]="ingredient"
         class="p-fluid p-formgrid p-grid p-ai-center"
       >

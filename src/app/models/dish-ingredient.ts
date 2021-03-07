@@ -1,4 +1,6 @@
+import { Ingredient } from 'src/app/models/ingredient';
+
 export interface DishIngredient {
-  id: string;
+  ingredient: Ingredient;
   weight: number;
 }

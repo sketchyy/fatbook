@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-
-import { Ingredient } from '../../models/ingredient';
+import { Ingredient } from 'src/app/models/ingredient';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,9 @@ export class IngredientsService {
 
   getAll(): Observable<Ingredient[]> {
     return this.firestore
-      .collection<Ingredient>('/ingredients', ref => ref.orderBy('created', 'desc'))
+      .collection<Ingredient>('/ingredients', (ref) =>
+        ref.orderBy('created', 'desc')
+      )
       .valueChanges({ idField: 'id' });
   }
 
@@ -30,33 +31,20 @@ export class IngredientsService {
     return this.firestore.doc('/ingredients/' + id).delete();
   }
 
-  getByIds(ids: string[]): Promise<Ingredient[]> {
+  findByName(query: string): Promise<Ingredient[]> {
     return this.firestore
-      .collection<Ingredient>('/ingredients')
-      .valueChanges({ idField: 'id' })
+      .collection<Ingredient>('/ingredients', (ref) => {
+        if (query) {
+          const queryStart = query.toLowerCase();
+          const queryEnd = queryStart.replace(/.$/, c => String.fromCharCode(c.charCodeAt(0) + 1));
+
+          return ref.orderBy('name').where('name', '>=', queryStart).where('name', '<', queryEnd)
+        } else {
+          return ref.orderBy('name').limit(20);
+        }
+      })
+      .valueChanges()
       .pipe(take(1))
       .toPromise();
   }
-
-  /* Firebase doesn't support fuzzy search with like operator and ignore case, so load all on client and filter here */
-  /*  findByName(query: string): Observable<IngredientRef[]> {
-    return this.db
-      .list<Ingredient>('/ingredients', (ref) => ref.orderByChild('name'))
-      .snapshotChanges()
-      .pipe(
-        take(1),
-        map((changes) =>
-          changes.filter((item: SnapshotAction<Ingredient>) => {
-            const itemName = item.payload.val().name.toLocaleLowerCase();
-            return itemName.startsWith(query.toLocaleLowerCase());
-          })
-        ),
-        map((changes) =>
-          changes.map((c) => ({
-            id: c.payload.key,
-            name: c.payload.val().name,
-          }))
-        )
-      );
-  } */
 }
