@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as dayjs from 'dayjs';
 import { Observable } from 'rxjs';
@@ -9,9 +10,16 @@ import { LogEating } from 'src/app/models/log-eating';
   providedIn: 'root',
 })
 export class EatingLogService {
-  constructor(private firestore: AngularFirestore) {}
+  userId: string;
 
-  userId = 'testuser'; // TODO: populate actual userId
+  constructor(
+    private firestore: AngularFirestore,
+    private afAuth: AngularFireAuth
+  ) {
+    this.afAuth.currentUser.then((currentUser) => {
+      this.userId = currentUser.uid;
+    });
+  }
 
   pushMocks() {
     Object.keys(mockDays).forEach((day) => {
@@ -29,6 +37,8 @@ export class EatingLogService {
   }
 
   getThisMonthDays(): Observable<LogDay[]> {
+    console.log('UID2', this.userId);
+
     const currentMonthStartTime = dayjs().startOf('month').toDate().getTime();
 
     return this.firestore
@@ -82,7 +92,9 @@ export class EatingLogService {
 
   async removeEating(logDayId: string, eating: LogEating) {
     // Remove eating
-    this.firestore.doc(`users/${this.userId}/log-days/${logDayId}/eatings/${eating.id}`).delete();
+    this.firestore
+      .doc(`users/${this.userId}/log-days/${logDayId}/eatings/${eating.id}`)
+      .delete();
 
     // Update log day totals
     const logDay = await this.getOrCreateLogDay(logDayId, eating);
