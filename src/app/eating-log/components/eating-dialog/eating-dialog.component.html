@@ -3,14 +3,6 @@
   <mat-dialog-content>
     <p>
       <mat-form-field class="full-width">
-        <mat-label>Date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="timestamp" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="full-width">
         <mat-label>Dish</mat-label>
         <input
           type="text"
@@ -32,6 +24,14 @@
       <mat-form-field class="full-width">
         <mat-label>Serving Weight</mat-label>
         <input matInput type="number" formControlName="servingWeight" />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="timestamp" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </p>
   </mat-dialog-content>
