@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as dayjs from 'dayjs';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { LogDay } from 'src/app/models/log-day';
 import { LogEating } from 'src/app/models/log-eating';
@@ -37,9 +37,7 @@ export class EatingLogService {
   }
 
   getThisMonthDays(): Observable<LogDay[]> {
-    console.log('UID2', this.userId);
-
-    const currentMonthStartTime = dayjs().startOf('month').toDate().getTime();
+    const currentMonthStartTime = moment().clone().startOf('month').toDate().getTime();
 
     return this.firestore
       .collection<LogDay>(`users/${this.userId}/log-days`, (ref) => {
@@ -61,7 +59,7 @@ export class EatingLogService {
   }
 
   async create(newEating: LogEating) {
-    const newEatingDay = dayjs(newEating.timestamp).format('DD-MMM-YYYY');
+    const newEatingDay = moment(newEating.timestamp).format('DD-MMM-YYYY');
 
     // Calculate eating food value
     newEating.totals = {
@@ -138,7 +136,7 @@ export class EatingLogService {
 
 const mockDays = {
   '27-Feb-2021': {
-    timestamp: dayjs('27-Feb-2021').toDate().getTime(),
+    timestamp: moment('27-Feb-2021').toDate().getTime(),
     totals: {
       proteins: Math.random() * 100,
       carbs: Math.random() * 100,
@@ -147,7 +145,7 @@ const mockDays = {
     },
   },
   '28-Feb-2021': {
-    timestamp: dayjs('28-Feb-2021').toDate().getTime(),
+    timestamp: moment('28-Feb-2021').toDate().getTime(),
     totals: {
       proteins: Math.random() * 100,
       carbs: Math.random() * 100,
@@ -156,7 +154,7 @@ const mockDays = {
     },
   },
   '01-Mar-2021': {
-    timestamp: dayjs('01-Mar-2021').toDate().getTime(),
+    timestamp: moment('01-Mar-2021').toDate().getTime(),
     totals: {
       proteins: Math.random() * 100,
       carbs: Math.random() * 100,
@@ -165,7 +163,7 @@ const mockDays = {
     },
   },
   '02-Mar-2021': {
-    timestamp: dayjs('02-Mar-2021').toDate().getTime(),
+    timestamp: moment('02-Mar-2021').toDate().getTime(),
     totals: {
       proteins: Math.random() * 100,
       carbs: Math.random() * 100,
@@ -174,7 +172,7 @@ const mockDays = {
     },
   },
   '03-Mar-2021': {
-    timestamp: dayjs('03-Mar-2021').toDate().getTime(),
+    timestamp: moment('03-Mar-2021').toDate().getTime(),
     totals: {
       proteins: Math.random() * 100,
       carbs: Math.random() * 100,
@@ -186,7 +184,7 @@ const mockDays = {
 
 const mockData = [
   {
-    timestamp: dayjs('03-Mar-2021').toDate().getTime(),
+    timestamp: moment('03-Mar-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -199,7 +197,7 @@ const mockData = [
     userId: 'testuser',
   },
   {
-    timestamp: dayjs('03-Mar-2021').toDate().getTime(),
+    timestamp: moment('03-Mar-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -212,7 +210,7 @@ const mockData = [
     userId: 'testuser',
   },
   {
-    timestamp: dayjs('03-Mar-2021').toDate().getTime(),
+    timestamp: moment('03-Mar-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -225,7 +223,7 @@ const mockData = [
     userId: 'testuser',
   },
   {
-    timestamp: dayjs('02-Mar-2021').toDate().getTime(),
+    timestamp: moment('02-Mar-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -238,7 +236,7 @@ const mockData = [
     userId: 'testuser',
   },
   {
-    timestamp: dayjs('02-Mar-2021').toDate().getTime(),
+    timestamp: moment('02-Mar-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -251,7 +249,7 @@ const mockData = [
     userId: 'testuser',
   },
   {
-    timestamp: dayjs('01-Mar-2021').toDate().getTime(),
+    timestamp: moment('01-Mar-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -264,7 +262,7 @@ const mockData = [
     userId: 'testuser',
   },
   {
-    timestamp: dayjs('01-Mar-2021').toDate().getTime(),
+    timestamp: moment('01-Mar-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -277,7 +275,7 @@ const mockData = [
     userId: 'testuser',
   },
   {
-    timestamp: dayjs('28-Feb-2021').toDate().getTime(),
+    timestamp: moment('28-Feb-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -290,7 +288,7 @@ const mockData = [
     userId: 'testuser',
   },
   {
-    timestamp: dayjs('28-Feb-2021').toDate().getTime(),
+    timestamp: moment('28-Feb-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,
@@ -304,7 +302,7 @@ const mockData = [
   },
 
   {
-    timestamp: dayjs('27-Feb-2021').toDate().getTime(),
+    timestamp: moment('27-Feb-2021').toDate().getTime(),
     dishId: '-MUXmkGEPrDg7_6cOh5W',
     dishName: 'Test Dish ' + Math.random() * 100,
     servingWeight: 200,

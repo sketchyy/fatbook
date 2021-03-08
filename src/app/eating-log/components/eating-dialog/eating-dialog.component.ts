@@ -44,7 +44,7 @@ export class EatingDialogComponent implements OnInit {
 
   onSubmit() {
     const logEating: LogEating = {
-      timestamp: this.formGroup.value.timestamp.getTime(),
+      timestamp: this.formGroup.value.timestamp.toDate().getTime(),
       dish: this.formGroup.value.dish,
       servingWeight: this.formGroup.value.servingWeight,
       totals: null
