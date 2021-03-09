@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: 'AIzaSyCxM6G4F9V5eeV09JqAR10lb6Rdt_Gn7Uw',
-    authDomain: 'calories-diary-3fa55.firebaseapp.com',
-    projectId: 'calories-diary-3fa55',
-    storageBucket: 'calories-diary-3fa55.appspot.com',
-    messagingSenderId: '894888133141',
-    appId: '1:894888133141:web:25ce698f548f30c681041c',
+    apiKey: 'AIzaSyBDkUGiE2i0kTbMcoen30A9JT3ImAuNxBQ',
+    authDomain: 'food-log-915e4.firebaseapp.com',
+    projectId: 'food-log-915e4',
+    storageBucket: 'food-log-915e4.appspot.com',
+    messagingSenderId: '1022960213881',
+    appId: '1:1022960213881:web:955f4d22f26878278499a8',
   },
 };

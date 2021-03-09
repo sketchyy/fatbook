@@ -16,9 +16,9 @@ import { IngredientDialogComponent } from './../ingredient-dialog/ingredient-dia
         <button mat-raised-button color="accent" (click)="onAddClick()">
           Add Ingredient
         </button>
-        <button mat-raised-button color="accent" (click)="createMocks()">
+        <!-- <button mat-raised-button color="accent" (click)="createMocks()">
           Add Mock Data
-        </button>
+        </button> -->
       </div>
       <cd-data-table
         [colDefs]="colDefs"

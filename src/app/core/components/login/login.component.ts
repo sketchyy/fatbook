@@ -15,7 +15,7 @@ export class LoginComponent {
     this.auth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(() => {
-        this.router.navigate(['eatings']);
+        this.router.navigate(['log']);
       });
   }
 }

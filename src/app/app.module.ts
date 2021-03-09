@@ -19,6 +19,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -88,6 +89,7 @@ export const MY_FORMATS: MatDateFormats = {
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
+    MatExpansionModule,
     MatDatepickerModule,
     MomentDateModule,
     MatGridListModule,

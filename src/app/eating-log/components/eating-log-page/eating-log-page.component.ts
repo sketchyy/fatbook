@@ -12,15 +12,19 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'cd-eating-log-page',
   template: ` <div class="page">
-    <button pButton label="Add Eating" (click)="onAddClick()"></button>
-    <button pButton label="Add Mocks" (click)="pushMocks()"></button>
-    <div *ngFor="let logDay of logDays$ | async" class="mb2">
+    <div class="table-toolbar">
+      <button mat-raised-button color="accent" (click)="onAddClick()">
+        Add Eating
+      </button>
+    </div>
+    <mat-accordion multi>
       <cd-eating-log-entry
+        *ngFor="let logDay of logDays$ | async"
         [logDay]="logDay"
         [eatings]="eatings$[logDay.id] | async"
         (eatingRemoved)="onEatingRemove(logDay.id, $event)"
       ></cd-eating-log-entry>
-    </div>
+    </mat-accordion>
   </div>`,
   styleUrls: ['./eating-log-page.component.scss'],
 })

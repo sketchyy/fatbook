@@ -1,20 +1,21 @@
-<p-panel toggleable="true" collapsed="true">
-  <ng-template pTemplate="header">
-    <h4>{{ logDay.timestamp | date: "mediumDate" }}</h4>
-
-    <div *ngFor="let value of foodValues">
-      <div class="valueTitle">{{ value | titlecase }}</div>
-      <div class="valueText">
-        {{ logDay.totals && logDay.totals[value] | number: "1.0-2" }}
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ logDay.timestamp | date: "mediumDate" }}
+    </mat-panel-title>
+    <mat-panel-description class="space-between">
+      <div *ngFor="let value of foodValues">
+        <div class="valueTitle">{{ value | titlecase }}</div>
+        <div class="valueText">
+          {{ logDay.totals && logDay.totals[value] | number: "1.0-2" }}
+        </div>
       </div>
-    </div>
-  </ng-template>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
 
-  <div>
-    <cd-data-table
-      [rowData]="eatings"
-      [colDefs]="columns"
-      (rowRemoved)="onRowRemoved($event)"
-    ></cd-data-table>
-  </div>
-</p-panel>
+  <cd-data-table
+    [rowData]="eatings"
+    [colDefs]="columns"
+    (rowRemoved)="onRowRemoved($event)"
+  ></cd-data-table>
+</mat-expansion-panel>
