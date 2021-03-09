@@ -1,9 +1,9 @@
 {
   "targets": {
-    "calories-diary-3fa55": {
+    "food-log-915e4": {
       "hosting": {
         "calories-diary": [
-          "calories-diary-3fa55"
+          "food-log-915e4"
         ]
       }
     }
