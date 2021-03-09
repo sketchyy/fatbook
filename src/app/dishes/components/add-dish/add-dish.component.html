@@ -1,6 +1,5 @@
 <form [formGroup]="dishForm" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
   <div>
-    {{ dishForm.value | json }}
     <div class="p-fluid">
       <div class="p-field">
         <label for="dishName">Dish Name</label>
