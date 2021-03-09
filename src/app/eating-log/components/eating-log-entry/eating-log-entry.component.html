@@ -3,8 +3,8 @@
     <mat-panel-title>
       {{ logDay.timestamp | date: "mediumDate" }}
     </mat-panel-title>
-    <mat-panel-description class="space-between">
-      <div *ngFor="let value of foodValues">
+    <mat-panel-description>
+      <div *ngFor="let value of foodValues" class="food-value">
         <div class="valueTitle">{{ value | titlecase }}</div>
         <div class="valueText">
           {{ logDay.totals && logDay.totals[value] | number: "1.0-2" }}
