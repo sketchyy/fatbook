@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { filter, mergeMap, startWith } from 'rxjs/operators';
 import { DishesService } from 'src/app/dishes/services/dishes.service';
 import { Dish } from 'src/app/models/dish';
+import * as moment from 'moment';
 
 @Component({
   selector: 'cd-eating-dialog',
@@ -30,7 +31,7 @@ export class EatingDialogComponent implements OnInit {
     this.displayFn = this.display.bind(this);
 
     this.formGroup = this.fb.group({
-      timestamp: new Date(),
+      timestamp: moment(),
       dish: null,
       servingWeight: null,
     });
