@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { take } from 'rxjs/operators';
 import { Ingredient } from 'src/app/models/ingredient';
-import { IngredientRef } from 'src/app/models/ingredient-ref';
 
 import { IngredientsService } from '../../../ingredients/services/ingredients.service';
-import { DishUserInput } from './../../../models/dish-user-input';
 
 @Component({
   selector: 'cd-add-dish',
@@ -32,6 +29,7 @@ export class AddDishComponent implements OnInit {
     this.dishForm = this.fb.group({
       name: null,
       dishIngredients: this.fb.array([]),
+      defaultServingSize: null,
     });
 
     this.addIngredient();

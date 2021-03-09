@@ -6,5 +6,6 @@ export interface Dish {
   name: string;
   totals: FoodValue;
   ingredients: Ingredient[];
+  defaultServingSize?: number;
 }
 

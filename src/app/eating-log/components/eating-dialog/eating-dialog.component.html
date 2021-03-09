@@ -10,7 +10,7 @@
           formControlName="dish"
           [matAutocomplete]="auto"
         />
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onDishSelected($event)">
           <mat-option
             *ngFor="let option of dishOptions$ | async"
             [value]="option"

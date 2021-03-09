@@ -8,6 +8,7 @@ import { filter, mergeMap, startWith } from 'rxjs/operators';
 import { DishesService } from 'src/app/dishes/services/dishes.service';
 import { Dish } from 'src/app/models/dish';
 import * as moment from 'moment';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'cd-eating-dialog',
@@ -48,10 +49,24 @@ export class EatingDialogComponent implements OnInit {
       timestamp: this.formGroup.value.timestamp.toDate().getTime(),
       dish: this.formGroup.value.dish,
       servingWeight: this.formGroup.value.servingWeight,
-      totals: null
+      totals: null,
     };
 
     this.dialogRef.close(logEating);
+  }
+
+  onDishSelected(event: MatAutocompleteSelectedEvent) {
+    const selectedDish: Dish = event.option.value;
+    const servingSizeControl = this.formGroup.get('servingWeight');
+
+    if (
+      servingSizeControl.value == null &&
+      selectedDish.defaultServingSize != null
+    ) {
+      servingSizeControl.setValue(selectedDish.defaultServingSize);
+    } else {
+      servingSizeControl.setValue(null);
+    }
   }
 
   display(dish: Dish): string {

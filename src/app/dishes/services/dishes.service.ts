@@ -19,7 +19,8 @@ export class DishesService {
 
   create(userInput: DishUserInput) {
     const dish: Dish = {
-      name: userInput.name,
+      // Lowercase name for search
+      name: userInput.name.toLowerCase(),
       ingredients: userInput.dishIngredients.map((di) => di.ingredient),
       totals: {
         proteins: this.sumValue(userInput, 'proteins'),
@@ -27,6 +28,7 @@ export class DishesService {
         carbs: this.sumValue(userInput, 'carbs'),
         calories: this.sumValue(userInput, 'calories'),
       },
+      defaultServingSize: userInput.defaultServingSize
     };
 
     this.firestore.collection('/dishes').add(dish);

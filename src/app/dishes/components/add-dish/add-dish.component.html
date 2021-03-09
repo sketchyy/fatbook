@@ -7,6 +7,12 @@
         <input id="dishName" type="text" formControlName="name" pInputText />
       </div>
     </div>
+        <div class="p-fluid">
+      <div class="p-field">
+        <label for="defaultServingSize">Default Serving Size</label>
+        <input id="defaultServingSize" type="number" formControlName="defaultServingSize" pInputText />
+      </div>
+    </div>
     <div formArrayName="dishIngredients">
       <div class="sub-header">
         <strong>Ingredients list (total {{ dishIngredients.length }})</strong>
