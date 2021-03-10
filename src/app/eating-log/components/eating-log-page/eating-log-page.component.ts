@@ -53,7 +53,6 @@ export class EatingLogPageComponent implements OnInit {
 
   onAddClick() {
     let dialogRef = this.dialog.open(EatingDialogComponent, {
-      height: '420px',
       width: '500px',
     });
 

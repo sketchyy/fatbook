@@ -4,8 +4,9 @@ import { FoodValue } from './food-value';
 export interface Dish {
   id?: string;
   name: string;
-  totals: FoodValue;
-  ingredients: Ingredient[];
+  createdAt: number;
+  foodValue: FoodValue;
+  ingredients?: Ingredient[];
   defaultServingSize?: number;
 }
 

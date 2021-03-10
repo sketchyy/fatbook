@@ -23,11 +23,6 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
   },
   {
-    path: 'ingredients',
-    component: IngredientsPageComponent,
-    ...canActivate(redirectUnauthorizedToLogin),
-  },
-  {
     path: 'login',
     component: LoginComponent,
     ...canActivate(redirectLoggedInToEatings),

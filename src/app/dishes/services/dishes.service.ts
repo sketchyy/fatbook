@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 
 import { Dish } from '../../models/dish';
@@ -17,12 +18,23 @@ export class DishesService {
       .valueChanges({ idField: 'id' });
   }
 
+  createSimple(dish: Dish) {
+    dish.name = dish.name.toLowerCase();
+    dish.createdAt = moment().toDate().getTime();
+
+    console.log('Adding...', dish);
+
+
+    this.firestore.collection('/dishes').add(dish);
+  }
+
   create(userInput: DishUserInput) {
     const dish: Dish = {
       // Lowercase name for search
       name: userInput.name.toLowerCase(),
+      createdAt: moment().toDate().getTime(),
       ingredients: userInput.dishIngredients.map((di) => di.ingredient),
-      totals: {
+      foodValue: {
         proteins: this.sumValue(userInput, 'proteins'),
         fats: this.sumValue(userInput, 'fats'),
         carbs: this.sumValue(userInput, 'carbs'),

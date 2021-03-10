@@ -1,3 +1,4 @@
+import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-dialog.component';
 import { Ingredient } from 'src/app/models/ingredient';
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -9,6 +10,7 @@ import { Dish } from 'src/app/models/dish';
 import { DishUserInput } from './../../../models/dish-user-input';
 import { AddDishComponent } from './../add-dish/add-dish.component';
 import { ColDef } from 'src/app/shared/models/data-table';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'cd-dishes-page',
@@ -33,14 +35,15 @@ export class DishesPageComponent implements OnInit {
   tableData$: Observable<Dish[]>;
   colDefs: ColDef[] = [
     { field: 'name', header: 'Name', type: 'title' },
-    { field: 'totals.proteins', header: 'Proteins', type: 'number' },
-    { field: 'totals.fats', header: 'Fats', type: 'number' },
-    { field: 'totals.carbs', header: 'Carbs', type: 'number' },
-    { field: 'totals.calories', header: 'Calories', type: 'number' },
+    { field: 'foodValue.proteins', header: 'Proteins (per 100g.)', type: 'number' },
+    { field: 'foodValue.fats', header: 'Fats (per 100g.)', type: 'number' },
+    { field: 'foodValue.carbs', header: 'Carbs (per 100g.)', type: 'number' },
+    { field: 'foodValue.calories', header: 'Calories (per 100g.)', type: 'number' },
+    { field: 'defaultServingSize', header: 'Serving Size (g.)', type: 'number' },
   ];
 
   constructor(
-    private dialogSerivce: DialogService,
+    private dialog: MatDialog,
     private dishesStorage: DishesService
   ) {}
 
@@ -49,16 +52,14 @@ export class DishesPageComponent implements OnInit {
   }
 
   onAddDishClick() {
-    let dialogRef = this.dialogSerivce.open(AddDishComponent, {
-      // height: '575px',
-      header: 'Add New Dish',
-      width: '500px',
+    let dialogRef = this.dialog.open(DishSimpleDialogComponent, {
+      // width: '500px',
     });
 
-    dialogRef.onClose
+    dialogRef.afterClosed()
       .pipe(filter((result) => Boolean(result)))
-      .subscribe((result: DishUserInput) => {
-        this.dishesStorage.create(result);
+      .subscribe((result: Dish) => {
+        this.dishesStorage.createSimple(result);
       });
   }
 

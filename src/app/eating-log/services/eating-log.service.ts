@@ -64,11 +64,11 @@ export class EatingLogService {
     // Calculate eating food value
     newEating.totals = {
       proteins:
-        (newEating.dish.totals.proteins * newEating.servingWeight) / 100,
-      fats: (newEating.dish.totals.fats * newEating.servingWeight) / 100,
-      carbs: (newEating.dish.totals.carbs * newEating.servingWeight) / 100,
+        (newEating.dish.foodValue.proteins * newEating.servingWeight) / 100,
+      fats: (newEating.dish.foodValue.fats * newEating.servingWeight) / 100,
+      carbs: (newEating.dish.foodValue.carbs * newEating.servingWeight) / 100,
       calories:
-        (newEating.dish.totals.calories * newEating.servingWeight) / 100,
+        (newEating.dish.foodValue.calories * newEating.servingWeight) / 100,
     };
 
     this.firestore
