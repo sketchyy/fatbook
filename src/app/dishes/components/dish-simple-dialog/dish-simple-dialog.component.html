@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add New Dish</h1>
+<h1 mat-dialog-title>{{ title }}</h1>
 <mat-dialog-content>
   <form [formGroup]="formGroup" (keyup.enter)="onSubmit()">
     <p>
@@ -46,6 +46,6 @@
     color="accent"
     cdkFocusInitial
   >
-    Add
+    {{ okButtonText }}
   </button>
 </mat-dialog-actions>

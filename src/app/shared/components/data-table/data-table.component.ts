@@ -27,7 +27,9 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       this.dataSource.data = this.flattenData(newRowData);
     }
   }
+  @Input() editable: boolean;
 
+  @Output() rowEdited = new EventEmitter<string>();
   @Output() rowRemoved = new EventEmitter<string>();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -40,12 +42,16 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.displayedColumns = [
       ...this.colDefs.map((colDef) => colDef.field),
-      'actions'
+      'actions',
     ];
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+  }
+
+  onEditClick(id: string) {
+    this.rowEdited.emit(id);
   }
 
   onDeleteClick(id: string) {
@@ -58,10 +64,13 @@ export class DataTableComponent implements OnInit, AfterViewInit {
 
   private flattenData(givenData: any[]) {
     return givenData.map((givenRow) => {
-      return this.colDefs.reduce((newRow, colDef) => {
-        newRow[colDef.field] = get(givenRow, colDef.field);
-        return newRow;
-      }, { id: givenRow.id });
+      return this.colDefs.reduce(
+        (newRow, colDef) => {
+          newRow[colDef.field] = get(givenRow, colDef.field);
+          return newRow;
+        },
+        { id: givenRow.id }
+      );
     });
   }
 }

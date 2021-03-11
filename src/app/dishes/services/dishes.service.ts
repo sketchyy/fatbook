@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { Dish } from '../../models/dish';
 import { DishUserInput } from './../../models/dish-user-input';
@@ -16,6 +17,10 @@ export class DishesService {
     return this.firestore
       .collection<Dish>('/dishes')
       .valueChanges({ idField: 'id' });
+  }
+
+  get(id: string): Observable<Dish> {
+    return this.firestore.doc<Dish>(`/dishes/${id}`).valueChanges().pipe(take(1));
   }
 
   createSimple(dish: Dish) {
@@ -44,6 +49,10 @@ export class DishesService {
     };
 
     this.firestore.collection('/dishes').add(dish);
+  }
+
+  replace(id: string, dish: Dish) {
+    this.firestore.doc(`/dishes/${id}`).set(dish);
   }
 
   delete(id: string) {
