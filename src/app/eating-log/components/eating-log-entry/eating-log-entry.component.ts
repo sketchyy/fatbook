@@ -17,7 +17,7 @@ export class EatingLogEntryComponent implements OnInit {
 
   columns: ColDef[] = [
     { field: 'dish.name', header: 'Dish Name', type: 'title' },
-    { field: 'servingWeight', header: 'Serving (g)', type: 'number' },
+    { field: 'servingSize', header: 'Serving (g)', type: 'number' },
     { field: 'totals.proteins', header: 'Proteins', type: 'number' },
     { field: 'totals.fats', header: 'Fats', type: 'number' },
     { field: 'totals.carbs', header: 'Carbs', type: 'number' },

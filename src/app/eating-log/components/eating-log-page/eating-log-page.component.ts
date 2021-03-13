@@ -55,24 +55,15 @@ export class EatingLogPageComponent implements OnInit {
   onAddClick() {
     let dialogRef = this.dialog.open(EatingDialogComponent, {
       position: {
-        top: '100px'
-      }
+        top: '100px',
+      },
     });
 
     dialogRef
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
-      .subscribe((result: EatingForm) => {
-        result.eatings.forEach((eatingInput: EatingInput) => {
-          const eating: Eating = {
-            timestamp: result.timestamp,
-            dish: eatingInput.dish,
-            servingSize: eatingInput.servingSize,
-            totals: null,
-          };
-
-          this.eatingLogService.create(eating);
-        });
+      .subscribe((eatingForm: EatingForm) => {
+        this.eatingLogService.addEatings(eatingForm);
       });
   }
 

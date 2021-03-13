@@ -1,3 +1,4 @@
+import { EatingForm, EatingInput } from './../../models/log-eating';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -60,31 +61,45 @@ export class EatingLogService {
       .valueChanges({ idField: 'id' });
   }
 
-  async create(newEating: Eating) {
-    const newEatingDay = moment(newEating.timestamp).format('DD-MMM-YYYY');
+  async addEatings(eatingForm: EatingForm) {
+    const newEatingDay = moment(eatingForm.timestamp).format('DD-MMM-YYYY');
+    const logDay = await this.getOrCreateLogDay(
+      newEatingDay,
+      eatingForm.timestamp
+    );
 
-    // Calculate eating food value
-    newEating.totals = {
-      proteins:
-        (newEating.dish.foodValue.proteins * newEating.servingSize) / 100,
-      fats: (newEating.dish.foodValue.fats * newEating.servingSize) / 100,
-      carbs: (newEating.dish.foodValue.carbs * newEating.servingSize) / 100,
-      calories:
-        (newEating.dish.foodValue.calories * newEating.servingSize) / 100,
-    };
+    eatingForm.eatings.forEach(async (eatingInput: EatingInput) => {
+      const eating: Eating = {
+        timestamp: eatingForm.timestamp,
+        dish: eatingInput.dish,
+        servingSize: eatingInput.servingSize,
+        totals: {
+          proteins:
+            (eatingInput.dish.foodValue.proteins * eatingInput.servingSize) /
+            100,
+          fats:
+            (eatingInput.dish.foodValue.fats * eatingInput.servingSize) / 100,
+          carbs:
+            (eatingInput.dish.foodValue.carbs * eatingInput.servingSize) / 100,
+          calories:
+            (eatingInput.dish.foodValue.calories * eatingInput.servingSize) /
+            100,
+        },
+      };
 
-    this.firestore
-      .collection(`users/${this.userId}/log-days/${newEatingDay}/eatings`)
-      .add(newEating);
+      // Update logDay totals
+      logDay.totals.proteins += eating.totals.proteins;
+      logDay.totals.fats += eating.totals.fats;
+      logDay.totals.carbs += eating.totals.carbs;
+      logDay.totals.calories += eating.totals.calories;
 
-    // update day totals and save it to db
-    const logDay = await this.getOrCreateLogDay(newEatingDay, newEating);
+      // Save eating
+      await this.firestore
+        .collection(`users/${this.userId}/log-days/${newEatingDay}/eatings`)
+        .add(eating);
+    });
 
-    logDay.totals.proteins += newEating.totals.proteins;
-    logDay.totals.fats += newEating.totals.fats;
-    logDay.totals.carbs += newEating.totals.carbs;
-    logDay.totals.calories += newEating.totals.calories;
-
+    // Save logDay after all eatings saved
     this.firestore
       .doc(`users/${this.userId}/log-days/${newEatingDay}`)
       .set(logDay, { merge: true });
@@ -97,7 +112,7 @@ export class EatingLogService {
       .delete();
 
     // Update log day totals
-    const logDay = await this.getOrCreateLogDay(logDayId, eating);
+    const logDay = await this.getOrCreateLogDay(logDayId, eating.timestamp);
 
     logDay.totals.proteins -= eating.totals.proteins;
     logDay.totals.fats -= eating.totals.fats;
@@ -111,7 +126,7 @@ export class EatingLogService {
 
   private async getOrCreateLogDay(
     dayFormatted: string,
-    newEating: Eating
+    timestamp: number
   ): Promise<LogDay> {
     let logDay: LogDay = (
       await this.firestore
@@ -122,7 +137,7 @@ export class EatingLogService {
 
     if (!logDay) {
       logDay = {
-        timestamp: newEating.timestamp,
+        timestamp: timestamp,
         totals: {
           proteins: 0,
           fats: 0,
