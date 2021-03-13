@@ -9,7 +9,6 @@ import { Eating } from 'src/app/models/log-eating';
 import { LogDay } from './../../../models/log-day';
 import { EatingLogService } from './../../services/eating-log.service';
 import { MatDialog } from '@angular/material/dialog';
-import { TilePosition } from '@angular/material/grid-list/tile-coordinator';
 
 @Component({
   selector: 'cd-eating-log-page',
