@@ -1,13 +1,15 @@
+import { EatingForm, EatingInput } from './../../../models/log-eating';
 import { EatingDialogComponent } from './../eating-dialog/eating-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { LogEating } from 'src/app/models/log-eating';
+import { Eating } from 'src/app/models/log-eating';
 
 import { LogDay } from './../../../models/log-day';
 import { EatingLogService } from './../../services/eating-log.service';
 import { MatDialog } from '@angular/material/dialog';
+import { TilePosition } from '@angular/material/grid-list/tile-coordinator';
 
 @Component({
   selector: 'cd-eating-log-page',
@@ -30,7 +32,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class EatingLogPageComponent implements OnInit {
   logDays$: Observable<LogDay[]>;
-  eatings$: Record<string, Observable<LogEating[]>> = {};
+  eatings$: Record<string, Observable<Eating[]>> = {};
 
   constructor(
     private dialog: MatDialog,
@@ -53,18 +55,29 @@ export class EatingLogPageComponent implements OnInit {
 
   onAddClick() {
     let dialogRef = this.dialog.open(EatingDialogComponent, {
-      width: '500px',
+      position: {
+        top: '100px'
+      }
     });
 
     dialogRef
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
-      .subscribe((result: any) => {
-        this.eatingLogService.create(result);
+      .subscribe((result: EatingForm) => {
+        result.eatings.forEach((eatingInput: EatingInput) => {
+          const eating: Eating = {
+            timestamp: result.timestamp,
+            dish: eatingInput.dish,
+            servingSize: eatingInput.servingSize,
+            totals: null,
+          };
+
+          this.eatingLogService.create(eating);
+        });
       });
   }
 
-  onEatingRemove(logDayId: string, eating: LogEating) {
+  onEatingRemove(logDayId: string, eating: Eating) {
     this.eatingLogService.removeEating(logDayId, eating);
   }
 }

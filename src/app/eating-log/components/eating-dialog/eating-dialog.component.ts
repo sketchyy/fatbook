@@ -1,7 +1,8 @@
-import { LogEating } from 'src/app/models/log-eating';
+import { EatingForm } from './../../../models/log-eating';
+import { Eating } from 'src/app/models/log-eating';
 import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, startWith } from 'rxjs/operators';
@@ -18,8 +19,12 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 })
 export class EatingDialogComponent implements OnInit {
   formGroup: FormGroup;
-  dishOptions$: Observable<Dish[]>;
+  dishOptions: Observable<Dish[]>[];
   displayFn: Function;
+
+  get dishes(): FormArray {
+    return this.formGroup.get('dishes') as FormArray;
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -31,33 +36,51 @@ export class EatingDialogComponent implements OnInit {
   ngOnInit() {
     this.displayFn = this.display.bind(this);
 
+    this.dishOptions = [];
     this.formGroup = this.fb.group({
       timestamp: moment(),
-      dish: null,
-      servingWeight: null,
+      dishes: this.fb.array([]),
     });
 
-    this.dishOptions$ = this.formGroup.get('dish').valueChanges.pipe(
-      startWith(''),
-      filter((query) => typeof query === 'string'),
-      mergeMap((query) => this.dishesService.findByName(query))
+    this.addDish();
+  }
+
+  addDish() {
+    const newDishGroup = this.fb.group({
+      dish: null,
+      servingSize: null,
+    });
+
+    this.dishOptions.push(
+      newDishGroup.get('dish').valueChanges.pipe(
+        startWith(''),
+        filter((query) => typeof query === 'string'),
+        mergeMap((query) => this.dishesService.findByName(query))
+      )
     );
+
+    this.dishes.push(newDishGroup);
+  }
+
+  deleteDish(index: number) {
+    this.dishes.removeAt(index);
   }
 
   onSubmit() {
-    const logEating: LogEating = {
+    const eatingForm: EatingForm = {
       timestamp: this.formGroup.value.timestamp.toDate().getTime(),
-      dish: this.formGroup.value.dish,
-      servingWeight: this.formGroup.value.servingWeight,
-      totals: null,
+      eatings: this.dishes.value,
     };
 
-    this.dialogRef.close(logEating);
+    this.dialogRef.close(eatingForm);
   }
 
-  onDishSelected(event: MatAutocompleteSelectedEvent) {
+  onDishSelected(
+    event: MatAutocompleteSelectedEvent,
+    dishControl: FormControl
+  ) {
     const selectedDish: Dish = event.option.value;
-    const servingSizeControl = this.formGroup.get('servingWeight');
+    const servingSizeControl = dishControl.get('servingSize');
 
     if (
       servingSizeControl.value == null &&

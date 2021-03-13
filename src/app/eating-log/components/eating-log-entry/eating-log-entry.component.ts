@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { LogEating } from 'src/app/models/log-eating';
+import { Eating } from 'src/app/models/log-eating';
 import { ColDef } from 'src/app/shared/models/data-table';
 
 import { LogDay } from './../../../models/log-day';
@@ -11,9 +11,9 @@ import { LogDay } from './../../../models/log-day';
 })
 export class EatingLogEntryComponent implements OnInit {
   @Input() logDay: LogDay;
-  @Input() eatings: LogEating[];
+  @Input() eatings: Eating[];
 
-  @Output() eatingRemoved = new EventEmitter<LogEating>();
+  @Output() eatingRemoved = new EventEmitter<Eating>();
 
   columns: ColDef[] = [
     { field: 'dish.name', header: 'Dish Name', type: 'title' },
@@ -30,7 +30,7 @@ export class EatingLogEntryComponent implements OnInit {
   ngOnInit(): void {}
 
   onRowRemoved(eatingId: string) {
-    const eating: LogEating = this.eatings.find(eating => eating.id === eatingId);
+    const eating: Eating = this.eatings.find(eating => eating.id === eatingId);
 
     this.eatingRemoved.emit(eating);
   }

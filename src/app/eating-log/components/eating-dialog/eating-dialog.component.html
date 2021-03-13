@@ -1,32 +1,63 @@
-<h1 mat-dialog-title>Add Eating</h1>
+<div mat-dialog-title>Add Eating</div>
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <mat-dialog-content>
-    <p>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Dish</mat-label>
-        <input
-          type="text"
-          matInput
-          formControlName="dish"
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onDishSelected($event)">
-          <mat-option
-            *ngFor="let option of dishOptions$ | async"
-            [value]="option"
+    <ng-container formArrayName="dishes">
+      <div
+        class="dish-container"
+        *ngFor="let dishControl of dishes.controls; index as i"
+        [formGroup]="dishControl"
+      >
+        <mat-form-field appearance="outline" class="form-field-no-pad">
+          <mat-label>Dish</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="dish"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            [displayWith]="displayFn"
+            (optionSelected)="onDishSelected($event, dishControl)"
           >
-            {{ option.name | titlecase }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Serving Size</mat-label>
-        <span matSuffix>(g.)</span>
-        <input matInput type="number" formControlName="servingWeight" />
-      </mat-form-field>
-    </p>
+            <mat-option
+              *ngFor="let option of dishOptions[i] | async"
+              [value]="option"
+            >
+              {{ option.name | titlecase }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field-no-pad">
+          <mat-label>Serving Size</mat-label>
+          <span matSuffix>(g.)</span>
+          <input matInput type="number" formControlName="servingSize" />
+        </mat-form-field>
+
+        <button
+          *ngIf="i === 0"
+          mat-mini-fab
+          color="primary"
+          aria-label="Remove eating"
+          type="button"
+          (click)="addDish()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+        <button
+          *ngIf="i > 0"
+          mat-mini-fab
+          color="primary"
+          aria-label="Remove eating"
+          type="button"
+          (click)="deleteDish(i)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+
     <p>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Date</mat-label>

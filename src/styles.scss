@@ -65,3 +65,10 @@ table {
   display: inline-block;
   margin-bottom: 0.5rem;
 }
+
+
+.form-field-no-pad {
+  .mat-form-field-wrapper {
+    padding: 0;
+  }
+}

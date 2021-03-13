@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { LogDay } from 'src/app/models/log-day';
-import { LogEating } from 'src/app/models/log-eating';
+import { Eating } from 'src/app/models/log-eating';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +37,11 @@ export class EatingLogService {
   }
 
   getThisMonthDays(): Observable<LogDay[]> {
-    const currentMonthStartTime = moment().clone().startOf('month').toDate().getTime();
+    const currentMonthStartTime = moment()
+      .clone()
+      .startOf('month')
+      .toDate()
+      .getTime();
 
     return this.firestore
       .collection<LogDay>(`users/${this.userId}/log-days`, (ref) => {
@@ -52,23 +56,21 @@ export class EatingLogService {
     console.log('Get Eatings', logDayId);
 
     return this.firestore
-      .collection<LogEating>(
-        `users/${this.userId}/log-days/${logDayId}/eatings`
-      )
+      .collection<Eating>(`users/${this.userId}/log-days/${logDayId}/eatings`)
       .valueChanges({ idField: 'id' });
   }
 
-  async create(newEating: LogEating) {
+  async create(newEating: Eating) {
     const newEatingDay = moment(newEating.timestamp).format('DD-MMM-YYYY');
 
     // Calculate eating food value
     newEating.totals = {
       proteins:
-        (newEating.dish.foodValue.proteins * newEating.servingWeight) / 100,
-      fats: (newEating.dish.foodValue.fats * newEating.servingWeight) / 100,
-      carbs: (newEating.dish.foodValue.carbs * newEating.servingWeight) / 100,
+        (newEating.dish.foodValue.proteins * newEating.servingSize) / 100,
+      fats: (newEating.dish.foodValue.fats * newEating.servingSize) / 100,
+      carbs: (newEating.dish.foodValue.carbs * newEating.servingSize) / 100,
       calories:
-        (newEating.dish.foodValue.calories * newEating.servingWeight) / 100,
+        (newEating.dish.foodValue.calories * newEating.servingSize) / 100,
     };
 
     this.firestore
@@ -88,7 +90,7 @@ export class EatingLogService {
       .set(logDay, { merge: true });
   }
 
-  async removeEating(logDayId: string, eating: LogEating) {
+  async removeEating(logDayId: string, eating: Eating) {
     // Remove eating
     this.firestore
       .doc(`users/${this.userId}/log-days/${logDayId}/eatings/${eating.id}`)
@@ -109,7 +111,7 @@ export class EatingLogService {
 
   private async getOrCreateLogDay(
     dayFormatted: string,
-    newEating: LogEating
+    newEating: Eating
   ): Promise<LogDay> {
     let logDay: LogDay = (
       await this.firestore
