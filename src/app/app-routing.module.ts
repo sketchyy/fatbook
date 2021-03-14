@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'eatings',
+    redirectTo: 'log',
     pathMatch: 'full',
   },
   { path: '**', component: NotFoundComponent }, // Wildcard route for a 404 page

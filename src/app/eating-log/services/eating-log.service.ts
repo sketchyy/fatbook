@@ -54,8 +54,6 @@ export class EatingLogService {
   }
 
   getEatings(logDayId: string) {
-    console.log('Get Eatings', logDayId);
-
     return this.firestore
       .collection<Eating>(`users/${this.userId}/log-days/${logDayId}/eatings`)
       .valueChanges({ idField: 'id' });

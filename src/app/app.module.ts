@@ -22,11 +22,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { ButtonModule } from 'primeng/button';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { InputTextModule } from 'primeng/inputtext';
-import { PanelModule } from 'primeng/panel';
 import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,7 +29,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './core/components/login/login.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
-import { AddDishComponent } from './dishes/components/add-dish/add-dish.component';
 import { DishesPageComponent } from './dishes/components/dishes-page/dishes-page.component';
 import { EatingDialogComponent } from './eating-log/components/eating-dialog/eating-dialog.component';
 import { EatingLogEntryComponent } from './eating-log/components/eating-log-entry/eating-log-entry.component';
@@ -62,7 +56,6 @@ export const MY_FORMATS: MatDateFormats = {
     NavbarComponent,
     DishesPageComponent,
     NotFoundComponent,
-    AddDishComponent,
     LoginComponent,
     IngredientsPageComponent,
     IngredientDialogComponent,
@@ -97,11 +90,6 @@ export const MY_FORMATS: MatDateFormats = {
     MatGridListModule,
     AngularFireAuthModule,
     AngularFireAuthGuardModule,
-    DynamicDialogModule,
-    ButtonModule,
-    InputTextModule,
-    AutoCompleteModule,
-    PanelModule,
   ],
   providers: [{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }],
   bootstrap: [AppComponent],

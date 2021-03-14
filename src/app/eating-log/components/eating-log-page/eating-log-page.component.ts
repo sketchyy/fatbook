@@ -1,7 +1,6 @@
 import { EatingForm, EatingInput } from './../../../models/log-eating';
 import { EatingDialogComponent } from './../eating-dialog/eating-dialog.component';
 import { Component, OnInit } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { Eating } from 'src/app/models/log-eating';

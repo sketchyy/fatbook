@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogService } from 'primeng/dynamicdialog';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { DishesService } from 'src/app/dishes/services/dishes.service';
@@ -28,8 +27,7 @@ import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-d
       ></cd-data-table>
     </div>
   `,
-  styleUrls: ['./dishes-page.component.scss'],
-  providers: [DialogService],
+  styleUrls: ['./dishes-page.component.scss']
 })
 export class DishesPageComponent implements OnInit {
   tableData$: Observable<Dish[]>;
