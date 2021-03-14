@@ -6,7 +6,6 @@ import { LoginComponent } from './core/components/login/login.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { DishesPageComponent } from './dishes/components/dishes-page/dishes-page.component';
 import { EatingLogPageComponent } from './eating-log/components/eating-log-page/eating-log-page.component';
-import { IngredientsPageComponent } from './ingredients/components/ingredients-page/ingredients-page.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToEatings = () => redirectLoggedInTo(['dishes']);

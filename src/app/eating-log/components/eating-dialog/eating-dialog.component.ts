@@ -1,15 +1,14 @@
-import { EatingForm } from './../../../models/log-eating';
-import { Eating } from 'src/app/models/log-eating';
 import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialogRef } from '@angular/material/dialog';
+import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, startWith } from 'rxjs/operators';
 import { DishesService } from 'src/app/dishes/services/dishes.service';
-import { Dish } from 'src/app/models/dish';
-import * as moment from 'moment';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { Dish } from 'src/app/shared/models/dishes';
+import { EatingForm } from 'src/app/shared/models/eatings';
 
 @Component({
   selector: 'cd-eating-dialog',

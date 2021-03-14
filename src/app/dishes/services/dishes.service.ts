@@ -4,8 +4,7 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { Dish } from '../../models/dish';
-import { DishUserInput } from './../../models/dish-user-input';
+import { Dish } from '../../shared/models/dishes';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +32,7 @@ export class DishesService {
     this.firestore.collection('/dishes').add(dish);
   }
 
-  create(userInput: DishUserInput) {
+  create(userInput: any) {
     const dish: Dish = {
       // Lowercase name for search
       name: userInput.name.toLowerCase(),
@@ -81,7 +80,7 @@ export class DishesService {
       .valueChanges();
   }
 
-  private sumValue(dishUserInput: DishUserInput, fieldName: string) {
+  private sumValue(dishUserInput: any, fieldName: string) {
     return dishUserInput.dishIngredients.reduce((result, dishIngredient) => {
       result +=
         (dishIngredient.weight / 100) *

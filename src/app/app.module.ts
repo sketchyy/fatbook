@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +20,6 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
@@ -29,14 +29,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './core/components/login/login.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { DishSimpleDialogComponent } from './dishes/components/dish-simple-dialog/dish-simple-dialog.component';
 import { DishesPageComponent } from './dishes/components/dishes-page/dishes-page.component';
 import { EatingDialogComponent } from './eating-log/components/eating-dialog/eating-dialog.component';
 import { EatingLogEntryComponent } from './eating-log/components/eating-log-entry/eating-log-entry.component';
 import { EatingLogPageComponent } from './eating-log/components/eating-log-page/eating-log-page.component';
-import { IngredientDialogComponent } from './ingredients/components/ingredient-dialog/ingredient-dialog.component';
-import { IngredientsPageComponent } from './ingredients/components/ingredients-page/ingredients-page.component';
 import { DataTableComponent } from './shared/components/data-table/data-table.component';
-import { DishSimpleDialogComponent } from './dishes/components/dish-simple-dialog/dish-simple-dialog.component';
 
 export const MY_FORMATS: MatDateFormats = {
   parse: {
@@ -57,8 +55,6 @@ export const MY_FORMATS: MatDateFormats = {
     DishesPageComponent,
     NotFoundComponent,
     LoginComponent,
-    IngredientsPageComponent,
-    IngredientDialogComponent,
     EatingLogEntryComponent,
     EatingLogPageComponent,
     DataTableComponent,

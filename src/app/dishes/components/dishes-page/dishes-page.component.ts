@@ -3,10 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { DishesService } from 'src/app/dishes/services/dishes.service';
-import { Dish } from 'src/app/models/dish';
+import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
 import { ColDef } from 'src/app/shared/models/data-table';
 
-import { DishDialogMode } from './../../../models/dish-dialog-mode';
 import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-dialog.component';
 
 @Component({

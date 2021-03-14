@@ -1,11 +1,10 @@
-import { EatingForm, EatingInput } from './../../models/log-eating';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { LogDay } from 'src/app/models/log-day';
-import { Eating } from 'src/app/models/log-eating';
+import { LogDay, Eating, EatingForm, EatingInput } from 'src/app/shared/models/eatings';
+
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,3 @@
-import { Ingredient } from 'src/app/models/ingredient';
 import { FoodValue } from './food-value';
 
 export interface Dish {
@@ -6,7 +5,11 @@ export interface Dish {
   name: string;
   createdAt: number;
   foodValue: FoodValue;
-  ingredients?: Ingredient[];
+  ingredients?: Dish[];
   defaultServingSize?: number;
 }
 
+export enum DishDialogMode {
+  Edit,
+  Create
+}

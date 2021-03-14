@@ -1,13 +1,11 @@
-import { EatingForm, EatingInput } from './../../../models/log-eating';
-import { EatingDialogComponent } from './../eating-dialog/eating-dialog.component';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { Eating } from 'src/app/models/log-eating';
+import { LogDay, Eating, EatingForm } from 'src/app/shared/models/eatings';
 
-import { LogDay } from './../../../models/log-day';
 import { EatingLogService } from './../../services/eating-log.service';
-import { MatDialog } from '@angular/material/dialog';
+import { EatingDialogComponent } from './../eating-dialog/eating-dialog.component';
 
 @Component({
   selector: 'cd-eating-log-page',
