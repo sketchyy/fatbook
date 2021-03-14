@@ -5,3 +5,19 @@
     margin-right: 0.5rem;
   }
 }
+
+.table-toolbar {
+  padding: 0.5rem;
+  display: flex;
+  background: white;
+  align-items: center;
+
+  .toolbar-content {
+    flex: 1
+  }
+
+}
+
+.table-filter {
+  min-width: 300px;
+}

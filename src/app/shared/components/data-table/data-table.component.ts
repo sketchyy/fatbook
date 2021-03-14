@@ -2,10 +2,12 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ContentChild,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -32,6 +34,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   @Output() rowEdited = new EventEmitter<string>();
   @Output() rowRemoved = new EventEmitter<string>();
 
+  @ContentChild('toolbarTemplate') toolbarTemplate: TemplateRef<any>;
   @ViewChild(MatSort) sort: MatSort;
 
   dataSource = new MatTableDataSource([]);
@@ -59,6 +62,15 @@ export class DataTableComponent implements OnInit, AfterViewInit {
 
     if (confirmation) {
       this.rowRemoved.emit(id);
+    }
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 

@@ -12,18 +12,19 @@ import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-d
   selector: 'cd-dishes-page',
   template: `
     <div class="page">
-      <div class="table-toolbar">
-        <button mat-raised-button color="accent" (click)="onAddDishClick()">
-          Add Dish
-        </button>
-      </div>
       <cd-data-table
         [colDefs]="colDefs"
         [rowData]="tableData$ | async"
         [editable]="true"
         (rowEdited)="onEditClick($event)"
         (rowRemoved)="onDeleteDishClick($event)"
-      ></cd-data-table>
+      >
+        <ng-template #toolbarTemplate>
+          <button mat-raised-button color="accent" (click)="onAddDishClick()">
+            Add Dish
+          </button>
+        </ng-template>
+      </cd-data-table>
     </div>
   `,
   styleUrls: ['./dishes-page.component.scss'],

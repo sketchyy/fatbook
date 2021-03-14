@@ -1,3 +1,14 @@
+
+<div class="table-toolbar mat-elevation-z1">
+  <div class="toolbar-content">
+    <ng-container *ngTemplateOutlet="toolbarTemplate"></ng-container>
+  </div>
+  <mat-form-field appearance="outline" class="table-filter form-field-no-pad">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+</div>
+
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2">
   <ng-container *ngFor="let colDef of colDefs" [matColumnDef]="colDef.field">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>
