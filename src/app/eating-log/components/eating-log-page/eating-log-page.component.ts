@@ -45,10 +45,6 @@ export class EatingLogPageComponent implements OnInit {
     );
   }
 
-  pushMocks() {
-    this.eatingLogService.pushMocks();
-  }
-
   onAddClick() {
     let dialogRef = this.dialog.open(EatingDialogComponent, {
       position: {
