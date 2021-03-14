@@ -11,13 +11,9 @@
   display: flex;
   background: white;
   align-items: center;
-
-  .toolbar-content {
-    flex: 1
-  }
-
 }
 
 .table-filter {
-  min-width: 300px;
+  flex: 1;
+  margin-left: 1rem;
 }
