@@ -6,9 +6,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, startWith } from 'rxjs/operators';
-import { DishesService } from 'src/app/dishes/services/dishes.service';
 import { Dish } from 'src/app/shared/models/dishes';
 import { EatingForm } from 'src/app/shared/models/eatings';
+import { DishesService } from 'src/app/shared/services/dishes.service';
 
 @Component({
   selector: 'cd-eating-dialog',

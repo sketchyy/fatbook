@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { DishesService } from 'src/app/dishes/services/dishes.service';
-import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
 import { ColDef } from 'src/app/shared/models/data-table';
+import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
+import { DishesService } from 'src/app/shared/services/dishes.service';
 
 import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-dialog.component';
 
@@ -26,7 +26,7 @@ import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-d
       ></cd-data-table>
     </div>
   `,
-  styleUrls: ['./dishes-page.component.scss']
+  styleUrls: ['./dishes-page.component.scss'],
 })
 export class DishesPageComponent implements OnInit {
   tableData$: Observable<Dish[]>;

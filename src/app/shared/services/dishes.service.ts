@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Dish } from '../models/dishes';
 
-import { Dish } from '../../shared/models/dishes';
 
 @Injectable({
   providedIn: 'root',

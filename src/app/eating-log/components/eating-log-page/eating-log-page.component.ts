@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { LogDay, Eating, EatingForm } from 'src/app/shared/models/eatings';
+import { EatingLogService } from 'src/app/shared/services/eating-log.service';
 
-import { EatingLogService } from './../../services/eating-log.service';
 import { EatingDialogComponent } from './../eating-dialog/eating-dialog.component';
 
 @Component({
