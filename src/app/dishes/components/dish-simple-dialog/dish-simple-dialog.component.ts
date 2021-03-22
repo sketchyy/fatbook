@@ -33,12 +33,18 @@ export class DishSimpleDialogComponent implements OnInit {
       this.okButtonText = 'Save';
 
       const initialValue = this.data.dish;
+      debugger;
 
       this.formGroup = this.fb.group({
         name: initialValue.name,
         defaultServingSize: initialValue.defaultServingSize,
         foodValue: this.fb.group(initialValue.foodValue),
-        ingredients: this.fb.array(initialValue.ingredients),
+        ingredients: this.fb.array([]),
+      });
+
+      initialValue.ingredients.forEach((ingredient) => {
+        this.onAddIngredient();
+        this.ingredients.at(this.ingredients.length - 1).setValue(ingredient);
       });
     } else {
       this.title = 'Add New Dish';
@@ -59,7 +65,7 @@ export class DishSimpleDialogComponent implements OnInit {
       this.ingredients.valueChanges.subscribe((x) => {
         const foodValues = this.ingredients.controls.map((control) => {
           const userInput: EatingInput = control.value;
-          return this.foodValueCalculator.calculate(userInput)
+          return this.foodValueCalculator.calculate(userInput);
         });
 
         const sumFoodValue = this.foodValueCalculator.sum(foodValues);
