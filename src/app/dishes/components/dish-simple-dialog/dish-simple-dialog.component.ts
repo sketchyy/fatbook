@@ -33,7 +33,6 @@ export class DishSimpleDialogComponent implements OnInit {
       this.okButtonText = 'Save';
 
       const initialValue = this.data.dish;
-      debugger;
 
       this.formGroup = this.fb.group({
         name: initialValue.name,
