@@ -35,6 +35,7 @@ import { EatingDialogComponent } from './eating-log/components/eating-dialog/eat
 import { EatingLogEntryComponent } from './eating-log/components/eating-log-entry/eating-log-entry.component';
 import { EatingLogPageComponent } from './eating-log/components/eating-log-page/eating-log-page.component';
 import { DataTableComponent } from './shared/components/data-table/data-table.component';
+import { DishSelectorComponent } from './shared/components/dish-selector/dish-selector.component';
 
 export const MY_FORMATS: MatDateFormats = {
   parse: {
@@ -60,6 +61,7 @@ export const MY_FORMATS: MatDateFormats = {
     DataTableComponent,
     EatingDialogComponent,
     DishSimpleDialogComponent,
+    DishSelectorComponent,
   ],
   imports: [
     BrowserModule,

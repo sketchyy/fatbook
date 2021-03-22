@@ -1,7 +1,26 @@
 .food-value-container {
   display: flex;
+  align-items: center;
+
+  h1 {
+    margin: 1rem 1rem 1rem 0;
+  }
 
   mat-form-field {
     margin-right: 1rem;
+  }
+
+  .name {
+    flex: 3;
+  }
+
+  .serving-size {
+    flex: 1;
+    max-width: 204px;
+  }
+
+  .dish,
+  .dish-serving-size {
+    flex: 1;
   }
 }

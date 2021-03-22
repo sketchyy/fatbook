@@ -1,0 +1,13 @@
+:host {
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+
+  mat-form-field {
+    flex: 1;
+    margin-right: 1rem;
+  }
+
+}

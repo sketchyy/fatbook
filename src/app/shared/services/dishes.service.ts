@@ -32,12 +32,12 @@ export class DishesService {
     this.firestore.collection('/dishes').add(dish);
   }
 
-  create(userInput: any) {
+  create(userInput: Dish) {
     const dish: Dish = {
       // Lowercase name for search
       name: userInput.name.toLowerCase(),
       createdAt: moment().toDate().getTime(),
-      ingredients: userInput.dishIngredients.map((di) => di.ingredient),
+      ingredients: userInput.ingredients,
       foodValue: {
         proteins: this.sumValue(userInput, 'proteins'),
         fats: this.sumValue(userInput, 'fats'),

@@ -62,7 +62,11 @@ export class DishesPageComponent implements OnInit {
   }
 
   onAddDishClick() {
-    let dialogRef = this.dialog.open(DishSimpleDialogComponent);
+    let dialogRef = this.dialog.open(DishSimpleDialogComponent, {
+      position: {
+        top: '100px',
+      },
+    });
 
     dialogRef
       .afterClosed()
@@ -76,6 +80,9 @@ export class DishesPageComponent implements OnInit {
     const dish = await this.dishesStorage.get(dishId).toPromise();
 
     let dialogRef = this.dialog.open(DishSimpleDialogComponent, {
+      position: {
+        top: '100px',
+      },
       data: {
         mode: DishDialogMode.Edit,
         dish: dish,

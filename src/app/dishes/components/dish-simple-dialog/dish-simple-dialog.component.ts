@@ -1,8 +1,10 @@
+import { FoodValueCalculator } from './../../../shared/services/food-value-calculator.service';
+import { EatingInput } from './../../../shared/models/eatings';
+import { FoodValue } from './../../../shared/models/food-value';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
-
 
 @Component({
   selector: 'cd-dish-simple-dialog',
@@ -14,9 +16,14 @@ export class DishSimpleDialogComponent implements OnInit {
   title: string;
   okButtonText: string;
 
+  get ingredients() {
+    return this.formGroup.get('ingredients') as FormArray;
+  }
+
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<DishSimpleDialogComponent>,
+    private foodValueCalculator: FoodValueCalculator,
     @Inject(MAT_DIALOG_DATA) private data: { mode: DishDialogMode; dish: Dish }
   ) {}
 
@@ -31,6 +38,7 @@ export class DishSimpleDialogComponent implements OnInit {
         name: initialValue.name,
         defaultServingSize: initialValue.defaultServingSize,
         foodValue: this.fb.group(initialValue.foodValue),
+        ingredients: this.fb.array(initialValue.ingredients),
       });
     } else {
       this.title = 'Add New Dish';
@@ -45,6 +53,18 @@ export class DishSimpleDialogComponent implements OnInit {
           carbs: null,
           calories: null,
         }),
+        ingredients: this.fb.array([]),
+      });
+
+      this.ingredients.valueChanges.subscribe((x) => {
+        const foodValues = this.ingredients.controls.map((control) => {
+          const userInput: EatingInput = control.value;
+          return this.foodValueCalculator.calculate(userInput)
+        });
+
+        const sumFoodValue = this.foodValueCalculator.sum(foodValues);
+
+        this.formGroup.get('foodValue').setValue(sumFoodValue);
       });
     }
   }
@@ -55,5 +75,18 @@ export class DishSimpleDialogComponent implements OnInit {
 
   isEdit(): boolean {
     return this.data?.mode === DishDialogMode.Edit;
+  }
+
+  onAddIngredient() {
+    this.ingredients.push(
+      this.fb.group({
+        dish: null,
+        servingSize: null,
+      })
+    );
+  }
+
+  deleteIngredient(index: number) {
+    this.ingredients.removeAt(index);
   }
 }
