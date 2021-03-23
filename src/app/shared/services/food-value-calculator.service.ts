@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 export class FoodValueCalculator {
   constructor() {}
 
-  calculate(userInput: EatingInput): FoodValue {
+  calculateFoodValue(userInput: EatingInput): FoodValue {
     if (!userInput.dish || !userInput.servingSize) {
       return this.emptyFoodValue();
     }
@@ -23,8 +23,21 @@ export class FoodValueCalculator {
     };
   }
 
-  sum(foodValues: FoodValue[]): FoodValue {
-    return foodValues.reduce((result, item) => {
+  calculateDishWeight(ingredients: EatingInput[]): number {
+    return ingredients.reduce(
+      (result, item) => (result += item.servingSize),
+      0
+    );
+  }
+
+  calculateDishValuePer100g(ingredients: EatingInput[]): FoodValue {
+    const totalDishWeight = this.calculateDishWeight(ingredients);
+
+    const foodValues = ingredients.map((ingredient) =>
+      this.calculateFoodValue(ingredient)
+    );
+
+    const resultFoodValue = foodValues.reduce((result, item) => {
       result.proteins += item.proteins;
       result.fats += item.fats;
       result.carbs += item.carbs;
@@ -32,6 +45,13 @@ export class FoodValueCalculator {
 
       return result;
     }, this.emptyFoodValue());
+
+    return {
+      proteins: this.round((resultFoodValue.proteins / totalDishWeight) * 100),
+      fats: this.round((resultFoodValue.fats / totalDishWeight) * 100),
+      carbs: this.round((resultFoodValue.carbs / totalDishWeight) * 100),
+      calories: this.round((resultFoodValue.calories / totalDishWeight) * 100),
+    };
   }
 
   private emptyFoodValue(): FoodValue {
@@ -41,5 +61,9 @@ export class FoodValueCalculator {
       carbs: 0,
       calories: 0,
     };
+  }
+
+  private round(value): number {
+    return Math.round(value * 100) / 100;
   }
 }
