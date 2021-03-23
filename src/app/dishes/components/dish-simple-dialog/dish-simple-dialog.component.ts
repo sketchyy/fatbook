@@ -62,13 +62,11 @@ export class DishSimpleDialogComponent implements OnInit {
       });
 
       this.ingredients.valueChanges.subscribe((x) => {
-        const ingredients = this.ingredients.controls.map((control) => control.value);
+        const ingredients = this.ingredients.controls.map((control) => control.value).filter(ingredient => ingredient?.dish?.foodValue);
 
         const sumFoodValue = this.foodValueCalculator.calculateDishValuePer100g(ingredients);
-        const totalWeight = this.foodValueCalculator.calculateDishWeight(ingredients);
 
         this.formGroup.get('foodValue').setValue(sumFoodValue);
-        this.formGroup.get('defaultServingSize').setValue(totalWeight);
       });
     }
   }

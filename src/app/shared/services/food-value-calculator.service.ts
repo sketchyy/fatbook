@@ -9,7 +9,7 @@ export class FoodValueCalculator {
   constructor() {}
 
   calculateFoodValue(userInput: EatingInput): FoodValue {
-    if (!userInput.dish || !userInput.servingSize) {
+    if (!userInput.dish || !userInput.dish.foodValue || !userInput.servingSize) {
       return this.emptyFoodValue();
     }
 
