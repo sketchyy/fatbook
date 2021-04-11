@@ -3,7 +3,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
-import { filter, mergeMap, startWith } from 'rxjs/operators';
+import { debounceTime, filter, mergeMap, startWith } from 'rxjs/operators';
 
 import { Dish } from '../../models/dishes';
 import { DishesService } from '../../services/dishes.service';
@@ -32,6 +32,7 @@ export class DishSelectorComponent implements OnInit {
     this.dishOptions$ = this.formGroup.get('dish').valueChanges.pipe(
       startWith(''),
       filter((query) => typeof query === 'string'),
+      debounceTime(300),
       mergeMap((query) => this.dishesService.findByName(query))
     );
   }

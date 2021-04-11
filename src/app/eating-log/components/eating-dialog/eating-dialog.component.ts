@@ -5,7 +5,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { filter, mergeMap, startWith } from 'rxjs/operators';
+import { filter, mergeMap, startWith, debounceTime } from 'rxjs/operators';
 import { Dish } from 'src/app/shared/models/dishes';
 import { EatingForm } from 'src/app/shared/models/eatings';
 import { DishesService } from 'src/app/shared/services/dishes.service';
@@ -54,6 +54,7 @@ export class EatingDialogComponent implements OnInit {
       newDishGroup.get('dish').valueChanges.pipe(
         startWith(''),
         filter((query) => typeof query === 'string'),
+        debounceTime(300),
         mergeMap((query) => this.dishesService.findByName(query))
       )
     );
