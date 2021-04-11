@@ -18,8 +18,6 @@ import { DishesService } from 'src/app/shared/services/dishes.service';
 })
 export class EatingDialogComponent implements OnInit {
   formGroup: FormGroup;
-  dishOptions: Observable<Dish[]>[];
-  displayFn: Function;
 
   get dishes(): FormArray {
     return this.formGroup.get('dishes') as FormArray;
@@ -27,15 +25,10 @@ export class EatingDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EatingDialogComponent>,
-    private dishesService: DishesService,
-    private titleCasePipe: TitleCasePipe
+    private dialogRef: MatDialogRef<EatingDialogComponent>
   ) {}
 
   ngOnInit() {
-    this.displayFn = this.display.bind(this);
-
-    this.dishOptions = [];
     this.formGroup = this.fb.group({
       timestamp: moment(),
       dishes: this.fb.array([]),
@@ -49,15 +42,6 @@ export class EatingDialogComponent implements OnInit {
       dish: null,
       servingSize: null,
     });
-
-    this.dishOptions.push(
-      newDishGroup.get('dish').valueChanges.pipe(
-        startWith(''),
-        filter((query) => typeof query === 'string'),
-        debounceTime(300),
-        mergeMap((query) => this.dishesService.findByName(query))
-      )
-    );
 
     this.dishes.push(newDishGroup);
   }
@@ -73,26 +57,5 @@ export class EatingDialogComponent implements OnInit {
     };
 
     this.dialogRef.close(eatingForm);
-  }
-
-  onDishSelected(
-    event: MatAutocompleteSelectedEvent,
-    dishControl: FormControl
-  ) {
-    const selectedDish: Dish = event.option.value;
-    const servingSizeControl = dishControl.get('servingSize');
-
-    if (
-      servingSizeControl.value == null &&
-      selectedDish.defaultServingSize != null
-    ) {
-      servingSizeControl.setValue(selectedDish.defaultServingSize);
-    } else {
-      servingSizeControl.setValue(null);
-    }
-  }
-
-  display(dish: Dish): string {
-    return dish && dish.name ? this.titleCasePipe.transform(dish.name) : '';
   }
 }
