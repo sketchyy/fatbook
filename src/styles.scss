@@ -21,24 +21,12 @@ body {
   text-align: center;
 }
 
-table {
-  width: 100%;
-}
-
-.table-toolbar {
-  margin-bottom: 0.5rem;
-}
-
 .full-width {
   width: 100%;
 }
 
-.mat-column-actions {
-  width: 50px;
-}
-
-.mat-footer-cell {
-  font-weight: bold;
+.m2 {
+  margin: 1rem;
 }
 
 .mr2 {
@@ -52,16 +40,6 @@ table {
 .flex-1 {
   flex: 1;
 }
-
-.p-dialog .p-dialog-content {
-  padding: 0 1.5rem 1.5rem 1.5rem;
-}
-
-.p-field > label {
-  display: inline-block;
-  margin-bottom: 0.5rem;
-}
-
 
 .form-field-no-pad {
   .mat-form-field-wrapper {

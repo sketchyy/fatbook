@@ -1,4 +1,11 @@
 import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
+import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
@@ -20,6 +27,16 @@ import { ColDef } from './../../models/data-table';
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
+    ]),
+  ],
 })
 export class DataTableComponent implements OnInit, AfterViewInit {
   @Input() colDefs: ColDef[];
@@ -30,23 +47,30 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     }
   }
   @Input() editable: boolean;
+  @Input() suppressToolbar: boolean;
+  @Input() suppressActions: boolean;
 
   @Output() rowEdited = new EventEmitter<string>();
   @Output() rowRemoved = new EventEmitter<string>();
 
   @ContentChild('toolbarTemplate') toolbarTemplate: TemplateRef<any>;
+  @ContentChild('expandedRowTemplate') expandedRowTemplate: TemplateRef<any>;
   @ViewChild(MatSort) sort: MatSort;
 
   dataSource = new MatTableDataSource([]);
   displayedColumns: string[];
+  expandedElement: any;
 
   constructor() {}
 
   ngOnInit() {
-    this.displayedColumns = [
-      ...this.colDefs.map((colDef) => colDef.field),
-      'actions',
-    ];
+    this.displayedColumns = this.colDefs
+      .filter((colDef) => !colDef.hide)
+      .map((colDef) => colDef.field);
+
+    if (!this.suppressActions) {
+      this.displayedColumns.push('actions');
+    }
   }
 
   ngAfterViewInit() {
@@ -63,6 +87,10 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     if (confirmation) {
       this.rowRemoved.emit(id);
     }
+  }
+
+  onExpandClick(element: any) {
+    this.expandedElement = this.expandedElement === element ? null : element;
   }
 
   applyFilter(event: Event) {

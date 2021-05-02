@@ -24,6 +24,21 @@ import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-d
             Add Dish
           </button>
         </ng-template>
+        <ng-template #expandedRowTemplate let-element="element">
+          <cd-data-table
+            *ngIf="element.ingredients?.length > 0; else noIngredients"
+            [suppressToolbar]="true"
+            [suppressActions]="true"
+            [colDefs]="ingredientsColDefs"
+            [rowData]="element.ingredients"
+            class="mat-elevation-z4 m2 flex-1"
+          >
+          </cd-data-table>
+
+          <ng-template #noIngredients>
+            <h3>No ingredients</h3>
+          </ng-template>
+        </ng-template>
       </cd-data-table>
     </div>
   `,
@@ -50,7 +65,32 @@ export class DishesPageComponent implements OnInit {
       header: 'Serving Size (g.)',
       type: 'number',
     },
+    {
+      field: 'ingredients',
+      hide: true,
+    },
   ];
+
+  ingredientsColDefs = [
+    { field: 'dish.name', header: 'Name', type: 'title' },
+    {
+      field: 'dish.foodValue.proteins',
+      header: 'Proteins (per 100g.)',
+      type: 'number',
+    },
+    { field: 'dish.foodValue.fats', header: 'Fats (per 100g.)', type: 'number' },
+    { field: 'dish.foodValue.carbs', header: 'Carbs (per 100g.)', type: 'number' },
+    {
+      field: 'dish.foodValue.calories',
+      header: 'Calories (per 100g.)',
+      type: 'number',
+    },
+    {
+      field: 'servingSize',
+      header: 'Serving Size (g.)',
+      type: 'number',
+    }
+  ]
 
   constructor(
     private dialog: MatDialog,

@@ -41,7 +41,7 @@ export class DishSimpleDialogComponent implements OnInit {
         ingredients: this.fb.array([]),
       });
 
-      initialValue.ingredients.forEach((ingredient) => {
+      initialValue.ingredients?.forEach((ingredient) => {
         this.onAddIngredient();
         this.ingredients.at(this.ingredients.length - 1).setValue(ingredient);
       });
