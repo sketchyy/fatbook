@@ -9,7 +9,11 @@ export class FoodValueCalculator {
   constructor() {}
 
   calculateFoodValue(userInput: EatingInput): FoodValue {
-    if (!userInput.dish || !userInput.dish.foodValue || !userInput.servingSize) {
+    if (
+      !userInput.dish ||
+      !userInput.dish.foodValue ||
+      !userInput.servingSize
+    ) {
       return this.emptyFoodValue();
     }
 
@@ -52,6 +56,17 @@ export class FoodValueCalculator {
       carbs: this.round((resultFoodValue.carbs / totalDishWeight) * 100),
       calories: this.round((resultFoodValue.calories / totalDishWeight) * 100),
     };
+  }
+
+  sumFoodValues(foodValues: FoodValue[]): FoodValue {
+    return foodValues.reduce((result, current) => {
+      result.proteins += current.proteins;
+      result.fats += current.fats;
+      result.carbs += current.carbs;
+      result.calories += current.calories;
+
+      return result;
+    }, this.emptyFoodValue());
   }
 
   private emptyFoodValue(): FoodValue {

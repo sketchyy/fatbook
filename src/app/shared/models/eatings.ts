@@ -9,6 +9,7 @@ export interface LogDay {
 
 export interface Eating {
   id?: string;
+  tmpDish?: boolean;
   timestamp: number;
   dish: Dish;
   servingSize: number;
@@ -21,6 +22,8 @@ export interface EatingInput {
 }
 
 export interface EatingForm {
+  tmpDish: boolean;
+  tmpDishName: string;
   timestamp: number;
   eatings: EatingInput[];
 }

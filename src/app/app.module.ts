@@ -20,6 +20,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
@@ -86,6 +87,7 @@ export const MY_FORMATS: MatDateFormats = {
     MatDatepickerModule,
     MomentDateModule,
     MatGridListModule,
+    MatCheckboxModule,
     AngularFireAuthModule,
     AngularFireAuthGuardModule,
   ],

@@ -5,6 +5,9 @@ import * as moment from 'moment';
 import { Observable } from 'rxjs';
 import { Eating, EatingForm, EatingInput, LogDay } from 'src/app/shared/models/eatings';
 
+import { Dish } from './../models/dishes';
+import { FoodValueCalculator } from './food-value-calculator.service';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -13,7 +16,8 @@ export class EatingLogService {
 
   constructor(
     private firestore: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private foodValueCalculator: FoodValueCalculator
   ) {
     this.afAuth.currentUser.then((currentUser) => {
       this.userId = currentUser.uid;
@@ -49,25 +53,9 @@ export class EatingLogService {
       eatingForm.timestamp
     );
 
-    eatingForm.eatings.forEach(async (eatingInput: EatingInput) => {
-      const eating: Eating = {
-        timestamp: eatingForm.timestamp,
-        dish: eatingInput.dish,
-        servingSize: eatingInput.servingSize,
-        totals: {
-          proteins:
-            (eatingInput.dish.foodValue.proteins * eatingInput.servingSize) /
-            100,
-          fats:
-            (eatingInput.dish.foodValue.fats * eatingInput.servingSize) / 100,
-          carbs:
-            (eatingInput.dish.foodValue.carbs * eatingInput.servingSize) / 100,
-          calories:
-            (eatingInput.dish.foodValue.calories * eatingInput.servingSize) /
-            100,
-        },
-      };
+    const eatings: Eating[] = this.extractEatingsFromForm(eatingForm);
 
+    eatings.forEach(async (eating: Eating) => {
       // Update logDay totals
       logDay.totals.proteins += eating.totals.proteins;
       logDay.totals.fats += eating.totals.fats;
@@ -129,5 +117,65 @@ export class EatingLogService {
     }
 
     return logDay;
+  }
+
+  private extractEatingsFromForm(eatingForm: EatingForm): Eating[] {
+    if (eatingForm.tmpDish) {
+      // will be 1 eating with 1 dish
+      const tmpDish: Dish = {
+        name: eatingForm.tmpDishName,
+        createdAt: eatingForm.timestamp,
+        foodValue: null,
+        ingredients: eatingForm.eatings
+      };
+
+      const totalServingSize = eatingForm.eatings.reduce(
+        (result, item) => (result += item.servingSize),
+        0
+      );
+
+      tmpDish.foodValue = this.foodValueCalculator.sumFoodValues(
+        eatingForm.eatings.map((eatingInput: EatingInput) => {
+          return this.foodValueCalculator.calculateFoodValue(eatingInput);
+        })
+      );
+
+      return [
+        {
+          tmpDish: eatingForm.tmpDish,
+          timestamp: eatingForm.timestamp,
+          dish: tmpDish,
+          servingSize: totalServingSize,
+          totals: {
+            proteins: tmpDish.foodValue.proteins,
+            fats: tmpDish.foodValue.fats,
+            carbs: tmpDish.foodValue.carbs,
+            calories: tmpDish.foodValue.calories,
+          },
+        },
+      ];
+    } else {
+      // will be N eatings with 1 dish each
+      return eatingForm.eatings.map((eatingInput: EatingInput) => {
+        return {
+          timestamp: eatingForm.timestamp,
+          dish: eatingInput.dish,
+          servingSize: eatingInput.servingSize,
+          totals: {
+            proteins:
+              (eatingInput.dish.foodValue.proteins * eatingInput.servingSize) /
+              100,
+            fats:
+              (eatingInput.dish.foodValue.fats * eatingInput.servingSize) / 100,
+            carbs:
+              (eatingInput.dish.foodValue.carbs * eatingInput.servingSize) /
+              100,
+            calories:
+              (eatingInput.dish.foodValue.calories * eatingInput.servingSize) /
+              100,
+          },
+        };
+      });
+    }
   }
 }

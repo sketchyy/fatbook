@@ -1,7 +1,23 @@
 <div mat-dialog-title>Add Eating</div>
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <mat-dialog-content>
+    <p>
+      <mat-checkbox class="example-margin" formControlName="tmpDish"
+        >Temporary Dish</mat-checkbox
+      >
+    </p>
+
+    <mat-form-field
+      *ngIf="tmpDish"
+      appearance="outline"
+      class="full-width"
+    >
+      <mat-label>Dish Name</mat-label>
+      <input matInput formControlName="tmpDishName" />
+    </mat-form-field>
+
     <ng-container formArrayName="dishes">
+      <h4>{{ tmpDish ? "Ingredients" : "Dishes" }}</h4>
       <div
         class="dish-container"
         *ngFor="let dishControl of dishes.controls; index as i"
@@ -32,6 +48,7 @@
       </div>
     </ng-container>
 
+    <h4>Eating Time</h4>
     <p>
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Date</mat-label>
