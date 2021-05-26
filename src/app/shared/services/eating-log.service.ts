@@ -81,7 +81,7 @@ export class EatingLogService {
     });
 
     // Save logDay after all eatings saved
-    this.firestore
+    return this.firestore
       .doc(`users/${this.userId}/log-days/${newEatingDay}`)
       .set(logDay, { merge: true });
   }

@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -36,6 +37,7 @@ import { EatingLogEntryComponent } from './eating-log/components/eating-log-entr
 import { EatingLogPageComponent } from './eating-log/components/eating-log-page/eating-log-page.component';
 import { DataTableComponent } from './shared/components/data-table/data-table.component';
 import { DishSelectorComponent } from './shared/components/dish-selector/dish-selector.component';
+import { NotificationComponent } from './shared/components/notification/notification.component';
 
 export const MY_FORMATS: MatDateFormats = {
   parse: {
@@ -62,6 +64,7 @@ export const MY_FORMATS: MatDateFormats = {
     EatingDialogComponent,
     DishSimpleDialogComponent,
     DishSelectorComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,12 +87,16 @@ export const MY_FORMATS: MatDateFormats = {
     MatAutocompleteModule,
     MatExpansionModule,
     MatDatepickerModule,
+    MatSnackBarModule,
     MomentDateModule,
     MatGridListModule,
     AngularFireAuthModule,
     AngularFireAuthGuardModule,
   ],
-  providers: [{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }],
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

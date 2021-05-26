@@ -30,7 +30,7 @@ export class DishesService {
 
     console.log('Adding...', dish);
 
-    this.firestore.collection('/dishes').add(dish);
+    return this.firestore.collection('/dishes').add(dish);
   }
 
   replace(id: string, dish: Dish) {
