@@ -1,6 +1,6 @@
 <h1 mat-dialog-title>{{ title }}</h1>
-<mat-dialog-content>
-  <form [formGroup]="formGroup">
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
     <div class="food-value-container">
       <mat-form-field appearance="outline" class="name">
         <mat-label>Ingredient Name</mat-label>
@@ -75,16 +75,11 @@
         </div>
       </ng-container>
     </div>
-  </form>
-</mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button [mat-dialog-close]="false">Cancel</button>
-  <button
-    mat-raised-button
-    [mat-dialog-close]="formGroup.value"
-    color="accent"
-    cdkFocusInitial
-  >
-    {{ okButtonText }}
-  </button>
-</mat-dialog-actions>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-raised-button type="submit" color="accent" cdkFocusInitial>
+      {{ okButtonText }}
+    </button>
+  </mat-dialog-actions>
+</form>

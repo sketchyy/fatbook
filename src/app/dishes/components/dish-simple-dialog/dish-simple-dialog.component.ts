@@ -1,10 +1,9 @@
-import { FoodValueCalculator } from './../../../shared/services/food-value-calculator.service';
-import { EatingInput } from './../../../shared/models/eatings';
-import { FoodValue } from './../../../shared/models/food-value';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
+
+import { FoodValueCalculator } from './../../../shared/services/food-value-calculator.service';
 
 @Component({
   selector: 'cd-dish-simple-dialog',
@@ -35,11 +34,18 @@ export class DishSimpleDialogComponent implements OnInit {
       const initialValue = this.data.dish;
 
       this.formGroup = this.fb.group({
-        name: initialValue.name,
+        name: this.fb.control(initialValue.name, [Validators.required]),
         defaultServingSize: initialValue.defaultServingSize,
-        foodValue: this.fb.group(initialValue.foodValue),
+        foodValue: this.fb.group({
+          proteins: this.fb.control(null, [Validators.required]),
+          fats: this.fb.control(null, [Validators.required]),
+          carbs: this.fb.control(null, [Validators.required]),
+          calories: this.fb.control(null, [Validators.required]),
+        }),
         ingredients: this.fb.array([]),
       });
+
+      this.formGroup.get('foodValue').setValue(initialValue.foodValue);
 
       initialValue.ingredients?.forEach((ingredient) => {
         this.onAddIngredient();
@@ -50,13 +56,13 @@ export class DishSimpleDialogComponent implements OnInit {
       this.okButtonText = 'Add';
 
       this.formGroup = this.fb.group({
-        name: null,
+        name: this.fb.control(null, [Validators.required]),
         defaultServingSize: null,
         foodValue: this.fb.group({
-          proteins: null,
-          fats: null,
-          carbs: null,
-          calories: null,
+          proteins: this.fb.control(null, [Validators.required]),
+          fats: this.fb.control(null, [Validators.required]),
+          carbs: this.fb.control(null, [Validators.required]),
+          calories: this.fb.control(null, [Validators.required]),
         }),
         ingredients: this.fb.array([]),
       });
@@ -72,7 +78,16 @@ export class DishSimpleDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.dialogRef.close(this.formGroup.value);
+    console.log('valid? ',this.formGroup.valid);
+
+    if (this.formGroup.valid) {
+      this.dialogRef.close(this.formGroup.value);
+    } else {
+      this.formGroup.get('timestamp').markAsTouched();
+      this.ingredients.controls.forEach(control => {
+        control.markAllAsTouched();
+      })
+    }
   }
 
   isEdit(): boolean {
@@ -82,8 +97,8 @@ export class DishSimpleDialogComponent implements OnInit {
   onAddIngredient() {
     this.ingredients.push(
       this.fb.group({
-        dish: null,
-        servingSize: null,
+        dish: this.fb.control(null, [Validators.required]),
+        servingSize: this.fb.control(null, [Validators.required]),
       })
     );
   }
