@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
+import { NotificationStatus } from 'src/app/shared/components/notification/notification';
+import { NotificationComponent } from 'src/app/shared/components/notification/notification.component';
 import { DishDialogMode } from 'src/app/shared/models/dishes';
-import { LogDay, Eating, EatingForm } from 'src/app/shared/models/eatings';
+import { Eating, EatingForm, LogDay } from 'src/app/shared/models/eatings';
 import { EatingLogService } from 'src/app/shared/services/eating-log.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 import { EatingDialogComponent } from './../eating-dialog/eating-dialog.component';
 
@@ -34,7 +38,8 @@ export class EatingLogPageComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private eatingLogService: EatingLogService
+    private eatingLogService: EatingLogService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +63,16 @@ export class EatingLogPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
       .subscribe((eatingForm: EatingForm) => {
-        this.eatingLogService.addEatings(eatingForm);
+        this.eatingLogService
+          .addEatings(eatingForm)
+          .then(() => {
+            this.notificationService.showSuccess('Eating saved');
+          })
+          .catch(() => {
+            this.notificationService.showFail(
+              'Error while saving :( contact Andrey'
+            );
+          });
       });
   }
 
@@ -67,7 +81,9 @@ export class EatingLogPageComponent implements OnInit {
   }
 
   async onEatingEdit(logDayId: string, eatingId: string) {
-    const updatedEating = await this.eatingLogService.getEatingById(logDayId, eatingId).toPromise();
+    const updatedEating = await this.eatingLogService
+      .getEatingById(logDayId, eatingId)
+      .toPromise();
 
     let dialogRef = this.dialog.open(EatingDialogComponent, {
       position: {
@@ -83,7 +99,7 @@ export class EatingLogPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
       .subscribe(async (eatingForm: EatingForm) => {
-        await this.eatingLogService.removeEating(logDayId, updatedEating)
+        await this.eatingLogService.removeEating(logDayId, updatedEating);
         await this.eatingLogService.addEatings(eatingForm);
       });
   }

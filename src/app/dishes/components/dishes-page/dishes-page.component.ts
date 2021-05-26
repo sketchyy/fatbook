@@ -5,6 +5,7 @@ import { filter } from 'rxjs/operators';
 import { ColDef } from 'src/app/shared/models/data-table';
 import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
 import { DishesService } from 'src/app/shared/services/dishes.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 
 import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-dialog.component';
 
@@ -94,7 +95,8 @@ export class DishesPageComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private dishesStorage: DishesService
+    private dishesStorage: DishesService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -112,7 +114,15 @@ export class DishesPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
       .subscribe((result: Dish) => {
-        this.dishesStorage.createSimple(result);
+        this.dishesStorage.createSimple(result)
+          .then(() => {
+            this.notificationService.showSuccess('Eating saved');
+          })
+          .catch(() => {
+            this.notificationService.showFail(
+              'Error while saving :( contact Andrey'
+            );
+          });
       });
   }
 
