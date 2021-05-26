@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { NotificationStatus } from 'src/app/shared/components/notification/notification';
@@ -37,7 +38,8 @@ export class EatingLogPageComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private eatingLogService: EatingLogService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +63,8 @@ export class EatingLogPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
       .subscribe((eatingForm: EatingForm) => {
+        this.spinner.show();
+
         this.eatingLogService
           .addEatings(eatingForm)
           .then(() => {
@@ -70,11 +74,15 @@ export class EatingLogPageComponent implements OnInit {
             this.notificationService.showFail(
               'Error while saving :( contact Andrey'
             );
+          })
+          .finally(() => {
+            this.spinner.hide();
           });
       });
   }
 
   onEatingRemove(logDayId: string, eating: Eating) {
+    //TODO notification + spinner
     this.eatingLogService.removeEating(logDayId, eating);
   }
 }

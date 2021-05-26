@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ColDef } from 'src/app/shared/models/data-table';
@@ -79,8 +80,16 @@ export class DishesPageComponent implements OnInit {
       header: 'Proteins (per 100g.)',
       type: 'number',
     },
-    { field: 'dish.foodValue.fats', header: 'Fats (per 100g.)', type: 'number' },
-    { field: 'dish.foodValue.carbs', header: 'Carbs (per 100g.)', type: 'number' },
+    {
+      field: 'dish.foodValue.fats',
+      header: 'Fats (per 100g.)',
+      type: 'number',
+    },
+    {
+      field: 'dish.foodValue.carbs',
+      header: 'Carbs (per 100g.)',
+      type: 'number',
+    },
     {
       field: 'dish.foodValue.calories',
       header: 'Calories (per 100g.)',
@@ -90,13 +99,14 @@ export class DishesPageComponent implements OnInit {
       field: 'servingSize',
       header: 'Serving Size (g.)',
       type: 'number',
-    }
-  ]
+    },
+  ];
 
   constructor(
     private dialog: MatDialog,
     private dishesStorage: DishesService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -114,7 +124,10 @@ export class DishesPageComponent implements OnInit {
       .afterClosed()
       .pipe(filter((result) => Boolean(result)))
       .subscribe((result: Dish) => {
-        this.dishesStorage.createSimple(result)
+        this.spinner.show();
+
+        this.dishesStorage
+          .createSimple(result)
           .then(() => {
             this.notificationService.showSuccess('Eating saved');
           })
@@ -122,11 +135,15 @@ export class DishesPageComponent implements OnInit {
             this.notificationService.showFail(
               'Error while saving :( contact Andrey'
             );
+          })
+          .finally(() => {
+            this.spinner.hide();
           });
       });
   }
 
   async onEditClick(dishId: string) {
+    //TODO notification + spinner
     const dish = await this.dishesStorage.get(dishId).toPromise();
 
     let dialogRef = this.dialog.open(DishSimpleDialogComponent, {
@@ -148,6 +165,7 @@ export class DishesPageComponent implements OnInit {
   }
 
   onDeleteDishClick(dishId: string) {
+    //TODO notification + spinner
     this.dishesStorage.delete(dishId);
   }
 }
