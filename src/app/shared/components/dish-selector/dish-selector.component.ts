@@ -19,6 +19,14 @@ export class DishSelectorComponent implements OnInit {
   dishOptions$: Observable<Dish[]>;
   displayFn: Function;
 
+  get dish(): FormControl {
+    return this.formGroup.get('dish') as FormControl;
+  }
+
+  get servingSize(): FormControl {
+    return this.formGroup.get('servingSize') as FormControl;
+  }
+
   constructor(
     private dishesService: DishesService,
     private titleCasePipe: TitleCasePipe,

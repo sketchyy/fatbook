@@ -55,6 +55,7 @@
         <input matInput [matDatepicker]="picker" formControlName="timestamp" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="timestamp.invalid">This field is required</mat-error>
       </mat-form-field>
     </p>
   </mat-dialog-content>
