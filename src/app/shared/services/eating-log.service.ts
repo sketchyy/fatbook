@@ -3,16 +3,22 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
+<<<<<<< HEAD
 import { take } from 'rxjs/operators';
+=======
+>>>>>>> 295eb74... Remove empty log day from table
 import {
   Eating,
   EatingForm,
   EatingInput,
   LogDay,
 } from 'src/app/shared/models/eatings';
+<<<<<<< HEAD
 
 import { Dish } from './../models/dishes';
 import { FoodValueCalculator } from './food-value-calculator.service';
+=======
+>>>>>>> 295eb74... Remove empty log day from table
 
 @Injectable({
   providedIn: 'root',
@@ -96,6 +102,7 @@ export class EatingLogService {
       .delete();
 
     // Update log day totals
+<<<<<<< HEAD
     const logDay = await this.getOrCreateLogDay(logDayId, eating.timestamp);
 
     logDay.totals.proteins -= eating.totals.proteins;
@@ -106,6 +113,26 @@ export class EatingLogService {
     await this.firestore
       .doc(`users/${this.userId}/log-days/${logDayId}`)
       .set(logDay, { merge: true });
+=======
+    const eatings = await this.firestore
+      .collection(`users/${this.userId}/log-days/${logDayId}/eatings`)
+      .get()
+      .toPromise();
+
+    if (eatings.size > 0) {
+      const logDay = await this.getOrCreateLogDay(logDayId, eating.timestamp);
+      logDay.totals.proteins -= eating.totals.proteins;
+      logDay.totals.fats -= eating.totals.fats;
+      logDay.totals.carbs -= eating.totals.carbs;
+      logDay.totals.calories -= eating.totals.calories;
+
+      this.firestore
+        .doc(`users/${this.userId}/log-days/${logDayId}`)
+        .set(logDay, { merge: true });
+    } else {
+      this.firestore.doc(`users/${this.userId}/log-days/${logDayId}`).delete();
+    }
+>>>>>>> 295eb74... Remove empty log day from table
   }
 
   private async getOrCreateLogDay(
