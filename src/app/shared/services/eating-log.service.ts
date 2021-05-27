@@ -3,7 +3,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Eating, EatingForm, EatingInput, LogDay } from 'src/app/shared/models/eatings';
+import {
+  Eating,
+  EatingForm,
+  EatingInput,
+  LogDay,
+} from 'src/app/shared/models/eatings';
 
 @Injectable({
   providedIn: 'root',
@@ -88,21 +93,29 @@ export class EatingLogService {
 
   async removeEating(logDayId: string, eating: Eating) {
     // Remove eating
-    this.firestore
+    await this.firestore
       .doc(`users/${this.userId}/log-days/${logDayId}/eatings/${eating.id}`)
       .delete();
 
     // Update log day totals
-    const logDay = await this.getOrCreateLogDay(logDayId, eating.timestamp);
+    const eatings = await this.firestore
+      .collection(`users/${this.userId}/log-days/${logDayId}/eatings`)
+      .get()
+      .toPromise();
 
-    logDay.totals.proteins -= eating.totals.proteins;
-    logDay.totals.fats -= eating.totals.fats;
-    logDay.totals.carbs -= eating.totals.carbs;
-    logDay.totals.calories -= eating.totals.calories;
+    if (eatings.size > 0) {
+      const logDay = await this.getOrCreateLogDay(logDayId, eating.timestamp);
+      logDay.totals.proteins -= eating.totals.proteins;
+      logDay.totals.fats -= eating.totals.fats;
+      logDay.totals.carbs -= eating.totals.carbs;
+      logDay.totals.calories -= eating.totals.calories;
 
-    this.firestore
-      .doc(`users/${this.userId}/log-days/${logDayId}`)
-      .set(logDay, { merge: true });
+      this.firestore
+        .doc(`users/${this.userId}/log-days/${logDayId}`)
+        .set(logDay, { merge: true });
+    } else {
+      this.firestore.doc(`users/${this.userId}/log-days/${logDayId}`).delete();
+    }
   }
 
   private async getOrCreateLogDay(
