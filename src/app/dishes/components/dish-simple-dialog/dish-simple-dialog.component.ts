@@ -1,10 +1,9 @@
-import { FoodValueCalculator } from './../../../shared/services/food-value-calculator.service';
-import { EatingInput } from './../../../shared/models/eatings';
-import { FoodValue } from './../../../shared/models/food-value';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
+
+import { FoodValueCalculator } from './../../../shared/services/food-value-calculator.service';
 
 @Component({
   selector: 'cd-dish-simple-dialog',

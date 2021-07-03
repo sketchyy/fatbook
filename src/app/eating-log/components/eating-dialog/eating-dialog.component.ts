@@ -1,9 +1,10 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
-import { EatingForm } from 'src/app/shared/models/eatings';
+import { DishDialogMode } from 'src/app/shared/models/dishes';
+import { Eating, EatingForm } from 'src/app/shared/models/eatings';
 
 @Component({
   selector: 'cd-eating-dialog',
@@ -13,6 +14,8 @@ import { EatingForm } from 'src/app/shared/models/eatings';
 })
 export class EatingDialogComponent implements OnInit {
   formGroup: FormGroup;
+  title: string;
+  okButtonText: string;
 
   get tmpDish(): boolean {
     return this.formGroup.get('tmpDish').value as boolean;
@@ -28,18 +31,51 @@ export class EatingDialogComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EatingDialogComponent>
+    private dialogRef: MatDialogRef<EatingDialogComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    private data: { mode: DishDialogMode; eating: Eating }
   ) {}
 
   ngOnInit() {
-    this.formGroup = this.fb.group({
-      timestamp: moment(),
-      dishes: this.fb.array([]),
-      tmpDish: false,
-      tmpDishName: ''
-    });
+    if (this.isEdit()) {
+      this.title = 'Modify Eating';
+      this.okButtonText = 'Save';
 
-    this.addDish();
+      const initialValue = this.data.eating;
+
+      this.formGroup = this.fb.group({
+        timestamp: moment(initialValue.timestamp),
+        dishes: this.fb.array([]),
+        tmpDish: initialValue.tmpDish,
+        tmpDishName: initialValue.tmpDishName,
+      });
+
+      if (initialValue.tmpDish) {
+        initialValue.dish.ingredients.forEach((ingredient, i) => {
+          this.addDish();
+
+          this.dishes.at(i).get('dish').setValue(ingredient.dish);
+          this.dishes.at(i).get('servingSize').setValue(ingredient.servingSize);
+        })
+      } else {
+        this.addDish();
+
+        this.dishes.at(0).get('dish').setValue(initialValue.dish);
+        this.dishes.at(0).get('servingSize').setValue(initialValue.servingSize);
+      }
+    } else {
+      this.title = 'Add Eating';
+      this.okButtonText = 'Add';
+
+      this.formGroup = this.fb.group({
+        timestamp: moment(),
+        dishes: this.fb.array([]),
+        tmpDish: false,
+        tmpDishName: '',
+      });
+
+      this.addDish();
+    }
   }
 
   addDish() {
@@ -64,5 +100,9 @@ export class EatingDialogComponent implements OnInit {
     };
 
     this.dialogRef.close(eatingForm);
+  }
+
+  private isEdit(): boolean {
+    return this.data?.mode === DishDialogMode.Edit;
   }
 }

@@ -3,7 +3,13 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-import { Eating, EatingForm, EatingInput, LogDay } from 'src/app/shared/models/eatings';
+import { take } from 'rxjs/operators';
+import {
+  Eating,
+  EatingForm,
+  EatingInput,
+  LogDay,
+} from 'src/app/shared/models/eatings';
 
 import { Dish } from './../models/dishes';
 import { FoodValueCalculator } from './food-value-calculator.service';
@@ -46,6 +52,15 @@ export class EatingLogService {
       .valueChanges({ idField: 'id' });
   }
 
+  getEatingById(logDayId: string, eatingId: string): Observable<Eating> {
+    return this.firestore
+      .doc<Eating>(
+        `users/${this.userId}/log-days/${logDayId}/eatings/${eatingId}`
+      )
+      .valueChanges({ idField: 'id' })
+      .pipe(take(1));
+  }
+
   async addEatings(eatingForm: EatingForm) {
     const newEatingDay = moment(eatingForm.timestamp).format('DD-MMM-YYYY');
     const logDay = await this.getOrCreateLogDay(
@@ -76,7 +91,7 @@ export class EatingLogService {
 
   async removeEating(logDayId: string, eating: Eating) {
     // Remove eating
-    this.firestore
+    await this.firestore
       .doc(`users/${this.userId}/log-days/${logDayId}/eatings/${eating.id}`)
       .delete();
 
@@ -88,7 +103,7 @@ export class EatingLogService {
     logDay.totals.carbs -= eating.totals.carbs;
     logDay.totals.calories -= eating.totals.calories;
 
-    this.firestore
+    await this.firestore
       .doc(`users/${this.userId}/log-days/${logDayId}`)
       .set(logDay, { merge: true });
   }
@@ -126,7 +141,7 @@ export class EatingLogService {
         name: eatingForm.tmpDishName,
         createdAt: eatingForm.timestamp,
         foodValue: null,
-        ingredients: eatingForm.eatings
+        ingredients: eatingForm.eatings,
       };
 
       const totalServingSize = eatingForm.eatings.reduce(
@@ -143,6 +158,7 @@ export class EatingLogService {
       return [
         {
           tmpDish: eatingForm.tmpDish,
+          tmpDishName: eatingForm.tmpDishName,
           timestamp: eatingForm.timestamp,
           dish: tmpDish,
           servingSize: totalServingSize,

@@ -12,6 +12,7 @@ export class EatingLogEntryComponent implements OnInit {
   @Input() eatings: Eating[];
 
   @Output() eatingRemoved = new EventEmitter<Eating>();
+  @Output() eatingEdited = new EventEmitter<string>();
 
   columns: ColDef[] = [
     { field: 'dish.name', header: 'Dish Name', type: 'title' },
@@ -33,5 +34,9 @@ export class EatingLogEntryComponent implements OnInit {
     );
 
     this.eatingRemoved.emit(eating);
+  }
+
+  onRowEdited(eatingId: string) {
+    this.eatingEdited.emit(eatingId);
   }
 }

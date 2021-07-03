@@ -10,6 +10,7 @@ export interface LogDay {
 export interface Eating {
   id?: string;
   tmpDish?: boolean;
+  tmpDishName?: string;
   timestamp: number;
   dish: Dish;
   servingSize: number;

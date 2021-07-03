@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
+import { DishDialogMode } from 'src/app/shared/models/dishes';
 import { LogDay, Eating, EatingForm } from 'src/app/shared/models/eatings';
 import { EatingLogService } from 'src/app/shared/services/eating-log.service';
 
@@ -21,6 +22,7 @@ import { EatingDialogComponent } from './../eating-dialog/eating-dialog.componen
         [logDay]="logDay"
         [eatings]="eatings$[logDay.id] | async"
         (eatingRemoved)="onEatingRemove(logDay.id, $event)"
+        (eatingEdited)="onEatingEdit(logDay.id, $event)"
       ></cd-eating-log-entry>
     </mat-accordion>
   </div>`,
@@ -62,5 +64,27 @@ export class EatingLogPageComponent implements OnInit {
 
   onEatingRemove(logDayId: string, eating: Eating) {
     this.eatingLogService.removeEating(logDayId, eating);
+  }
+
+  async onEatingEdit(logDayId: string, eatingId: string) {
+    const updatedEating = await this.eatingLogService.getEatingById(logDayId, eatingId).toPromise();
+
+    let dialogRef = this.dialog.open(EatingDialogComponent, {
+      position: {
+        top: '100px',
+      },
+      data: {
+        mode: DishDialogMode.Edit,
+        eating: updatedEating,
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter((result) => Boolean(result)))
+      .subscribe(async (eatingForm: EatingForm) => {
+        await this.eatingLogService.removeEating(logDayId, updatedEating)
+        await this.eatingLogService.addEatings(eatingForm);
+      });
   }
 }

@@ -1,4 +1,4 @@
-<div mat-dialog-title>Add Eating</div>
+<div mat-dialog-title>{{ title }}</div>
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
   <mat-dialog-content>
     <p>
@@ -61,7 +61,7 @@
   <mat-dialog-actions align="end">
     <button mat-button [mat-dialog-close]="false">Cancel</button>
     <button mat-raised-button type="submit" color="accent" cdkFocusInitial>
-      Add
+      {{ okButtonText }}
     </button>
   </mat-dialog-actions>
 </form>
