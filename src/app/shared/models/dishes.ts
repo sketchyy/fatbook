@@ -8,9 +8,10 @@ export interface Dish {
   foodValue: FoodValue;
   ingredients?: EatingInput[];
   defaultServingSize?: number;
+  searchIndex?: string[];
 }
 
 export enum DishDialogMode {
   Edit,
-  Create
+  Create,
 }
