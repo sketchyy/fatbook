@@ -1,7 +1,7 @@
 import { TokenizeResult } from '@angular/compiler/src/ml_parser/lexer';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import * as moment from 'moment';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
@@ -101,6 +101,7 @@ export class DishesService {
     ]);
   }
 
+  // TODO: limit 5? 2 times
   findByName(query: string) {
     if (!query) {
       return this.dishes$;
@@ -138,7 +139,7 @@ export class DishesService {
   }
 
   private prepareSearchQuery(query: string): string {
-    return query.trim().replace(' ', '__');
+    return query.toLowerCase().trim().replace(' ', '__');
   }
 
   private tokenize(name: string): string[] {
