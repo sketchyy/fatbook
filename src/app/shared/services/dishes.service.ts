@@ -73,9 +73,6 @@ export class DishesService {
 
     console.log('Adding...', dish);
 
-<<<<<<< HEAD
-    return this.firestore.collection('/dishes').add(dish);
-=======
     const newDoc = await this.firestore.collection('/dishes').add(dish);
 
     const searchIndex = {
@@ -85,7 +82,6 @@ export class DishesService {
     return this.firestore
       .doc(`/dishes-search-index/${newDoc.id}`)
       .set(searchIndex);
->>>>>>> main
   }
 
   replace(id: string, dish: Dish) {

@@ -3,22 +3,16 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as moment from 'moment';
 import { Observable } from 'rxjs';
-<<<<<<< HEAD
-=======
 import { take } from 'rxjs/operators';
->>>>>>> main
 import {
   Eating,
   EatingForm,
   EatingInput,
   LogDay,
 } from 'src/app/shared/models/eatings';
-<<<<<<< HEAD
-=======
 
 import { Dish } from './../models/dishes';
 import { FoodValueCalculator } from './food-value-calculator.service';
->>>>>>> main
 
 @Injectable({
   providedIn: 'root',

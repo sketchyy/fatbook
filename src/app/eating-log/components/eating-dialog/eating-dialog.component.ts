@@ -36,10 +36,6 @@ export class EatingDialogComponent implements OnInit {
     return this.formGroup.get('timestamp') as FormControl;
   }
 
-  get timestamp(): FormControl {
-    return this.formGroup.get('timestamp') as FormControl;
-  }
-
   get dishes(): FormArray {
     return this.formGroup.get('dishes') as FormArray;
   }
