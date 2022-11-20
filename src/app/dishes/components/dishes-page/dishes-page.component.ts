@@ -20,6 +20,7 @@ import { DishSimpleDialogComponent } from './../dish-simple-dialog/dish-simple-d
         [editable]="true"
         (rowEdited)="onEditClick($event)"
         (rowRemoved)="onDeleteDishClick($event)"
+        (onFilterChange)="onApplyFilter($event)"
       >
         <ng-template #toolbarTemplate>
           <button mat-raised-button color="accent" (click)="onAddDishClick()">
@@ -118,6 +119,7 @@ export class DishesPageComponent implements OnInit {
       position: {
         top: '100px',
       },
+      maxWidth: '100vw',
     });
 
     dialogRef
@@ -140,6 +142,10 @@ export class DishesPageComponent implements OnInit {
             this.spinner.hide();
           });
       });
+  }
+
+  onApplyFilter(filterValue: string) {
+    this.tableData$ = this.dishesStorage.findByName(filterValue);
   }
 
   async onEditClick(dishId: string) {

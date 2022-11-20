@@ -40,7 +40,7 @@ export class DishSelectorComponent implements OnInit {
     this.dishOptions$ = this.formGroup.get('dish').valueChanges.pipe(
       startWith(''),
       filter((query) => typeof query === 'string'),
-      debounceTime(300),
+      debounceTime(300), // TODO - more debounce?
       mergeMap((query) => this.dishesService.findByName(query))
     );
   }

@@ -7,11 +7,7 @@
       >
     </p>
 
-    <mat-form-field
-      *ngIf="tmpDish"
-      appearance="outline"
-      class="full-width"
-    >
+    <mat-form-field *ngIf="tmpDish" appearance="outline" class="full-width">
       <mat-label>Dish Name</mat-label>
       <input matInput formControlName="tmpDishName" />
     </mat-form-field>
@@ -19,32 +15,34 @@
     <ng-container formArrayName="dishes">
       <h4>{{ tmpDish ? "Ingredients" : "Dishes" }}</h4>
       <div
-        class="dish-container"
         *ngFor="let dishControl of dishes.controls; index as i"
         [formGroup]="dishControl"
       >
-        <cd-dish-selector></cd-dish-selector>
+        <div class="dish-container">
+          <cd-dish-selector></cd-dish-selector>
 
-        <button
-          *ngIf="i === 0"
-          mat-mini-fab
-          color="primary"
-          aria-label="Add eating"
-          type="button"
-          (click)="addDish()"
-        >
-          <mat-icon>add</mat-icon>
-        </button>
-        <button
-          *ngIf="i > 0"
-          mat-mini-fab
-          color="primary"
-          aria-label="Remove eating"
-          type="button"
-          (click)="deleteDish(i)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
+          <button
+            *ngIf="i === 0"
+            mat-mini-fab
+            color="primary"
+            aria-label="Add eating"
+            type="button"
+            (click)="addDish()"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+          <button
+            *ngIf="i > 0"
+            mat-mini-fab
+            color="primary"
+            aria-label="Remove eating"
+            type="button"
+            (click)="deleteDish(i)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <mat-divider></mat-divider>
       </div>
     </ng-container>
 

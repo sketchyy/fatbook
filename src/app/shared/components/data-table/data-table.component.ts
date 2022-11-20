@@ -50,6 +50,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
   @Input() suppressToolbar: boolean;
   @Input() suppressActions: boolean;
 
+  @Output() onFilterChange = new EventEmitter<string>();
   @Output() rowEdited = new EventEmitter<string>();
   @Output() rowRemoved = new EventEmitter<string>();
 
@@ -95,11 +96,13 @@ export class DataTableComponent implements OnInit, AfterViewInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    this.onFilterChange.emit(filterValue);
+    /*   this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
-    }
+    } */
   }
 
   private flattenData(givenData: any[]) {
