@@ -24,6 +24,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -94,9 +96,11 @@ export const MY_FORMATS: MatDateFormats = {
     MatSnackBarModule,
     MomentDateModule,
     MatGridListModule,
+    MatCheckboxModule,
     AngularFireAuthModule,
     AngularFireAuthGuardModule,
     NgxSpinnerModule,
+    MatDividerModule,
   ],
   providers: [
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },

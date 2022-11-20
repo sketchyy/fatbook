@@ -6,6 +6,10 @@ import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { NotificationStatus } from 'src/app/shared/components/notification/notification';
 import { NotificationComponent } from 'src/app/shared/components/notification/notification.component';
+<<<<<<< HEAD
+=======
+import { DishDialogMode } from 'src/app/shared/models/dishes';
+>>>>>>> main
 import { Eating, EatingForm, LogDay } from 'src/app/shared/models/eatings';
 import { EatingLogService } from 'src/app/shared/services/eating-log.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
@@ -26,6 +30,7 @@ import { EatingDialogComponent } from './../eating-dialog/eating-dialog.componen
         [logDay]="logDay"
         [eatings]="eatings$[logDay.id] | async"
         (eatingRemoved)="onEatingRemove(logDay.id, $event)"
+        (eatingEdited)="onEatingEdit(logDay.id, $event)"
       ></cd-eating-log-entry>
     </mat-accordion>
   </div>`,
@@ -55,8 +60,9 @@ export class EatingLogPageComponent implements OnInit {
   onAddClick() {
     let dialogRef = this.dialog.open(EatingDialogComponent, {
       position: {
-        top: '100px',
+        top: '50px',
       },
+      maxWidth: '100vw',
     });
 
     dialogRef
@@ -84,5 +90,29 @@ export class EatingLogPageComponent implements OnInit {
   onEatingRemove(logDayId: string, eating: Eating) {
     //TODO notification + spinner
     this.eatingLogService.removeEating(logDayId, eating);
+  }
+
+  async onEatingEdit(logDayId: string, eatingId: string) {
+    const updatedEating = await this.eatingLogService
+      .getEatingById(logDayId, eatingId)
+      .toPromise();
+
+    let dialogRef = this.dialog.open(EatingDialogComponent, {
+      position: {
+        top: '100px',
+      },
+      data: {
+        mode: DishDialogMode.Edit,
+        eating: updatedEating,
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter((result) => Boolean(result)))
+      .subscribe(async (eatingForm: EatingForm) => {
+        await this.eatingLogService.removeEating(logDayId, updatedEating);
+        await this.eatingLogService.addEatings(eatingForm);
+      });
   }
 }

@@ -8,6 +8,7 @@
 
 .food-value {
   flex: 1;
+  margin-right: 1rem;
 }
 
 mat-expansion-panel {
@@ -20,4 +21,15 @@ cd-data-table {
 
 mat-panel-title {
   max-width: 300px;
+  align-self: center;
+}
+
+.mat-expansion-panel-header-description {
+  flex-wrap: wrap;
+}
+
+.mat-expansion-panel-header {
+  height: auto;
+  min-height: 60px;
+  padding: 12px 24px;
 }

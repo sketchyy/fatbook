@@ -16,6 +16,8 @@
   <cd-data-table
     [rowData]="eatings"
     [colDefs]="columns"
+    [editable]="true"
+    (rowEdited)="onRowEdited($event)"
     (rowRemoved)="onRowRemoved($event)"
   ></cd-data-table>
 </mat-expansion-panel>

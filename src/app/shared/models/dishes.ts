@@ -1,3 +1,4 @@
+import { EatingInput } from './eatings';
 import { FoodValue } from './food-value';
 
 export interface Dish {
@@ -5,11 +6,12 @@ export interface Dish {
   name: string;
   createdAt: number;
   foodValue: FoodValue;
-  ingredients?: Dish[];
+  ingredients?: EatingInput[];
   defaultServingSize?: number;
+  searchIndex?: string[];
 }
 
 export enum DishDialogMode {
   Edit,
-  Create
+  Create,
 }

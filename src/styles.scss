@@ -46,3 +46,7 @@ body {
     padding: 0;
   }
 }
+
+.mat-expansion-panel-body {
+  overflow: auto;
+}
