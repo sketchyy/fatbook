@@ -72,8 +72,9 @@ export class DishSimpleDialogComponent implements OnInit {
           .map((control) => control.value)
           .filter((ingredient) => ingredient?.dish?.foodValue);
 
-        const sumFoodValue =
-          this.foodValueCalculator.calculateDishValuePer100g(ingredients);
+        const sumFoodValue = this.foodValueCalculator.calculateDishValuePer100g(
+          ingredients
+        );
 
         this.formGroup.get('foodValue').setValue(sumFoodValue);
       });
@@ -86,6 +87,7 @@ export class DishSimpleDialogComponent implements OnInit {
     if (this.formGroup.valid) {
       this.dialogRef.close(this.formGroup.value);
     } else {
+      this.formGroup.get('timestamp').markAsTouched();
       this.ingredients.controls.forEach((control) => {
         control.markAllAsTouched();
       });
