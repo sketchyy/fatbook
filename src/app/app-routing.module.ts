@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
-import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import {
+  canActivate,
+  redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/auth-guard';
+import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './core/components/login/login.component';
@@ -14,17 +19,20 @@ const routes: Routes = [
   {
     path: 'dishes',
     component: DishesPageComponent,
-    ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'log',
     component: EatingLogPageComponent,
-    ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'login',
     component: LoginComponent,
-    ...canActivate(redirectLoggedInToEatings),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectLoggedInToEatings },
   },
   {
     path: '',

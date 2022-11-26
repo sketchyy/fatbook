@@ -1,9 +1,8 @@
-import { TokenizeResult } from '@angular/compiler/src/ml_parser/lexer';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase/app';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { documentId } from 'firebase/firestore';
 import * as moment from 'moment';
-import { forkJoin, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, mergeMap, take, tap } from 'rxjs/operators';
 import { Dish } from '../models/dishes';
 
@@ -121,11 +120,7 @@ export class DishesService {
           if (ids.length > 0) {
             return this.firestore
               .collection<Dish>('/dishes', (ref) =>
-                ref.where(
-                  firebase.default.firestore.FieldPath.documentId(),
-                  'in',
-                  ids
-                )
+                ref.where(documentId(), 'in', ids)
               )
               .valueChanges({ idField: 'id' })
               .pipe(
