@@ -1,3 +1,11 @@
+TODO:
+
+(+) Remove storybook ba41e72aa95eb2e281ce1c36abe81e385c52792c
+(-) Update Angular to latest
+(-) Use bulma / primeng
+(-) redo dishes page (no table)
+(-) redo eatings page
+
 # CaloriesDiary
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
