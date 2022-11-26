@@ -1,6 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ControlContainer, FormControl, FormGroup } from '@angular/forms';
+import { ControlContainer, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, mergeMap, startWith } from 'rxjs/operators';
@@ -15,16 +15,16 @@ import { DishesService } from '../../services/dishes.service';
   providers: [TitleCasePipe],
 })
 export class DishSelectorComponent implements OnInit {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   dishOptions$: Observable<Dish[]>;
   displayFn: Function;
 
-  get dish(): FormControl {
-    return this.formGroup.get('dish') as FormControl;
+  get dish(): UntypedFormControl {
+    return this.formGroup.get('dish') as UntypedFormControl;
   }
 
-  get servingSize(): FormControl {
-    return this.formGroup.get('servingSize') as FormControl;
+  get servingSize(): UntypedFormControl {
+    return this.formGroup.get('servingSize') as UntypedFormControl;
   }
 
   constructor(
@@ -34,7 +34,7 @@ export class DishSelectorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.formGroup = this.controlContainer.control as FormGroup;
+    this.formGroup = this.controlContainer.control as UntypedFormGroup;
     this.displayFn = this.display.bind(this);
 
     this.dishOptions$ = this.formGroup.get('dish').valueChanges.pipe(
