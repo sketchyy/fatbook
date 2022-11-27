@@ -1,8 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
-
 import { FoodValueCalculator } from './../../../shared/services/food-value-calculator.service';
 
 @Component({
@@ -72,9 +76,8 @@ export class DishSimpleDialogComponent implements OnInit {
           .map((control) => control.value)
           .filter((ingredient) => ingredient?.dish?.foodValue);
 
-        const sumFoodValue = this.foodValueCalculator.calculateDishValuePer100g(
-          ingredients
-        );
+        const sumFoodValue =
+          this.foodValueCalculator.calculateDishValuePer100g(ingredients);
 
         this.formGroup.get('foodValue').setValue(sumFoodValue);
       });
