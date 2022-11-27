@@ -1,13 +1,12 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import { DishDialogMode } from 'src/app/shared/models/dishes';
@@ -20,7 +19,7 @@ import { Eating, EatingForm } from 'src/app/shared/models/eatings';
   providers: [TitleCasePipe],
 })
 export class EatingDialogComponent implements OnInit {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   title: string;
   okButtonText: string;
 
@@ -32,16 +31,16 @@ export class EatingDialogComponent implements OnInit {
     return this.formGroup.get('tmpDishName').value as string;
   }
 
-  get timestamp(): FormControl {
-    return this.formGroup.get('timestamp') as FormControl;
+  get timestamp(): UntypedFormControl {
+    return this.formGroup.get('timestamp') as UntypedFormControl;
   }
 
-  get dishes(): FormArray {
-    return this.formGroup.get('dishes') as FormArray;
+  get dishes(): UntypedFormArray {
+    return this.formGroup.get('dishes') as UntypedFormArray;
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private dialogRef: MatDialogRef<EatingDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     private data: { mode: DishDialogMode; eating: Eating }

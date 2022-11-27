@@ -1,8 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Dish, DishDialogMode } from 'src/app/shared/models/dishes';
-
 import { FoodValueCalculator } from './../../../shared/services/food-value-calculator.service';
 
 @Component({
@@ -11,16 +15,16 @@ import { FoodValueCalculator } from './../../../shared/services/food-value-calcu
   styleUrls: ['./dish-simple-dialog.component.scss'],
 })
 export class DishSimpleDialogComponent implements OnInit {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
   title: string;
   okButtonText: string;
 
   get ingredients() {
-    return this.formGroup.get('ingredients') as FormArray;
+    return this.formGroup.get('ingredients') as UntypedFormArray;
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private dialogRef: MatDialogRef<DishSimpleDialogComponent>,
     private foodValueCalculator: FoodValueCalculator,
     @Inject(MAT_DIALOG_DATA) private data: { mode: DishDialogMode; dish: Dish }
@@ -72,9 +76,8 @@ export class DishSimpleDialogComponent implements OnInit {
           .map((control) => control.value)
           .filter((ingredient) => ingredient?.dish?.foodValue);
 
-        const sumFoodValue = this.foodValueCalculator.calculateDishValuePer100g(
-          ingredients
-        );
+        const sumFoodValue =
+          this.foodValueCalculator.calculateDishValuePer100g(ingredients);
 
         this.formGroup.get('foodValue').setValue(sumFoodValue);
       });

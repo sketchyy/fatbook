@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { NotificationStatus } from 'src/app/shared/components/notification/notification';
-import { NotificationComponent } from 'src/app/shared/components/notification/notification.component';
 import { DishDialogMode } from 'src/app/shared/models/dishes';
 import { Eating, EatingForm, LogDay } from 'src/app/shared/models/eatings';
 import { EatingLogService } from 'src/app/shared/services/eating-log.service';

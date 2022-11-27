@@ -1,9 +1,9 @@
 import {
-  trigger,
+  animate,
   state,
   style,
   transition,
-  animate,
+  trigger,
 } from '@angular/animations';
 import {
   AfterViewInit,
