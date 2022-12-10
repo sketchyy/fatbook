@@ -1,0 +1,3 @@
+- add router and navigation between pages
+- add dishes page > dishes list > dishes filter > dish > food-value
+-
