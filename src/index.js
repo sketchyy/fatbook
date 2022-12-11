@@ -9,7 +9,7 @@ import {
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import Dishes from "./routes/Dishes";
+import DishesPage from "./routes/dishes/DishesPage";
 import Eatings from "./routes/Eatings";
 import Root from "./routes/Root";
 
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dishes",
-        element: <Dishes />,
+        element: <DishesPage />,
       },
     ],
   },
