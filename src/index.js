@@ -1,13 +1,41 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import "bulma/css/bulma.min.css";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import ErrorPage from "./core/ErrorPage";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import Dishes from "./routes/Dishes";
+import Eatings from "./routes/Eatings";
+import Root from "./routes/Root";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <Navigate to={`eatings`} replace /> },
+      {
+        path: "/eatings",
+        element: <Eatings />,
+      },
+      {
+        path: "/dishes",
+        element: <Dishes />,
+      },
+    ],
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

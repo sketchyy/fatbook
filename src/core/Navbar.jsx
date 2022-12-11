@@ -1,6 +1,10 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 function Navbar(props) {
+  const getNavLinkClass = ({ isActive }) =>
+    "navbar-item" + (isActive ? " is-active" : "");
+
   return (
     <nav
       className="navbar is-light"
@@ -34,21 +38,12 @@ function Navbar(props) {
         // [ngClass]="{ 'is-active': dropdownVisible }"
       >
         <div className="navbar-start">
-          <a
-            className="navbar-item"
-            // routerLink="/log"
-            // routerLinkActive="is-active"
-          >
+          <NavLink to={`eatings`} className={getNavLinkClass}>
             Eatings
-          </a>
-
-          <a
-            className="navbar-item"
-            // routerLink="/dishes"
-            // routerLinkActive="is-active"
-          >
+          </NavLink>
+          <NavLink to={`dishes`} className={getNavLinkClass}>
             Dishes
-          </a>
+          </NavLink>
         </div>
 
         <div className="navbar-end">
