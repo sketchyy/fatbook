@@ -1,13 +1,15 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../core/Navbar";
 
 function Root(props) {
   return (
-    <div>
+    <Fragment>
       <Navbar />
-      <Outlet />
-    </div>
+      <div className="container">
+        <Outlet />
+      </div>
+    </Fragment>
   );
 }
 
