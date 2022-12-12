@@ -80,9 +80,9 @@ function DishesList({ className }) {
 
   return (
     <div className={className}>
-      <div className="column is-half is-offset-half">
+      {/* <div className="column is-half is-offset-half">
         <FoodValue foodValue={foodValueLegend} className="mr-6 mb-2" />
-      </div>
+      </div> */}
       {dishes.map((dish) => (
         <div key={dish._id} className="block">
           <Dish dish={dish} />

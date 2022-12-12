@@ -9,6 +9,7 @@ import {
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import DishForm, { dishLoader } from "./routes/dish-form/DishForm.jsx";
 import DishesPage from "./routes/dishes/DishesPage";
 import Eatings from "./routes/Eatings";
 import Root from "./routes/Root";
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
       {
         path: "/dishes",
         element: <DishesPage />,
+      },
+      {
+        path: "/dishes/:id",
+        element: <DishForm />,
+        loader: dishLoader,
       },
     ],
   },
