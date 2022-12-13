@@ -5,25 +5,35 @@ import FoodValue from "../../shared/FoodValue";
 
 function Dish({ dish }) {
   return (
-    <div className="box columns">
-      <div className="column is-half-desktop is-full-mobile">
-        <Link to={`/dishes/${dish._id}`} className="is-size-4">
-          {dish.name}
-        </Link>
-        {dish.defaultServingSize && (
-          <p className="subtitle">{dish.defaultServingSize} g.</p>
-        )}
-      </div>
-      <div className="column is-half-desktop is-full-mobile is-flex is-align-items-center">
-        <FoodValue
-          foodValue={dish.foodValue}
-          className="is-flex-grow-1 mr-4 mb-0"
-        />
-        <button className="button">
-          <span className="icon is-small">
-            <FaEllipsisV />
-          </span>
-        </button>
+    <div className="box">
+      <div className="columns is-vcentered is-mobile">
+        <div className="column">
+          <div className="column">
+            <Link to={`/dishes/${dish._id}`} className="is-size-4">
+              {dish.name}
+            </Link>
+            <div className="columns">
+              <div className="column">
+                {dish.defaultServingSize && (
+                  <p className="subtitle">{dish.defaultServingSize} g.</p>
+                )}
+              </div>
+              <div className="column is-narrow">
+                <FoodValue
+                  foodValue={dish.foodValue}
+                  className="is-flex-grow-1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="column is-narrow">
+          <button className="button">
+            <span className="icon is-small">
+              <FaEllipsisV />
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -9,8 +9,12 @@ function Root(props) {
   return (
     <Fragment>
       <Navbar />
-      <div className={"container" + (isLoading ? " loading" : "")}>
-        <Outlet />
+      <div
+        className={"container is-max-desktop " + (isLoading ? " loading" : "")}
+      >
+        <div className="column is-8 is-offset-2">
+          <Outlet />
+        </div>
       </div>
     </Fragment>
   );

@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import FoodValue from "../../shared/FoodValue";
 import Dish from "./Dish";
 
 function DishesList({ className }) {
@@ -79,16 +78,16 @@ function DishesList({ className }) {
   };
 
   return (
-    <div className={className}>
+    <Fragment>
       {/* <div className="column is-half is-offset-half">
-        <FoodValue foodValue={foodValueLegend} className="mr-6 mb-2" />
-      </div> */}
+    <FoodValue foodValue={foodValueLegend} className="mr-6 mb-2" />
+  </div> */}
       {dishes.map((dish) => (
         <div key={dish._id} className="block">
           <Dish dish={dish} />
         </div>
       ))}
-    </div>
+    </Fragment>
   );
 }
 
