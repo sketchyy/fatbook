@@ -6,7 +6,7 @@ function DaySummaryCard(props) {
     <div className="box mb-3">
       <div className="columns is-vcentered is-mobile">
         <div className="column">
-          <h2 className="title is-4 mb-2">Summary</h2>
+          <h2 className="title is-4 mb-2">📝Summary</h2>
         </div>
         <div className="column is-narrow">
           <input type="date" className="input" />
