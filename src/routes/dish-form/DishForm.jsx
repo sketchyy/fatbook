@@ -144,7 +144,7 @@ function DishForm(props) {
           </p>
           <p className="control">
             <button className="button is-primary" type="submit">
-              <span class="icon">
+              <span className="icon">
                 <FaSave />
               </span>
               <span>Save</span>

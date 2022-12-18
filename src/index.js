@@ -13,6 +13,7 @@ import DishForm, { dishLoader } from "./routes/dish-form/DishForm.jsx";
 import DishFormPage from "./routes/dish-form/DishFormPage";
 import DishIngredientsForm from "./routes/dish-form/DishIngredientsForm";
 import DishesPage from "./routes/dishes/DishesPage";
+import EatingForm from "./routes/eatings-form/EatingForm";
 import Eatings from "./routes/eatings/EatingsPage";
 import Root from "./routes/Root";
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/eatings",
         element: <Eatings />,
+      },
+      {
+        path: "/eatings/:day/:meal",
+        element: <EatingForm />,
       },
       {
         path: "/dishes",

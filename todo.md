@@ -5,24 +5,30 @@
 - add DishForm > click on dish name (with id) > New btn. Load stub dish
 - add Simple Ingridients page
 - add Eatings page
+- add EatingForm (New/Edit)
 
-* add EatingForm (New/Edit)
 * add "actions" menu ((i) Info, (x) Delete -> Are you sure?)
-* add report chart??
-*
-* --- Client-side logic ---
-* Dish Form: submit, validations
-* ingridients input
 * navbar menu navigation
+* DishNote - need to render food value
+
+* --- Client-side logic ---
+*
 *
 *
 * --- server-side logic ---
+* Load list of dishes
+* Open dish form with existing dish
+* Implement dish search
+* Implement add dish
+* Implement dish ingredients
 *
-*
-*
-*
-*
+* implement add eating with `meal: 'breakfast'`...
+* implement load of eatings (only for today)
+* implement load of eatings for another day
 * --- Tests ---
 *
 *
 * style error page
+* add report chart??
+* back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
+* report for custom days (select FROM / TO, show totals for each day)

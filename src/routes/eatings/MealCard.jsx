@@ -1,16 +1,34 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import dateService from "../../services/dateService";
 import FoodValue from "../../shared/FoodValue";
 
-function MealCard({ meal }) {
+export const meals = {
+  breakfast: {
+    title: "🥪 Breakfast",
+  },
+  lunch: {
+    title: "🍔 Lunch",
+  },
+  dinner: {
+    title: "🍗 Dinner",
+  },
+  snack: {
+    title: "🍟 Snack",
+  },
+};
+
+function MealCard({ meal, day }) {
+  const eatingFormPath = `/eatings/${dateService.format(day)}/${meal}`;
+
   return (
     <div className="box mb-3">
       <div className="columns is-vcentered is-mobile">
         <div className="column p-0">
           <div className="column">
-            <Link to={`/dishes/`} className="is-size-4">
-              {meal}
+            <Link to={eatingFormPath} className="is-size-4">
+              {meals[meal].title}
             </Link>
             <div className="columns">
               <div className="column is-narrow">
@@ -28,12 +46,12 @@ function MealCard({ meal }) {
           </div>
         </div>
         <div className="column is-narrow">
-          <button className="button is-primary" type="submit">
-            <span class="icon">
+          <Link to={eatingFormPath} className="button is-primary">
+            <span className="icon">
               <FaPlus />
             </span>
             <span>Add</span>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
