@@ -3,7 +3,7 @@ import { FaChevronLeft } from "react-icons/fa";
 import { Outlet, useNavigate } from "react-router-dom";
 import NavLinkTab from "../../shared/NavLinkTab";
 
-function DishFormNavTabs(props) {
+function DishFormPage(props) {
   const navigate = useNavigate();
 
   const handleBackClick = () => navigate("/dishes");
@@ -11,7 +11,7 @@ function DishFormNavTabs(props) {
   return (
     <Fragment>
       <div className="tabs is-boxed is-right mb-0">
-        <button class="button is-white" onClick={handleBackClick}>
+        <button className="button is-white" onClick={handleBackClick}>
           <FaChevronLeft />
         </button>
         <ul>
@@ -24,4 +24,4 @@ function DishFormNavTabs(props) {
   );
 }
 
-export default DishFormNavTabs;
+export default DishFormPage;

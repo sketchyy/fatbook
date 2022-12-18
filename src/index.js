@@ -10,10 +10,10 @@ import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import DishForm, { dishLoader } from "./routes/dish-form/DishForm.jsx";
-import DishFormNavTabs from "./routes/dish-form/DishFormNavTabs";
+import DishFormPage from "./routes/dish-form/DishFormPage";
 import DishIngredientsForm from "./routes/dish-form/DishIngredientsForm";
 import DishesPage from "./routes/dishes/DishesPage";
-import Eatings from "./routes/Eatings";
+import Eatings from "./routes/eatings/EatingsPage";
 import Root from "./routes/Root";
 
 const router = createBrowserRouter([
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/dishes/:id",
-        element: <DishFormNavTabs />,
+        element: <DishFormPage />,
         children: [
           {
             path: "",

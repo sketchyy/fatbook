@@ -144,8 +144,10 @@ function DishForm(props) {
           </p>
           <p className="control">
             <button className="button is-primary" type="submit">
-              <FaSave className="mr-2" />
-              Save
+              <span class="icon">
+                <FaSave />
+              </span>
+              <span>Save</span>
             </button>
           </p>
         </div>

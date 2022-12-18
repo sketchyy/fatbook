@@ -59,8 +59,10 @@ function DishIngredientsForm(props) {
             </p>
             <p className="control">
               <button className="button is-primary" type="submit">
-                <FaPlus className="mr-2" />
-                Add
+                <span class="icon">
+                  <FaPlus />
+                </span>
+                <span>Add</span>
               </button>
             </p>
           </div>
