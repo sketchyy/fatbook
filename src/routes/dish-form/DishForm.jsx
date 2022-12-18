@@ -52,16 +52,6 @@ function DishForm(props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="tabs is-boxed is-centered mb-0">
-        <ul>
-          <li className="is-active">
-            <a>Dish</a>
-          </li>
-          <li>
-            <a>Ingredients</a>
-          </li>
-        </ul>
-      </div>
       <div className="box">
         <div className="field">
           <label className="label">Name</label>
