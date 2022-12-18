@@ -1,23 +1,57 @@
-import React, { Fragment } from "react";
+import React, { useState } from "react";
 import { FaSave } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 export async function dishLoader({ params }) {
   console.log("Dish Form Loader, params:", params);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
-        name: "test dish",
+        _id: "1",
+        name: "соус аррабиата вв",
+        createdAt: 1616834512792,
+        defaultServingSize: 11,
+        foodValue: {
+          calories: 67.9,
+          carbs: 7.4,
+          fats: 1.9,
+          proteins: 5.3,
+        },
+        ingredients: [],
       });
     }, 300);
   });
 }
 
 function DishForm(props) {
-  const contact = useLoaderData();
+  const navigate = useNavigate();
+  const dishResponse = useLoaderData();
+  const [dish, setDish] = useState(dishResponse);
+
+  const onCancel = () => navigate("/dishes");
+  const onSave = () => navigate("/dishes");
+  const handleDishChange = ({ target }) => {
+    setDish({
+      ...dish,
+      [target.name]: target.value,
+    });
+  };
+  const handleFoodValueChange = ({ target }) => {
+    setDish({
+      ...dish,
+      foodValue: {
+        ...dish.foodValue,
+        [target.name]: target.value,
+      },
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Submitting:", dish);
+  };
 
   return (
-    <Fragment>
+    <form onSubmit={handleSubmit}>
       <div className="tabs is-boxed is-centered mb-0">
         <ul>
           <li className="is-active">
@@ -32,26 +66,53 @@ function DishForm(props) {
         <div className="field">
           <label className="label">Name</label>
           <div className="control">
-            <input className="input" type="text" />
+            <input
+              name="name"
+              className="input"
+              type="text"
+              value={dish.name}
+              onChange={handleDishChange}
+            />
           </div>
         </div>
         <div className="field is-grouped">
           <div className="field mr-3">
             <label className="label">Proteins</label>
             <div className="control">
-              <input className="input" type="text" placeholder="per 100g." />
+              <input
+                name="proteins"
+                className="input"
+                type="number"
+                placeholder="per 100g."
+                value={dish.foodValue.proteins}
+                onChange={handleFoodValueChange}
+              />
             </div>
           </div>
           <div className="field mr-3">
             <label className="label">Fats</label>
             <div className="control">
-              <input className="input" type="text" placeholder="per 100g." />
+              <input
+                name="fats"
+                className="input"
+                type="number"
+                placeholder="per 100g."
+                value={dish.foodValue.fats}
+                onChange={handleFoodValueChange}
+              />
             </div>
           </div>
           <div className="field">
             <label className="label">Carbs</label>
             <div className="control">
-              <input className="input" type="text" placeholder="per 100g." />
+              <input
+                name="carbs"
+                className="input"
+                type="number"
+                placeholder="per 100g."
+                value={dish.foodValue.carbs}
+                onChange={handleFoodValueChange}
+              />
             </div>
           </div>
         </div>
@@ -60,30 +121,46 @@ function DishForm(props) {
           <div className="field mr-3">
             <label className="label">KCal</label>
             <div className="control">
-              <input className="input" type="text" placeholder="per 100g." />
+              <input
+                name="calories"
+                className="input"
+                type="number"
+                placeholder="per 100g."
+                value={dish.foodValue.calories}
+                onChange={handleFoodValueChange}
+              />
             </div>
           </div>
           <div className="field">
             <label className="label">Portion Size</label>
             <div className="control">
-              <input className="input" type="text" placeholder="gramms" />
+              <input
+                name="defaultServingSize"
+                className="input"
+                type="number"
+                placeholder="gramms"
+                value={dish.defaultServingSize}
+                onChange={handleDishChange}
+              />
             </div>
           </div>
         </div>
 
         <div className="field is-grouped is-grouped-centered is-justify-content-space-around">
           <p className="control">
-            <button className="button is-light">Cancel</button>
+            <button className="button is-light" onClick={onCancel}>
+              Cancel
+            </button>
           </p>
           <p className="control">
-            <button className="button is-primary">
+            <button className="button is-primary" type="submit">
               <FaSave className="mr-2" />
               Save
             </button>
           </p>
         </div>
       </div>
-    </Fragment>
+    </form>
   );
 }
 
