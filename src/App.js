@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
+import "bulma/css/bulma.min.css";
 import "./App.css";
 import Navbar from "./core/Navbar";
-import "bulma/css/bulma.min.css";
 
 function App() {
   return (

@@ -26,6 +26,7 @@ function Dish({ dish }) {
       <div className="columns is-vcentered is-mobile">
         <div className="column">
           <div className="column">
+            <span className="mr-2 is-size-3">🍲</span>
             <Link to={`/dishes/${dish._id}`} className="is-size-4">
               {dish.name}
             </Link>

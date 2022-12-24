@@ -27,7 +27,9 @@
 * implement load of eatings for another day
 * --- Tests ---
 *
-*
+* customize bulma (box-padding: 1rem, )
+  https://bulma.io/documentation/customize/variables/
+  https://create-react-app.dev/docs/adding-a-sass-stylesheet/
 * style error page
 * add report chart??
 * back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)

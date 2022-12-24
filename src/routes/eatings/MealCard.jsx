@@ -27,9 +27,11 @@ function MealCard({ meal, day }) {
       <div className="columns is-vcentered is-mobile">
         <div className="column p-0">
           <div className="column">
-            <Link to={eatingFormPath} className="is-size-4">
-              {meals[meal].title}
-            </Link>
+            <div className="mb-1">
+              <Link to={eatingFormPath} className="is-size-4">
+                {meals[meal].title}
+              </Link>
+            </div>
             <div className="columns">
               <div className="column is-narrow">
                 <FoodValue

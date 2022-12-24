@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import useOutsideClick from "../shared/hooks/useOutsideClick";
 
 function Navbar(props) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const ref = useOutsideClick(() => setMenuOpen(false));
   const getNavLinkClass = ({ isActive }) =>
     "navbar-item" + (isActive ? " is-active" : "");
   const dropdownActiveClassName = menuOpen ? " is-active" : "";
@@ -32,7 +30,7 @@ function Navbar(props) {
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarMenu"
-          href="void();"
+          href="/"
           onClick={handleBurgerClick}
         >
           <span aria-hidden="true"></span>
@@ -41,11 +39,7 @@ function Navbar(props) {
         </a>
       </div>
 
-      <div
-        ref={ref}
-        id="navbarMenu"
-        className={"navbar-menu" + dropdownActiveClassName}
-      >
+      <div id="navbarMenu" className={"navbar-menu" + dropdownActiveClassName}>
         <div className="navbar-start">
           <NavLink
             to={`eatings`}
