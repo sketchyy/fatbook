@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import useOutsideClick from "../shared/hooks/useOutsideClick";
 
 function Navbar(props) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const ref = useOutsideClick(() => setMenuOpen(false));
   const getNavLinkClass = ({ isActive }) =>
     "navbar-item" + (isActive ? " is-active" : "");
+  const dropdownActiveClassName = menuOpen ? " is-active" : "";
+  const handleBurgerClick = (e) => {
+    e.preventDefault();
+    setMenuOpen(!menuOpen);
+  };
+  const handleLinkClick = () => setMenuOpen(false);
 
   return (
     <nav
@@ -19,12 +28,12 @@ function Navbar(props) {
 
         <a
           role="button"
-          className="navbar-burger"
-          //   [ngClass]="{ 'is-active': dropdownVisible }"
+          className={"navbar-burger" + dropdownActiveClassName}
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarMenu"
-          //   (click)="dropdownVisible = !dropdownVisible"
+          href="void();"
+          onClick={handleBurgerClick}
         >
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
@@ -33,15 +42,23 @@ function Navbar(props) {
       </div>
 
       <div
+        ref={ref}
         id="navbarMenu"
-        className="navbar-menu"
-        // [ngClass]="{ 'is-active': dropdownVisible }"
+        className={"navbar-menu" + dropdownActiveClassName}
       >
         <div className="navbar-start">
-          <NavLink to={`eatings`} className={getNavLinkClass}>
+          <NavLink
+            to={`eatings`}
+            className={getNavLinkClass}
+            onClick={handleLinkClick}
+          >
             Eatings
           </NavLink>
-          <NavLink to={`dishes`} className={getNavLinkClass}>
+          <NavLink
+            to={`dishes`}
+            className={getNavLinkClass}
+            onClick={handleLinkClick}
+          >
             Dishes
           </NavLink>
         </div>

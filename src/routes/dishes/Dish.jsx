@@ -1,9 +1,26 @@
 import React from "react";
-import { FaEllipsisV } from "react-icons/fa";
+import { FaEllipsisV, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Dropdown from "../../shared/Dropdown";
 import FoodValue from "../../shared/FoodValue";
 
 function Dish({ dish }) {
+  const menuItems = [
+    {
+      label: "Delete",
+      icon: <FaTrash />,
+      command: () => {
+        console.log("removing dish: ", dish);
+      },
+    },
+  ];
+
+  const dropdownTriggerTemplate = () => (
+    <span className="icon is-small">
+      <FaEllipsisV />
+    </span>
+  );
+
   return (
     <div className="box">
       <div className="columns is-vcentered is-mobile">
@@ -28,11 +45,11 @@ function Dish({ dish }) {
           </div>
         </div>
         <div className="column is-narrow">
-          <button className="button">
-            <span className="icon is-small">
-              <FaEllipsisV />
-            </span>
-          </button>
+          <Dropdown
+            menuItems={menuItems}
+            className="is-right"
+            dropdownTriggerTemplate={dropdownTriggerTemplate}
+          />
         </div>
       </div>
     </div>
