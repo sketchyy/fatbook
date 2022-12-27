@@ -6,9 +6,10 @@
 - add Simple Ingridients page
 - add Eatings page
 - add EatingForm (New/Edit)
+- add "actions" menu ((x) Delete)
+- navbar menu navigation
 
-* add "actions" menu ((i) Info, (x) Delete -> Are you sure?)
-* navbar menu navigation
+* (x) Delete -> Are you sure? - dialog
 * DishNote - need to render food value
 
 * --- Client-side logic ---
@@ -16,6 +17,7 @@
 *
 *
 * --- server-side logic ---
+* Auth + login page, protect every route, redirect back to old page, loading spinner, user in mobile menu + logout btn
 * Load list of dishes
 * Open dish form with existing dish
 * Implement dish search
@@ -27,10 +29,22 @@
 * implement load of eatings for another day
 * --- Tests ---
 *
+*
+*
+*
+*
+* --- refactoring ---
 * customize bulma (box-padding: 1rem, )
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
 * style error page
+* render user avatar
 * add report chart??
 * back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
 * report for custom days (select FROM / TO, show totals for each day)
+*
+*
+*
+*
+*
+*

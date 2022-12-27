@@ -1,8 +1,8 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import dateService from "../../services/dateService";
 import FoodValue from "../../shared/FoodValue";
+import dateService from "../../shared/services/dateService";
 
 export const meals = {
   breakfast: {

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import dateService from "../../services/dateService";
+import dateService from "../../shared/services/dateService";
 import DaySummaryCard from "./DaySummaryCard";
 import MealCard from "./MealCard";
 

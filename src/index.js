@@ -6,6 +6,7 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+import { AuthContextProvider } from "./core/auth/AuthContext";
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -15,12 +16,18 @@ import DishIngredientsForm from "./routes/dish-form/DishIngredientsForm";
 import DishesPage from "./routes/dishes/DishesPage";
 import EatingForm from "./routes/eatings-form/EatingForm";
 import Eatings from "./routes/eatings/EatingsPage";
+import Login from "./routes/login/Login";
 import Root from "./routes/Root";
+import RequireAuth from "./shared/RequireAuth";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (
+      <RequireAuth>
+        <Root />
+      </RequireAuth>
+    ),
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Navigate to={`eatings`} replace /> },
@@ -53,12 +60,18 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/login",
+    element: <Login />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
   </React.StrictMode>
 );
 

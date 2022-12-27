@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import CurrentUser from "./CurrentUser";
 
 function Navbar(props) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -38,7 +39,6 @@ function Navbar(props) {
           <span aria-hidden="true"></span>
         </a>
       </div>
-
       <div id="navbarMenu" className={"navbar-menu" + dropdownActiveClassName}>
         <div className="navbar-start">
           <NavLink
@@ -63,6 +63,7 @@ function Navbar(props) {
               // {*ngIf="auth.user | async as user"}
               className="buttons"
             >
+              <CurrentUser />
               {/* <span className="username mr-2 mb-2">Hi, {{ user.displayName.split(" ")[0] }}!</span> */}
               {/* <a className="button" (click)="logout()"> Logout </a> */}
             </div>
