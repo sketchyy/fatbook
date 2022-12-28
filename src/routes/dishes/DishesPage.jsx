@@ -6,13 +6,13 @@ import DishesSearch from "./DishesSearch";
 
 export async function dishesLoader({ params }) {
   const dishes = await dbService.getDishes();
+  console.log("dishesLoader", dishes);
   return { dishes };
 }
 
 function DishesPage(props) {
   const { dishes } = useLoaderData();
 
-  console.log("asd", dishes);
   return (
     <Fragment>
       <DishesSearch />

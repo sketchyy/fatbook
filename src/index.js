@@ -33,20 +33,20 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to={`eatings`} replace /> },
       {
-        path: "/eatings",
+        path: "eatings",
         element: <Eatings />,
       },
       {
-        path: "/eatings/:day/:meal",
+        path: "eatings/:day/:meal",
         element: <EatingForm />,
       },
       {
-        path: "/dishes",
+        path: "dishes",
         element: <DishesPage />,
         loader: dishesLoader,
       },
       {
-        path: "/dishes/:id",
+        path: "dishes/:id",
         element: <DishFormPage />, // DishPage
         children: [
           {

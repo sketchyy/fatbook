@@ -17,16 +17,21 @@
 *
 *
 * --- server-side logic ---
-* Auth + login page, protect every route, redirect back to old page, loading spinner, user in mobile menu + logout btn
-* Load list of dishes
+
+- Auth + login page, protect every route, redirect back to old page
+- Load list of dishes
+- Implement dish delete
+
+* loading spinner, user in mobile menu + logout btn
 * Open dish form with existing dish
 * Implement dish search
 * Implement add dish
 * Implement dish ingredients
 *
-* implement add eating with `meal: 'breakfast'`...
 * implement load of eatings (only for today)
+* implement add eating with `meal: 'breakfast'`...
 * implement load of eatings for another day
+* implement delete eating
 * --- Tests ---
 *
 *

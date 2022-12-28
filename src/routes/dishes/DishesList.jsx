@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import dbService from "../../core/firebase/dbService";
 import Dish from "./Dish";
 
 function DishesList({ dishes }) {
@@ -10,7 +9,6 @@ function DishesList({ dishes }) {
     carbs: "Carb",
     calories: "KCal",
   };
-  const handleDishDelete = async (id) => dbService.deleteDish(id);
 
   return (
     <Fragment>
@@ -19,7 +17,7 @@ function DishesList({ dishes }) {
   </div> */}
       {dishes.map((dish) => (
         <div key={dish._id} className="block mb-3">
-          <Dish dish={dish} onDelete={handleDishDelete} />
+          <Dish dish={dish} />
         </div>
       ))}
     </Fragment>

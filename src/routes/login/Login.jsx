@@ -10,7 +10,6 @@ function Login(props) {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  console.log("Auth?", isAuthenticated);
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/");
