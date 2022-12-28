@@ -1,9 +1,8 @@
 import React, { Fragment } from "react";
-import { mockDishes } from "../../mock-dishes";
+import dbService from "../../core/firebase/dbService";
 import Dish from "./Dish";
 
-function DishesList({ className }) {
-  const dishes = mockDishes;
+function DishesList({ dishes }) {
   // Create overlay in "..." menu (Actions: Info, Delete)
   const foodValueLegend = {
     proteins: "Prot",
@@ -11,6 +10,7 @@ function DishesList({ className }) {
     carbs: "Carb",
     calories: "KCal",
   };
+  const handleDishDelete = async (id) => dbService.deleteDish(id);
 
   return (
     <Fragment>
@@ -19,7 +19,7 @@ function DishesList({ className }) {
   </div> */}
       {dishes.map((dish) => (
         <div key={dish._id} className="block mb-3">
-          <Dish dish={dish} />
+          <Dish dish={dish} onDelete={handleDishDelete} />
         </div>
       ))}
     </Fragment>

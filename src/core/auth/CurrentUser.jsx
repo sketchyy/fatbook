@@ -1,6 +1,7 @@
 import React from "react";
-import { useAuthState } from "./auth/useAuthState";
-import firebaseService from "./firebaseService";
+import authService from "../firebase/authService";
+
+import { useAuthState } from "./useAuthState";
 
 function CurrentUser(props) {
   const { user } = useAuthState();
@@ -10,7 +11,7 @@ function CurrentUser(props) {
   }
 
   const handleLogout = () => {
-    firebaseService.logout();
+    authService.logout();
   };
 
   const displayName = user.displayName.split(" ")[0];

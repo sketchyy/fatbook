@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import firebaseService from "../firebaseService";
+import authService from "../firebase/authService";
 
 export const AuthContext = createContext();
 
@@ -7,7 +7,7 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState("no_user");
 
   useEffect(() => {
-    const unsubscribe = firebaseService.subscribeToAuthChanged(setUser);
+    const unsubscribe = authService.subscribeToAuthChanged(setUser);
     return () => unsubscribe();
   }, []);
 

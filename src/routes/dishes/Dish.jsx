@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import Dropdown from "../../shared/Dropdown";
 import FoodValue from "../../shared/FoodValue";
 
-function Dish({ dish }) {
+function Dish({ dish, onDelete }) {
   const menuItems = [
     {
       label: "Delete",
       icon: <FaTrash />,
       command: () => {
-        console.log("removing dish: ", dish);
+        onDelete(dish._id);
       },
     },
   ];

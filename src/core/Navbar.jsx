@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import CurrentUser from "./CurrentUser";
+import CurrentUser from "./auth/CurrentUser";
 
 function Navbar(props) {
   const [menuOpen, setMenuOpen] = useState(false);

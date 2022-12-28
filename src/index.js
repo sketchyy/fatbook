@@ -10,10 +10,11 @@ import { AuthContextProvider } from "./core/auth/AuthContext";
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import { deleteDishAction } from "./routes/dish-form/deleteDishAction";
 import DishForm, { dishLoader } from "./routes/dish-form/DishForm.jsx";
 import DishFormPage from "./routes/dish-form/DishFormPage";
 import DishIngredientsForm from "./routes/dish-form/DishIngredientsForm";
-import DishesPage from "./routes/dishes/DishesPage";
+import DishesPage, { dishesLoader } from "./routes/dishes/DishesPage";
 import EatingForm from "./routes/eatings-form/EatingForm";
 import Eatings from "./routes/eatings/EatingsPage";
 import Login from "./routes/login/Login";
@@ -42,15 +43,25 @@ const router = createBrowserRouter([
       {
         path: "/dishes",
         element: <DishesPage />,
+        loader: dishesLoader,
       },
       {
         path: "/dishes/:id",
-        element: <DishFormPage />,
+        element: <DishFormPage />, // DishPage
         children: [
           {
-            path: "",
-            element: <DishForm />,
+            path: "", // edit/delete
+            element: <DishForm />, // DishInfo
             loader: dishLoader,
+          },
+          {
+            path: "edit", //cancel/save
+            element: <DishForm />, // DishForm
+            loader: dishLoader,
+          },
+          {
+            path: "delete",
+            action: deleteDishAction,
           },
           {
             path: "ingredients",

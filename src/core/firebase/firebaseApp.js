@@ -1,12 +1,4 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
 
 // TODO: dev/prod configs
 // Your web app's Firebase configuration
@@ -24,27 +16,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const auth = getAuth(firebaseApp);
-
-const subscribeToAuthChanged = (setUser) => onAuthStateChanged(auth, setUser);
-
-const login = async () => {
-  try {
-    await signInWithPopup(auth, new GoogleAuthProvider());
-  } catch (e) {
-    alert(e.message);
-  }
-};
-
-const logout = () => {
-  signOut(auth);
-};
-
-const firebaseService = {
-  firebaseApp,
-  subscribeToAuthChanged,
-  login,
-  logout,
-};
-
-export default firebaseService;
+export default firebaseApp;

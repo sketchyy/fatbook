@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthState } from "../../core/auth/useAuthState";
-import firebaseService from "../../core/firebaseService";
+import authService from "../../core/firebase/authService";
 
 function Login(props) {
   const { isAuthenticated } = useAuthState();
@@ -18,7 +18,7 @@ function Login(props) {
   });
 
   const handleLogin = async () => {
-    await firebaseService.login();
+    await authService.login();
 
     navigate(from, { replace: true });
   };
