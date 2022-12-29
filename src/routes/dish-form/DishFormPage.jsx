@@ -1,17 +1,22 @@
 import React, { Fragment } from "react";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
-import { Form, Outlet, useLoaderData, useNavigate } from "react-router-dom";
+import {
+  Form,
+  Outlet,
+  redirect,
+  useLoaderData,
+  useNavigate,
+} from "react-router-dom";
 import dbService from "../../core/firebase/dbService";
 import NavLinkTab from "../../shared/NavLinkTab";
 
-// export async function newDishAction({ request, params }) {
-//   console.log("params", params);
-//   const formData = await request.formData();
-//   const updates = Object.fromEntries(formData);
-//   console.log("fd = ", updates);
-//   // const contact = await dbService.createDish();
-//   return {};
-// }
+export async function updateDishAction({ request, params }) {
+  const formData = await request.formData();
+  const updates = Object.fromEntries(formData);
+
+  await dbService.updateDish(params.id, updates);
+  return redirect(`/dishes`);
+}
 
 export async function dishLoader({ params }) {
   let dish = await dbService.getDish(params.id);

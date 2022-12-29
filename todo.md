@@ -33,6 +33,7 @@
 * implement add eating with `meal: 'breakfast'`...
 * implement load of eatings for another day
 * implement delete eating
+* rename "createdAt -> updatedAt" for sorting
 * --- Tests ---
 *
 *

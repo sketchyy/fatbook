@@ -1,31 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaSave } from "react-icons/fa";
 import { Form, useNavigate, useOutletContext } from "react-router-dom";
 
 function DishForm(props) {
   const navigate = useNavigate();
-  const { dish: dishResponse } = useOutletContext();
-  const [dish, setDish] = useState(dishResponse);
+  const { dish } = useOutletContext();
 
   const onCancel = () => navigate("/dishes");
-  const handleDishChange = ({ target }) => {
-    setDish({
-      ...dish,
-      [target.name]: target.value,
-    });
-  };
-  const handleFoodValueChange = ({ target }) => {
-    setDish({
-      ...dish,
-      foodValue: {
-        ...dish.foodValue,
-        [target.name]: target.value,
-      },
-    });
-  };
 
   return (
-    <Form method="post" action="/dishes" id="dish-form">
+    <Form method="post" id="dish-form">
       <div className="box">
         <div className="field">
           <label className="label">Name</label>
@@ -43,12 +27,11 @@ function DishForm(props) {
             <label className="label">Proteins</label>
             <div className="control">
               <input
-                name="proteins"
+                name="foodValue.proteins"
                 className="input"
                 type="number"
                 placeholder="per 100g."
-                value={dish.foodValue.proteins}
-                onChange={handleFoodValueChange}
+                defaultValue={dish.foodValue.proteins}
               />
             </div>
           </div>
@@ -56,12 +39,11 @@ function DishForm(props) {
             <label className="label">Fats</label>
             <div className="control">
               <input
-                name="fats"
+                name="foodValue.fats"
                 className="input"
                 type="number"
                 placeholder="per 100g."
-                value={dish.foodValue.fats}
-                onChange={handleFoodValueChange}
+                defaultValue={dish.foodValue.fats}
               />
             </div>
           </div>
@@ -69,12 +51,11 @@ function DishForm(props) {
             <label className="label">Carbs</label>
             <div className="control">
               <input
-                name="carbs"
+                name="foodValue.carbs"
                 className="input"
                 type="number"
                 placeholder="per 100g."
-                value={dish.foodValue.carbs}
-                onChange={handleFoodValueChange}
+                defaultValue={dish.foodValue.carbs}
               />
             </div>
           </div>
@@ -85,12 +66,11 @@ function DishForm(props) {
             <label className="label">KCal</label>
             <div className="control">
               <input
-                name="calories"
+                name="foodValue.calories"
                 className="input"
                 type="number"
                 placeholder="per 100g."
-                value={dish.foodValue.calories}
-                onChange={handleFoodValueChange}
+                defaultValue={dish.foodValue.calories}
               />
             </div>
           </div>
@@ -102,8 +82,7 @@ function DishForm(props) {
                 className="input"
                 type="number"
                 placeholder="gramms"
-                value={dish.defaultServingSize}
-                onChange={handleDishChange}
+                defaultValue={dish.defaultServingSize}
               />
             </div>
           </div>

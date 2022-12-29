@@ -12,7 +12,10 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { deleteDishAction } from "./routes/dish-form/deleteDishAction";
 import DishForm from "./routes/dish-form/DishForm.jsx";
-import DishFormPage, { dishLoader } from "./routes/dish-form/DishFormPage";
+import DishFormPage, {
+  dishLoader,
+  updateDishAction,
+} from "./routes/dish-form/DishFormPage";
 import DishIngredientsForm from "./routes/dish-form/DishIngredientsForm";
 import DishesPage, {
   createDishAction,
@@ -53,14 +56,11 @@ const router = createBrowserRouter([
         path: "dishes/:id",
         element: <DishFormPage />, // DishPage
         loader: dishLoader,
+        action: updateDishAction,
         children: [
           {
             path: "", // edit/delete
             element: <DishForm />, // DishInfo
-          },
-          {
-            path: "edit", //cancel/save
-            element: <DishForm />, // DishForm
           },
           {
             path: "delete",
