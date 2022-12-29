@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useOutletContext } from "react-router-dom";
-import Ingredient from "../../shared/Ingredient";
+import Ingredient from "../../../shared/Ingredient";
 
 function DishIngredientsForm(props) {
   const { dish } = useOutletContext();

@@ -59,13 +59,8 @@ function Navbar(props) {
 
         <div className="navbar-end">
           <div className="navbar-item">
-            <div
-              // {*ngIf="auth.user | async as user"}
-              className="buttons"
-            >
+            <div className="buttons">
               <CurrentUser />
-              {/* <span className="username mr-2 mb-2">Hi, {{ user.displayName.split(" ")[0] }}!</span> */}
-              {/* <a className="button" (click)="logout()"> Logout </a> */}
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import FoodValue from "../../shared/FoodValue";
+import FoodValue from "../../../shared/FoodValue";
 
 function Dish({ dish }) {
   const isNewDish = dish.name === "";

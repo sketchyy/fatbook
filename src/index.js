@@ -10,17 +10,13 @@ import { AuthContextProvider } from "./core/auth/AuthContext";
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { deleteDishAction } from "./routes/dish-form/deleteDishAction";
-import DishForm from "./routes/dish-form/DishForm.jsx";
-import DishFormPage, {
-  dishLoader,
-  updateDishAction,
-} from "./routes/dish-form/DishFormPage";
-import DishIngredientsForm from "./routes/dish-form/DishIngredientsForm";
-import DishesPage, {
-  createDishAction,
-  dishesLoader,
-} from "./routes/dishes/DishesPage";
+import deleteDishAction from "./routes/dish/delete/deleteDishAction";
+import DishPage, { dishLoader } from "./routes/dish/DishPage";
+import EditDish from "./routes/dish/edit/EditDish.jsx";
+import updateDishAction from "./routes/dish/edit/updateDishAction";
+import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
+import createDishAction from "./routes/dishes/create/createDishAction";
+import DishesPage, { dishesLoader } from "./routes/dishes/DishesPage";
 import EatingForm from "./routes/eatings-form/EatingForm";
 import Eatings from "./routes/eatings/EatingsPage";
 import Login from "./routes/login/Login";
@@ -54,13 +50,14 @@ const router = createBrowserRouter([
       },
       {
         path: "dishes/:id",
-        element: <DishFormPage />, // DishPage
+        element: <DishPage />,
         loader: dishLoader,
-        action: updateDishAction,
         children: [
+          { path: "", element: <Navigate to={`edit`} replace /> },
           {
-            path: "", // edit/delete
-            element: <DishForm />, // DishInfo
+            path: "edit", // edit/delete
+            element: <EditDish />,
+            action: updateDishAction,
           },
           {
             path: "delete",

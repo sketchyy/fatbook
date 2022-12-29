@@ -2,7 +2,7 @@ import React from "react";
 import { FaSave } from "react-icons/fa";
 import { Form, useNavigate, useOutletContext } from "react-router-dom";
 
-function DishForm(props) {
+function EditDish(props) {
   const navigate = useNavigate();
   const { dish } = useOutletContext();
 
@@ -108,4 +108,4 @@ function DishForm(props) {
   );
 }
 
-export default DishForm;
+export default EditDish;

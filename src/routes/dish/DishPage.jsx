@@ -1,22 +1,8 @@
 import React, { Fragment } from "react";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
-import {
-  Form,
-  Outlet,
-  redirect,
-  useLoaderData,
-  useNavigate,
-} from "react-router-dom";
+import { Form, Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import dbService from "../../core/firebase/dbService";
 import NavLinkTab from "../../shared/NavLinkTab";
-
-export async function updateDishAction({ request, params }) {
-  const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
-
-  await dbService.updateDish(params.id, updates);
-  return redirect(`/dishes`);
-}
 
 export async function dishLoader({ params }) {
   let dish = await dbService.getDish(params.id);
@@ -28,8 +14,7 @@ export async function dishLoader({ params }) {
   return { dish };
 }
 
-// TODO: EditDishPage ? DishPage?
-function DishFormPage(props) {
+function DishPage(props) {
   const navigate = useNavigate();
   const { dish } = useLoaderData();
 
@@ -47,7 +32,7 @@ function DishFormPage(props) {
           <FaChevronLeft />
         </button>
         <ul>
-          <NavLinkTab to="">Dish</NavLinkTab>
+          <NavLinkTab to="edit">Dish</NavLinkTab>
           <NavLinkTab to="ingredients">
             Ingredients ({dish.ingredients.length})
           </NavLinkTab>
@@ -67,4 +52,4 @@ function DishFormPage(props) {
   );
 }
 
-export default DishFormPage;
+export default DishPage;
