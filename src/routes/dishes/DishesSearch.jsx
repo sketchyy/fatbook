@@ -1,6 +1,6 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Form } from "react-router-dom";
 
 function DishesSearch(props) {
   return (
@@ -15,9 +15,9 @@ function DishesSearch(props) {
               </span>
               <span className="icon is-medium is-right"></span>
             </div>
-            <Link to={`/dishes/new`} className="button is-success">
-              New
-            </Link>
+            <Form method="post">
+              <button className="button is-success">New</button>
+            </Form>
           </div>
         </div>
       </div>

@@ -4,8 +4,18 @@ import { Form, Outlet, useLoaderData, useNavigate } from "react-router-dom";
 import dbService from "../../core/firebase/dbService";
 import NavLinkTab from "../../shared/NavLinkTab";
 
+// export async function newDishAction({ request, params }) {
+//   console.log("params", params);
+//   const formData = await request.formData();
+//   const updates = Object.fromEntries(formData);
+//   console.log("fd = ", updates);
+//   // const contact = await dbService.createDish();
+//   return {};
+// }
+
 export async function dishLoader({ params }) {
-  const dish = await dbService.getDish(params.id);
+  let dish = await dbService.getDish(params.id);
+
   console.log("Dish Form Loader, params:", params, dish);
 
   dish.defaultServingSize = dish.defaultServingSize ?? "";
@@ -13,6 +23,7 @@ export async function dishLoader({ params }) {
   return { dish };
 }
 
+// TODO: EditDishPage ? DishPage?
 function DishFormPage(props) {
   const navigate = useNavigate();
   const { dish } = useLoaderData();

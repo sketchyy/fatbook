@@ -1,6 +1,10 @@
 import dayjs from "dayjs";
 
 const dateService = {
+  now() {
+    return dayjs().toDate().getTime();
+  },
+
   parse(dateStr) {
     return dayjs(dateStr).toDate();
   },

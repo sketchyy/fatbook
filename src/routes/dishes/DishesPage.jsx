@@ -10,6 +10,22 @@ export async function dishesLoader({ params }) {
   return { dishes };
 }
 
+export async function createDishAction() {
+  let dish = {
+    name: "",
+    foodValue: {
+      carbs: "",
+      proteins: "",
+      calories: "",
+      fats: "",
+    },
+    defaultServingSize: "",
+    ingredients: [],
+  };
+
+  return await dbService.createDish(dish);
+}
+
 function DishesPage(props) {
   const { dishes } = useLoaderData();
 

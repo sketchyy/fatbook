@@ -14,7 +14,10 @@ import { deleteDishAction } from "./routes/dish-form/deleteDishAction";
 import DishForm from "./routes/dish-form/DishForm.jsx";
 import DishFormPage, { dishLoader } from "./routes/dish-form/DishFormPage";
 import DishIngredientsForm from "./routes/dish-form/DishIngredientsForm";
-import DishesPage, { dishesLoader } from "./routes/dishes/DishesPage";
+import DishesPage, {
+  createDishAction,
+  dishesLoader,
+} from "./routes/dishes/DishesPage";
 import EatingForm from "./routes/eatings-form/EatingForm";
 import Eatings from "./routes/eatings/EatingsPage";
 import Login from "./routes/login/Login";
@@ -44,6 +47,7 @@ const router = createBrowserRouter([
         path: "dishes",
         element: <DishesPage />,
         loader: dishesLoader,
+        action: createDishAction,
       },
       {
         path: "dishes/:id",

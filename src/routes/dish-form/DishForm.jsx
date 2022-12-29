@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaSave } from "react-icons/fa";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { Form, useNavigate, useOutletContext } from "react-router-dom";
 
 function DishForm(props) {
   const navigate = useNavigate();
@@ -8,7 +8,6 @@ function DishForm(props) {
   const [dish, setDish] = useState(dishResponse);
 
   const onCancel = () => navigate("/dishes");
-  const onSave = () => navigate("/dishes");
   const handleDishChange = ({ target }) => {
     setDish({
       ...dish,
@@ -24,13 +23,9 @@ function DishForm(props) {
       },
     });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitting:", dish);
-  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form method="post" action="/dishes" id="dish-form">
       <div className="box">
         <div className="field">
           <label className="label">Name</label>
@@ -39,8 +34,7 @@ function DishForm(props) {
               name="name"
               className="input"
               type="text"
-              value={dish.name}
-              onChange={handleDishChange}
+              defaultValue={dish.name}
             />
           </div>
         </div>
@@ -131,7 +125,7 @@ function DishForm(props) {
           </p>
         </div>
       </div>
-    </form>
+    </Form>
   );
 }
 
