@@ -3,6 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   limit,
@@ -13,6 +14,7 @@ import firebaseApp from "./firebaseApp";
 
 const db = getFirestore(firebaseApp);
 const dishesRef = collection(db, "dishes");
+const dishesSearchIndexRef = collection(db, "dishes-search-index");
 
 // Dishes
 const getDishes = async () => {
@@ -23,15 +25,22 @@ const getDishes = async () => {
   return querySnapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
 };
 
+const getDish = async (id) => {
+  const docSnap = await getDoc(doc(dishesRef, id));
+
+  return docSnap.data();
+};
+
 const deleteDish = async (id) => {
   return Promise.all([
-    await deleteDoc(doc(db, `/dishes/${id}`)),
-    await deleteDoc(doc(db, `/dishes-search-index/${id}`)),
+    await deleteDoc(doc(dishesRef, id)),
+    await deleteDoc(doc(dishesSearchIndexRef, id)),
   ]);
 };
 
 const dbService = {
   getDishes,
+  getDish,
   deleteDish,
 };
 

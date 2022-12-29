@@ -16,13 +16,14 @@
 *
 *
 *
+
 * --- server-side logic ---
 
 - Auth + login page, protect every route, redirect back to old page
 - Load list of dishes
 - Implement dish delete
 
-* loading spinner, user in mobile menu + logout btn
+* global loading spinner, user in mobile menu + logout btn
 * Open dish form with existing dish
 * Implement dish search
 * Implement add dish

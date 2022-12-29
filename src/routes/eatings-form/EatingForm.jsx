@@ -2,8 +2,8 @@ import React, { Fragment, useState } from "react";
 import { FaChevronLeft, FaPlus } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { mockDishes } from "../../mock-dishes";
-import DishNote from "../../shared/DishNote";
 import FoodValue from "../../shared/FoodValue";
+import Ingredient from "../../shared/Ingredient";
 import { meals } from "../eatings/MealCard";
 
 function EatingForm(props) {
@@ -104,7 +104,7 @@ function EatingForm(props) {
       </div>
       <div className="block">
         {dishes.map((dish) => (
-          <DishNote key={dish._id} dish={dish} />
+          <Ingredient key={dish._id} dish={dish} />
         ))}
       </div>
     </Fragment>

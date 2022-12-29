@@ -1,16 +1,15 @@
 import React, { Fragment, useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { mockDishes } from "../../mock-dishes";
-import DishNote from "../../shared/DishNote";
+import { useOutletContext } from "react-router-dom";
+import Ingredient from "../../shared/Ingredient";
 
 function DishIngredientsForm(props) {
-  const navigate = useNavigate();
+  const { dish } = useOutletContext();
   const [newDish, setNewDish] = useState({
     name: "",
     servingSize: "",
   });
-  const [dishes, setDishes] = useState(mockDishes);
+  const [ingredients, setIngredients] = useState(dish.ingredients);
 
   const handleNewDishChange = ({ target }) => {
     setNewDish({
@@ -23,10 +22,10 @@ function DishIngredientsForm(props) {
     console.log("Adding...", e);
     //  Mock impl:
     const newDishes = [
-      ...dishes,
+      ...ingredients,
       { name: newDish.name, defaultServingSize: newDish.servingSize },
     ];
-    setDishes(newDishes);
+    setIngredients(newDishes);
   };
 
   return (
@@ -70,8 +69,11 @@ function DishIngredientsForm(props) {
         </form>
       </div>
       <div className="block">
-        {dishes.map((dish) => (
-          <DishNote key={dish._id} dish={dish} />
+        {ingredients.length === 0 && (
+          <p className="has-text-centered">No ingredients.</p>
+        )}
+        {ingredients.map((ingredient, i) => (
+          <Ingredient key={i} ingredient={ingredient} />
         ))}
       </div>
     </Fragment>

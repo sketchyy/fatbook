@@ -11,8 +11,8 @@ import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { deleteDishAction } from "./routes/dish-form/deleteDishAction";
-import DishForm, { dishLoader } from "./routes/dish-form/DishForm.jsx";
-import DishFormPage from "./routes/dish-form/DishFormPage";
+import DishForm from "./routes/dish-form/DishForm.jsx";
+import DishFormPage, { dishLoader } from "./routes/dish-form/DishFormPage";
 import DishIngredientsForm from "./routes/dish-form/DishIngredientsForm";
 import DishesPage, { dishesLoader } from "./routes/dishes/DishesPage";
 import EatingForm from "./routes/eatings-form/EatingForm";
@@ -48,16 +48,15 @@ const router = createBrowserRouter([
       {
         path: "dishes/:id",
         element: <DishFormPage />, // DishPage
+        loader: dishLoader,
         children: [
           {
             path: "", // edit/delete
             element: <DishForm />, // DishInfo
-            loader: dishLoader,
           },
           {
             path: "edit", //cancel/save
             element: <DishForm />, // DishForm
-            loader: dishLoader,
           },
           {
             path: "delete",

@@ -1,31 +1,10 @@
 import React, { useState } from "react";
 import { FaSave } from "react-icons/fa";
-import { useLoaderData, useNavigate } from "react-router-dom";
-
-export async function dishLoader({ params }) {
-  console.log("Dish Form Loader, params:", params);
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        _id: "1",
-        name: "соус аррабиата вв",
-        createdAt: 1616834512792,
-        defaultServingSize: 11,
-        foodValue: {
-          calories: 67.9,
-          carbs: 7.4,
-          fats: 1.9,
-          proteins: 5.3,
-        },
-        ingredients: [],
-      });
-    }, 300);
-  });
-}
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 function DishForm(props) {
   const navigate = useNavigate();
-  const dishResponse = useLoaderData();
+  const { dish: dishResponse } = useOutletContext();
   const [dish, setDish] = useState(dishResponse);
 
   const onCancel = () => navigate("/dishes");
