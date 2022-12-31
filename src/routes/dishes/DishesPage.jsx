@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Form, useLoaderData } from "react-router-dom";
 import dbService from "../../core/firebase/dbService";
 import DishesList from "./components/DishesList";
 import DishesSearch from "./components/DishesSearch";
@@ -15,8 +15,20 @@ function DishesPage(props) {
 
   return (
     <Fragment>
-      <DishesSearch />
-      <DishesList dishes={dishes} />
+      <div className="box">
+        <div className="block is-flex is-align-items-center">
+          <div className=" is-flex-grow-1">
+            <p className="title is-5">My Dishes</p>
+            <p className="subtitle is-7">Most recently used</p>
+          </div>
+          <Form method="post">
+            <button className="button is-success">New</button>
+          </Form>
+        </div>
+        <DishesSearch />
+        <hr className="has-background-black mb-0" />
+        <DishesList dishes={dishes} />
+      </div>
     </Fragment>
   );
 }

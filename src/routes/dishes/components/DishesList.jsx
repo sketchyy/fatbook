@@ -1,7 +1,9 @@
 import React, { Fragment } from "react";
-import Dish from "./Dish";
+import { useNavigate } from "react-router-dom";
+import DishListItem from "../../../shared/DishListItem";
 
 function DishesList({ dishes }) {
+  const navigate = useNavigate();
   // TODO: Create tooltip in "..." menu (Actions: Info, Delete)
   const foodValueLegend = {
     proteins: "Prot",
@@ -10,12 +12,14 @@ function DishesList({ dishes }) {
     calories: "KCal",
   };
 
+  const handleDishClick = (dish) => {
+    navigate(`/dishes/${dish._id}`);
+  };
+
   return (
     <Fragment>
       {dishes.map((dish) => (
-        <div key={dish._id} className="block mb-3">
-          <Dish dish={dish} />
-        </div>
+        <DishListItem key={dish._id} dish={dish} onClick={handleDishClick} />
       ))}
     </Fragment>
   );
