@@ -4,6 +4,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  documentId,
   getDoc,
   getDocs,
   getFirestore,
@@ -12,6 +13,7 @@ import {
   query,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import dateService from "../../shared/services/dateService";
 import tokenize from "../../shared/utils/tokenize";
@@ -33,8 +35,37 @@ const getDishes = async () => {
 const getDish = async (id) => {
   const docSnap = await getDoc(doc(dishesRef, id));
 
-  return docSnap.data();
+  return { ...docSnap.data(), _id: docSnap.id };
 };
+
+async function searchDishes(userQuery) {
+  if (!userQuery) {
+    return this.getDishes();
+  }
+  const searchToken = prepareSearchQuery(userQuery);
+
+  const ids = (
+    await getDocs(
+      query(
+        dishesSearchIndexRef,
+        where("index", "array-contains", searchToken),
+        limit(5)
+      )
+    )
+  ).docs.map((doc) => doc.id);
+
+  if (ids.length === 0) {
+    return [];
+  }
+
+  return (
+    await getDocs(query(dishesRef, where(documentId(), "in", ids)))
+  ).docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
+}
+
+function prepareSearchQuery(query) {
+  return query.toLowerCase().trim().replace(" ", "__");
+}
 
 const createDish = async (dish) => {
   dish.createdAt = dateService.now();
@@ -49,7 +80,7 @@ const createDish = async (dish) => {
 
 async function updateDish(id, dishData) {
   console.log("Updating dish...", id, dishData);
-  dishData.createdAt = dateService.now();
+  dishData.createdAt = dateService.now(); //TODO: updatedAt || usedAt
 
   const docRef = doc(dishesRef, id);
   updateDoc(docRef, dishData);
@@ -76,6 +107,7 @@ async function updateDishSearchIndex(id, name) {
 const dbService = {
   getDishes,
   getDish,
+  searchDishes,
   deleteDish,
   createDish,
   updateDish,

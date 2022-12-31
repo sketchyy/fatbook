@@ -1,6 +1,12 @@
 import React, { Fragment } from "react";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
-import { Form, Outlet, useLoaderData, useNavigate } from "react-router-dom";
+import {
+  Form,
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import dbService from "../../core/firebase/dbService";
 import NavLinkTab from "../../shared/NavLinkTab";
 
@@ -16,9 +22,16 @@ export async function dishLoader({ params }) {
 
 function DishPage(props) {
   const navigate = useNavigate();
+  const location = useLocation();
   const { dish } = useLoaderData();
 
-  const handleBackClick = () => navigate("/dishes");
+  const handleBackClick = () => {
+    if (location.state?.backUrl) {
+      navigate(location.state.backUrl);
+    } else {
+      navigate("/dishes");
+    }
+  };
   const handleDelete = (event) => {
     if (!window.confirm("Please confirm you want to delete this record.")) {
       event.preventDefault();

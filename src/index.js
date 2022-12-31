@@ -15,6 +15,8 @@ import DishPage, { dishLoader } from "./routes/dish/DishPage";
 import EditDish from "./routes/dish/edit/EditDish.jsx";
 import updateDishAction from "./routes/dish/edit/updateDishAction";
 import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
+import { dishesSearchLoader } from "./routes/dish/ingredients/SearchDish";
+import SelectDishForm from "./routes/dish/ingredients/SelectDishForm";
 import createDishAction from "./routes/dishes/create/createDishAction";
 import DishesPage, { dishesLoader } from "./routes/dishes/DishesPage";
 import EatingForm from "./routes/eatings-form/EatingForm";
@@ -66,6 +68,11 @@ const router = createBrowserRouter([
           {
             path: "ingredients",
             element: <DishIngredientsForm />,
+          },
+          {
+            path: "ingredients/add",
+            element: <SelectDishForm />,
+            loader: dishesSearchLoader,
           },
         ],
       },

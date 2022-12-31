@@ -1,6 +1,6 @@
 import React from "react";
 
-function FoodValue({ foodValue, className = "" }) {
+function FoodValue({ foodValue = {}, className = "" }) {
   return (
     <div className={"tabs " + className}>
       <span className="tag is-rounded is-info has-text-weight-bold mr-2">

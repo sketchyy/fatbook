@@ -1,7 +1,8 @@
+import { redirect } from "react-router-dom";
 import dbService from "../../../core/firebase/dbService";
 
 export default async function createDishAction() {
-  let dish = {
+  let dishData = {
     name: "",
     foodValue: {
       carbs: "",
@@ -13,5 +14,6 @@ export default async function createDishAction() {
     ingredients: [],
   };
 
-  return await dbService.createDish(dish);
+  const dishId = await dbService.createDish(dishData);
+  return redirect(`/dishes/${dishId}/edit`);
 }
