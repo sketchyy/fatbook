@@ -47,12 +47,8 @@ function DishList({ dishes, onDishClick }) {
       )}
 
       {dishes.map((dish) => (
-        <Fragment>
-          <DishListItem
-            key={dish._id}
-            dish={dish}
-            onClick={() => onDishClick(dish)}
-          />
+        <Fragment key={dish._id}>
+          <DishListItem dish={dish} onClick={() => onDishClick(dish)} />
           <Divider />
         </Fragment>
       ))}

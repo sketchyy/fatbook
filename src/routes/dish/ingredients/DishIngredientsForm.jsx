@@ -1,6 +1,7 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import dbService from "../../../core/firebase/dbService";
 import DishPortionList from "../../../shared/DishPortionList";
 import PageTitle from "../../../shared/PageTitle";
 
@@ -10,6 +11,17 @@ function DishIngredientsForm(props) {
 
   const handleAdd = (e) => {
     navigate("add", { state: { backUrl: `/dishes/${dish._id}/ingredients` } });
+  };
+  const handleIngredientDelete = async (ingredient) => {
+    if (!window.confirm("Are you sure you want to delete this ingredient?")) {
+      return;
+    }
+
+    const filteredIngredients = dish.ingredients.filter(
+      (item) => item.dish !== ingredient
+    );
+
+    await dbService.updateDish(dish._id, { ingredients: filteredIngredients });
   };
 
   return (
@@ -23,7 +35,10 @@ function DishIngredientsForm(props) {
         </button>
       </PageTitle>
 
-      <DishPortionList dishPortions={dish.ingredients} />
+      <DishPortionList
+        dishPortions={dish.ingredients}
+        onPortionDelete={handleIngredientDelete}
+      />
     </div>
   );
 }

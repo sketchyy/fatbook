@@ -11,7 +11,7 @@ import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import deleteDishAction from "./routes/dish/delete/deleteDishAction";
-import DishPage, { dishLoader } from "./routes/dish/DishPage";
+import DishPage from "./routes/dish/DishPage";
 import EditDish from "./routes/dish/edit/EditDish.jsx";
 import updateDishAction from "./routes/dish/edit/updateDishAction";
 import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
@@ -53,7 +53,6 @@ const router = createBrowserRouter([
       {
         path: "dishes/:id",
         element: <DishPage />,
-        loader: dishLoader,
         children: [
           { path: "", element: <Navigate to={`edit`} replace /> },
           {

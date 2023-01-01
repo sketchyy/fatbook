@@ -9,6 +9,7 @@ import {
   getDocs,
   getFirestore,
   limit,
+  onSnapshot,
   orderBy,
   query,
   setDoc,
@@ -31,6 +32,12 @@ const getDishes = async () => {
 
   return querySnapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
 };
+
+function subscribeToDishChanges(id, onNext) {
+  const unsubscribe = onSnapshot(doc(dishesRef, id), onNext);
+
+  return unsubscribe;
+}
 
 const getDish = async (id) => {
   const docSnap = await getDoc(doc(dishesRef, id));
@@ -107,6 +114,7 @@ async function updateDishSearchIndex(id, name) {
 const dbService = {
   getDishes,
   getDish,
+  subscribeToDishChanges,
   searchDishes,
   deleteDish,
   createDish,

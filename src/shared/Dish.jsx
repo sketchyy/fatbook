@@ -15,14 +15,10 @@ function Dish({ dish, servingSize }) {
     <div className="is-flex-grow-1">
       <p className=" title is-6">{renderedName}</p>
       <p className=" subtitle is-7">
-        <div>
-          {renderedServingSize} g. | {dish.foodValue?.calories || "N/A"} kcal
-        </div>
-        <div>
-          {/* Proteins: {dish.foodValue?.proteins || "N/A"} g. | Fats:{" "}
+        {renderedServingSize} g. | {dish.foodValue?.calories || "N/A"} kcal
+        {/* Proteins: {dish.foodValue?.proteins || "N/A"} g. | Fats:{" "}
               {dish.foodValue?.fats || "N/A"} g. | Carbs:{" "}
               {dish.foodValue?.carbs || "N/A"} g. */}
-        </div>
       </p>
     </div>
   );

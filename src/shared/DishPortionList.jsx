@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Divider from "./Divider";
 
 import Dish from "./Dish";
@@ -32,7 +31,7 @@ function DishPortionListItem({ dish, servingSize, onDelete }) {
       onMouseLeave={toggleHover}
     >
       <div className="p-4 is-flex is-align-items-center">
-        <Dish dish={dish} />
+        <Dish dish={dish} servingSize={servingSize} />
         <div className="">
           <button
             className="delete is-medium"
@@ -44,11 +43,9 @@ function DishPortionListItem({ dish, servingSize, onDelete }) {
   );
 }
 
-function DishPortionList({ dishPortions }) {
-  const navigate = useNavigate();
-
-  const handleDishClick = (dish) => {
-    navigate(`/dishes/${dish._id}`);
+function DishPortionList({ dishPortions, onPortionDelete }) {
+  const handleDelete = (dish) => {
+    onPortionDelete(dish);
   };
 
   return (
@@ -59,13 +56,12 @@ function DishPortionList({ dishPortions }) {
         <p className="has-text-centered mt-3">No ingredients.</p>
       )}
 
-      {dishPortions.map((dishPortion) => (
-        <Fragment>
+      {dishPortions.map((dishPortion, i) => (
+        <Fragment key={i}>
           <DishPortionListItem
-            key={dishPortion.dish._id}
             dish={dishPortion.dish}
             servingSize={dishPortion.servingSize}
-            onDelete={handleDishClick}
+            onDelete={handleDelete}
           />
           <Divider />
         </Fragment>
