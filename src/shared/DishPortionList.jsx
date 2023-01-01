@@ -31,7 +31,7 @@ function DishPortionListItem({ dish, servingSize, onDelete }) {
       onMouseLeave={toggleHover}
     >
       <div className="p-4 is-flex is-align-items-center">
-        <Dish dish={dish} servingSize={servingSize} icon="🥫" />
+        <Dish dish={dish} servingSize={servingSize} />
         <div className="">
           <button
             className="delete is-medium"

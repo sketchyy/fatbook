@@ -7,14 +7,15 @@ const foodValueLegend = {
   calories: "KCal",
 };
 
-function Dish({ dish, servingSize, icon }) {
+function Dish({ dish, servingSize }) {
   const renderedName = dish.name || "<No Name>";
   const renderedServingSize = servingSize ?? dish.defaultServingSize ?? "n/a";
+  const renderedIcon = dish.ingredients.length > 0 ? "🥘" : "🥫";
 
   return (
     <div className="is-flex-grow-1">
       <div className="is-flex is-align-items-center">
-        <div className="is-size-4 mr-2">{icon}</div>
+        <div className="is-size-4 mr-2">{renderedIcon}</div>
         <div>
           <p className=" title is-6">{renderedName}</p>
           <p className=" subtitle is-7">

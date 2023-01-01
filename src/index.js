@@ -15,14 +15,14 @@ import DishPage from "./routes/dish/DishPage";
 import EditDish from "./routes/dish/edit/EditDish.jsx";
 import updateDishAction from "./routes/dish/edit/updateDishAction";
 import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
-import { dishesSearchLoader } from "./routes/dish/ingredients/SearchDish";
 import SelectDishForm from "./routes/dish/ingredients/SelectDishForm";
 import createDishAction from "./routes/dishes/create/createDishAction";
-import DishesPage, { dishesLoader } from "./routes/dishes/DishesPage";
+import DishesPage from "./routes/dishes/DishesPage";
 import EatingForm from "./routes/eatings-form/EatingForm";
 import Eatings from "./routes/eatings/EatingsPage";
 import Login from "./routes/login/Login";
 import Root from "./routes/Root";
+import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
 import RequireAuth from "./shared/RequireAuth";
 
 const router = createBrowserRouter([
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: "dishes",
         element: <DishesPage />,
-        loader: dishesLoader,
+        loader: dishesSearchLoader,
         action: createDishAction,
       },
       {
