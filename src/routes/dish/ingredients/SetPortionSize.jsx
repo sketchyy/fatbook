@@ -1,18 +1,18 @@
 import React, { createRef } from "react";
 import { Form } from "react-router-dom";
+import PageTitle from "../../../shared/PageTitle";
 
-function SetPortionSize({ dish, onSubmit, onCancel }) {
+function SetPortionSize({ selectedIngredient, onSubmit, onCancel }) {
   const ref = createRef();
 
   return (
     <Form className="box" onSubmit={() => onSubmit(ref.current.value)}>
+      <PageTitle
+        title="Set portion size"
+        subtitle={"For " + selectedIngredient.name}
+      />
+
       <div className="field">
-        <p className="title is-4">{dish.name}</p>
-        <p className="subtitle is-6">{dish.foodValue?.calories} kcal</p>
-      </div>
-      <input name="dish" type="hidden" defaultValue={dish} />
-      <div className="field">
-        <label className="label">Please input portion size</label>
         <div className="control">
           <input
             ref={ref}
@@ -20,7 +20,7 @@ function SetPortionSize({ dish, onSubmit, onCancel }) {
             className="input"
             type="number"
             placeholder="g."
-            defaultValue={dish.defaultServingSize}
+            defaultValue={selectedIngredient.defaultServingSize}
           />
         </div>
       </div>

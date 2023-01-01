@@ -32,17 +32,17 @@ function SelectDishForm(props) {
   const conditionalComponent = () => {
     switch (page) {
       case 0:
-        return <SearchDish onSelect={handleDishSelect} />;
+        return <SearchDish dish={dish} onSelect={handleDishSelect} />;
       case 1:
         return (
           <SetPortionSize
-            dish={dish}
+            selectedIngredient={dishPortion.dish}
             onCancel={handlePortionSizeCancel}
             onSubmit={handlePortionSizeSubmit}
           />
         );
       default:
-        return <SearchDish onSelect={handleDishSelect} />;
+        return <h2>Not found</h2>;
     }
   };
 

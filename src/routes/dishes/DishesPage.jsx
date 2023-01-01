@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData, useNavigate } from "react-router-dom";
 import dbService from "../../core/firebase/dbService";
-import DishesList from "./components/DishesList";
+import DishList from "../../shared/DishList";
+import PageTitle from "../../shared/PageTitle";
 import DishesSearch from "./components/DishesSearch";
 
 export async function dishesLoader({ params }) {
@@ -12,22 +13,26 @@ export async function dishesLoader({ params }) {
 
 function DishesPage(props) {
   const { dishes } = useLoaderData();
+  const navigate = useNavigate();
+
+  const handleDishClick = (dish) => {
+    navigate(`/dishes/${dish._id}`);
+  };
 
   return (
     <Fragment>
       <div className="box">
-        <div className="block is-flex is-align-items-center">
-          <div className=" is-flex-grow-1">
-            <p className="title is-5">My Dishes</p>
-            <p className="subtitle is-7">Most recently used</p>
-          </div>
+        <PageTitle title="My Dishes" subtitle="Most recently used">
           <Form method="post">
             <button className="button is-success">New</button>
           </Form>
+        </PageTitle>
+
+        <div className="block">
+          <DishesSearch />
         </div>
-        <DishesSearch />
-        <hr className="has-background-black mb-0" />
-        <DishesList dishes={dishes} />
+
+        <DishList dishes={dishes} onDishClick={handleDishClick} />
       </div>
     </Fragment>
   );
