@@ -10,7 +10,6 @@ const foodValueLegend = {
 
 function Dish({ dish, servingSize }) {
   const renderedName = dish.name || "<No Name>";
-  const renderedServingSize = servingSize ?? dish.defaultServingSize ?? "n/a";
   const renderedIcon = dish.ingredients.length > 0 ? "🥘" : "🥫";
 
   return (
@@ -18,13 +17,13 @@ function Dish({ dish, servingSize }) {
       <div className="is-flex is-align-items-center">
         <div className="is-size-4 mr-2">{renderedIcon}</div>
         <div className="is-flex-grow-1">
-          <p className=" title is-6">{renderedName}</p>
+          <p className=" title is-6 pb-1">{renderedName}</p>
           <p className=" subtitle is-7">
             <span className="is-flex is-justify-content-space-between">
               <span>
                 <FoodValue foodValue={dish.foodValue} />
               </span>
-              <span>{renderedServingSize} g.</span>
+              {servingSize && <span>{servingSize} g.</span>}
             </span>
 
             {/* Proteins: {dish.foodValue?.proteins || "N/A"} g. | Fats:{" "}
