@@ -8,9 +8,7 @@
 - add EatingForm (New/Edit)
 - add "actions" menu ((x) Delete)
 - navbar menu navigation
-
-* (x) Delete -> Are you sure? - dialog
-* DishNote - need to render food value
+- Delete -> Are you sure? - dialog
 
 * --- Client-side logic ---
 *
@@ -22,18 +20,22 @@
 - Auth + login page, protect every route, redirect back to old page
 - Load list of dishes
 - Implement dish delete
+- Open dish form with existing dish
+- Implement dish search
+- Implement add dish
+- Implement dish ingredients
 
-* global loading spinner, user in mobile menu + logout btn
-* Open dish form with existing dish
-* Implement dish search
-* Implement add dish
-* Implement dish ingredients
-*
+* Implement models: Dish, DishPortion
+* Implement food value recalculation when ingredient added
+
 * implement load of eatings (only for today)
 * implement add eating with `meal: 'breakfast'`...
 * implement load of eatings for another day
 * implement delete eating
-* rename "createdAt -> updatedAt" for sorting
+*
+*
+*
+
 * --- Tests ---
 *
 *
@@ -41,14 +43,19 @@
 *
 *
 * --- refactoring ---
+* global loading spinner animation
+* search improvement: start from 3 characters, debounce, better search index
+* user in mobile menu + logout btn align
+* rename "createdAt -> updatedAt" for sorting
+* style error page
+* render user avatar
+* add page - report charts
+* report for custom days (select FROM / TO, show totals for each day)
+* back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
+* same style for all pages - Title, Back nav
 * customize bulma (box-padding: 1rem, )
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
-* style error page
-* render user avatar
-* add report chart??
-* back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
-* report for custom days (select FROM / TO, show totals for each day)
 *
 *
 *

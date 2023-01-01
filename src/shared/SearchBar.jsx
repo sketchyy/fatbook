@@ -2,6 +2,7 @@ import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { Form } from "react-router-dom";
 
+// TODO: Search starts from 3 symbols, debounce (lodash?)
 function SearchBar({ defaultValue, onChange }) {
   return (
     <div
