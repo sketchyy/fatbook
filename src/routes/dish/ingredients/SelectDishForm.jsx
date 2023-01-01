@@ -19,9 +19,12 @@ function SelectDishForm(props) {
     setPage(1);
   };
   const handlePortionSizeSubmit = async (servingSize) => {
-    console.log("handlePortionSizeSubmit", servingSize);
-    setDishPortion({ ...dishPortion, servingSize: servingSize });
-    const newIngredients = [...dish.ingredients, dishPortion];
+    const newIngredient = {
+      dish: dishPortion.dish,
+      servingSize: Number(servingSize),
+    };
+
+    const newIngredients = [...dish.ingredients, newIngredient];
     await dbService.updateDish(dish._id, { ingredients: newIngredients });
     navigate(`/dishes/${dish._id}/ingredients`);
   };
