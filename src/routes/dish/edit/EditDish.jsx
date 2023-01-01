@@ -1,5 +1,5 @@
 import React from "react";
-import { FaSave } from "react-icons/fa";
+import { FaInfoCircle, FaSave } from "react-icons/fa";
 import { Form, useNavigate, useOutletContext } from "react-router-dom";
 
 function EditDish(props) {
@@ -22,6 +22,23 @@ function EditDish(props) {
             />
           </div>
         </div>
+
+        {dish.hasIngredients() && (
+          <article className="message is-info">
+            <div className="message-header">
+              <p className="is-flex is-align-items-center">
+                <span className="icon is-medium">
+                  <FaInfoCircle />
+                </span>
+                Info
+              </p>
+            </div>
+            <div className="message-body">
+              Food Value is calculated from ingredients
+            </div>
+          </article>
+        )}
+
         <div className="field is-grouped">
           <div className="field mr-3">
             <label className="label">Proteins</label>
@@ -31,6 +48,7 @@ function EditDish(props) {
                 className="input"
                 type="number"
                 placeholder="per 100g."
+                disabled={dish.hasIngredients()}
                 defaultValue={dish.foodValue.proteins}
               />
             </div>
@@ -43,6 +61,7 @@ function EditDish(props) {
                 className="input"
                 type="number"
                 placeholder="per 100g."
+                disabled={dish.hasIngredients()}
                 defaultValue={dish.foodValue.fats}
               />
             </div>
@@ -55,6 +74,7 @@ function EditDish(props) {
                 className="input"
                 type="number"
                 placeholder="per 100g."
+                disabled={dish.hasIngredients()}
                 defaultValue={dish.foodValue.carbs}
               />
             </div>
@@ -70,6 +90,7 @@ function EditDish(props) {
                 className="input"
                 type="number"
                 placeholder="per 100g."
+                disabled={dish.hasIngredients()}
                 defaultValue={dish.foodValue.calories}
               />
             </div>

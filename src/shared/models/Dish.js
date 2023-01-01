@@ -1,3 +1,5 @@
+import foodValueService from "../services/foodValueService";
+
 export default class Dish {
   static empty() {
     return new Dish(
@@ -35,6 +37,31 @@ export default class Dish {
     this.ingredients = ingredients;
     this.defaultServingSize = defaultServingSize;
     this.createdAt = createdAt;
+  }
+
+  hasIngredients() {
+    return this.ingredients.length > 0;
+  }
+
+  addIngredient(ingredient) {
+    this.ingredients = [ingredient, ...this.ingredients];
+    this.foodValue = foodValueService.calculateDishValuePer100g(
+      this.ingredients
+    );
+  }
+
+  deleteIngredient(ingredient) {
+    this.ingredients = this.ingredients.filter(
+      (item) => item.dish !== ingredient
+    );
+
+    if (this.hasIngredients()) {
+      this.foodValue = foodValueService.calculateDishValuePer100g(
+        this.ingredients
+      );
+    } else {
+      this.foodValue = foodValueService.emptyFoodValue();
+    }
   }
 }
 

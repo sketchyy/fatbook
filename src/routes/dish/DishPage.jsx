@@ -15,7 +15,7 @@ function DishPage(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const [dish, setDish] = useState({ ingredients: [], foodValue: {} });
+  const [dish, setDish] = useState(Dish.empty());
 
   useEffect(() => {
     const unsubscribe = dbService.subscribeToDishChanges(params.id, (dish) => {

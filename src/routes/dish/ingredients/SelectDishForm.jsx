@@ -23,8 +23,9 @@ function SelectDishForm(props) {
       servingSize: Number(servingSize),
     };
 
-    dish.ingredients = [newIngredient, ...dish.ingredients];
-    await dbService.replaceDish(dish.id, dish);
+    dish.addIngredient(newIngredient);
+
+    await dbService.replaceDish(dish);
     navigate(`/dishes/${dish.id}/ingredients`);
   };
   const handlePortionSizeCancel = () => {

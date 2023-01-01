@@ -17,9 +17,7 @@ function DishIngredientsForm(props) {
       return;
     }
 
-    dish.ingredients = dish.ingredients.filter(
-      (item) => item.dish !== ingredient
-    );
+    dish.deleteIngredient(ingredient);
 
     await dbService.replaceDish(dish);
   };

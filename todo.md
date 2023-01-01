@@ -24,9 +24,8 @@
 - Implement dish search
 - Implement add dish
 - Implement dish ingredients
-
-* Implement models: Dish, DishPortion
-* Implement food value recalculation when ingredient added
+- Implement models: Dish, DishPortion
+- Implement food value recalculation when ingredient added
 
 * implement load of eatings (only for today)
 * implement add eating with `meal: 'breakfast'`...
