@@ -103,7 +103,7 @@ function EatingForm(props) {
       </div>
       <div className="block">
         {/* {dishes.map((dish) => (
-          <Ingredient key={dish._id} dish={dish} />
+          <Ingredient key={dish.id} dish={dish} />
         ))} */}
       </div>
     </Fragment>

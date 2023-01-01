@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import Dish from "./Dish";
+import DishInfo from "./DishInfo";
 import Divider from "./Divider";
 
 //TODO: 2 components:
@@ -31,7 +31,7 @@ function DishListItem({ dish, onClick }) {
       onClick={handleClick}
     >
       <div className="py-4 px-2">
-        <Dish dish={dish} />
+        <DishInfo dish={dish} />
       </div>
     </div>
   );
@@ -47,7 +47,7 @@ function DishList({ dishes, onDishClick }) {
       )}
 
       {dishes.map((dish) => (
-        <Fragment key={dish._id}>
+        <Fragment key={dish.id}>
           <DishListItem dish={dish} onClick={() => onDishClick(dish)} />
           <Divider />
         </Fragment>

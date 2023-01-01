@@ -10,7 +10,7 @@ function DishesPage(props) {
   const navigate = useNavigate();
 
   const handleDishClick = (dish) => {
-    navigate(`/dishes/${dish._id}`);
+    navigate(`/dishes/${dish.id}`);
   };
 
   return (

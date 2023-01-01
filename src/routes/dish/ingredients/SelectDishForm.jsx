@@ -14,7 +14,6 @@ function SelectDishForm(props) {
   });
 
   const handleDishSelect = (dish) => {
-    console.log("dish selected", dish);
     setDishPortion({ dish });
     setPage(1);
   };
@@ -24,9 +23,9 @@ function SelectDishForm(props) {
       servingSize: Number(servingSize),
     };
 
-    const newIngredients = [...dish.ingredients, newIngredient];
-    await dbService.updateDish(dish._id, { ingredients: newIngredients });
-    navigate(`/dishes/${dish._id}/ingredients`);
+    dish.ingredients = [newIngredient, ...dish.ingredients];
+    await dbService.replaceDish(dish.id, dish);
+    navigate(`/dishes/${dish.id}/ingredients`);
   };
   const handlePortionSizeCancel = () => {
     setPage(0);

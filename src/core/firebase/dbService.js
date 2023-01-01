@@ -16,12 +16,13 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import { dishConverter } from "../../shared/models/Dish";
 import dateService from "../../shared/services/dateService";
 import tokenize from "../../shared/utils/tokenize";
 import firebaseApp from "./firebaseApp";
 
 const db = getFirestore(firebaseApp);
-const dishesRef = collection(db, "dishes");
+const dishesRef = collection(db, "dishes").withConverter(dishConverter);
 const dishesSearchIndexRef = collection(db, "dishes-search-index");
 
 // Dishes
@@ -30,11 +31,13 @@ const getDishes = async () => {
     query(dishesRef, orderBy("createdAt", "desc"), limit(5))
   );
 
-  return querySnapshot.docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
+  return querySnapshot.docs.map((doc) => doc.data());
 };
 
 function subscribeToDishChanges(id, onNext) {
-  const unsubscribe = onSnapshot(doc(dishesRef, id), onNext);
+  const unsubscribe = onSnapshot(doc(dishesRef, id), (doc) =>
+    onNext(doc.data())
+  );
 
   return unsubscribe;
 }
@@ -42,7 +45,7 @@ function subscribeToDishChanges(id, onNext) {
 const getDish = async (id) => {
   const docSnap = await getDoc(doc(dishesRef, id));
 
-  return { ...docSnap.data(), _id: docSnap.id };
+  return docSnap.data();
 };
 
 async function searchDishes(userQuery) {
@@ -67,7 +70,7 @@ async function searchDishes(userQuery) {
 
   return (
     await getDocs(query(dishesRef, where(documentId(), "in", ids)))
-  ).docs.map((doc) => ({ ...doc.data(), _id: doc.id }));
+  ).docs.map((doc) => doc.data());
 }
 
 function prepareSearchQuery(query) {
@@ -95,6 +98,16 @@ async function updateDish(id, dishData) {
   await updateDishSearchIndex(docRef.id, dishData.name);
 }
 
+async function replaceDish(id, dish) {
+  console.log("Replacing dish...", id, dish);
+  dish.createdAt = dateService.now(); //TODO: updatedAt || usedAt
+
+  const docRef = doc(dishesRef, id);
+  setDoc(docRef, dish);
+
+  await updateDishSearchIndex(docRef.id, dish.name);
+}
+
 const deleteDish = async (id) => {
   return Promise.all([
     await deleteDoc(doc(dishesRef, id)),
@@ -119,6 +132,7 @@ const dbService = {
   deleteDish,
   createDish,
   updateDish,
+  replaceDish,
 };
 
 export default dbService;

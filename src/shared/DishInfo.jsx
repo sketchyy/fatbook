@@ -8,7 +8,7 @@ const foodValueLegend = {
   calories: "KCal",
 };
 
-function Dish({ dish, servingSize }) {
+function DishInfo({ dish, servingSize }) {
   const renderedName = dish.name || "<No Name>";
   const renderedIcon = dish.ingredients.length > 0 ? "🥘" : "🥫";
 
@@ -36,4 +36,4 @@ function Dish({ dish, servingSize }) {
   );
 }
 
-export default Dish;
+export default DishInfo;

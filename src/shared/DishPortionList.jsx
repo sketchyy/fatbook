@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import Divider from "./Divider";
 
-import Dish from "./Dish";
+import DishInfo from "./DishInfo";
 
 //TODO: 2 components:
 // IngredientsList -- not clickable, props: onDelete, dishPortion, yellow bg??
@@ -31,7 +31,7 @@ function DishPortionListItem({ dish, servingSize, onDelete }) {
       onMouseLeave={toggleHover}
     >
       <div className="p-4 is-flex is-align-items-center">
-        <Dish dish={dish} servingSize={servingSize} />
+        <DishInfo dish={dish} servingSize={servingSize} />
         <div className="ml-2">
           <button
             className="delete is-medium"
