@@ -31,7 +31,7 @@ function DishListItem({ dish, onClick }) {
       onClick={handleClick}
     >
       <div className="py-4 px-2">
-        <Dish dish={dish} />
+        <Dish dish={dish} icon="🥘" />
       </div>
     </div>
   );
