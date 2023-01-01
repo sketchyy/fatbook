@@ -98,11 +98,11 @@ async function updateDish(id, dishData) {
   await updateDishSearchIndex(docRef.id, dishData.name);
 }
 
-async function replaceDish(id, dish) {
-  console.log("Replacing dish...", id, dish);
+async function replaceDish(dish) {
+  console.log("Replacing dish...", dish);
   dish.createdAt = dateService.now(); //TODO: updatedAt || usedAt
 
-  const docRef = doc(dishesRef, id);
+  const docRef = doc(dishesRef, dish.id);
   setDoc(docRef, dish);
 
   await updateDishSearchIndex(docRef.id, dish.name);

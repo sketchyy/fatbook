@@ -17,11 +17,11 @@ function DishIngredientsForm(props) {
       return;
     }
 
-    const filteredIngredients = dish.ingredients.filter(
+    dish.ingredients = dish.ingredients.filter(
       (item) => item.dish !== ingredient
     );
 
-    await dbService.updateDish(dish._id, { ingredients: filteredIngredients });
+    await dbService.replaceDish(dish);
   };
 
   return (
