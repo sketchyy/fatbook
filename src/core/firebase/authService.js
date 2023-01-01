@@ -8,7 +8,6 @@ import {
 } from "firebase/auth";
 import firebaseApp from "./firebaseApp";
 
-// Auth
 const auth = getAuth(firebaseApp);
 
 const subscribeToAuthChanged = (setUser) => onAuthStateChanged(auth, setUser);

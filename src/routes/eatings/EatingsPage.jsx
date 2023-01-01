@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import dateService from "../../shared/services/dateService";
-import DaySummaryCard from "./DaySummaryCard";
 import MealCard from "./MealCard";
 
 function Eatings(props) {
@@ -10,7 +9,9 @@ function Eatings(props) {
 
   return (
     <Fragment>
-      <DaySummaryCard />
+      <MealCard meal="summary" day={day}>
+        <input type="date" className="input" />
+      </MealCard>
       <MealCard meal="breakfast" day={day} />
       <MealCard meal="lunch" day={day} />
       <MealCard meal="dinner" day={day} />

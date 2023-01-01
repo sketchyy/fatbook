@@ -1,13 +1,6 @@
 import React from "react";
 import FoodValue from "./FoodValue";
 
-const foodValueLegend = {
-  proteins: "Prot",
-  fats: "Fat",
-  carbs: "Carb",
-  calories: "KCal",
-};
-
 function DishInfo({ dish, servingSize }) {
   const renderedName = dish.name || "<No Name>";
   const renderedIcon = dish.ingredients.length > 0 ? "🥘" : "🥫";
@@ -25,10 +18,6 @@ function DishInfo({ dish, servingSize }) {
               </span>
               {servingSize && <span>{servingSize} g.</span>}
             </span>
-
-            {/* Proteins: {dish.foodValue?.proteins || "N/A"} g. | Fats:{" "}
-                  {dish.foodValue?.fats || "N/A"} g. | Carbs:{" "}
-                  {dish.foodValue?.carbs || "N/A"} g. */}
           </p>
         </div>
       </div>
