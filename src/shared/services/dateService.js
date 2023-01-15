@@ -9,8 +9,11 @@ const dateService = {
     return dayjs(dateStr).toDate();
   },
 
-  format(date) {
-    return dayjs(date).format("DD-MMM-YYYY");
+  format(date, format = "DD-MMM-YYYY") {
+    if (typeof date === "string") {
+      date = this.parse(date);
+    }
+    return dayjs(date).format(format);
   },
 };
 

@@ -8,15 +8,16 @@ import DishInfo from "./DishInfo";
 // DishesList -- clickable, props: onClick, dish (render default serving size)
 // DishTitle -- Dish + larger font
 // Dish - title + subtitle + icon, props: dish, servingSize
-function DishPortionListItem({ dish, servingSize, onDelete }) {
+function DishPortionListItem({ dishPortion, onDelete }) {
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(false);
+  const { dish, servingSize } = dishPortion;
   const noName = dish.name === "";
 
   const toggleHover = () => setHovered(!hovered);
   const handleDeleteClick = () => {
     setActive(!active);
-    onDelete(dish);
+    onDelete(dishPortion);
   };
 
   return (
@@ -43,9 +44,9 @@ function DishPortionListItem({ dish, servingSize, onDelete }) {
   );
 }
 
-function DishPortionList({ dishPortions, onPortionDelete }) {
-  const handleDelete = (dish) => {
-    onPortionDelete(dish);
+function DishPortionList({ dishPortions, onPortionDelete, emptyMessage }) {
+  const handleDelete = (id) => {
+    onPortionDelete(id);
   };
 
   return (
@@ -53,14 +54,13 @@ function DishPortionList({ dishPortions, onPortionDelete }) {
       <Divider />
 
       {dishPortions.length === 0 && (
-        <p className="has-text-centered mt-3">No ingredients.</p>
+        <p className="has-text-centered mt-3">{emptyMessage}</p>
       )}
 
       {dishPortions.map((dishPortion, i) => (
         <Fragment key={i}>
           <DishPortionListItem
-            dish={dishPortion.dish}
-            servingSize={dishPortion.servingSize}
+            dishPortion={dishPortion}
             onDelete={handleDelete}
           />
           <Divider />

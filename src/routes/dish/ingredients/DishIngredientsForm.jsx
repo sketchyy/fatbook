@@ -36,6 +36,7 @@ function DishIngredientsForm(props) {
       <DishPortionList
         dishPortions={dish.ingredients}
         onPortionDelete={handleIngredientDelete}
+        emptyMessage="No ingredients."
       />
     </div>
   );

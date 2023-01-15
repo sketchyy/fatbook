@@ -1,6 +1,6 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import FoodValue from "../../shared/FoodValue";
 import dateService from "../../shared/services/dateService";
 
@@ -27,15 +27,20 @@ export const meals = {
   },
 };
 
-function MealCard({ meal, day, children }) {
-  const eatingFormPath = `/eatings/${dateService.format(day)}/${meal}`;
+function MealCard({ meal, children }) {
+  const { day, logDay } = useOutletContext();
+  const eatingPath = `/eatings/${dateService.format(day)}/${meal}`;
+  const addEatingFormPath = eatingPath + "/add";
   const isSummary = meal === "summary";
+  const foodValue = isSummary
+    ? logDay.totalFoodValue
+    : logDay.meals[meal].totalFoodValue;
 
   const renderMealName = () =>
     isSummary ? (
       <span className="is-size-4">Summary</span>
     ) : (
-      <Link to={eatingFormPath} className="is-size-4">
+      <Link to={eatingPath} className="is-size-4">
         {meals[meal].title}
       </Link>
     );
@@ -44,13 +49,14 @@ function MealCard({ meal, day, children }) {
     isSummary ? (
       children
     ) : (
-      <Link to={eatingFormPath} className="button is-primary">
+      <Link to={addEatingFormPath} className="button is-primary">
         <span className="icon">
           <FaPlus />
         </span>
         <span>Add</span>
       </Link>
     );
+
   return (
     <div className="box mb-3">
       <div className="mb-3 is-flex is-align-items-center">
@@ -65,12 +71,7 @@ function MealCard({ meal, day, children }) {
       <div className="columns">
         <div className="column is-narrow">
           <FoodValue
-            foodValue={{
-              calories: 67.9,
-              carbs: 7.4,
-              fats: 1.9,
-              proteins: 5.3,
-            }}
+            foodValue={foodValue}
             className="is-flex-grow-1 is-size-6"
           />
         </div>

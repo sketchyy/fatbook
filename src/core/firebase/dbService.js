@@ -124,6 +124,7 @@ async function updateDishSearchIndex(id, name) {
   console.log("Dish index added...", id, searchIndex);
 }
 
+// TODO: rename to dishesService
 const dbService = {
   getDishes,
   getDish,

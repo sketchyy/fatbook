@@ -1,13 +1,17 @@
-function calculateFoodValue(userInput) {
-  if (!userInput.dish || !userInput.dish.foodValue || !userInput.servingSize) {
+function calculateFoodValue(eating) {
+  if (!eating.dish || !eating.dish.foodValue || !eating.servingSize) {
     return emptyFoodValue();
   }
 
   return {
-    proteins: (userInput.dish.foodValue.proteins * userInput.servingSize) / 100,
-    fats: (userInput.dish.foodValue.fats * userInput.servingSize) / 100,
-    carbs: (userInput.dish.foodValue.carbs * userInput.servingSize) / 100,
-    calories: (userInput.dish.foodValue.calories * userInput.servingSize) / 100,
+    proteins: round(
+      (eating.dish.foodValue.proteins * eating.servingSize) / 100
+    ),
+    fats: round((eating.dish.foodValue.fats * eating.servingSize) / 100),
+    carbs: round((eating.dish.foodValue.carbs * eating.servingSize) / 100),
+    calories: round(
+      (eating.dish.foodValue.calories * eating.servingSize) / 100
+    ),
   };
 }
 
@@ -39,8 +43,28 @@ function calculateDishValuePer100g(ingredients) {
   };
 }
 
+function calculateFoodValueForPortion({ dish, servingSize }) {
+  return {
+    proteins: round((dish.foodValue.proteins * servingSize) / 100),
+    fats: round((dish.foodValue.fats * servingSize) / 100),
+    carbs: round((dish.foodValue.carbs * servingSize) / 100),
+    calories: round((dish.foodValue.calories * servingSize) / 100),
+  };
+}
+
+function sumFoodValues(foodValues) {
+  return foodValues.reduce((result, current) => {
+    result.proteins += current.proteins;
+    result.fats += current.fats;
+    result.carbs += current.carbs;
+    result.calories += current.calories;
+
+    return result;
+  }, emptyFoodValue());
+}
+
 function round(value) {
-  return Math.round(value * 100) / 100;
+  return Math.round(value * 10) / 10;
 }
 
 function emptyFoodValue() {
@@ -54,6 +78,8 @@ function emptyFoodValue() {
 
 const foodValueService = {
   calculateDishValuePer100g,
+  calculateFoodValueForPortion,
+  sumFoodValues,
   emptyFoodValue,
 };
 export default foodValueService;

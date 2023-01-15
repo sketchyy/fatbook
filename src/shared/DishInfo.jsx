@@ -3,7 +3,8 @@ import FoodValue from "./FoodValue";
 
 function DishInfo({ dish, servingSize }) {
   const renderedName = dish.name || "<No Name>";
-  const renderedIcon = dish.ingredients.length > 0 ? "🥘" : "🥫";
+  const renderedIcon =
+    dish.ingredients && dish.ingredients.length > 0 ? "🥘" : "🥫";
 
   return (
     <div className="is-flex-grow-1">

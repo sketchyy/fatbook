@@ -51,9 +51,7 @@ export default class Dish {
   }
 
   deleteIngredient(ingredient) {
-    this.ingredients = this.ingredients.filter(
-      (item) => item.dish !== ingredient
-    );
+    this.ingredients = this.ingredients.filter((item) => item !== ingredient);
 
     if (this.hasIngredients()) {
       this.foodValue = foodValueService.calculateDishValuePer100g(
@@ -63,12 +61,22 @@ export default class Dish {
       this.foodValue = foodValueService.emptyFoodValue();
     }
   }
+
+  toJsonSimple() {
+    return {
+      id: this.id,
+      name: this.name,
+      foodValue: this.foodValue,
+      defaultServingSize: this.defaultServingSize,
+      createdAt: this.createdAt,
+    };
+  }
 }
 
 export const dishConverter = {
   toFirestore: (dish) => {
     console.log("dish converter to firestore", dish);
-    const jsonIngredients = dish.ingredients.map((ingredient) => ({
+    const jsonIngredients = dish.ingredients?.map((ingredient) => ({
       ...ingredient,
       dish: dishConverter.toFirestore(ingredient.dish),
     }));
@@ -77,7 +85,7 @@ export const dishConverter = {
       id: dish.id ?? null,
       name: dish.name,
       foodValue: dish.foodValue,
-      ingredients: jsonIngredients,
+      ingredients: jsonIngredients ?? [],
       defaultServingSize: dish.defaultServingSize,
       createdAt: dish.createdAt ?? null,
     };

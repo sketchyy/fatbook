@@ -26,12 +26,12 @@
 - Implement dish ingredients
 - Implement models: Dish, DishPortion
 - Implement food value recalculation when ingredient added
+- implement add eating with `meal: 'breakfast'`...
+- implement load of eatings (only for today)
+- implement delete eating
+- implement load of eatings for another day
 
-* implement load of eatings (only for today)
-* implement add eating with `meal: 'breakfast'`...
-* implement load of eatings for another day
-* implement delete eating
-*
+* fix round issue (1 decimal)
 *
 *
 
@@ -55,7 +55,7 @@
 * customize bulma (box-padding: 1rem, )
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
-*
+* https://www.algolia.com/pricing/
 *
 *
 *

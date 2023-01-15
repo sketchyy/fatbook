@@ -14,16 +14,21 @@ import deleteDishAction from "./routes/dish/delete/deleteDishAction";
 import DishPage from "./routes/dish/DishPage";
 import EditDish from "./routes/dish/edit/EditDish.jsx";
 import updateDishAction from "./routes/dish/edit/updateDishAction";
+import AddIngredientForm from "./routes/dish/ingredients/AddIngredientForm";
 import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
-import SelectDishForm from "./routes/dish/ingredients/SelectDishForm";
 import createDishAction from "./routes/dishes/create/createDishAction";
 import DishesPage from "./routes/dishes/DishesPage";
-import EatingForm from "./routes/eatings-form/EatingForm";
-import Eatings from "./routes/eatings/EatingsPage";
+import AddEatingForm from "./routes/eatings/AddEatingForm";
+import LogDayPage from "./routes/eatings/LogDayPage";
+import LogDaySummary from "./routes/eatings/LogDaySummary";
+import MealPage from "./routes/eatings/MealPage";
 import Login from "./routes/login/Login";
 import Root from "./routes/Root";
 import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
 import RequireAuth from "./shared/RequireAuth";
+import dateService from "./shared/services/dateService";
+
+const today = dateService.format(dateService.now());
 
 const router = createBrowserRouter([
   {
@@ -35,14 +40,29 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
     children: [
-      { index: true, element: <Navigate to={`eatings`} replace /> },
+      { index: true, element: <Navigate to={`eatings/${today}`} replace /> },
       {
         path: "eatings",
-        element: <Eatings />,
+        element: <Navigate to={`/eatings/${today}`} replace />,
       },
       {
-        path: "eatings/:day/:meal",
-        element: <EatingForm />,
+        path: "eatings/:day",
+        element: <LogDayPage />,
+        children: [
+          {
+            path: "",
+            element: <LogDaySummary />,
+          },
+          {
+            path: ":meal",
+            element: <MealPage />,
+          },
+          {
+            path: ":meal/add",
+            element: <AddEatingForm />,
+            loader: dishesSearchLoader,
+          },
+        ],
       },
       {
         path: "dishes",
@@ -70,7 +90,7 @@ const router = createBrowserRouter([
           },
           {
             path: "ingredients/add",
-            element: <SelectDishForm />,
+            element: <AddIngredientForm />,
             loader: dishesSearchLoader,
           },
         ],
