@@ -50,6 +50,7 @@ function SetPortionSize({ selectedIngredient, onSubmit, onCancel }) {
             type="number"
             placeholder="g."
             defaultValue={selectedIngredient.defaultServingSize}
+            autoFocus={true}
           />
         </div>
       </div>

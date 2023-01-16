@@ -35,8 +35,8 @@ export default class Dish {
     this.name = name;
     this.foodValue = foodValue;
     this.ingredients = ingredients;
-    this.defaultServingSize = defaultServingSize;
-    this.createdAt = createdAt;
+    this.defaultServingSize = defaultServingSize ?? null;
+    this.createdAt = createdAt ?? null;
   }
 
   hasIngredients() {
@@ -86,7 +86,7 @@ export const dishConverter = {
       name: dish.name,
       foodValue: dish.foodValue,
       ingredients: jsonIngredients ?? [],
-      defaultServingSize: dish.defaultServingSize,
+      defaultServingSize: dish.defaultServingSize ?? null,
       createdAt: dish.createdAt ?? null,
     };
   },
