@@ -30,9 +30,9 @@
 - implement load of eatings (only for today)
 - implement delete eating
 - implement load of eatings for another day
+- fix round issue (1 decimal)
 
-* fix round issue (1 decimal)
-*
+* Add several eatings at once
 *
 
 * --- Tests ---
