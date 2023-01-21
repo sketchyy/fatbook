@@ -4,14 +4,10 @@ function calculateFoodValue(eating) {
   }
 
   return {
-    proteins: round(
-      (eating.dish.foodValue.proteins * eating.servingSize) / 100
-    ),
-    fats: round((eating.dish.foodValue.fats * eating.servingSize) / 100),
-    carbs: round((eating.dish.foodValue.carbs * eating.servingSize) / 100),
-    calories: round(
-      (eating.dish.foodValue.calories * eating.servingSize) / 100
-    ),
+    proteins: (eating.dish.foodValue.proteins * eating.servingSize) / 100,
+    fats: (eating.dish.foodValue.fats * eating.servingSize) / 100,
+    carbs: (eating.dish.foodValue.carbs * eating.servingSize) / 100,
+    calories: (eating.dish.foodValue.calories * eating.servingSize) / 100,
   };
 }
 
@@ -36,19 +32,19 @@ function calculateDishValuePer100g(ingredients) {
   }, emptyFoodValue());
 
   return {
-    proteins: round((resultFoodValue.proteins / totalDishWeight) * 100),
-    fats: round((resultFoodValue.fats / totalDishWeight) * 100),
-    carbs: round((resultFoodValue.carbs / totalDishWeight) * 100),
-    calories: round((resultFoodValue.calories / totalDishWeight) * 100),
+    proteins: (resultFoodValue.proteins / totalDishWeight) * 100,
+    fats: (resultFoodValue.fats / totalDishWeight) * 100,
+    carbs: (resultFoodValue.carbs / totalDishWeight) * 100,
+    calories: (resultFoodValue.calories / totalDishWeight) * 100,
   };
 }
 
 function calculateFoodValueForPortion({ dish, servingSize }) {
   return {
-    proteins: round((dish.foodValue.proteins * servingSize) / 100),
-    fats: round((dish.foodValue.fats * servingSize) / 100),
-    carbs: round((dish.foodValue.carbs * servingSize) / 100),
-    calories: round((dish.foodValue.calories * servingSize) / 100),
+    proteins: (dish.foodValue.proteins * servingSize) / 100,
+    fats: (dish.foodValue.fats * servingSize) / 100,
+    carbs: (dish.foodValue.carbs * servingSize) / 100,
+    calories: (dish.foodValue.calories * servingSize) / 100,
   };
 }
 
@@ -61,10 +57,6 @@ function sumFoodValues(foodValues) {
 
     return result;
   }, emptyFoodValue());
-}
-
-function round(value) {
-  return Math.round(value * 10) / 10;
 }
 
 function emptyFoodValue() {

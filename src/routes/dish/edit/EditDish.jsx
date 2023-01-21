@@ -47,6 +47,7 @@ function EditDish(props) {
                 name="foodValue.proteins"
                 className="input"
                 type="number"
+                step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
                 defaultValue={dish.foodValue.proteins}
@@ -60,6 +61,7 @@ function EditDish(props) {
                 name="foodValue.fats"
                 className="input"
                 type="number"
+                step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
                 defaultValue={dish.foodValue.fats}
@@ -73,6 +75,7 @@ function EditDish(props) {
                 name="foodValue.carbs"
                 className="input"
                 type="number"
+                step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
                 defaultValue={dish.foodValue.carbs}
@@ -89,6 +92,7 @@ function EditDish(props) {
                 name="foodValue.calories"
                 className="input"
                 type="number"
+                step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
                 defaultValue={dish.foodValue.calories}
