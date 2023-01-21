@@ -1,7 +1,7 @@
 import React from "react";
 
 function FoodValue({ foodValue = {}, className = "" }) {
-  const format = (val) => (val ? Math.round(val) : "n/a");
+  const format = (val) => (val != null ? Math.round(val) : "n/a");
 
   return (
     <span className={"level " + className}>

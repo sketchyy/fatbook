@@ -33,7 +33,7 @@
 - fix round issue (1 decimal)
 
 * Add several eatings at once
-*
+* add < and > for quick date navigation
 
 * --- Tests ---
 *
