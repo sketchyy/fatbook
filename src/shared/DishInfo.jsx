@@ -1,15 +1,14 @@
 import React from "react";
+import DishIcon from "./DishIcon";
 import FoodValue from "./FoodValue";
 
 function DishInfo({ dish, servingSize }) {
   const renderedName = dish.name || "<No Name>";
-  const renderedIcon =
-    dish.ingredients && dish.ingredients.length > 0 ? "🥘" : "🥫";
 
   return (
     <div className="is-flex-grow-1">
       <div className="is-flex is-align-items-center">
-        <div className="is-size-4 mr-2">{renderedIcon}</div>
+        <DishIcon className="mr-2" dish={dish} />
         <div className="is-flex-grow-1">
           <p className=" title is-6 pb-1">{renderedName}</p>
           <p className=" subtitle is-7">

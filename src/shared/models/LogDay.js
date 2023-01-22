@@ -20,9 +20,12 @@ export class LogDay {
     this.meals = meals ?? this.#getEmptyMeals();
   }
 
-  addEating(meal, rawEating) {
-    const calculatedEating = this.#calculateEating(rawEating);
-    this.meals[meal].eatings.push(calculatedEating);
+  addEatings(meal, rawEatings) {
+    const calculatedEatings = rawEatings.map((rawEating) =>
+      this.#calculateEating(rawEating)
+    );
+    this.meals[meal].eatings =
+      this.meals[meal].eatings.concat(calculatedEatings);
 
     this.#updateMealTotals(meal);
 

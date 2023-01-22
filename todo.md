@@ -32,7 +32,21 @@
 - implement load of eatings for another day
 - fix round issue (1 decimal)
 
-* Add several eatings at once
+- Add several eatings at once
+- Add several eatings at once - serving size input
+- Add several eatings at once - submitting changes
+- Add several eatings at once - back button
+- accordion animation + styles
+- accordion customize header elementin header add icon + checkmark
+- accordion in header only name, in content also food value (recalculate?)
+
+* Add several eatings at once - cleanup code, refactor:
+  // PortionsForm ??
+  shared/components/dish-portions-form/DishPortionsForm
+  shared/components/dish-portions-form/DishPortionsFormList
+  shared/components/dish-portions-form/DishPortionsFormListItem
+  shared/components/dish-portions-form/DishPortionsFormListTitle
+
 * add < and > for quick date navigation
 
 * --- Tests ---

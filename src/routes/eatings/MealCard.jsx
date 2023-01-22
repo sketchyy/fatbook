@@ -53,7 +53,6 @@ function MealCard({ meal, children }) {
         <span className="icon">
           <FaPlus />
         </span>
-        <span>Add</span>
       </Link>
     );
 

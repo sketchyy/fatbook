@@ -43,8 +43,8 @@ export default class Dish {
     return this.ingredients.length > 0;
   }
 
-  addIngredient(ingredient) {
-    this.ingredients = [ingredient, ...this.ingredients];
+  addIngredients(ingredients) {
+    this.ingredients = [...ingredients, ...this.ingredients];
     this.foodValue = foodValueService.calculateDishValuePer100g(
       this.ingredients
     );

@@ -1,18 +1,36 @@
-import React, { createRef, Fragment, useState } from "react";
-import { Form, useLoaderData, useSubmit } from "react-router-dom";
-import DishList from "./DishList";
+import React, { Fragment, useState } from "react";
+import { useLoaderData, useSubmit } from "react-router-dom";
+import DishPortionInput from "./DishPortionInput";
 import PageTitle from "./PageTitle";
 import SearchBar from "./SearchBar";
 
-function SearchDish({ title, subtitle, onSelect }) {
+function SearchDish({ title, subtitle, onSave }) {
+  const [selectedPortions, setSelectedPortions] = useState([]);
   const { searchResult, q } = useLoaderData();
   const submit = useSubmit();
+
+  const handleSave = () => {
+    onSave(
+      selectedPortions.map((portion) => {
+        delete portion.selected;
+        return portion;
+      })
+    );
+  };
+
+  const handleSelectionChange = (portions) => {
+    setSelectedPortions(portions);
+  };
 
   return (
     <Fragment>
       <div className="block">
         <div className="box">
-          <PageTitle title={title} subtitle={subtitle} />
+          <PageTitle title={title} subtitle={subtitle} backPath={-1}>
+            <button className="button is-primary" onClick={handleSave}>
+              <span>Save</span>
+            </button>
+          </PageTitle>
 
           <SearchBar
             defaultValue={q}
@@ -21,9 +39,16 @@ function SearchDish({ title, subtitle, onSelect }) {
             }}
           />
 
-          <DishList
+          {JSON.stringify(
+            selectedPortions.map((d) => ({
+              name: d.dish.name,
+              servingSize: d.servingSize,
+            }))
+          )}
+
+          <DishPortionInput
             dishes={searchResult}
-            onDishClick={(dish) => onSelect(dish)}
+            onSelectionChange={handleSelectionChange}
           />
         </div>
       </div>
@@ -31,94 +56,17 @@ function SearchDish({ title, subtitle, onSelect }) {
   );
 }
 
-function SetPortionSize({ selectedIngredient, onSubmit, onCancel }) {
-  const ref = createRef();
-
-  return (
-    <Form className="box" onSubmit={() => onSubmit(ref.current.value)}>
-      <PageTitle
-        title="Set portion size"
-        subtitle={"For " + selectedIngredient.name}
-      />
-
-      <div className="field">
-        <div className="control">
-          <input
-            ref={ref}
-            name="servingSize"
-            className="input"
-            type="number"
-            placeholder="g."
-            defaultValue={selectedIngredient.defaultServingSize}
-            autoFocus={true}
-          />
-        </div>
-      </div>
-
-      <div className="field is-grouped is-grouped-centered is-justify-content-space-around">
-        <p className="control">
-          <button className="button is-light" onClick={onCancel}>
-            Cancel
-          </button>
-        </p>
-        <p className="control">
-          <button className="button is-primary" type="submit">
-            Save
-          </button>
-        </p>
-      </div>
-    </Form>
-  );
-}
-
+// TODO: useless component
 function SelectDishPortionForm({ title, subtitle, onSubmit }) {
-  const [page, setPage] = useState(0);
-  const [dishPortion, setDishPortion] = useState({
-    dish: null,
-    servingSize: 0,
-  });
-
-  const handleDishSelect = (dish) => {
-    setDishPortion({ dish });
-    setPage(1);
-  };
-  const handlePortionSizeSubmit = async (servingSize) => {
-    const selectedDishPortion = {
-      dish: dishPortion.dish,
-      servingSize: Number(servingSize),
-    };
-    onSubmit(selectedDishPortion);
-  };
-  const handlePortionSizeCancel = () => {
-    setPage(0);
-  };
-
-  const conditionalComponent = () => {
-    switch (page) {
-      case 0:
-        return (
-          <SearchDish
-            title={title}
-            subtitle={subtitle}
-            onSelect={handleDishSelect}
-          />
-        );
-      case 1:
-        return (
-          <SetPortionSize
-            selectedIngredient={dishPortion.dish}
-            onCancel={handlePortionSizeCancel}
-            onSubmit={handlePortionSizeSubmit}
-          />
-        );
-      default:
-        return <h2>Not found</h2>;
-    }
+  const handleSave = (selectedPortions) => {
+    onSubmit(selectedPortions);
   };
 
   return (
     <Fragment>
-      <div>{conditionalComponent()}</div>
+      <div>
+        <SearchDish title={title} subtitle={subtitle} onSave={handleSave} />
+      </div>
     </Fragment>
   );
 }
