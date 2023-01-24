@@ -34,17 +34,10 @@ function SearchDish({ title, subtitle, onSave }) {
 
           <SearchBar
             defaultValue={q}
-            onChange={(event) => {
-              submit(event.currentTarget.form, { replace: true });
+            onSearch={(event) => {
+              submit(event.target.form, { replace: true });
             }}
           />
-
-          {JSON.stringify(
-            selectedPortions.map((d) => ({
-              name: d.dish.name,
-              servingSize: d.servingSize,
-            }))
-          )}
 
           <DishPortionInput
             dishes={searchResult}

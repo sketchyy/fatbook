@@ -1,7 +1,7 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import dbService from "../../../core/firebase/dbService";
+import dishesDbService from "../../../core/firebase/dishesDbService";
 import DishPortionList from "../../../shared/DishPortionList";
 import PageTitle from "../../../shared/PageTitle";
 
@@ -19,7 +19,7 @@ function DishIngredientsForm(props) {
 
     dish.deleteIngredient(ingredient);
 
-    await dbService.replaceDish(dish);
+    await dishesDbService.replaceDish(dish);
   };
 
   return (

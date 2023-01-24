@@ -24,8 +24,8 @@ function DishesPage(props) {
 
         <SearchBar
           defaultValue={q}
-          onChange={(event) => {
-            submit(event.currentTarget.form);
+          onSearch={(event) => {
+            submit(event.target.form);
           }}
         />
 

@@ -135,32 +135,25 @@ function DishPortionInputItem({ dishPortion, onAdd, onDelete }) {
         />
       </div>
       <Form onSubmit={(e) => e.preventDefault()}>
-        <label className="label is-small">Portion Size (g.)</label>
+        <label className="label">Portion Size (g.)</label>
         <div className="field is-grouped">
           <p className="control is-expanded">
             <input
               name="servingSize"
-              className="input is-small"
+              className="input"
               type="number"
               placeholder="g."
               value={size}
               onChange={handleInputChange}
-              autoFocus={true}
             />
           </p>
           <p className="control">
             {dishPortion.selected ? (
-              <button
-                className="button is-danger is-small"
-                onClick={handleDeleteClick}
-              >
+              <button className="button is-danger" onClick={handleDeleteClick}>
                 <FaTimes />
               </button>
             ) : (
-              <button
-                className="button is-primary is-small"
-                onClick={handleAddClick}
-              >
+              <button className="button is-primary" onClick={handleAddClick}>
                 <FaPlus />
               </button>
             )}

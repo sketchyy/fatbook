@@ -28,7 +28,7 @@ const dishesSearchIndexRef = collection(db, "dishes-search-index");
 // Dishes
 const getDishes = async () => {
   const querySnapshot = await getDocs(
-    query(dishesRef, orderBy("createdAt", "desc"), limit(5))
+    query(dishesRef, orderBy("createdAt", "desc"), limit(50))
   );
 
   return querySnapshot.docs.map((doc) => doc.data());
@@ -59,7 +59,7 @@ async function searchDishes(userQuery) {
       query(
         dishesSearchIndexRef,
         where("index", "array-contains", searchToken),
-        limit(5)
+        limit(10)
       )
     )
   ).docs.map((doc) => doc.id);
@@ -125,7 +125,7 @@ async function updateDishSearchIndex(id, name) {
 }
 
 // TODO: rename to dishesService
-const dbService = {
+const dishesDbService = {
   getDishes,
   getDish,
   subscribeToDishChanges,
@@ -136,4 +136,4 @@ const dbService = {
   replaceDish,
 };
 
-export default dbService;
+export default dishesDbService;

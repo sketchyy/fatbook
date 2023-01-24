@@ -7,7 +7,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import dbService from "../../core/firebase/dbService";
+import dishesDbService from "../../core/firebase/dishesDbService";
 import Dish from "../../shared/models/Dish";
 import NavLinkTab from "../../shared/NavLinkTab";
 
@@ -18,9 +18,12 @@ function DishPage(props) {
   const [dish, setDish] = useState(Dish.empty());
 
   useEffect(() => {
-    const unsubscribe = dbService.subscribeToDishChanges(params.id, (dish) => {
-      setDish(dish ?? Dish.empty());
-    });
+    const unsubscribe = dishesDbService.subscribeToDishChanges(
+      params.id,
+      (dish) => {
+        setDish(dish ?? Dish.empty());
+      }
+    );
     return unsubscribe;
   }, []);
 
