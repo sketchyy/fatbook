@@ -34,7 +34,7 @@ function SearchDish({ title, subtitle, onSave }) {
 
           <SearchBar
             defaultValue={q}
-            onSearch={(event) => {
+            onChange={(event) => {
               submit(event.target.form, { replace: true });
             }}
           />

@@ -1,25 +1,20 @@
-import React, { createRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Form } from "react-router-dom";
 
-// TODO: Search starts from 3 symbols, debounce (lodash?)
-function SearchBar({ defaultValue, onSearch }) {
-  const searchInput = createRef();
+function SearchBar({ defaultValue, onChange }) {
+  const timeout = useRef();
 
-  useEffect(() => {
-    function handleSearch(event) {
-      onSearch(event);
+  const handleChange = (event) => {
+    if (event.target.value.length > 2 || event.target.value.length === 0) {
+      //Clear the previous timeout.
+      clearTimeout(timeout.current);
+
+      timeout.current = setTimeout(() => {
+        onChange(event);
+      }, 400);
     }
-
-    if (searchInput && searchInput.current) {
-      const element = searchInput.current;
-      element.addEventListener("search", handleSearch, false);
-
-      return function cleanup() {
-        element.removeEventListener("search", handleSearch, false);
-      };
-    }
-  }, []);
+  };
 
   return (
     <div
@@ -32,13 +27,13 @@ function SearchBar({ defaultValue, onSearch }) {
         onSubmit={(e) => e.preventDefault()}
       >
         <input
-          ref={searchInput}
           id="q"
           name="q"
           defaultValue={defaultValue}
           type="search"
           placeholder="Search dish"
           className="input"
+          onChange={handleChange}
         />
         <span className="icon is-medium is-left">
           <FaSearch />

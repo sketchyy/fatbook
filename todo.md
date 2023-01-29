@@ -48,6 +48,7 @@
   shared/components/dish-portions-form/DishPortionsFormListTitle
 
 * add < and > for quick date navigation
+* Edit input weight for dish ingr and eatings
 
 * --- Tests ---
 *
@@ -56,20 +57,22 @@
 *
 *
 * --- refactoring ---
-* global loading spinner animation
-* search improvement: start from 3 characters, debounce, better search index
+
+- search improvement: start from 3 characters, debounce, better search index
+
 * user in mobile menu + logout btn align
-* rename "createdAt -> updatedAt" for sorting
-* style error page
 * render user avatar
+* global loading spinner animation
 * add page - report charts
 * report for custom days (select FROM / TO, show totals for each day)
+* rename "createdAt -> updatedAt" for sorting
+* style error page
 * back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
 * same style for all pages - Title, Back nav
 * customize bulma (box-padding: 1rem, )
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
-* https://www.algolia.com/pricing/
+* поиск? https://www.algolia.com/pricing/
 *
 *
 *
