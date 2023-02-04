@@ -24,8 +24,8 @@ import LogDaySummary from "./routes/eatings/LogDaySummary";
 import MealPage from "./routes/eatings/MealPage";
 import Login from "./routes/login/Login";
 import Root from "./routes/Root";
+import RequireAuth from "./shared/components/RequireAuth";
 import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
-import RequireAuth from "./shared/RequireAuth";
 import dateService from "./shared/services/dateService";
 
 const today = dateService.format(dateService.now());

@@ -1,6 +1,6 @@
 import React from "react";
+import FoodValue from "../FoodValue";
 import DishIcon from "./DishIcon";
-import FoodValue from "./FoodValue";
 
 function DishInfo({ dish, servingSize }) {
   const renderedName = dish.name || "<No Name>";

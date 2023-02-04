@@ -65,10 +65,11 @@
 
 - search improvement: start from 3 characters, debounce, better search index
 - user in mobile menu + logout btn align
+- render user avatar
 
 * add page - report charts
 * report for custom days (select FROM / TO, show totals for each day)
-* render user avatar
+* поиск? https://www.algolia.com/pricing/
 * global loading spinner animation
 * rename "createdAt -> updatedAt" for sorting
 * style error page
@@ -77,7 +78,6 @@
 * customize bulma (box-padding: 1rem, )
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
-* поиск? https://www.algolia.com/pricing/
 *
 *
 *

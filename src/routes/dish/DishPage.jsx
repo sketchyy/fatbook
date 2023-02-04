@@ -8,8 +8,8 @@ import {
   useParams,
 } from "react-router-dom";
 import dishesDbService from "../../core/firebase/dishesDbService";
+import NavLinkTab from "../../shared/components/ui/NavLinkTab";
 import Dish from "../../shared/models/Dish";
-import NavLinkTab from "../../shared/NavLinkTab";
 
 function DishPage(props) {
   const navigate = useNavigate();

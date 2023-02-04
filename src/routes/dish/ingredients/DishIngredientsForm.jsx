@@ -2,8 +2,8 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import dishesDbService from "../../../core/firebase/dishesDbService";
-import EditDishPortionsForm from "../../../shared/components/EditDishPortionsForm";
-import PageTitle from "../../../shared/PageTitle";
+import EditDishPortionsForm from "../../../shared/components/dish-portions-form/EditDishPortionsForm";
+import PageTitle from "../../../shared/components/PageTitle";
 
 function DishIngredientsForm(props) {
   const navigate = useNavigate();

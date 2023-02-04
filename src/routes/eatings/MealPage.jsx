@@ -7,10 +7,9 @@ import {
   useParams,
 } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
-import EditDishPortionsForm from "../../shared/components/EditDishPortionsForm";
-
-import FoodValue from "../../shared/FoodValue";
-import PageTitle from "../../shared/PageTitle";
+import EditDishPortionsForm from "../../shared/components/dish-portions-form/EditDishPortionsForm";
+import FoodValue from "../../shared/components/FoodValue";
+import PageTitle from "../../shared/components/PageTitle";
 import { meals } from "./MealCard";
 
 function MealPage(props) {

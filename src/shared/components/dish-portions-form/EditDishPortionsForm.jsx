@@ -1,5 +1,5 @@
 import React from "react";
-import DishPortionsList from "./dish-portions-list/DishPortionsList";
+import DishPortionsList from "./DishPortionsList";
 
 function EditDishPortionsForm({ dishPortions, onSave, onDelete }) {
   const handleSaveClick = (portion) => {

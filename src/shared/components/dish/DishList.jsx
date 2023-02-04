@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
+import Divider from "../ui/Divider";
 import DishInfo from "./DishInfo";
-import Divider from "./Divider";
 
 //TODO: 2 components:
 // IngredientsList -- not clickable, props: onDelete, dishPortion, yellow bg??

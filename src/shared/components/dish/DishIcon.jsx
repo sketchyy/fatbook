@@ -1,5 +1,5 @@
 import React from "react";
-import Dish from "./models/Dish";
+import Dish from "../../models/Dish";
 
 function DishIcon({ dish = Dish.empty(), className }) {
   const renderedIcon =

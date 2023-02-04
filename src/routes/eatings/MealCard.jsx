@@ -1,7 +1,7 @@
 import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link, useOutletContext } from "react-router-dom";
-import FoodValue from "../../shared/FoodValue";
+import FoodValue from "../../shared/components/FoodValue";
 import dateService from "../../shared/services/dateService";
 
 export const meals = {

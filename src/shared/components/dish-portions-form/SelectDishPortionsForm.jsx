@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { useLoaderData, useSubmit } from "react-router-dom";
 import PageTitle from "../PageTitle";
-import SearchBar from "../SearchBar";
-import DishPortionsList from "./dish-portions-list/DishPortionsList";
+import SearchBar from "../ui/SearchBar";
+import DishPortionsList from "./DishPortionsList";
 
 function SelectDishPortionsForm({ title, subtitle, onSubmit }) {
   const submit = useSubmit();
