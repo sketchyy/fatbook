@@ -42,11 +42,25 @@ export class LogDay {
     this.#updateDayTotals();
   }
 
+  updateEating(meal, updatedEating) {
+    const calculatedEatings = this.#calculateEating(updatedEating);
+
+    this.meals[meal].eatings.forEach((eating, i) => {
+      if (eating.id === updatedEating.id) {
+        this.meals[meal].eatings[i] = calculatedEatings;
+      }
+    });
+
+    this.#updateMealTotals(meal);
+
+    this.#updateDayTotals();
+  }
+
   /* Calculate eating total food value ((foodvalue * servingSize) / 100) */
   #calculateEating({ dish, servingSize }) {
     return {
       id: uuidService.get(),
-      dish: dish.toJsonSimple(),
+      dish: dish.toJsonSimple ? dish.toJsonSimple() : dish,
       servingSize: servingSize,
       totalFoodValue: foodValueService.calculateFoodValueForPortion({
         dish,

@@ -7,7 +7,8 @@ import {
   useParams,
 } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
-import DishPortionList from "../../shared/DishPortionList";
+import EditDishPortionsForm from "../../shared/components/EditDishPortionsForm";
+
 import FoodValue from "../../shared/FoodValue";
 import PageTitle from "../../shared/PageTitle";
 import { meals } from "./MealCard";
@@ -19,14 +20,22 @@ function MealPage(props) {
   const eatings = logDay.meals[meal].eatings;
   const foodValue = logDay.meals[meal].totalFoodValue;
 
-  const handleAddEatingDelete = async (ingredient) => {
+  const handleDaySave = async (portion) => {
+    const logDay = await eatingsDbService.getOrCreateLogDay(day);
+
+    logDay.updateEating(meal, portion);
+
+    await eatingsDbService.replaceLogDay(day, logDay);
+  };
+
+  const handleAddEatingDelete = async (portion) => {
     if (!window.confirm("Are you sure you want to delete this eating?")) {
       return;
     }
 
     const logDay = await eatingsDbService.getOrCreateLogDay(day);
 
-    logDay.deleteEating(meal, ingredient);
+    logDay.deleteEating(meal, portion);
 
     await eatingsDbService.replaceLogDay(day, logDay);
   };
@@ -66,10 +75,12 @@ function MealPage(props) {
       </div>
       <div className="block">
         <PageTitle title="Eatings"></PageTitle>
-        <DishPortionList
+        <EditDishPortionsForm
           dishPortions={eatings}
           onPortionDelete={handleAddEatingDelete}
           emptyMessage="No eatings."
+          onSave={handleDaySave}
+          onDelete={handleAddEatingDelete}
         />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import dishesDbService from "../../../core/firebase/dishesDbService";
-import SelectDishPortionForm from "../../../shared/SelectDishPortionForm";
+import SelectDishPortionsForm from "../../../shared/components/SelectDishPortionsForm";
 
 function AddIngredientForm(props) {
   const { dish } = useOutletContext();
@@ -15,7 +15,7 @@ function AddIngredientForm(props) {
   };
 
   return (
-    <SelectDishPortionForm
+    <SelectDishPortionsForm
       title="Select Ingredient"
       subtitle={"For " + dish.name}
       onSubmit={handleAddIngredientsSubmit}

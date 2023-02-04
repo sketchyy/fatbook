@@ -2,7 +2,7 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import dishesDbService from "../../../core/firebase/dishesDbService";
-import DishPortionList from "../../../shared/DishPortionList";
+import EditDishPortionsForm from "../../../shared/components/EditDishPortionsForm";
 import PageTitle from "../../../shared/PageTitle";
 
 function DishIngredientsForm(props) {
@@ -12,6 +12,13 @@ function DishIngredientsForm(props) {
   const handleAdd = (e) => {
     navigate("add", { state: { backUrl: `/dishes/${dish._id}/ingredients` } });
   };
+
+  const handleIngredientUpdate = async (ingredient) => {
+    dish.updateIngredient(ingredient);
+
+    await dishesDbService.replaceDish(dish);
+  };
+
   const handleIngredientDelete = async (ingredient) => {
     if (!window.confirm("Are you sure you want to delete this ingredient?")) {
       return;
@@ -33,10 +40,11 @@ function DishIngredientsForm(props) {
         </button>
       </PageTitle>
 
-      <DishPortionList
+      <EditDishPortionsForm
         dishPortions={dish.ingredients}
-        onPortionDelete={handleIngredientDelete}
-        emptyMessage="No ingredients."
+        emptyMessage="No eatings."
+        onSave={handleIngredientUpdate}
+        onDelete={handleIngredientDelete}
       />
     </div>
   );

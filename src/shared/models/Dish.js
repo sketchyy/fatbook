@@ -50,6 +50,22 @@ export default class Dish {
     );
   }
 
+  updateIngredient(ingredient) {
+    const index = this.ingredients.findIndex(
+      (ing) => ing.dish.id === ingredient.dish.id
+    );
+
+    console.log("ing=", ingredient, index);
+
+    if (index >= 0) {
+      this.ingredients[index] = ingredient;
+
+      this.foodValue = foodValueService.calculateDishValuePer100g(
+        this.ingredients
+      );
+    }
+  }
+
   deleteIngredient(ingredient) {
     this.ingredients = this.ingredients.filter((item) => item !== ingredient);
 

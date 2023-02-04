@@ -47,6 +47,10 @@
   shared/components/dish-portions-form/DishPortionsFormListItem
   shared/components/dish-portions-form/DishPortionsFormListTitle
 
+  dish-portions-list
+  EditDishPortionsForm
+  SelectDishPortionsForm
+
 * add < and > for quick date navigation
 * Edit input weight for dish ingr and eatings
 

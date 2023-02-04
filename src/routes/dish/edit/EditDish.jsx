@@ -7,6 +7,13 @@ function EditDish(props) {
   const { dish } = useOutletContext();
 
   const onCancel = () => navigate("/dishes");
+  const round = (numb) => {
+    if (dish.hasIngredients()) {
+      return Math.round(numb);
+    } else {
+      return numb;
+    }
+  };
 
   return (
     <Form method="post" id="dish-form">
@@ -50,7 +57,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={dish.foodValue.proteins}
+                defaultValue={round(dish.foodValue.proteins)}
               />
             </div>
           </div>
@@ -64,7 +71,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={dish.foodValue.fats}
+                defaultValue={round(dish.foodValue.fats)}
               />
             </div>
           </div>
@@ -78,7 +85,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={dish.foodValue.carbs}
+                defaultValue={round(dish.foodValue.carbs)}
               />
             </div>
           </div>
@@ -95,7 +102,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={dish.foodValue.calories}
+                defaultValue={round(dish.foodValue.calories)}
               />
             </div>
           </div>
