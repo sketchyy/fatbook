@@ -39,6 +39,7 @@
 - accordion animation + styles
 - accordion customize header elementin header add icon + checkmark
 - accordion in header only name, in content also food value (recalculate?)
+- Edit input weight for dish ingr and eatings
 
 * Add several eatings at once - cleanup code, refactor:
   // PortionsForm ??
@@ -52,7 +53,7 @@
   SelectDishPortionsForm
 
 * add < and > for quick date navigation
-* Edit input weight for dish ingr and eatings
+* accordion for meal card
 
 * --- Tests ---
 *
@@ -63,12 +64,12 @@
 * --- refactoring ---
 
 - search improvement: start from 3 characters, debounce, better search index
+- user in mobile menu + logout btn align
 
-* user in mobile menu + logout btn align
-* render user avatar
-* global loading spinner animation
 * add page - report charts
 * report for custom days (select FROM / TO, show totals for each day)
+* render user avatar
+* global loading spinner animation
 * rename "createdAt -> updatedAt" for sorting
 * style error page
 * back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)

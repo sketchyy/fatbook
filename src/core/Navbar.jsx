@@ -59,9 +59,7 @@ function Navbar(props) {
 
         <div className="navbar-end">
           <div className="navbar-item">
-            <div className="buttons">
-              <CurrentUser />
-            </div>
+            <CurrentUser />
           </div>
         </div>
       </div>

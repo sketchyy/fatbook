@@ -14,15 +14,28 @@ function CurrentUser(props) {
     authService.logout();
   };
 
+  const avatarUrl = user.photoURL;
   const displayName = user.displayName.split(" ")[0];
 
   return (
-    // TODO: align styles
-    <div>
-      <span>Hello, {displayName}</span>
-      <button className="button is-primary" onClick={handleLogout}>
-        Logout
-      </button>
+    <div className="level is-mobile">
+      <div className="level-left">
+        <div className="level-item mr-2">
+          <figure className="image">
+            <img className="is-rounded" src={avatarUrl} alt="" />
+          </figure>
+        </div>
+        <div className="level-item mr-4">
+          <div>Hello, {displayName}</div>
+        </div>
+      </div>
+      <div className="level-right">
+        <div className="level-item">
+          <button className="button is-primary mb-0" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
