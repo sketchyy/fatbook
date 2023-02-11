@@ -14,7 +14,7 @@ function AddEatingForm(props) {
 
     await eatingsDbService.replaceLogDay(day, logDay);
 
-    navigate(`/eatings/${day}/${meal}`);
+    navigate(`/eatings/${day}`);
   };
 
   return (

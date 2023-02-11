@@ -1,6 +1,5 @@
 import React, { Children } from "react";
 import { animated, useSpring } from "react-spring";
-import Divider from "./Divider";
 
 export function AccordionItem({
   title,
@@ -15,7 +14,7 @@ export function AccordionItem({
     from: { opacity: "0", maxHeight: "0" },
     to: {
       opacity: selected ? "1" : "0",
-      maxHeight: selected ? "200px" : "0",
+      maxHeight: selected ? "800px" : "0",
     },
     config: { duration: "300" },
   });
@@ -29,8 +28,6 @@ export function AccordionItem({
       <animated.div style={openAnimation} className="is-clipped">
         {children}
       </animated.div>
-
-      <Divider />
     </div>
   );
 }

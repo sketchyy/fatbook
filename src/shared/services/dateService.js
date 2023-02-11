@@ -15,6 +15,18 @@ const dateService = {
     }
     return dayjs(date).format(format);
   },
+
+  getNextDay(date) {
+    return dayjs(date).add(1, "day").toDate();
+  },
+
+  getPrevDay(date) {
+    return dayjs(date).subtract(1, "day").toDate();
+  },
+
+  isSame(date1, date2) {
+    return dayjs(date1).isSame(date2, "day");
+  },
 };
 
 export default dateService;

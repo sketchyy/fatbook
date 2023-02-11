@@ -11,3 +11,7 @@ body {
   pointer-events: none;
   cursor: wait;
 }
+
+.has-border-bottom-grey {
+  border-bottom: 2px solid hsl(0, 0%, 48%);
+}

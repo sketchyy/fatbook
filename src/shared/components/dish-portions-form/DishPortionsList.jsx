@@ -145,7 +145,8 @@ function DishPortionsList({
             key={dishPortion.dish.id + "-" + i}
             title={<DishPortionTitle dishPortion={dishPortion} />}
             className={
-              dishPortion.selected ? "has-background-success-light" : ""
+              "has-border-bottom-grey " +
+              (dishPortion.selected ? "has-background-success-light" : "")
             }
           >
             <DishPortionListItem

@@ -40,20 +40,13 @@
 - accordion customize header elementin header add icon + checkmark
 - accordion in header only name, in content also food value (recalculate?)
 - Edit input weight for dish ingr and eatings
+- Add several eatings at once - cleanup code, refactor
+- add < and > for quick date navigation
+- accordion for meal card
 
-* Add several eatings at once - cleanup code, refactor:
-  // PortionsForm ??
-  shared/components/dish-portions-form/DishPortionsForm
-  shared/components/dish-portions-form/DishPortionsFormList
-  shared/components/dish-portions-form/DishPortionsFormListItem
-  shared/components/dish-portions-form/DishPortionsFormListTitle
-
-  dish-portions-list
-  EditDishPortionsForm
-  SelectDishPortionsForm
-
-* add < and > for quick date navigation
-* accordion for meal card
+* move "today" to top
+* smaller font for calories and titles
+* render calories always
 
 * --- Tests ---
 *
@@ -67,8 +60,9 @@
 - user in mobile menu + logout btn align
 - render user avatar
 
-* add page - report charts
+* add page - report charts (last 7 days)
 * report for custom days (select FROM / TO, show totals for each day)
+* fix accoerdion animation
 * поиск? https://www.algolia.com/pricing/
 * global loading spinner animation
 * rename "createdAt -> updatedAt" for sorting
