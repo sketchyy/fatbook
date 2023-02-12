@@ -12,7 +12,6 @@ function LogDaySummary({ onDayChange }) {
   const parsedDay = dateService.format(dateService.parse(day), "YYYY-MM-DD");
 
   const handleDayChange = (date) => {
-    console.log("qweqwe=", date);
     const selectedDay = dateService.format(date);
     navigate(`/eatings/${selectedDay}`);
   };
@@ -60,14 +59,12 @@ function LogDaySummary({ onDayChange }) {
               <button className="button" onClick={handleBackClick}>
                 <FaChevronLeft />
               </button>
-              <div>
-                <input
-                  type="date"
-                  className="input"
-                  value={parsedDay}
-                  onChange={(e) => handleDayChange(e.target.value)}
-                />
-              </div>
+              <input
+                type="date"
+                className="input is-flex-grow-1"
+                value={parsedDay}
+                onChange={(e) => handleDayChange(e.target.value)}
+              />
               <button className="button" onClick={handleForwardClick}>
                 <FaChevronRight />
               </button>
