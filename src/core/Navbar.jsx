@@ -55,6 +55,13 @@ function Navbar(props) {
           >
             Dishes
           </NavLink>
+          <NavLink
+            to={`history`}
+            className={getNavLinkClass}
+            onClick={handleLinkClick}
+          >
+            History
+          </NavLink>
         </div>
 
         <div className="navbar-end">

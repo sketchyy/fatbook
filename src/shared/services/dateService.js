@@ -27,6 +27,18 @@ const dateService = {
   isSame(date1, date2) {
     return dayjs(date1).isSame(date2, "day");
   },
+
+  getLastXDays(count, startDate) {
+    const result = [];
+
+    let date = startDate;
+    for (let i = 0; i < count; i++) {
+      result.unshift(this.format(date));
+      date = this.getPrevDay(date);
+    }
+
+    return result;
+  },
 };
 
 export default dateService;

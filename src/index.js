@@ -22,6 +22,7 @@ import AddEatingForm from "./routes/eatings/AddEatingForm";
 import LogDayPage from "./routes/eatings/LogDayPage";
 import LogDaySummary from "./routes/eatings/LogDaySummary";
 import MealPage from "./routes/eatings/MealPage";
+import HistoryPage from "./routes/history/HistoryPage";
 import Login from "./routes/login/Login";
 import Root from "./routes/Root";
 import RequireAuth from "./shared/components/RequireAuth";
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
             loader: dishesSearchLoader,
           },
         ],
+      },
+      {
+        path: "history",
+        element: <HistoryPage />,
       },
     ],
   },

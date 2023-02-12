@@ -38,6 +38,7 @@ export async function getOrCreateLogDay(date) {
 
   if (!logDayFromDb) {
     logDayFromDb = LogDay.empty();
+    logDayFromDb.id = date;
   }
 
   return logDayFromDb;
