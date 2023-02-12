@@ -43,10 +43,10 @@
 - Add several eatings at once - cleanup code, refactor
 - add < and > for quick date navigation
 - accordion for meal card
+- move "today" to top
+- render calories always
 
-* move "today" to top
 * smaller font for calories and titles
-* render calories always
 
 * --- Tests ---
 *
@@ -59,9 +59,11 @@
 - search improvement: start from 3 characters, debounce, better search index
 - user in mobile menu + logout btn align
 - render user avatar
+- add page - report charts (last 7 days)
 
-* add page - report charts (last 7 days)
-* report for custom days (select FROM / TO, show totals for each day)
+* report for last 7/14/30 days
+* Delete "Save" button, save each meal/ingredient on "Add"
+* Render foodvalue per 100g.
 * fix accoerdion animation
 * поиск? https://www.algolia.com/pricing/
 * global loading spinner animation

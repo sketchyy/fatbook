@@ -17,7 +17,7 @@ function DailyTrendChart({ title, data, barFill, referenceValue, xKey, yKey }) {
         <BarChart
           data={data}
           margin={{
-            top: 5,
+            top: 20,
             right: 20,
             left: 20,
             bottom: 5,
@@ -28,7 +28,11 @@ function DailyTrendChart({ title, data, barFill, referenceValue, xKey, yKey }) {
           <XAxis dataKey={xKey} />
           {/* <YAxis /> */}
           <Tooltip />
-          <Bar dataKey={yKey} fill={barFill} />
+          <Bar
+            dataKey={yKey}
+            fill={barFill}
+            label={{ fontSize: 14, fill: "hsl(0, 0%, 14%)", position: "top" }}
+          />
           <ReferenceLine
             y={referenceValue}
             label={referenceValue}
