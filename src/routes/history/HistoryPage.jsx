@@ -42,27 +42,35 @@ function HistoryPage({ props }) {
   }, [dateRange]);
 
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <input className="input" defaultValue={value} onClick={onClick} ref={ref} />
+    <input
+      className="input"
+      style={{ width: 230 }}
+      defaultValue={value}
+      onClick={onClick}
+      ref={ref}
+      readOnly={true}
+    />
   ));
 
   return (
     <Fragment>
       <div className="box">
-        <span className="is-size-4 mb-1">History</span>
+        <div className="is-flex is-justify-content-space-between mb-4">
+          <div className="is-size-4">History</div>
 
-        <DatePicker
-          selectsRange={true}
-          startDate={startDate}
-          endDate={endDate}
-          onChange={(update) => {
-            setDateRange(update);
-          }}
-          customInput={<ExampleCustomInput />}
-          withPortal
-          dateFormat="dd MMM yyyy"
-        />
+          <DatePicker
+            selectsRange={true}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={(update) => {
+              setDateRange(update);
+            }}
+            customInput={<ExampleCustomInput />}
+            withPortal
+            dateFormat="dd MMM yyyy"
+          />
+        </div>
         <div className="mt-2">
-          <span className="is-size-6 mb-1">Totals:</span>
           <FoodValue
             foodValue={totalFoodValue}
             className="level-left is-size-6"
