@@ -60,8 +60,9 @@
 - user in mobile menu + logout btn align
 - render user avatar
 - add page - report charts (last 7 days)
+- report for custom date range
 
-* report for last 7/14/30 days
+* React Date picker for main page
 * Delete "Save" button, save each meal/ingredient on "Add"
 * Render foodvalue per 100g.
 * fix accoerdion animation

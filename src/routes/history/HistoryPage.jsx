@@ -56,7 +56,7 @@ function HistoryPage({ props }) {
     <Fragment>
       <div className="box">
         <div className="is-flex is-justify-content-space-between mb-4">
-          <div className="is-size-4">History</div>
+          <div className="is-size-4 mr-2">History</div>
 
           <DatePicker
             selectsRange={true}
