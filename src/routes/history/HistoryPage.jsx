@@ -1,17 +1,25 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { forwardRef, Fragment, useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
-import PageTitle from "../../shared/components/PageTitle";
+import FoodValue from "../../shared/components/FoodValue";
 import dateService from "../../shared/services/dateService";
+import foodValueService from "../../shared/services/foodValueService";
 import DailyTrendChart from "./DailyTrendChart";
 
 function HistoryPage({ props }) {
   const [chartData, setChartData] = useState([]);
-  const lastSevenDays = dateService.getLastXDays(7, dateService.now());
+  const [dateRange, setDateRange] = useState([
+    dateService.subtractDays(dateService.now(), 7),
+    dateService.now(),
+  ]);
+  const [startDate, endDate] = dateRange;
+  const selectedDays = dateService.getDaysBetween(startDate, endDate);
+  const [totalFoodValue, setTotalFoodValue] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const logDays = await Promise.all(
-        lastSevenDays.map(
+        selectedDays.map(
           async (day) => await eatingsDbService.getOrCreateLogDay(day)
         )
       );
@@ -24,15 +32,42 @@ function HistoryPage({ props }) {
           carbs: Math.round(logDay.totalFoodValue.carbs),
         }))
       );
+
+      setTotalFoodValue(
+        foodValueService.sumFoodValues(logDays.map((ld) => ld.totalFoodValue))
+      );
     };
 
     fetchData();
-  }, []);
+  }, [dateRange]);
+
+  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+    <input className="input" defaultValue={value} onClick={onClick} ref={ref} />
+  ));
 
   return (
     <Fragment>
       <div className="box">
-        <PageTitle title="Trend for last 7 days" />
+        <span className="is-size-4 mb-1">History</span>
+
+        <DatePicker
+          selectsRange={true}
+          startDate={startDate}
+          endDate={endDate}
+          onChange={(update) => {
+            setDateRange(update);
+          }}
+          customInput={<ExampleCustomInput />}
+          withPortal
+          dateFormat="dd MMM yyyy"
+        />
+        <div className="mt-2">
+          <span className="is-size-6 mb-1">Totals:</span>
+          <FoodValue
+            foodValue={totalFoodValue}
+            className="level-left is-size-6"
+          />
+        </div>
       </div>
       <DailyTrendChart
         title="⚡ Calories"

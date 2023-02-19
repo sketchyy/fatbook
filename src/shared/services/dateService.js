@@ -24,17 +24,21 @@ const dateService = {
     return dayjs(date).subtract(1, "day").toDate();
   },
 
+  subtractDays(date, amount) {
+    return dayjs(date).subtract(amount, "day").toDate();
+  },
+
   isSame(date1, date2) {
     return dayjs(date1).isSame(date2, "day");
   },
 
-  getLastXDays(count, startDate) {
+  getDaysBetween(start, end) {
     const result = [];
 
-    let date = startDate;
-    for (let i = 0; i < count; i++) {
-      result.unshift(this.format(date));
-      date = this.getPrevDay(date);
+    let date = start;
+    while (date <= end) {
+      result.push(this.format(date));
+      date = this.getNextDay(date);
     }
 
     return result;

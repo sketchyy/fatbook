@@ -1,5 +1,6 @@
 import "bulma/css/bulma.min.css";
 import React from "react";
+import "react-datepicker/dist/react-datepicker.css";
 import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
