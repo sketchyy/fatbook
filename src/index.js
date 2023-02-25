@@ -1,5 +1,7 @@
 import "bulma/css/bulma.min.css";
+import enGB from "date-fns/locale/en-GB";
 import React from "react";
+import { registerLocale, setDefaultLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactDOM from "react-dom/client";
 import {
@@ -29,6 +31,8 @@ import Root from "./routes/Root";
 import RequireAuth from "./shared/components/RequireAuth";
 import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
 import dateService from "./shared/services/dateService";
+registerLocale("en-GB", enGB);
+setDefaultLocale("en-GB");
 
 const today = dateService.format(dateService.now());
 
