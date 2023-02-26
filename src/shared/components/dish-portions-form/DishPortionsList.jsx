@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { FaCheckCircle, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
 import DishIcon from "../dish/DishIcon";
@@ -62,13 +62,13 @@ function DishPortionListItem({
   dishPortion,
   onSubmit,
   onDelete,
-  submitBtn,
   isSubmitVisible,
   isDeleteVisible,
 }) {
   const [size, setSize] = useState(
     dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? ""
   );
+  const inputRef = useRef(null);
 
   const handleInputChange = (e) => {
     setSize(e.target.value);
@@ -82,6 +82,10 @@ function DishPortionListItem({
     setSize(dishPortion.dish.defaultServingSize ?? "");
     onDelete(dishPortion);
   };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   return (
     <div className="pb-4 px-4">
@@ -100,6 +104,7 @@ function DishPortionListItem({
               <label className="label">Portion Size (g.)</label>
               <p className="control">
                 <input
+                  ref={inputRef}
                   name="servingSize"
                   className="input"
                   type="number"

@@ -25,9 +25,11 @@ export function AccordionItem({
         <div>{title}</div>
       </div>
 
-      <animated.div style={openAnimation} className="is-clipped">
-        {children}
-      </animated.div>
+      {selected && (
+        <animated.div style={openAnimation} className="is-clipped">
+          {children}
+        </animated.div>
+      )}
     </div>
   );
 }
