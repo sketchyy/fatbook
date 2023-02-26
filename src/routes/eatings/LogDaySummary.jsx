@@ -38,10 +38,10 @@ function LogDaySummary({ onDayChange }) {
             <div className="level is-mobile mb-0">
               <div className="level-left">
                 <div className="level-item">
-                  <span className="is-size-3">📝</span>
+                  <span className="is-size-5">📝</span>
                 </div>
                 <div className="level-item">
-                  <span className="is-size-4">Summary</span>
+                  <span className="is-size-5">Summary</span>
                 </div>
               </div>
               <div className="level-right">

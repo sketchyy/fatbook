@@ -60,9 +60,9 @@
 - add page - report charts (last 7 days)
 - report for custom date range
 - React Date picker for main page
+- Delete "Save" button, save each meal/ingredient on "Add"
+- Render foodvalue per 100g.
 
-* Delete "Save" button, save each meal/ingredient on "Add"
-* Render foodvalue per 100g.
 * focus input on accordion open
 
 * customize bulma (box-padding: 1rem, font-size smaller)

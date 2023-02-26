@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useLoaderData, useSubmit } from "react-router-dom";
+import foodValueService from "../../services/foodValueService";
 import uuidService from "../../services/uuidService";
 import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
@@ -22,6 +23,9 @@ function SelectDishPortionsForm({ title, subtitle, onAdd, onDelete }) {
 
   const handleAddClick = (portion) => {
     portion.id = uuidService.get();
+    // Only for rendering, actual submitted calculated in logDay.
+    portion.totalFoodValue =
+      foodValueService.calculateFoodValueForPortion(portion);
 
     const updatedSelectedPortions = [
       ...selectedPortions,

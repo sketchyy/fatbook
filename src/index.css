@@ -15,3 +15,7 @@ body {
 .has-border-bottom-grey {
   border-bottom: 2px solid hsl(0, 0%, 48%);
 }
+
+.box {
+  padding: 1rem;
+}
