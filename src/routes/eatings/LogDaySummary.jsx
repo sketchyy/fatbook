@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import FoodValue from "../../shared/components/FoodValue";
+import DatePicker from "../../shared/components/ui/DatePicker";
 import dateService from "../../shared/services/dateService";
 import MealCard from "./MealCard";
 
@@ -9,7 +10,7 @@ function LogDaySummary({ onDayChange }) {
   const navigate = useNavigate();
   const { day, logDay } = useOutletContext();
   const isToday = dateService.isSame(dateService.now(), day);
-  const parsedDay = dateService.format(dateService.parse(day), "YYYY-MM-DD");
+  const parsedDay = dateService.parse(day);
 
   const handleDayChange = (date) => {
     const selectedDay = dateService.format(date);
@@ -59,11 +60,11 @@ function LogDaySummary({ onDayChange }) {
               <button className="button" onClick={handleBackClick}>
                 <FaChevronLeft />
               </button>
-              <input
-                type="date"
-                className="input is-flex-grow-1"
-                value={parsedDay}
-                onChange={(e) => handleDayChange(e.target.value)}
+              <DatePicker
+                selected={parsedDay}
+                onChange={(e) => handleDayChange(e)}
+                withIcon={true}
+                width={200}
               />
               <button className="button" onClick={handleForwardClick}>
                 <FaChevronRight />

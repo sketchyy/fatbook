@@ -1,7 +1,7 @@
-import React, { forwardRef, Fragment, useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
+import React, { Fragment, useEffect, useState } from "react";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
 import FoodValue from "../../shared/components/FoodValue";
+import DatePicker from "../../shared/components/ui/DatePicker";
 import dateService from "../../shared/services/dateService";
 import foodValueService from "../../shared/services/foodValueService";
 import DailyTrendChart from "./DailyTrendChart";
@@ -41,17 +41,6 @@ function HistoryPage({ props }) {
     fetchData();
   }, [dateRange]);
 
-  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <input
-      className="input"
-      style={{ width: 230 }}
-      defaultValue={value}
-      onClick={onClick}
-      ref={ref}
-      readOnly={true}
-    />
-  ));
-
   return (
     <Fragment>
       <div className="box">
@@ -59,15 +48,13 @@ function HistoryPage({ props }) {
           <div className="is-size-4 mr-2">History</div>
 
           <DatePicker
+            width={230}
             selectsRange={true}
             startDate={startDate}
             endDate={endDate}
             onChange={(update) => {
               setDateRange(update);
             }}
-            customInput={<ExampleCustomInput />}
-            withPortal
-            dateFormat="dd MMM yyyy"
           />
         </div>
         <div className="mt-2">
