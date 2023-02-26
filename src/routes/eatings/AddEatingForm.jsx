@@ -7,14 +7,20 @@ function AddEatingForm(props) {
   const navigate = useNavigate();
   const { day, meal } = useParams();
 
-  const handleAddEatingsSubmit = async (portions) => {
+  const handleAddEatings = async (portion) => {
     const logDay = await eatingsDbService.getOrCreateLogDay(day);
 
-    logDay.addEatings(meal, portions);
+    logDay.addEatings(meal, [portion]);
 
     await eatingsDbService.replaceLogDay(day, logDay);
+  };
 
-    navigate(`/eatings/${day}`);
+  const handleDeleteEatings = async (portion) => {
+    const logDay = await eatingsDbService.getOrCreateLogDay(day);
+
+    logDay.deleteEating(meal, portion);
+
+    await eatingsDbService.replaceLogDay(day, logDay);
   };
 
   return (
@@ -22,7 +28,8 @@ function AddEatingForm(props) {
       title="Select Dish"
       // TODO:  Render today/yesterday/date
       subtitle={`${meal}, ${day}`}
-      onSubmit={handleAddEatingsSubmit}
+      onAdd={handleAddEatings}
+      onDelete={handleDeleteEatings}
     />
   );
 }

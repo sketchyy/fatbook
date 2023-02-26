@@ -77,7 +77,7 @@
 * style error page
 * back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
 * same style for all pages - Title, Back nav
-*
+* Refactor: FoodValue -> NutritionFacts
 *
 *
 *

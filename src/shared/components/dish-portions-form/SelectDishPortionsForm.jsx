@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { useLoaderData, useSubmit } from "react-router-dom";
+import uuidService from "../../services/uuidService";
 import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
 import DishPortionsList from "./DishPortionsList";
 
-function SelectDishPortionsForm({ title, subtitle, onSubmit }) {
+function SelectDishPortionsForm({ title, subtitle, onAdd, onDelete }) {
   const submit = useSubmit();
   const { searchResult, q } = useLoaderData();
   const [selectedPortions, setSelectedPortions] = useState([]);
@@ -19,40 +20,35 @@ function SelectDishPortionsForm({ title, subtitle, onSubmit }) {
     ...dishPortions.filter((portion) => !selectedIds.includes(portion.dish.id)),
   ];
 
-  const handleSave = () => {
-    onSubmit(
-      selectedPortions.map((portion) => {
-        delete portion.selected;
-        return portion;
-      })
-    );
-  };
-
   const handleAddClick = (portion) => {
-    portion.selected = true;
-    const updatedSelectedPortions = [...selectedPortions, portion];
+    portion.id = uuidService.get();
+
+    const updatedSelectedPortions = [
+      ...selectedPortions,
+      { ...portion, selected: true },
+    ];
 
     setSelectedPortions(updatedSelectedPortions);
+
+    onAdd(portion);
   };
 
   const handleDeleteClick = (portion) => {
-    portion.selected = false;
+    delete portion.selected;
     const updatedSelectedPortions = selectedPortions.filter(
       (p) => p.dish.id !== portion.dish.id
     );
 
     setSelectedPortions(updatedSelectedPortions);
+
+    onDelete(portion);
   };
 
   return (
     <Fragment>
       <div className="block">
         <div className="box">
-          <PageTitle title={title} subtitle={subtitle} backPath={-1}>
-            <button className="button is-primary" onClick={handleSave}>
-              <span>Save</span>
-            </button>
-          </PageTitle>
+          <PageTitle title={title} subtitle={subtitle} backPath={-1} />
 
           <SearchBar
             defaultValue={q}

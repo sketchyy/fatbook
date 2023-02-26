@@ -67,7 +67,13 @@ export default class Dish {
   }
 
   deleteIngredient(ingredient) {
-    this.ingredients = this.ingredients.filter((item) => item !== ingredient);
+    this.ingredients = this.ingredients.filter((item) => {
+      if (item.id) {
+        return item.id !== ingredient.id;
+      } else {
+        return item !== ingredient;
+      }
+    });
 
     if (this.hasIngredients()) {
       this.foodValue = foodValueService.calculateDishValuePer100g(

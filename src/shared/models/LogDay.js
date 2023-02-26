@@ -1,6 +1,5 @@
 import dateService from "../services/dateService";
 import foodValueService from "../services/foodValueService";
-import uuidService from "../services/uuidService";
 import { Meals } from "./Meals";
 
 export class LogDay {
@@ -57,9 +56,9 @@ export class LogDay {
   }
 
   /* Calculate eating total food value ((foodvalue * servingSize) / 100) */
-  #calculateEating({ dish, servingSize }) {
+  #calculateEating({ id, dish, servingSize }) {
     return {
-      id: uuidService.get(),
+      id: id,
       dish: dish.toJsonSimple ? dish.toJsonSimple() : dish,
       servingSize: servingSize,
       totalFoodValue: foodValueService.calculateFoodValueForPortion({

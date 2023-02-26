@@ -7,18 +7,24 @@ function AddIngredientForm(props) {
   const { dish } = useOutletContext();
   const navigate = useNavigate();
 
-  const handleAddIngredientsSubmit = async (ingredients) => {
-    dish.addIngredients(ingredients);
+  const handleAddIngredients = async (ingredient) => {
+    dish.addIngredients([ingredient]);
 
     await dishesDbService.replaceDish(dish);
-    navigate(`/dishes/${dish.id}/ingredients`);
+  };
+
+  const handleDeleteIngredients = async (ingredient) => {
+    dish.deleteIngredient(ingredient);
+
+    await dishesDbService.replaceDish(dish);
   };
 
   return (
     <SelectDishPortionsForm
       title="Select Ingredient"
       subtitle={"For " + dish.name}
-      onSubmit={handleAddIngredientsSubmit}
+      onAdd={handleAddIngredients}
+      onDelete={handleDeleteIngredients}
     />
   );
 }
