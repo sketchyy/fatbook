@@ -46,8 +46,6 @@
 - move "today" to top
 - render calories always
 
-* smaller font for calories and titles
-
 * --- Tests ---
 *
 *
@@ -61,20 +59,24 @@
 - render user avatar
 - add page - report charts (last 7 days)
 - report for custom date range
+- React Date picker for main page
 
-* React Date picker for main page
 * Delete "Save" button, save each meal/ingredient on "Add"
 * Render foodvalue per 100g.
-* fix accoerdion animation
+* focus input on accordion open
+
+* customize bulma (box-padding: 1rem, font-size smaller)
+  https://bulma.io/documentation/customize/variables/
+  https://create-react-app.dev/docs/adding-a-sass-stylesheet/
+
 * поиск? https://www.algolia.com/pricing/
+
+* fix accoerdion animation
 * global loading spinner animation
 * rename "createdAt -> updatedAt" for sorting
 * style error page
 * back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
 * same style for all pages - Title, Back nav
-* customize bulma (box-padding: 1rem, )
-  https://bulma.io/documentation/customize/variables/
-  https://create-react-app.dev/docs/adding-a-sass-stylesheet/
 *
 *
 *
