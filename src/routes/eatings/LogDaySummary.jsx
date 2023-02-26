@@ -75,7 +75,7 @@ function LogDaySummary({ onDayChange }) {
         <div className="block level is-mobile">
           <FoodValue
             foodValue={logDay.totalFoodValue}
-            className="level-left is-size-6"
+            className="level-left is-size-7"
           />
         </div>
       </div>
