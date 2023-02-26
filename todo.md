@@ -62,8 +62,7 @@
 - React Date picker for main page
 - Delete "Save" button, save each meal/ingredient on "Add"
 - Render foodvalue per 100g.
-
-* focus input on accordion open
+- focus input on accordion open
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/
@@ -73,12 +72,10 @@
 
 * fix accoerdion animation
 * global loading spinner animation
-* rename "createdAt -> updatedAt" for sorting
 * style error page
 * back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
 * same style for all pages - Title, Back nav
+* Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts
-*
-*
 *
 *
