@@ -60,7 +60,7 @@ function HistoryPage({ props }) {
         <div className="mt-2">
           <FoodValue
             foodValue={totalFoodValue}
-            className="level-left is-size-6"
+            className="level-left is-size-7"
           />
         </div>
       </div>
