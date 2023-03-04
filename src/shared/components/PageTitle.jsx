@@ -8,7 +8,7 @@ function PageTitle({ title, subtitle, backPath, children }) {
   return (
     <div className="block columns is-mobile is-vcentered">
       {backPath && (
-        <div className="column is-narrow pl-0">
+        <div className="column is-narrow">
           <button className="button is-text" onClick={() => navigate(backPath)}>
             <span className="icon">
               <FaChevronLeft />

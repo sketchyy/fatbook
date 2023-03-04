@@ -24,7 +24,7 @@ export function AccordionItem({
       <div className="accordion-title" onClick={onToggle}>
         <div>{title}</div>
       </div>
-
+      {/* // TODO: selected fix autofocus, but bad animation when collapse. */}
       {selected && (
         <animated.div style={openAnimation} className="is-clipped">
           {children}

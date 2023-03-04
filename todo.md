@@ -63,6 +63,7 @@
 - Delete "Save" button, save each meal/ingredient on "Add"
 - Render foodvalue per 100g.
 - focus input on accordion open
+- same style for all pages - Title, Back nav
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/
@@ -71,11 +72,10 @@
 * поиск? https://www.algolia.com/pricing/
 
 * fix accoerdion animation
+* fix dish addition (set name, go to ingredients, name erased)
+* settings page (daily kcal, proteins, fats threshold)
 * global loading spinner animation
 * style error page
-* back button to navbar? title to navbar? (dont render title "FatBook" in mobile - waste of space)
-* same style for all pages - Title, Back nav
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts
-*
 *
