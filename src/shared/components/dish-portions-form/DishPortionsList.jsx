@@ -20,10 +20,17 @@ function DishPortionTitle({ dishPortion }) {
       <div className="py-4 px-2">
         <div className="is-flex-grow-1">
           <div className="is-flex is-align-items-center">
-            <DishIcon className="mr-2" dish={dishPortion.dish} />
             <div className="is-flex-grow-1">
               <div>
-                <div className="mb-1">{dishPortion.dish.name}</div>
+                <div className="mb-1 is-flex is-align-items-center">
+                  <DishIcon className="mr-2" dish={dishPortion.dish} />
+                  <div className="is-flex-grow-1">{dishPortion.dish.name}</div>
+                  {dishPortion.selected ? (
+                    <FaCheckCircle className="has-text-success is-size-4" />
+                  ) : (
+                    ""
+                  )}
+                </div>
                 <div className="is-flex is-justify-content-space-between">
                   <FoodValue
                     className="mb-0 is-size-7 is-justify-content-flex-start"
@@ -34,22 +41,15 @@ function DishPortionTitle({ dishPortion }) {
                     }
                   />
                   {dishPortion.servingSize && (
-                    <div className="is-size-7">
+                    <strong className="is-size-7">
                       ⚖️ {dishPortion.servingSize} g.
-                    </div>
+                    </strong>
                   )}
                   {!dishPortion.servingSize && (
-                    <div className="is-size-7">per 100 g.</div>
+                    <strong className="is-size-7">per 100 g.</strong>
                   )}
                 </div>
               </div>
-            </div>
-            <div className="is-size-5">
-              {dishPortion.selected ? (
-                <FaCheckCircle className="has-text-success" />
-              ) : (
-                ""
-              )}
             </div>
           </div>
         </div>

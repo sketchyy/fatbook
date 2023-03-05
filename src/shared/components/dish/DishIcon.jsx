@@ -5,7 +5,7 @@ function DishIcon({ dish = Dish.empty(), className }) {
   const renderedIcon =
     dish.ingredients && dish.ingredients.length > 0 ? "🥘" : "🥫";
 
-  return <div className={"is-size-4 " + className}>{renderedIcon}</div>;
+  return <span className={"is-size-4 " + className}>{renderedIcon}</span>;
 }
 
 export default DishIcon;

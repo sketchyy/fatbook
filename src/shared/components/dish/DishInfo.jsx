@@ -8,9 +8,11 @@ function DishInfo({ dish, servingSize }) {
   return (
     <div className="is-flex-grow-1">
       <div className="is-flex is-align-items-center">
-        <DishIcon className="mr-2" dish={dish} />
         <div className="is-flex-grow-1">
-          <p className=" title is-6 pb-1">{renderedName}</p>
+          <p className="title is-6 pb-1 is-flex is-align-items-center">
+            <DishIcon className="mr-2" dish={dish} />
+            <span>{renderedName}</span>
+          </p>
           <p className=" subtitle is-7">
             <span className="is-flex is-justify-content-space-between">
               <span>
