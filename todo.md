@@ -64,6 +64,13 @@
 - Render foodvalue per 100g.
 - focus input on accordion open
 - same style for all pages - Title, Back nav
+- style error page
+
+* fix accordion animation
+* fix dish addition (set name, go to ingredients, name erased)
+
+* settings page (daily kcal, proteins, fats threshold)
+* global loading spinner animation
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/
@@ -71,11 +78,6 @@
 
 * поиск? https://www.algolia.com/pricing/
 
-* fix accoerdion animation
-* fix dish addition (set name, go to ingredients, name erased)
-* settings page (daily kcal, proteins, fats threshold)
-* global loading spinner animation
-* style error page
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts
 *
