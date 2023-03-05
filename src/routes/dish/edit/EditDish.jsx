@@ -15,6 +15,11 @@ function EditDish(props) {
     }
   };
 
+  const handleNameChange = ({ target }) => {
+    // Update outlet context to save when navigate to ingredients
+    dish.name = target.value;
+  };
+
   return (
     <Form method="post" id="dish-form">
       <div className="box">
@@ -26,6 +31,7 @@ function EditDish(props) {
               className="input"
               type="text"
               defaultValue={dish.name}
+              onChange={handleNameChange}
             />
           </div>
         </div>

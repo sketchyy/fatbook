@@ -65,9 +65,9 @@
 - focus input on accordion open
 - same style for all pages - Title, Back nav
 - style error page
+- fix dish addition (set name, go to ingredients, name erased)
 
 * fix accordion animation
-* fix dish addition (set name, go to ingredients, name erased)
 
 * settings page (daily kcal, proteins, fats threshold)
 * global loading spinner animation
