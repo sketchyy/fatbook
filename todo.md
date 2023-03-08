@@ -66,8 +66,7 @@
 - same style for all pages - Title, Back nav
 - style error page
 - fix dish addition (set name, go to ingredients, name erased)
-
-* fix accordion animation
+- fix accordion animation
 
 * settings page (daily kcal, proteins, fats threshold)
 * global loading spinner animation
@@ -78,6 +77,6 @@
 
 * поиск? https://www.algolia.com/pricing/
 
+* Fix todos
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts
-*

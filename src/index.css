@@ -19,3 +19,13 @@ body {
 .box {
   padding: 1rem;
 }
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: all ease 0.35s;
+}
+
+.accordion-item {
+  transition: all ease 0.35s;
+}

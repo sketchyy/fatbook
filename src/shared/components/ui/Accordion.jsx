@@ -1,5 +1,4 @@
-import React, { Children } from "react";
-import { animated, useSpring } from "react-spring";
+import React, { Children, useRef } from "react";
 
 export function AccordionItem({
   title,
@@ -7,29 +6,34 @@ export function AccordionItem({
   onToggle,
   children,
   className,
+  selectedClassName,
+  selectedStyle,
 }) {
-  const selectedClass = selected ? " has-background-info-light" : "";
-
-  const openAnimation = useSpring({
-    from: { opacity: "0", maxHeight: "0" },
-    to: {
-      opacity: selected ? "1" : "0",
-      maxHeight: selected ? "800px" : "0",
-    },
-    config: { duration: "300" },
-  });
+  const contentEl = useRef(null);
+  const selectedClass = selected ? selectedClassName : "";
 
   return (
-    <div className={"accordion-item " + className + selectedClass}>
+    <div
+      className={"accordion-item " + className + " " + selectedClass}
+      style={selected ? selectedStyle : { width: "100%", marginLeft: "0%" }}
+    >
       <div className="accordion-title" onClick={onToggle}>
         <div>{title}</div>
       </div>
-      {/* // TODO: selected fix autofocus, but bad animation when collapse. */}
-      {selected && (
-        <animated.div style={openAnimation} className="is-clipped">
-          {children}
-        </animated.div>
-      )}
+      <div
+        className="accordion-content"
+        ref={contentEl}
+        style={
+          selected
+            ? {
+                maxHeight: contentEl.current.scrollHeight + 100,
+                opacity: 1,
+              }
+            : { maxHeight: "0px", opacity: 0 }
+        }
+      >
+        {children}
+      </div>
     </div>
   );
 }

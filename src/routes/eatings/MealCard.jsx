@@ -114,6 +114,10 @@ function MealCard({}) {
           key={meal}
           title={renderMealTitle(meal)}
           className="box mb-4"
+          selectedStyle={{
+            width: "104%",
+            marginLeft: "-2%",
+          }}
         >
           {renderMealContent(meal)}
         </AccordionItem>

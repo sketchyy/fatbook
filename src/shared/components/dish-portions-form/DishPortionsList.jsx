@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { FaCheckCircle, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
 import DishIcon from "../dish/DishIcon";
@@ -59,6 +59,7 @@ function DishPortionTitle({ dishPortion }) {
 }
 
 function DishPortionListItem({
+  focused,
   dishPortion,
   onSubmit,
   onDelete,
@@ -83,9 +84,9 @@ function DishPortionListItem({
     onDelete(dishPortion);
   };
 
-  useEffect(() => {
+  if (inputRef.current && focused) {
     inputRef.current.focus();
-  }, []);
+  }
 
   return (
     <div className="pb-4 px-4">
@@ -169,8 +170,10 @@ function DishPortionsList({
               "has-border-bottom-grey " +
               (dishPortion.selected ? "has-background-success-light" : "")
             }
+            selectedClassName="has-background-info-light"
           >
             <DishPortionListItem
+              focused={i === activeIndex}
               dishPortion={dishPortion}
               onSubmit={handleSubmit}
               onDelete={handleDelete}

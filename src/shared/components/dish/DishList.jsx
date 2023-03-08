@@ -2,11 +2,6 @@ import React, { Fragment, useState } from "react";
 import Divider from "../ui/Divider";
 import DishInfo from "./DishInfo";
 
-//TODO: 2 components:
-// IngredientsList -- not clickable, props: onDelete, dishPortion, yellow bg??
-// DishesList -- clickable, props: onClick, dish (render default serving size)
-// DishTitle -- Dish + larger font
-// Dish - title + subtitle + icon, props: dish, servingSize
 function DishListItem({ dish, onClick }) {
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(false);
