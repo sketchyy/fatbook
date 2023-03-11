@@ -62,14 +62,6 @@ export async function replaceLogDay(dayId, logDay) {
   await setDoc(docRef, logDay);
 }
 
-export async function addEating(dish) {
-  //   dish.createdAt = dateService.now();
-  //   const docRef = await addDoc(dishesRef, dish);
-  //   console.log("Dish added with id...", docRef.id, dish);
-  //   await updateDishSearchIndex(docRef.id, dish.name);
-  //   return docRef.id;
-}
-
 const eatingsDbService = {
   getOrCreateLogDay,
   replaceLogDay,

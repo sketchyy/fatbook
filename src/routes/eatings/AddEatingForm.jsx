@@ -1,10 +1,9 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
 import SelectDishPortionsForm from "../../shared/components/dish-portions-form/SelectDishPortionsForm";
 
 function AddEatingForm(props) {
-  const navigate = useNavigate();
   const { day, meal } = useParams();
 
   const handleAddEatings = async (portion) => {

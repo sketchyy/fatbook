@@ -26,7 +26,7 @@ export const meals = {
   },
 };
 
-function MealCard({}) {
+function MealCard(props) {
   const { day, logDay } = useOutletContext();
   const [activeIndex, setActiveIndex] = useState(-1);
 

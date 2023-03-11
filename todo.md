@@ -69,6 +69,11 @@
 - fix accordion animation
 
 * settings page (daily kcal, proteins, fats threshold)
+
+* login page fix
+* date (today, yesterday, ...) fix
+* add react dialog
+
 * global loading spinner animation
 
 * customize bulma (box-padding: 1rem, font-size smaller)
@@ -77,6 +82,5 @@
 
 * поиск? https://www.algolia.com/pricing/
 
-* Fix todos
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts
