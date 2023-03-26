@@ -70,17 +70,19 @@
 
 * settings page (daily kcal, proteins, fats threshold)
 
-* login page fix
+* login page improve
 * date (today, yesterday, ...) fix
 * add react dialog
 
 * global loading spinner animation
+* Merge to master, create tag for angular (legacy-angular)
+* replace CRA with VITE + typescript, create tag for (legacy-react-cra-js)
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
 
-* поиск? https://www.algolia.com/pricing/
+* поиск? https://www.algolia.com/pricing/ or better indexes
 
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts
