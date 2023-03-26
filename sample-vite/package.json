@@ -1,7 +1,7 @@
 {
-  "name": "fatbook",
+  "name": "sample-vite",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,16 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "bulma": "^0.9.4",
-    "dayjs": "^1.11.7",
-    "firebase": "^9.18.0",
     "react": "^18.2.0",
-    "react-datepicker": "^4.10.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.8.0",
-    "react-router-dom": "^6.9.0",
-    "recharts": "^2.5.0",
-    "uuid": "^9.0.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

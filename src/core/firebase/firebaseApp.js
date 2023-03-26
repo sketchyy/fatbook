@@ -3,9 +3,9 @@ import { devFirebaseConfig } from "./firebase.dev";
 import { prodFirebaseConfig } from "./firebase.prod";
 
 // Initialize Firebase
-console.log("ENV=", process.env.REACT_APP_DEPLOY_ENV);
+console.log("ENV=", import.meta.env.MODE);
 let firebaseApp;
-if (process.env.REACT_APP_DEPLOY_ENV === "production") {
+if (import.meta.env.MODE === "production") {
   firebaseApp = initializeApp(prodFirebaseConfig);
 } else {
   firebaseApp = initializeApp(devFirebaseConfig);
