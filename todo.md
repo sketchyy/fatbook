@@ -67,6 +67,11 @@
 - style error page
 - fix dish addition (set name, go to ingredients, name erased)
 - fix accordion animation
+- replace CRA with VITE + typescript,
+- add eslint
+
+* Merge to master, create tag for angular (legacy-angular)
+* create tag for (legacy-react-cra-js)
 
 * settings page (daily kcal, proteins, fats threshold)
 
@@ -75,8 +80,6 @@
 * add react dialog
 
 * global loading spinner animation
-* Merge to master, create tag for angular (legacy-angular)
-* replace CRA with VITE + typescript, create tag for (legacy-react-cra-js)
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/
