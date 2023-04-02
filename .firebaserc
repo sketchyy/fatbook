@@ -1,11 +1,6 @@
 {
-  "targets": {
-    "food-log-915e4": {
-      "hosting": {
-        "calories-diary": [
-          "food-log-915e4"
-        ]
-      }
-    }
+  "projects": {
+    "default": "calories-diary-3fa55",
+    "prod": "food-log-915e4"
   }
 }
