@@ -72,14 +72,15 @@
 - Merge to master, create tag for angular (legacy-angular)
 - create tag for (legacy-react-cra-js)
 - bug - change days, close accordion
+- add ability to edit dish serving grams in input
 
 * login page improve
 * date (today, yesterday, ...) fix
 * clear search button -> focus input
-* add ability to edit dish serving grams in input
 
 * settings page (daily kcal, proteins, fats threshold)
 
+* Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
 * add react dialog to confirm
 * global loading spinner animation
 
