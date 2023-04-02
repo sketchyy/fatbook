@@ -12,7 +12,8 @@ export default class Dish {
         fats: "",
       },
       [],
-      ""
+      "",
+      null
     );
   }
 

@@ -1,15 +1,22 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
 import SelectDishPortionsForm from "../../shared/components/dish-portions-form/SelectDishPortionsForm";
 
-function AddEatingForm(props) {
+function AddEatingForm() {
   const { day, meal } = useParams();
 
   const handleAddEatings = async (portion) => {
     const logDay = await eatingsDbService.getOrCreateLogDay(day);
 
     logDay.addEatings(meal, [portion]);
+
+    await eatingsDbService.replaceLogDay(day, logDay);
+  };
+
+  const handleUpdateEatings = async (portion) => {
+    const logDay = await eatingsDbService.getOrCreateLogDay(day);
+
+    logDay.updateEating(meal, portion);
 
     await eatingsDbService.replaceLogDay(day, logDay);
   };
@@ -28,6 +35,7 @@ function AddEatingForm(props) {
       // TODO:  Render today/yesterday/date
       subtitle={`${meal}, ${day}`}
       onAdd={handleAddEatings}
+      onUpdate={handleUpdateEatings}
       onDelete={handleDeleteEatings}
     />
   );

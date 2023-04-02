@@ -1,4 +1,3 @@
-import React from "react";
 import DishPortionsList from "./DishPortionsList";
 
 function EditDishPortionsForm({ dishPortions, onSave, onDelete }) {
@@ -13,10 +12,9 @@ function EditDishPortionsForm({ dishPortions, onSave, onDelete }) {
   return (
     <DishPortionsList
       dishPortions={dishPortions}
-      onSubmit={handleSaveClick}
+      onUpdate={handleSaveClick}
       onDelete={handleDeleteClick}
-      isSubmitVisible={(p) => true}
-      isDeleteVisible={(p) => true}
+      isAdded={(p) => true}
     />
   );
 }

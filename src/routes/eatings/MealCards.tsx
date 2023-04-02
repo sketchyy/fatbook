@@ -98,8 +98,6 @@ function MealCards({ activeIndex, setActiveIndex }: MealCardsProps) {
         <div className="mt-3">
           <EditDishPortionsForm
             dishPortions={mealData.eatings}
-            emptyMessage="No eatings."
-            onPortionDelete={(portion) => handleAddEatingDelete(meal, portion)}
             onSave={(portion) => handleDaySave(meal, portion)}
             onDelete={(portion) => handleAddEatingDelete(meal, portion)}
           />

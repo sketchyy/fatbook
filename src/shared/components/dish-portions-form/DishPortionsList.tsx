@@ -1,6 +1,7 @@
 import { Fragment, useRef, useState } from "react";
-import { FaCheckCircle, FaPlus, FaTimes } from "react-icons/fa";
+import { FaCheck, FaCheckCircle, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
+import { DishPortion } from "../../models/DishPortion";
 import DishIcon from "../dish/DishIcon";
 import FoodValue from "../FoodValue";
 import Accordion, { AccordionItem } from "../ui/Accordion";
@@ -58,25 +59,38 @@ function DishPortionTitle({ dishPortion }) {
   );
 }
 
+interface DishPortionsListItemProps {
+  focused: boolean;
+  dishPortion: DishPortion;
+  onAdd: (p: DishPortion) => void;
+  onUpdate: (p: DishPortion) => void;
+  onDelete: (p: DishPortion) => void;
+  isAdded: (p: DishPortion) => boolean;
+}
+
 function DishPortionListItem({
   focused,
   dishPortion,
-  onSubmit,
+  onAdd,
+  onUpdate,
   onDelete,
-  isSubmitVisible,
-  isDeleteVisible,
-}) {
+  isAdded,
+}: DishPortionsListItemProps) {
   const [size, setSize] = useState(
     dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? ""
   );
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (e) => {
     setSize(e.target.value);
   };
 
   const handleAddClick = () => {
-    onSubmit({ ...dishPortion, servingSize: Number(size) });
+    onAdd({ ...dishPortion, servingSize: Number(size) });
+  };
+
+  const handleUpdateClick = () => {
+    onUpdate({ ...dishPortion, servingSize: Number(size) });
   };
 
   const handleDeleteClick = () => {
@@ -92,10 +106,10 @@ function DishPortionListItem({
     <div className="pb-4 px-4">
       <Form onSubmit={(e) => e.preventDefault()}>
         <div className="is-flex is-align-items-end">
-          {isDeleteVisible && isDeleteVisible(dishPortion) && (
+          {isAdded(dishPortion) && (
             <button
               className="button is-danger mr-3"
-              onClick={() => handleDeleteClick(dishPortion)}
+              onClick={() => handleDeleteClick()}
             >
               <FaTimes />
             </button>
@@ -116,12 +130,20 @@ function DishPortionListItem({
               </p>
             </div>
           </div>
-          {isSubmitVisible && isSubmitVisible(dishPortion) && (
+          {!isAdded(dishPortion) && (
             <button
               className="button is-primary ml-3"
-              onClick={() => handleAddClick(dishPortion)}
+              onClick={() => handleAddClick()}
             >
               <FaPlus />
+            </button>
+          )}
+          {isAdded(dishPortion) && (
+            <button
+              className="button is-primary ml-3"
+              onClick={() => handleUpdateClick()}
+            >
+              <FaCheck />
             </button>
           )}
         </div>
@@ -130,19 +152,33 @@ function DishPortionListItem({
   );
 }
 
+interface DishPortionsListProps {
+  dishPortions: DishPortion[];
+  onAdd?: (p: DishPortion) => void;
+  onUpdate: (p: DishPortion) => void;
+  onDelete: (p: DishPortion) => void;
+  isAdded: (p: DishPortion) => boolean;
+}
+
 function DishPortionsList({
   dishPortions,
-  onSubmit,
+  onAdd,
+  onUpdate,
   onDelete,
-  submitBtn,
-  isSubmitVisible,
-  isDeleteVisible,
-}) {
+  isAdded,
+}: DishPortionsListProps) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const handleSubmit = (portion) => {
+  const handleAdd = (portion) => {
     setActiveIndex(-1);
-    onSubmit(portion);
+    if (onAdd) {
+      onAdd(portion);
+    }
+  };
+
+  const handleUpdate = (portion) => {
+    setActiveIndex(-1);
+    onUpdate(portion);
   };
 
   const handleDelete = (portion) => {
@@ -175,11 +211,10 @@ function DishPortionsList({
             <DishPortionListItem
               focused={i === activeIndex}
               dishPortion={dishPortion}
-              onSubmit={handleSubmit}
+              onAdd={handleAdd}
+              onUpdate={handleUpdate}
               onDelete={handleDelete}
-              submitBtn={submitBtn}
-              isSubmitVisible={isSubmitVisible}
-              isDeleteVisible={isDeleteVisible}
+              isAdded={isAdded}
             />
           </AccordionItem>
         ))}
