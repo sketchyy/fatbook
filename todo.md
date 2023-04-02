@@ -71,11 +71,11 @@
 - add eslint
 - Merge to master, create tag for angular (legacy-angular)
 - create tag for (legacy-react-cra-js)
+- bug - change days, close accordion
 
 * login page improve
 * date (today, yesterday, ...) fix
 * clear search button -> focus input
-* bug - change days, close accordion
 * add ability to edit dish serving grams in input
 
 * settings page (daily kcal, proteins, fats threshold)

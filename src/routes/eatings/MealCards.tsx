@@ -26,7 +26,12 @@ export const meals = {
   },
 };
 
-function MealCard({ activeIndex, setActiveIndex }) {
+interface MealCardsProps {
+  activeIndex: number;
+  setActiveIndex: (number) => void;
+}
+
+function MealCards({ activeIndex, setActiveIndex }: MealCardsProps) {
   const { day, logDay } = useOutletContext<any>();
 
   const handleDaySave = async (meal, portion) => {
@@ -125,4 +130,4 @@ function MealCard({ activeIndex, setActiveIndex }) {
   );
 }
 
-export default MealCard;
+export default MealCards;

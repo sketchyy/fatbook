@@ -4,9 +4,9 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import FoodValue from "../../shared/components/FoodValue";
 import DatePicker from "../../shared/components/ui/DatePicker";
 import dateService from "../../shared/services/dateService";
-import MealCard from "./MealCard";
+import MealCards from "./MealCards";
 
-function LogDaySummary({ onDayChange }) {
+function LogDaySummary() {
   const navigate = useNavigate();
   const { day, logDay } = useOutletContext<any>();
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -81,7 +81,7 @@ function LogDaySummary({ onDayChange }) {
           />
         </div>
       </div>
-      <MealCard activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+      <MealCards activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
     </Fragment>
   );
 }
