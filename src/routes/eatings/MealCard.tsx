@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link, useOutletContext } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
@@ -26,9 +26,8 @@ export const meals = {
   },
 };
 
-function MealCard(props) {
-  const { day, logDay } = useOutletContext();
-  const [activeIndex, setActiveIndex] = useState(-1);
+function MealCard({ activeIndex, setActiveIndex }) {
+  const { day, logDay } = useOutletContext<any>();
 
   const handleDaySave = async (meal, portion) => {
     const logDay = await eatingsDbService.getOrCreateLogDay(day);
