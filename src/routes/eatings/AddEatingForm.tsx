@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
 import SelectDishPortionsForm from "../../shared/components/dish-portions-form/SelectDishPortionsForm";
+import dateService from "../../shared/services/dateService";
 
 function AddEatingForm() {
   const { day, meal } = useParams();
@@ -29,11 +30,24 @@ function AddEatingForm() {
     await eatingsDbService.replaceLogDay(day, logDay);
   };
 
+  const renderSubtitle = () => {
+    const today = dateService.now();
+    if (dateService.isSame(day, today)) {
+      return `${meal}, Today`;
+    }
+
+    const yesterday = dateService.subtractDays(today, 1);
+    if (dateService.isSame(day, yesterday)) {
+      return `${meal}, Yesterday`;
+    }
+
+    return `${meal}, ${day}`;
+  };
+
   return (
     <SelectDishPortionsForm
       title="Select Dish"
-      // TODO:  Render today/yesterday/date
-      subtitle={`${meal}, ${day}`}
+      subtitle={renderSubtitle()}
       onAdd={handleAddEatings}
       onUpdate={handleUpdateEatings}
       onDelete={handleDeleteEatings}
