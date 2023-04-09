@@ -74,8 +74,8 @@
 - bug - change days, close accordion
 - add ability to edit dish serving grams in input
 - clear search button -> focus input
+- login page improve
 
-* login page improve
 * date (today, yesterday, ...) fix
   ->> PR
 
