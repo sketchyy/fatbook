@@ -1,11 +1,13 @@
-import React, { useRef } from "react";
-import { FaSearch } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { FaSearch, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
 
 function SearchBar({ defaultValue, onChange }) {
-  const timeout = useRef();
+  const timeout = useRef<NodeJS.Timeout>();
+  const [query, setQuery] = useState(defaultValue ?? "");
 
   const handleChange = (event) => {
+    setQuery(event.target.value);
     if (event.target.value.length > 2 || event.target.value.length === 0) {
       //Clear the previous timeout.
       clearTimeout(timeout.current);
@@ -16,6 +18,11 @@ function SearchBar({ defaultValue, onChange }) {
     }
   };
 
+  const handleClearClick = (event) => {
+    setQuery("");
+    onChange(event);
+  };
+
   return (
     <div
       id="search-form"
@@ -23,13 +30,13 @@ function SearchBar({ defaultValue, onChange }) {
       className="content content is-flex is-align-items-center"
     >
       <Form
-        className="control has-icons-left search-field is-flex-grow-1"
+        className="control has-icons-left has-icons-right search-field is-flex-grow-1"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           id="q"
           name="q"
-          defaultValue={defaultValue}
+          value={query}
           type="search"
           placeholder="Search dish"
           className="input"
@@ -38,6 +45,14 @@ function SearchBar({ defaultValue, onChange }) {
         <span className="icon is-medium is-left">
           <FaSearch />
         </span>
+        {query && (
+          <span
+            className="icon is-medium is-right is-clickable"
+            onClick={handleClearClick}
+          >
+            <FaTimes />
+          </span>
+        )}
       </Form>
     </div>
   );

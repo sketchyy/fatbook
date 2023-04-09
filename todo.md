@@ -73,14 +73,23 @@
 - create tag for (legacy-react-cra-js)
 - bug - change days, close accordion
 - add ability to edit dish serving grams in input
+- clear search button -> focus input
 
 * login page improve
 * date (today, yesterday, ...) fix
-* clear search button -> focus input
+  ->> PR
 
 * settings page (daily kcal, proteins, fats threshold)
+  ->> PR
+
+* move all files to typescript
+  ->> PR
 
 * Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
+  ->> PR
+
+* Add dish with portions count (calories per portion)
+
 * add react dialog to confirm
 * global loading spinner animation
 
