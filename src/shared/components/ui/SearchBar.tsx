@@ -4,6 +4,7 @@ import { Form } from "react-router-dom";
 
 function SearchBar({ defaultValue, onChange }) {
   const timeout = useRef<NodeJS.Timeout>();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState(defaultValue ?? "");
 
   const handleChange = (event) => {
@@ -21,6 +22,7 @@ function SearchBar({ defaultValue, onChange }) {
   const handleClearClick = (event) => {
     setQuery("");
     onChange(event);
+    inputRef.current?.focus();
   };
 
   return (
@@ -34,6 +36,7 @@ function SearchBar({ defaultValue, onChange }) {
         onSubmit={(e) => e.preventDefault()}
       >
         <input
+          ref={inputRef}
           id="q"
           name="q"
           value={query}
