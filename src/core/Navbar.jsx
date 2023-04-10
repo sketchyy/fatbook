@@ -42,25 +42,32 @@ function Navbar(props) {
       <div id="navbarMenu" className={"navbar-menu" + dropdownActiveClassName}>
         <div className="navbar-start">
           <NavLink
-            to={`eatings`}
+            to="eatings"
             className={getNavLinkClass}
             onClick={handleLinkClick}
           >
             Eatings
           </NavLink>
           <NavLink
-            to={`dishes`}
+            to="dishes"
             className={getNavLinkClass}
             onClick={handleLinkClick}
           >
             Dishes
           </NavLink>
           <NavLink
-            to={`history`}
+            to="history"
             className={getNavLinkClass}
             onClick={handleLinkClick}
           >
             History
+          </NavLink>
+          <NavLink
+            to="settings"
+            className={getNavLinkClass}
+            onClick={handleLinkClick}
+          >
+            Settings
           </NavLink>
         </div>
 
