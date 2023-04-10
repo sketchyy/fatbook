@@ -58,6 +58,7 @@ export async function replaceLogDay(dayId, logDay) {
   await setDoc(docRef, logDay);
 }
 
+// TODO: same as dateService
 const eatingsDbService = {
   getOrCreateLogDay,
   replaceLogDay,

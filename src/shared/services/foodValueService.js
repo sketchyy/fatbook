@@ -68,6 +68,7 @@ function emptyFoodValue() {
   };
 }
 
+// TODO: same as dateService
 const foodValueService = {
   calculateDishValuePer100g,
   calculateFoodValueForPortion,
