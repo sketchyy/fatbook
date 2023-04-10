@@ -1,24 +1,15 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { FaSave } from "react-icons/fa";
+import { useLoaderData } from "react-router-dom";
 import userSettingsService from "../../core/firebase/userSettingsService";
 import { FoodValue } from "../../shared/models/FoodValue";
+import { UserSettings } from "../../shared/models/User";
 
 function SettingsPage(props) {
-  const [dailyDietGoal, setDailyDietGoal] = useState<FoodValue>({
-    proteins: 0,
-    fats: 0,
-    carbs: 0,
-    kcal: 0,
-  });
-
-  useEffect(() => {
-    async function fetchSettings() {
-      const settings = await userSettingsService.get();
-      setDailyDietGoal(settings.dailyDietGoal);
-    }
-
-    fetchSettings();
-  }, []);
+  const userSettings = useLoaderData() as UserSettings;
+  const [dailyDietGoal, setDailyDietGoal] = useState<FoodValue>(
+    userSettings.dailyDietGoal
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDailyDietGoal({

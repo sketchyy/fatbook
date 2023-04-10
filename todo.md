@@ -79,6 +79,9 @@
 - modify portion size -> enter click
 
 * settings page (daily kcal, proteins, fats threshold)
+  ** Save - router action + loading animation + toast
+  ** History page - get dailyGoals, render on charts, render in summary
+  \*\* Log Day - get dailyGoals, render in summary
   ->> PR
 
 * move all files to typescript
@@ -86,6 +89,8 @@
 
 * Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
   ->> PR
+
+* Move all fetch stuff to react router calls
 
 * Add dish with portions count (calories per portion)
 

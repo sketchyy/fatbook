@@ -30,6 +30,7 @@ import Login from "./routes/login/Login";
 import SettingsPage from "./routes/settings/SettingsPage";
 import RequireAuth from "./shared/components/RequireAuth";
 import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
+import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
 import dateService from "./shared/services/dateService";
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -108,6 +109,7 @@ const router = createBrowserRouter([
       {
         path: "settings",
         element: <SettingsPage />,
+        loader: userSettingsLoader,
       },
     ],
   },

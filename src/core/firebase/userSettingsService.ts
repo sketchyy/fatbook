@@ -1,5 +1,4 @@
 import {
-  DocumentReference,
   doc,
   getDoc,
   getFirestore,
@@ -7,21 +6,16 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { FoodValue } from "../../shared/models/FoodValue";
-import { UserSettings } from "../../shared/models/UserSettings";
+import { UserSettings } from "../../shared/models/User";
 import authService from "./authService";
 import firebaseApp from "./firebaseApp";
 
 const db = getFirestore(firebaseApp);
-let userRef: DocumentReference;
-
-/* Read authenticated user's userId to use in logDays collection */
-const unsubscribe = authService.subscribeToAuthChanged((user) => {
-  userRef = doc(db, `users`, user.uid);
-  unsubscribe();
-});
 
 const userSettingsService = {
   async save(dailyDietGoal: FoodValue): Promise<void> {
+    const user = await authService.waitForUser();
+    const userRef = doc(db, `users`, user.uid);
     const userSnapshot = await getDoc(userRef);
 
     if (userSnapshot.exists()) {
@@ -38,7 +32,14 @@ const userSettingsService = {
       });
     }
   },
+
   async get(): Promise<UserSettings> {
+    const user = await authService.waitForUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+
+    const userRef = doc(db, `users`, user.uid);
     const userSnapshot = await getDoc(userRef);
 
     if (userSnapshot.exists()) {
