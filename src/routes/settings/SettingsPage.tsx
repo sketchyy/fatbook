@@ -76,12 +76,12 @@ function SettingsPage(props) {
           <label className="label">KCal</label>
           <div className="control">
             <input
-              name="kcal"
+              name="calories"
               className="input"
               type="number"
               step=".01"
               placeholder="per 100g."
-              value={dailyDietGoal.kcal}
+              value={dailyDietGoal.calories}
               onChange={handleChange}
             />
           </div>
