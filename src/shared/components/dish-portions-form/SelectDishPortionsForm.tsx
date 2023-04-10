@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useLoaderData, useSubmit } from "react-router-dom";
 import { DishPortion } from "../../models/DishPortion";
 import foodValueService from "../../services/foodValueService";
@@ -71,28 +71,26 @@ function SelectDishPortionsForm({
   };
 
   return (
-    <Fragment>
-      <div className="block">
-        <div className="box">
-          <PageTitle title={title} subtitle={subtitle} backPath={-1} />
+    <div className="block">
+      <div className="box">
+        <PageTitle title={title} subtitle={subtitle} backPath={-1} />
 
-          <SearchBar
-            defaultValue={q}
-            onChange={(event) => {
-              submit(event.target.form, { replace: true });
-            }}
-          />
+        <SearchBar
+          defaultValue={q}
+          onChange={(event) => {
+            submit(event.target.form, { replace: true });
+          }}
+        />
 
-          <DishPortionsList
-            dishPortions={renderedPortions}
-            onAdd={handleAddClick}
-            onUpdate={handleUpdateClick}
-            onDelete={handleDeleteClick}
-            isAdded={(p) => p.selected}
-          />
-        </div>
+        <DishPortionsList
+          dishPortions={renderedPortions}
+          onAdd={handleAddClick}
+          onUpdate={handleUpdateClick}
+          onDelete={handleDeleteClick}
+          isAdded={(p) => p.selected}
+        />
       </div>
-    </Fragment>
+    </div>
   );
 }
 

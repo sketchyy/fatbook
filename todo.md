@@ -76,6 +76,7 @@
 - clear search button -> focus input
 - login page improve
 - date (today, yesterday, ...) fix
+- modify portion size -> enter click
 
 * settings page (daily kcal, proteins, fats threshold)
   ->> PR
@@ -98,6 +99,6 @@
 * поиск? https://www.algolia.com/pricing/ or better indexes
 
 * Refactor: "createdAt -> updatedAt" for sorting
-* Refactor: FoodValue -> NutritionFacts
+* Refactor: FoodValue -> NutritionFacts (rename in Dishes only, in days support 2 names)
 
 * https://pocketbase.io/docs/ + https://fly.io/

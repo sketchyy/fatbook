@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FaCheck, FaCheckCircle, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
 import { DishPortion } from "../../models/DishPortion";
@@ -110,6 +110,7 @@ function DishPortionListItem({
             <button
               className="button is-danger mr-3"
               onClick={() => handleDeleteClick()}
+              type="button"
             >
               <FaTimes />
             </button>
@@ -187,7 +188,7 @@ function DishPortionsList({
   };
 
   return (
-    <Fragment>
+    <>
       <Divider />
 
       {dishPortions.length === 0 && (
@@ -219,7 +220,7 @@ function DishPortionsList({
           </AccordionItem>
         ))}
       </Accordion>
-    </Fragment>
+    </>
   );
 }
 
