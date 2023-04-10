@@ -28,7 +28,7 @@ const login = async () => {
   try {
     await signInWithPopup(auth, new GoogleAuthProvider());
   } catch (e) {
-    alert(e.message);
+    alert((e as Error).message);
   }
 };
 

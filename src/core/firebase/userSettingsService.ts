@@ -50,7 +50,7 @@ const userSettingsService = {
           proteins: 0,
           fats: 0,
           carbs: 0,
-          kcal: 0,
+          calories: 0,
         },
       };
     }
