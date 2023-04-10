@@ -24,6 +24,7 @@ const logout = () => {
   signOut(auth);
 };
 
+// TODO: same as dateService
 const authService = {
   subscribeToAuthChanged,
   login,

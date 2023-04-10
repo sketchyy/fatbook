@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link, useOutletContext } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
@@ -26,9 +26,13 @@ export const meals = {
   },
 };
 
-function MealCard(props) {
-  const { day, logDay } = useOutletContext();
-  const [activeIndex, setActiveIndex] = useState(-1);
+interface MealCardsProps {
+  activeIndex: number;
+  setActiveIndex: (number) => void;
+}
+
+function MealCards({ activeIndex, setActiveIndex }: MealCardsProps) {
+  const { day, logDay } = useOutletContext<any>();
 
   const handleDaySave = async (meal, portion) => {
     const logDay = await eatingsDbService.getOrCreateLogDay(day);
@@ -94,8 +98,6 @@ function MealCard(props) {
         <div className="mt-3">
           <EditDishPortionsForm
             dishPortions={mealData.eatings}
-            emptyMessage="No eatings."
-            onPortionDelete={(portion) => handleAddEatingDelete(meal, portion)}
             onSave={(portion) => handleDaySave(meal, portion)}
             onDelete={(portion) => handleAddEatingDelete(meal, portion)}
           />
@@ -126,4 +128,4 @@ function MealCard(props) {
   );
 }
 
-export default MealCard;
+export default MealCards;

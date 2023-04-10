@@ -31,7 +31,7 @@ function CurrentUser(props) {
       </div>
       <div className="level-right">
         <div className="level-item">
-          <button className="button is-primary mb-0" onClick={handleLogout}>
+          <button className="button is-link  mb-0" onClick={handleLogout}>
             Logout
           </button>
         </div>

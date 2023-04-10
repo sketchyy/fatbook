@@ -125,6 +125,7 @@ async function updateDishSearchIndex(id, name) {
 }
 
 // TODO: rename to dishesService
+// TODO: same as dateService
 const dishesDbService = {
   getDishes,
   getDish,

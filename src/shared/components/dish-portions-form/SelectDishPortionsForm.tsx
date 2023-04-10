@@ -1,15 +1,22 @@
-import React, { Fragment, useState } from "react";
+import { useState } from "react";
 import { useLoaderData, useSubmit } from "react-router-dom";
+import { DishPortion } from "../../models/DishPortion";
 import foodValueService from "../../services/foodValueService";
 import uuidService from "../../services/uuidService";
 import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
 import DishPortionsList from "./DishPortionsList";
 
-function SelectDishPortionsForm({ title, subtitle, onAdd, onDelete }) {
+function SelectDishPortionsForm({
+  title,
+  subtitle,
+  onAdd,
+  onUpdate,
+  onDelete,
+}) {
   const submit = useSubmit();
-  const { searchResult, q } = useLoaderData();
-  const [selectedPortions, setSelectedPortions] = useState([]);
+  const { searchResult, q } = useLoaderData() as any;
+  const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
 
   const dishPortions = searchResult.map((dish) => ({
     dish: dish,
@@ -21,7 +28,7 @@ function SelectDishPortionsForm({ title, subtitle, onAdd, onDelete }) {
     ...dishPortions.filter((portion) => !selectedIds.includes(portion.dish.id)),
   ];
 
-  const handleAddClick = (portion) => {
+  const handleAddClick = (portion: DishPortion) => {
     portion.id = uuidService.get();
     // Only for rendering, actual submitted calculated in logDay.
     portion.totalFoodValue =
@@ -37,6 +44,21 @@ function SelectDishPortionsForm({ title, subtitle, onAdd, onDelete }) {
     onAdd(portion);
   };
 
+  const handleUpdateClick = (portion: DishPortion) => {
+    // Only for rendering, actual submitted calculated in logDay.
+    portion.totalFoodValue =
+      foodValueService.calculateFoodValueForPortion(portion);
+
+    const portionIndex = selectedPortions.findIndex((p) => p.id === portion.id);
+    if (portionIndex > -1) {
+      selectedPortions[portionIndex] = portion;
+    }
+
+    setSelectedPortions([...selectedPortions]);
+
+    onUpdate(portion);
+  };
+
   const handleDeleteClick = (portion) => {
     delete portion.selected;
     const updatedSelectedPortions = selectedPortions.filter(
@@ -49,28 +71,26 @@ function SelectDishPortionsForm({ title, subtitle, onAdd, onDelete }) {
   };
 
   return (
-    <Fragment>
-      <div className="block">
-        <div className="box">
-          <PageTitle title={title} subtitle={subtitle} backPath={-1} />
+    <div className="block">
+      <div className="box">
+        <PageTitle title={title} subtitle={subtitle} backPath={-1} />
 
-          <SearchBar
-            defaultValue={q}
-            onChange={(event) => {
-              submit(event.target.form, { replace: true });
-            }}
-          />
+        <SearchBar
+          defaultValue={q}
+          onChange={(event) => {
+            submit(event.target.form, { replace: true });
+          }}
+        />
 
-          <DishPortionsList
-            dishPortions={renderedPortions}
-            onSubmit={handleAddClick}
-            onDelete={handleDeleteClick}
-            isSubmitVisible={(p) => !p.selected}
-            isDeleteVisible={(p) => p.selected}
-          />
-        </div>
+        <DishPortionsList
+          dishPortions={renderedPortions}
+          onAdd={handleAddClick}
+          onUpdate={handleUpdateClick}
+          onDelete={handleDeleteClick}
+          isAdded={(p) => p.selected}
+        />
       </div>
-    </Fragment>
+    </div>
   );
 }
 

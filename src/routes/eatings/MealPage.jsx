@@ -10,7 +10,7 @@ import eatingsDbService from "../../core/firebase/eatingsDbService";
 import EditDishPortionsForm from "../../shared/components/dish-portions-form/EditDishPortionsForm";
 import FoodValue from "../../shared/components/FoodValue";
 import PageTitle from "../../shared/components/PageTitle";
-import { meals } from "./MealCard";
+import { meals } from "./MealCards";
 
 function MealPage(props) {
   const navigate = useNavigate();

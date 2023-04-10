@@ -4,7 +4,7 @@ import { Meals } from "./Meals";
 
 export class LogDay {
   static empty() {
-    return new LogDay();
+    return new LogDay(null, null, null, null);
   }
 
   id;

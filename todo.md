@@ -69,16 +69,27 @@
 - fix accordion animation
 - replace CRA with VITE + typescript,
 - add eslint
-
-* Merge to master, create tag for angular (legacy-angular)
-* create tag for (legacy-react-cra-js)
+- Merge to master, create tag for angular (legacy-angular)
+- create tag for (legacy-react-cra-js)
+- bug - change days, close accordion
+- add ability to edit dish serving grams in input
+- clear search button -> focus input
+- login page improve
+- date (today, yesterday, ...) fix
+- modify portion size -> enter click
 
 * settings page (daily kcal, proteins, fats threshold)
+  ->> PR
 
-* login page improve
-* date (today, yesterday, ...) fix
-* add react dialog
+* move all files to typescript
+  ->> PR
 
+* Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
+  ->> PR
+
+* Add dish with portions count (calories per portion)
+
+* add react dialog to confirm
 * global loading spinner animation
 
 * customize bulma (box-padding: 1rem, font-size smaller)
@@ -88,4 +99,6 @@
 * поиск? https://www.algolia.com/pricing/ or better indexes
 
 * Refactor: "createdAt -> updatedAt" for sorting
-* Refactor: FoodValue -> NutritionFacts
+* Refactor: FoodValue -> NutritionFacts (rename in Dishes only, in days support 2 names)
+
+* https://pocketbase.io/docs/ + https://fly.io/

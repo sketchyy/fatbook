@@ -1,19 +1,21 @@
-import React, { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import FoodValue from "../../shared/components/FoodValue";
 import DatePicker from "../../shared/components/ui/DatePicker";
 import dateService from "../../shared/services/dateService";
-import MealCard from "./MealCard";
+import MealCards from "./MealCards";
 
-function LogDaySummary({ onDayChange }) {
+function LogDaySummary() {
   const navigate = useNavigate();
-  const { day, logDay } = useOutletContext();
+  const { day, logDay } = useOutletContext<any>();
+  const [activeIndex, setActiveIndex] = useState(-1);
   const isToday = dateService.isSame(dateService.now(), day);
   const parsedDay = dateService.parse(day);
 
   const handleDayChange = (date) => {
     const selectedDay = dateService.format(date);
+    setActiveIndex(-1);
     navigate(`/eatings/${selectedDay}`);
   };
 
@@ -79,7 +81,7 @@ function LogDaySummary({ onDayChange }) {
           />
         </div>
       </div>
-      <MealCard />
+      <MealCards activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
     </Fragment>
   );
 }

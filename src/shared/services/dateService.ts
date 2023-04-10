@@ -33,7 +33,7 @@ const dateService = {
   },
 
   getDaysBetween(start, end) {
-    const result = [];
+    const result: string[] = [];
 
     let date = start;
     while (date <= end) {

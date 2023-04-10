@@ -24,15 +24,11 @@ const unsubscribe = authService.subscribeToAuthChanged((user) => {
   unsubscribe();
 });
 
-/**
- * Tries to read LogDay from database, if not found, returns empty LogDay.
- *
- * @param {Date} day for searching logDay
- * @returns {LogDay}
- */
-export async function getOrCreateLogDay(date) {
+export async function getOrCreateLogDay(
+  date: string | undefined
+): Promise<LogDay> {
   const docRef = await getDoc(doc(logDaysRef, date));
-  let logDayFromDb = docRef.data();
+  let logDayFromDb = docRef.data() as LogDay;
 
   console.log("take log day from db", logDayFromDb);
 
@@ -62,6 +58,7 @@ export async function replaceLogDay(dayId, logDay) {
   await setDoc(docRef, logDay);
 }
 
+// TODO: same as dateService
 const eatingsDbService = {
   getOrCreateLogDay,
   replaceLogDay,
