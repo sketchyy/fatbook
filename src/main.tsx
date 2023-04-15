@@ -5,30 +5,32 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactDOM from "react-dom/client";
 import {
-  createBrowserRouter,
   Navigate,
   RouterProvider,
+  createBrowserRouter,
 } from "react-router-dom";
-import { AuthContextProvider } from "./core/auth/AuthContext";
 import ErrorPage from "./core/ErrorPage";
+import { AuthContextProvider } from "./core/auth/AuthContext";
 import "./index.css";
-import deleteDishAction from "./routes/dish/delete/deleteDishAction";
+import Root from "./routes/Root";
 import DishPage from "./routes/dish/DishPage";
+import deleteDishAction from "./routes/dish/delete/deleteDishAction";
 import EditDish from "./routes/dish/edit/EditDish.jsx";
 import updateDishAction from "./routes/dish/edit/updateDishAction";
 import AddIngredientForm from "./routes/dish/ingredients/AddIngredientForm";
 import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
-import createDishAction from "./routes/dishes/create/createDishAction";
 import DishesPage from "./routes/dishes/DishesPage";
+import createDishAction from "./routes/dishes/create/createDishAction";
 import AddEatingForm from "./routes/eatings/AddEatingForm";
 import LogDayPage from "./routes/eatings/LogDayPage";
 import LogDaySummary from "./routes/eatings/LogDaySummary";
 import MealPage from "./routes/eatings/MealPage";
 import HistoryPage from "./routes/history/HistoryPage";
 import Login from "./routes/login/Login";
-import Root from "./routes/Root";
+import SettingsPage from "./routes/settings/SettingsPage";
 import RequireAuth from "./shared/components/RequireAuth";
 import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
+import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
 import dateService from "./shared/services/dateService";
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -103,6 +105,12 @@ const router = createBrowserRouter([
       {
         path: "history",
         element: <HistoryPage />,
+        loader: userSettingsLoader,
+      },
+      {
+        path: "settings",
+        element: <SettingsPage />,
+        loader: userSettingsLoader,
       },
     ],
   },
@@ -122,8 +130,3 @@ root.render(
     </AuthContextProvider>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

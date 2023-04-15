@@ -79,6 +79,9 @@
 - modify portion size -> enter click
 
 * settings page (daily kcal, proteins, fats threshold)
+  -- Save - router action + loading animation + toast
+  -- History page - get dailyGoals, render on charts, render in summary
+  \*\* Log Day - get dailyGoals, render in summary
   ->> PR
 
 * move all files to typescript
@@ -87,9 +90,12 @@
 * Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
   ->> PR
 
+* vite TS paths
+
 * Add dish with portions count (calories per portion)
 
 * add react dialog to confirm
+* Move all fetch stuff to react router calls/think of only one method with spinnner support
 * global loading spinner animation
 
 * customize bulma (box-padding: 1rem, font-size smaller)

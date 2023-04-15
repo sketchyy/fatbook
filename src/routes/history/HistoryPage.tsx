@@ -1,20 +1,35 @@
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
 import FoodValue from "../../shared/components/FoodValue";
 import DatePicker from "../../shared/components/ui/DatePicker";
+import { UserSettings } from "../../shared/models/User";
 import dateService from "../../shared/services/dateService";
 import foodValueService from "../../shared/services/foodValueService";
 import DailyTrendChart from "./DailyTrendChart";
+import FoodValueDiff from "./FoodValueDiff";
 
-function HistoryPage({ props }) {
-  const [chartData, setChartData] = useState([]);
+function HistoryPage() {
+  const userSettings = useLoaderData() as UserSettings;
+  const [chartData, setChartData] = useState<any[]>([]);
+  const [dietGoal, setDietGoal] = useState<FoodValue>(
+    userSettings.dailyDietGoal
+  );
   const [dateRange, setDateRange] = useState([
     dateService.subtractDays(dateService.now(), 7),
     dateService.now(),
   ]);
   const [startDate, endDate] = dateRange;
   const selectedDays = dateService.getDaysBetween(startDate, endDate);
-  const [totalFoodValue, setTotalFoodValue] = useState([]);
+  const [totalFoodValue, setTotalFoodValue] = useState<FoodValue>(
+    foodValueService.emptyFoodValue()
+  );
+  const dietGoalDiff: FoodValue = {
+    proteins: dietGoal.proteins - totalFoodValue.proteins,
+    fats: dietGoal.fats - totalFoodValue.fats,
+    carbs: dietGoal.carbs - totalFoodValue.carbs,
+    calories: dietGoal.calories - totalFoodValue.calories,
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,6 +51,13 @@ function HistoryPage({ props }) {
       setTotalFoodValue(
         foodValueService.sumFoodValues(logDays.map((ld) => ld.totalFoodValue))
       );
+
+      setDietGoal({
+        proteins: userSettings.dailyDietGoal.proteins * selectedDays.length,
+        fats: userSettings.dailyDietGoal.fats * selectedDays.length,
+        carbs: userSettings.dailyDietGoal.carbs * selectedDays.length,
+        calories: userSettings.dailyDietGoal.calories * selectedDays.length,
+      });
     };
 
     fetchData();
@@ -43,7 +65,7 @@ function HistoryPage({ props }) {
 
   return (
     <Fragment>
-      <div className="box">
+      <div className="box mb-2">
         <div className="is-flex is-justify-content-space-between mb-4">
           <div className="is-size-4 mr-2">History</div>
 
@@ -57,18 +79,33 @@ function HistoryPage({ props }) {
             }}
           />
         </div>
-        <div className="mt-2">
-          <FoodValue
-            foodValue={totalFoodValue}
-            className="level-left is-size-7"
-          />
+        <div>
+          <div className="mt-2">
+            <div>Actual Consumption</div>
+            <FoodValue
+              foodValue={totalFoodValue}
+              className="level-left is-size-7"
+            />
+          </div>
+          <div className="mt-2">
+            <div>Goal</div>
+            <div className="mb-2">
+              <FoodValue
+                foodValue={dietGoal}
+                className="level-left is-size-7"
+              />
+            </div>
+            <div>
+              <FoodValueDiff foodValue={dietGoalDiff} />
+            </div>
+          </div>
         </div>
       </div>
       <DailyTrendChart
         title="⚡ Calories"
         data={chartData}
         barFill="hsl(171, 100%, 41%)"
-        referenceValue={2000}
+        referenceValue={userSettings.dailyDietGoal.calories}
         xKey="date"
         yKey="kcal"
       />
@@ -76,7 +113,7 @@ function HistoryPage({ props }) {
         title="🥩 Proteins"
         data={chartData}
         barFill="hsl(204, 86%, 53%)"
-        referenceValue={100}
+        referenceValue={userSettings.dailyDietGoal.proteins}
         xKey="date"
         yKey="proteins"
       />
@@ -84,7 +121,7 @@ function HistoryPage({ props }) {
         title="🧈 Fats"
         data={chartData}
         barFill="hsl(48, 100%, 67%)"
-        referenceValue={70}
+        referenceValue={userSettings.dailyDietGoal.fats}
         xKey="date"
         yKey="fats"
       />
@@ -92,7 +129,7 @@ function HistoryPage({ props }) {
         title="🍚 Carbs"
         data={chartData}
         barFill="hsl(348, 100%, 61%)"
-        referenceValue={150}
+        referenceValue={userSettings.dailyDietGoal.carbs}
         xKey="date"
         yKey="carbs"
       />

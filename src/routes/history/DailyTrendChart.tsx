@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Bar,
   BarChart,
@@ -11,13 +10,13 @@ import {
 
 function DailyTrendChart({ title, data, barFill, referenceValue, xKey, yKey }) {
   return (
-    <div className="box">
+    <div className="box mb-2">
       <span>{title}</span>
-      <ResponsiveContainer width="100%" height={150}>
+      <ResponsiveContainer width="100%" height={130}>
         <BarChart
           data={data}
           margin={{
-            top: 20,
+            top: 15,
             right: 20,
             left: 50,
             bottom: 5,
