@@ -1,9 +1,14 @@
-import React, { forwardRef } from "react";
-import ReactDatePicker from "react-datepicker";
+import { forwardRef } from "react";
+import ReactDatePicker, { ReactDatePickerProps } from "react-datepicker";
 import { FaCalendar } from "react-icons/fa";
 
-function DatePicker({ width, withIcon, onChange, ...props }) {
-  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+interface DatePickerProps extends ReactDatePickerProps<string, boolean> {
+  width: number;
+  withIcon?: boolean;
+}
+
+function DatePicker({ width, withIcon, onChange, ...props }: DatePickerProps) {
+  const ExampleCustomInput = forwardRef<any, any>(({ value, onClick }, ref) => (
     <div className="field">
       <p className={"control" + (withIcon && " has-icons-right")}>
         <input

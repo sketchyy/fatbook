@@ -1,21 +1,20 @@
-import React from "react";
 import authService from "../firebase/authService";
 
 import { useAuthState } from "./useAuthState";
 
-function CurrentUser(props) {
+function CurrentUser() {
   const { user } = useAuthState();
 
   if (!user) {
-    return "";
+    return null;
   }
 
   const handleLogout = () => {
     authService.logout();
   };
 
-  const avatarUrl = user.photoURL;
-  const displayName = user.displayName.split(" ")[0];
+  const avatarUrl = user.photoURL!;
+  const displayName = user.displayName!.split(" ")[0];
 
   return (
     <div className="level is-mobile">

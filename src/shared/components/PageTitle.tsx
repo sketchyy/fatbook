@@ -1,8 +1,15 @@
-import React from "react";
+import { ReactNode } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-function PageTitle({ title, subtitle, backPath, children }) {
+interface PageTitleProps {
+  title: string;
+  subtitle?: string;
+  backPath?: number;
+  children?: ReactNode;
+}
+
+function PageTitle({ title, subtitle, backPath, children }: PageTitleProps) {
   const navigate = useNavigate();
 
   return (

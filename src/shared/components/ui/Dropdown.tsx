@@ -1,10 +1,12 @@
-import React, { Fragment, useState } from "react";
+import { Fragment, RefObject, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import useOutsideClick from "./hooks/useOutsideClick";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 function Dropdown({ menuItems, dropdownTriggerTemplate, children, className }) {
   const [open, setOpen] = useState(false);
-  const ref = useOutsideClick(() => setOpen(false));
+  const ref = useOutsideClick(() =>
+    setOpen(false)
+  ) as RefObject<HTMLDivElement>;
 
   const handleTriggerClick = () => {
     setOpen(!open);

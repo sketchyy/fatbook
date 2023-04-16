@@ -1,4 +1,3 @@
-import React from "react";
 import { FaChevronLeft, FaPlus } from "react-icons/fa";
 import {
   Link,
@@ -15,9 +14,9 @@ import { meals } from "./MealCards";
 function MealPage(props) {
   const navigate = useNavigate();
   const { meal } = useParams();
-  const { day, logDay } = useOutletContext();
-  const eatings = logDay.meals[meal].eatings;
-  const foodValue = logDay.meals[meal].totalFoodValue;
+  const { day, logDay } = useOutletContext<any>();
+  const eatings = logDay.meals[meal!].eatings;
+  const foodValue = logDay.meals[meal!].totalFoodValue;
 
   const handleDaySave = async (portion) => {
     const logDay = await eatingsDbService.getOrCreateLogDay(day);
@@ -53,7 +52,7 @@ function MealPage(props) {
           </button>
         </div>
         <div className="column">
-          <h1 className="title is-4">{meals[meal].title}</h1>
+          <h1 className="title is-4">{meals[meal!].title}</h1>
           <h2 className="subtitle is-6">{day}</h2>
         </div>
         <div className="column is-narrow">
@@ -76,8 +75,6 @@ function MealPage(props) {
         <PageTitle title="Eatings"></PageTitle>
         <EditDishPortionsForm
           dishPortions={eatings}
-          onPortionDelete={handleAddEatingDelete}
-          emptyMessage="No eatings."
           onSave={handleDaySave}
           onDelete={handleAddEatingDelete}
         />

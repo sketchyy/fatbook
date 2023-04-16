@@ -1,10 +1,9 @@
-import React from "react";
 import { useOutletContext } from "react-router-dom";
 import dishesDbService from "../../../core/firebase/dishesDbService";
 import SelectDishPortionsForm from "../../../shared/components/dish-portions-form/SelectDishPortionsForm";
 
 function AddIngredientForm(props) {
-  const { dish } = useOutletContext();
+  const { dish } = useOutletContext<any>();
 
   const handleAddIngredients = async (ingredient) => {
     dish.addIngredients([ingredient]);

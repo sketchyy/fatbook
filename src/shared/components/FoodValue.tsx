@@ -1,6 +1,15 @@
-import React from "react";
+import { NutritionFacts } from "../models/NutritionFacts";
+import foodValueService from "../services/foodValueService";
 
-function FoodValue({ foodValue = {}, className = "" }) {
+interface FoodValueProps {
+  foodValue: NutritionFacts;
+  className?: string;
+}
+
+function FoodValue({
+  foodValue = foodValueService.emptyFoodValue(),
+  className = "",
+}: FoodValueProps) {
   const format = (val) => (val != null ? Math.round(val) : "n/a");
 
   return (

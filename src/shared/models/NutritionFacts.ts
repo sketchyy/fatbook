@@ -1,6 +1,4 @@
-//TODO: rename to nutritionFacts
-
-export interface FoodValue {
+export interface NutritionFacts {
   proteins: number;
   fats: number;
   carbs: number;

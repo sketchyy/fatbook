@@ -2,7 +2,7 @@ import { useNavigate, useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
   const navigate = useNavigate();
-  const error = useRouteError();
+  const error = useRouteError() as any;
   console.error(error);
 
   const handleCloseClick = () => {

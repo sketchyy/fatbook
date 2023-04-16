@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { Form, useLoaderData, useNavigate, useSubmit } from "react-router-dom";
 import DishList from "../../shared/components/dish/DishList";
 import PageTitle from "../../shared/components/PageTitle";
 import SearchBar from "../../shared/components/ui/SearchBar";
 
 function DishesPage(props) {
-  const { searchResult, q } = useLoaderData();
+  const { searchResult, q } = useLoaderData() as any;
   const submit = useSubmit();
   const navigate = useNavigate();
 

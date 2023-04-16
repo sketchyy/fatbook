@@ -1,6 +1,6 @@
 export default function tokenize(name) {
   const words = name.toLowerCase().replace(/[()]/g, "").split(" ");
-  const tokens = [];
+  const tokens: string[] = [];
   tokens.push(name);
   tokens.push(...words);
 

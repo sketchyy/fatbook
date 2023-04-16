@@ -1,4 +1,4 @@
-import { FoodValue } from "./FoodValue";
+import { NutritionFacts } from "./NutritionFacts";
 
 export interface User {
   uid: string;
@@ -6,5 +6,5 @@ export interface User {
 }
 
 export interface UserSettings {
-  dailyDietGoal: FoodValue;
+  dailyDietGoal: NutritionFacts;
 }

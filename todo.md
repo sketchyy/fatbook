@@ -81,10 +81,10 @@
   -- Save - router action + loading animation + toast
   -- History page - get dailyGoals, render on charts, render in summary
 
-* vite TS paths
-
 * move all files to typescript
   ->> PR
+
+* vite TS paths
 
 * Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
   ->> PR

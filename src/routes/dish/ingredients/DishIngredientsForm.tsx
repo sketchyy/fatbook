@@ -1,4 +1,3 @@
-import React from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import dishesDbService from "../../../core/firebase/dishesDbService";
@@ -7,7 +6,7 @@ import PageTitle from "../../../shared/components/PageTitle";
 
 function DishIngredientsForm(props) {
   const navigate = useNavigate();
-  const { dish } = useOutletContext();
+  const { dish } = useOutletContext<any>();
 
   const handleAdd = (e) => {
     navigate("add", { state: { backUrl: `/dishes/${dish._id}/ingredients` } });
@@ -42,7 +41,6 @@ function DishIngredientsForm(props) {
 
       <EditDishPortionsForm
         dishPortions={dish.ingredients}
-        emptyMessage="No eatings."
         onSave={handleIngredientUpdate}
         onDelete={handleIngredientDelete}
       />

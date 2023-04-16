@@ -1,9 +1,9 @@
 import Dish from "./Dish";
-import { FoodValue } from "./FoodValue";
+import { NutritionFacts } from "./NutritionFacts";
 
 export interface DishPortion {
   id: string;
-  totalFoodValue: FoodValue;
+  totalFoodValue: NutritionFacts;
   dish: Dish;
   servingSize: number;
   selected: boolean;

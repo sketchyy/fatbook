@@ -5,6 +5,8 @@ import eatingsDbService from "../../core/firebase/eatingsDbService";
 import FoodValue from "../../shared/components/FoodValue";
 import Message from "../../shared/components/Message";
 import DatePicker from "../../shared/components/ui/DatePicker";
+import { NutritionFacts } from "../../shared/models/NutritionFacts";
+
 import { UserSettings } from "../../shared/models/User";
 import dateService from "../../shared/services/dateService";
 import foodValueService from "../../shared/services/foodValueService";
@@ -15,19 +17,19 @@ function HistoryPage() {
   const userSettings = useLoaderData() as UserSettings;
   const [showGoal, setShowGoal] = useState(false);
   const [chartData, setChartData] = useState<any[]>([]);
-  const [dietGoal, setDietGoal] = useState<FoodValue>(
+  const [dietGoal, setDietGoal] = useState<NutritionFacts>(
     userSettings.dailyDietGoal
   );
   const [dateRange, setDateRange] = useState([
     dateService.subtractDays(dateService.now(), 7),
-    dateService.now(),
+    dateService.nowAsDate(),
   ]);
   const [startDate, endDate] = dateRange;
   const selectedDays = dateService.getDaysBetween(startDate, endDate);
-  const [totalFoodValue, setTotalFoodValue] = useState<FoodValue>(
+  const [totalFoodValue, setTotalFoodValue] = useState<NutritionFacts>(
     foodValueService.emptyFoodValue()
   );
-  const dietGoalDiff: FoodValue = {
+  const dietGoalDiff: NutritionFacts = {
     proteins: totalFoodValue.proteins - dietGoal.proteins,
     fats: totalFoodValue.fats - dietGoal.fats,
     carbs: totalFoodValue.carbs - dietGoal.carbs,
@@ -77,7 +79,7 @@ function HistoryPage() {
             selectsRange={true}
             startDate={startDate}
             endDate={endDate}
-            onChange={(update) => {
+            onChange={(update: [Date, Date]) => {
               setDateRange(update);
             }}
           />

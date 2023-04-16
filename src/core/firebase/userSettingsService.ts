@@ -5,7 +5,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { FoodValue } from "../../shared/models/FoodValue";
+import { NutritionFacts } from "../../shared/models/NutritionFacts";
 import { UserSettings } from "../../shared/models/User";
 import authService from "./authService";
 import firebaseApp from "./firebaseApp";
@@ -13,7 +13,7 @@ import firebaseApp from "./firebaseApp";
 const db = getFirestore(firebaseApp);
 
 const userSettingsService = {
-  async save(dailyDietGoal: FoodValue): Promise<void> {
+  async save(dailyDietGoal: NutritionFacts): Promise<void> {
     const user = await authService.waitForUser();
     const userRef = doc(db, `users`, user.uid);
     const userSnapshot = await getDoc(userRef);

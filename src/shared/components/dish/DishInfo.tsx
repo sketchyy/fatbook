@@ -1,8 +1,13 @@
-import React from "react";
+import Dish from "../../models/Dish";
 import FoodValue from "../FoodValue";
 import DishIcon from "./DishIcon";
 
-function DishInfo({ dish, servingSize }) {
+interface DishInfoProps {
+  dish: Dish;
+  servingSize?: number;
+}
+
+function DishInfo({ dish, servingSize }: DishInfoProps) {
   const renderedName = dish.name || "<No Name>";
 
   return (

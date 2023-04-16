@@ -7,13 +7,21 @@ import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
 import DishPortionsList from "./DishPortionsList";
 
+interface SelectDishPortionsFormProps {
+  title: string;
+  subtitle: string;
+  onAdd: (ingredient: DishPortion) => void;
+  onDelete: (ingredient: DishPortion) => void;
+  onUpdate?: (ingredient: DishPortion) => void;
+}
+
 function SelectDishPortionsForm({
   title,
   subtitle,
   onAdd,
   onUpdate,
   onDelete,
-}) {
+}: SelectDishPortionsFormProps) {
   const submit = useSubmit();
   const { searchResult, q } = useLoaderData() as any;
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
@@ -56,7 +64,9 @@ function SelectDishPortionsForm({
 
     setSelectedPortions([...selectedPortions]);
 
-    onUpdate(portion);
+    if (onUpdate) {
+      onUpdate(portion);
+    }
   };
 
   const handleDeleteClick = (portion) => {

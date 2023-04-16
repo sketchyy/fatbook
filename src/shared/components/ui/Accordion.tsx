@@ -1,4 +1,14 @@
-import React, { Children, useRef } from "react";
+import React, { Children, CSSProperties, ReactNode, useRef } from "react";
+
+interface AccordionItemProps {
+  title: ReactNode;
+  selected?: boolean;
+  className: string;
+  selectedClassName?: string;
+  selectedStyle?: CSSProperties;
+  onToggle?: () => void;
+  children: ReactNode;
+}
 
 export function AccordionItem({
   title,
@@ -8,8 +18,8 @@ export function AccordionItem({
   className,
   selectedClassName,
   selectedStyle,
-}) {
-  const contentEl = useRef(null);
+}: AccordionItemProps) {
+  const contentEl = useRef<HTMLDivElement>(null);
   const selectedClass = selected ? selectedClassName : "";
 
   return (
@@ -26,7 +36,7 @@ export function AccordionItem({
         style={
           selected
             ? {
-                maxHeight: contentEl.current.scrollHeight + 100,
+                maxHeight: contentEl.current!.scrollHeight + 100,
                 opacity: 1,
               }
             : { maxHeight: "0px", opacity: 0 }

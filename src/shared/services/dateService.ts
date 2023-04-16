@@ -5,6 +5,10 @@ const dateService = {
     return dayjs().toDate().getTime();
   },
 
+  nowAsDate() {
+    return dayjs().toDate();
+  },
+
   parse(dateStr) {
     return dayjs(dateStr).toDate();
   },

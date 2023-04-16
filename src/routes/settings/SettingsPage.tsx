@@ -2,12 +2,12 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import userSettingsService from "../../core/firebase/userSettingsService";
-import { FoodValue } from "../../shared/models/FoodValue";
+import { NutritionFacts } from "../../shared/models/NutritionFacts";
 import { UserSettings } from "../../shared/models/User";
 
 function SettingsPage(props) {
   const userSettings = useLoaderData() as UserSettings;
-  const [dailyDietGoal, setDailyDietGoal] = useState<FoodValue>(
+  const [dailyDietGoal, setDailyDietGoal] = useState<NutritionFacts>(
     userSettings.dailyDietGoal
   );
 
