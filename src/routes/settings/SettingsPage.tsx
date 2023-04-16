@@ -1,9 +1,9 @@
+import userSettingsService from "@/core/firebase/userSettingsService";
+import { NutritionFacts } from "@/shared/models/NutritionFacts";
+import { UserSettings } from "@/shared/models/User";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
-import userSettingsService from "../../core/firebase/userSettingsService";
-import { NutritionFacts } from "../../shared/models/NutritionFacts";
-import { UserSettings } from "../../shared/models/User";
 
 function SettingsPage(props) {
   const userSettings = useLoaderData() as UserSettings;

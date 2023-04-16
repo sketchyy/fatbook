@@ -1,4 +1,7 @@
 // Import the functions you need from the SDKs you need
+import { dishConverter } from "@/shared/models/Dish";
+import dateService from "@/shared/services/dateService";
+import tokenize from "@/shared/utils/tokenize";
 import {
   addDoc,
   collection,
@@ -16,9 +19,6 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import { dishConverter } from "../../shared/models/Dish";
-import dateService from "../../shared/services/dateService";
-import tokenize from "../../shared/utils/tokenize";
 import firebaseApp from "./firebaseApp";
 
 const db = getFirestore(firebaseApp);

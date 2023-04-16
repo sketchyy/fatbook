@@ -1,7 +1,7 @@
+import eatingsService from "@/core/firebase/eatingsService";
+import { LogDay } from "@/shared/models/LogDay";
 import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import eatingsService from "../../core/firebase/eatingsService";
-import { LogDay } from "../../shared/models/LogDay";
 
 function LogDayPage(props) {
   const params = useParams();

@@ -1,8 +1,8 @@
+import { DishPortion } from "@/shared/models/DishPortion";
+import foodValueService from "@/shared/services/foodValueService";
+import uuidService from "@/shared/services/uuidService";
 import { useState } from "react";
 import { useLoaderData, useSubmit } from "react-router-dom";
-import { DishPortion } from "../../models/DishPortion";
-import foodValueService from "../../services/foodValueService";
-import uuidService from "../../services/uuidService";
 import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
 import DishPortionsList from "./DishPortionsList";

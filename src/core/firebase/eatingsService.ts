@@ -1,3 +1,5 @@
+import { LogDay, logDayConverter } from "@/shared/models/LogDay";
+import dateService from "@/shared/services/dateService";
 import {
   collection,
   doc,
@@ -6,8 +8,6 @@ import {
   onSnapshot,
   setDoc,
 } from "firebase/firestore";
-import { LogDay, logDayConverter } from "../../shared/models/LogDay";
-import dateService from "../../shared/services/dateService";
 import authService from "./authService";
 import firebaseApp from "./firebaseApp";
 

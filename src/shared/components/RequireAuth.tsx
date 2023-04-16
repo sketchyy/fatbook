@@ -1,6 +1,5 @@
-import React from "react";
+import { useAuthState } from "@/core/auth/useAuthState";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuthState } from "../../core/auth/useAuthState";
 
 function RequireAuth({ children }) {
   const { isAuthenticated } = useAuthState();

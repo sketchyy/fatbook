@@ -1,4 +1,4 @@
-import Dish from "../../models/Dish";
+import Dish from "@/shared/models/Dish";
 import FoodValue from "../FoodValue";
 import DishIcon from "./DishIcon";
 

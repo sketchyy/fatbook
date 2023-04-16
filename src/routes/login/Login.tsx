@@ -1,8 +1,8 @@
+import { useAuthState } from "@/core/auth/useAuthState";
+import authService from "@/core/firebase/authService";
 import { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuthState } from "../../core/auth/useAuthState";
-import authService from "../../core/firebase/authService";
 
 function Login(props) {
   const { isAuthenticated } = useAuthState();

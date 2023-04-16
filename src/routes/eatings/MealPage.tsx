@@ -1,3 +1,7 @@
+import eatingsService from "@/core/firebase/eatingsService";
+import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
+import FoodValue from "@/shared/components/FoodValue";
+import PageTitle from "@/shared/components/PageTitle";
 import { FaChevronLeft, FaPlus } from "react-icons/fa";
 import {
   Link,
@@ -5,10 +9,6 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import eatingsService from "../../core/firebase/eatingsService";
-import EditDishPortionsForm from "../../shared/components/dish-portions-form/EditDishPortionsForm";
-import FoodValue from "../../shared/components/FoodValue";
-import PageTitle from "../../shared/components/PageTitle";
 import { meals } from "./MealCards";
 
 function MealPage(props) {

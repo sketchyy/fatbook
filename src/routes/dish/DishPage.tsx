@@ -1,3 +1,6 @@
+import dishesService from "@/core/firebase/dishesService";
+import NavLinkTab from "@/shared/components/ui/NavLinkTab";
+import Dish from "@/shared/models/Dish";
 import { Fragment, useEffect, useState } from "react";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import {
@@ -7,9 +10,6 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import dishesService from "../../core/firebase/dishesService";
-import NavLinkTab from "../../shared/components/ui/NavLinkTab";
-import Dish from "../../shared/models/Dish";
 
 function DishPage(props) {
   const navigate = useNavigate();

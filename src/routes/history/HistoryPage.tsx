@@ -1,15 +1,15 @@
+import eatingsService from "@/core/firebase/eatingsService";
+import FoodValue from "@/shared/components/FoodValue";
+import Message from "@/shared/components/Message";
+import DatePicker from "@/shared/components/ui/DatePicker";
+import { NutritionFacts } from "@/shared/models/NutritionFacts";
 import { Fragment, useEffect, useState } from "react";
 import { FaInfo } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
-import eatingsService from "../../core/firebase/eatingsService";
-import FoodValue from "../../shared/components/FoodValue";
-import Message from "../../shared/components/Message";
-import DatePicker from "../../shared/components/ui/DatePicker";
-import { NutritionFacts } from "../../shared/models/NutritionFacts";
 
-import { UserSettings } from "../../shared/models/User";
-import dateService from "../../shared/services/dateService";
-import foodValueService from "../../shared/services/foodValueService";
+import { UserSettings } from "@/shared/models/User";
+import dateService from "@/shared/services/dateService";
+import foodValueService from "@/shared/services/foodValueService";
 import DailyTrendChart from "./DailyTrendChart";
 import FoodValueDiff from "./FoodValueDiff";
 

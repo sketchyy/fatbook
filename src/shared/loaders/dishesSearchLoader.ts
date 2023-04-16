@@ -1,4 +1,4 @@
-import dishesService from "../../core/firebase/dishesService";
+import dishesService from "@/core/firebase/dishesService";
 
 export async function dishesSearchLoader({ request }) {
   const url = new URL(request.url);

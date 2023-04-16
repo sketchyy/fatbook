@@ -1,8 +1,8 @@
+import DishList from "@/shared/components/dish/DishList";
+import PageTitle from "@/shared/components/PageTitle";
+import SearchBar from "@/shared/components/ui/SearchBar";
 import { Fragment } from "react";
 import { Form, useLoaderData, useNavigate, useSubmit } from "react-router-dom";
-import DishList from "../../shared/components/dish/DishList";
-import PageTitle from "../../shared/components/PageTitle";
-import SearchBar from "../../shared/components/ui/SearchBar";
 
 function DishesPage(props) {
   const { searchResult, q } = useLoaderData() as any;

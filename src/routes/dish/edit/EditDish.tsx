@@ -1,6 +1,6 @@
+import Message from "@/shared/components/Message";
 import { FaSave } from "react-icons/fa";
 import { Form, useNavigate, useOutletContext } from "react-router-dom";
-import Message from "../../../shared/components/Message";
 
 function EditDish(props) {
   const navigate = useNavigate();

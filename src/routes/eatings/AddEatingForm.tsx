@@ -1,7 +1,7 @@
+import eatingsService from "@/core/firebase/eatingsService";
+import SelectDishPortionsForm from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
+import dateService from "@/shared/services/dateService";
 import { useParams } from "react-router-dom";
-import eatingsService from "../../core/firebase/eatingsService";
-import SelectDishPortionsForm from "../../shared/components/dish-portions-form/SelectDishPortionsForm";
-import dateService from "../../shared/services/dateService";
 
 function AddEatingForm() {
   const { day, meal } = useParams();

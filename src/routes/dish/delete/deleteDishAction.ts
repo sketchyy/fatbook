@@ -1,5 +1,5 @@
+import dishesService from "@/core/firebase/dishesService";
 import { redirect } from "react-router-dom";
-import dishesService from "../../../core/firebase/dishesService";
 
 export default async function deleteDishAction({ params }) {
   console.log("deleteDishAction id=", params.id);

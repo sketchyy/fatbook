@@ -1,3 +1,5 @@
+import { NutritionFacts } from "@/shared/models/NutritionFacts";
+import { UserSettings } from "@/shared/models/User";
 import {
   doc,
   getDoc,
@@ -5,8 +7,6 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { NutritionFacts } from "../../shared/models/NutritionFacts";
-import { UserSettings } from "../../shared/models/User";
 import authService from "./authService";
 import firebaseApp from "./firebaseApp";
 

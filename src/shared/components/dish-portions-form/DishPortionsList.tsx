@@ -1,7 +1,7 @@
+import { DishPortion } from "@/shared/models/DishPortion";
 import { useRef, useState } from "react";
 import { FaCheck, FaCheckCircle, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
-import { DishPortion } from "../../models/DishPortion";
 import DishIcon from "../dish/DishIcon";
 import FoodValue from "../FoodValue";
 import Accordion, { AccordionItem } from "../ui/Accordion";

@@ -1,9 +1,9 @@
+import FoodValue from "@/shared/components/FoodValue";
+import DatePicker from "@/shared/components/ui/DatePicker";
+import dateService from "@/shared/services/dateService";
 import { Fragment, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import FoodValue from "../../shared/components/FoodValue";
-import DatePicker from "../../shared/components/ui/DatePicker";
-import dateService from "../../shared/services/dateService";
 import MealCards from "./MealCards";
 
 function LogDaySummary() {

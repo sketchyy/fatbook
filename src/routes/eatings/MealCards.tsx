@@ -1,11 +1,11 @@
+import eatingsService from "@/core/firebase/eatingsService";
+import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
+import FoodValue from "@/shared/components/FoodValue";
+import Accordion, { AccordionItem } from "@/shared/components/ui/Accordion";
+import dateService from "@/shared/services/dateService";
 import { Fragment } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Link, useOutletContext } from "react-router-dom";
-import eatingsService from "../../core/firebase/eatingsService";
-import EditDishPortionsForm from "../../shared/components/dish-portions-form/EditDishPortionsForm";
-import FoodValue from "../../shared/components/FoodValue";
-import Accordion, { AccordionItem } from "../../shared/components/ui/Accordion";
-import dateService from "../../shared/services/dateService";
 
 export const meals = {
   breakfast: {
