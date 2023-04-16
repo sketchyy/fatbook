@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
+import { FaInfo, FaInfoCircle } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
 import FoodValue from "../../shared/components/FoodValue";
@@ -11,6 +12,7 @@ import FoodValueDiff from "./FoodValueDiff";
 
 function HistoryPage() {
   const userSettings = useLoaderData() as UserSettings;
+  const [showGoal, setShowGoal] = useState(false);
   const [chartData, setChartData] = useState<any[]>([]);
   const [dietGoal, setDietGoal] = useState<FoodValue>(
     userSettings.dailyDietGoal
@@ -25,10 +27,10 @@ function HistoryPage() {
     foodValueService.emptyFoodValue()
   );
   const dietGoalDiff: FoodValue = {
-    proteins: dietGoal.proteins - totalFoodValue.proteins,
-    fats: dietGoal.fats - totalFoodValue.fats,
-    carbs: dietGoal.carbs - totalFoodValue.carbs,
-    calories: dietGoal.calories - totalFoodValue.calories,
+    proteins: totalFoodValue.proteins - dietGoal.proteins,
+    fats: totalFoodValue.fats - dietGoal.fats,
+    carbs: totalFoodValue.carbs - dietGoal.carbs,
+    calories: totalFoodValue.calories - dietGoal.calories,
   };
 
   useEffect(() => {
@@ -81,24 +83,45 @@ function HistoryPage() {
         </div>
         <div>
           <div className="mt-2">
-            <div>Actual Consumption</div>
             <FoodValue
               foodValue={totalFoodValue}
               className="level-left is-size-7"
             />
           </div>
           <div className="mt-2">
-            <div>Goal</div>
-            <div className="mb-2">
-              <FoodValue
-                foodValue={dietGoal}
-                className="level-left is-size-7"
-              />
-            </div>
-            <div>
+            <div className="is-flex is-align-items-center">
               <FoodValueDiff foodValue={dietGoalDiff} />
+              <button
+                onClick={() => setShowGoal((s) => !s)}
+                className="button is-small is-rounded"
+              >
+                <FaInfo />
+              </button>
             </div>
           </div>
+          {showGoal && (
+            <article className="message is-info mt-2">
+              <div className="message-header">
+                <p className="is-flex is-align-items-center">
+                  <span className="icon is-medium">
+                    <FaInfoCircle />
+                  </span>
+                  Goal for selected days
+                </p>
+                <button
+                  className="delete"
+                  aria-label="delete"
+                  onClick={() => setShowGoal((s) => !s)}
+                ></button>
+              </div>
+              <div className="message-body">
+                <FoodValue
+                  foodValue={dietGoal}
+                  className="level-left is-size-7 has-text-dark"
+                />
+              </div>
+            </article>
+          )}
         </div>
       </div>
       <DailyTrendChart

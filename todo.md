@@ -84,15 +84,17 @@
   \*\* Log Day - get dailyGoals, render in summary
   ->> PR
 
+* vite TS paths
+
 * move all files to typescript
   ->> PR
 
 * Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
   ->> PR
 
-* vite TS paths
-
 * Add dish with portions count (calories per portion)
+
+* add favorite dishes
 
 * add react dialog to confirm
 * Move all fetch stuff to react router calls/think of only one method with spinnner support

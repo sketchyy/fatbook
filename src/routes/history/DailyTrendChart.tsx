@@ -10,7 +10,7 @@ import {
 
 function DailyTrendChart({ title, data, barFill, referenceValue, xKey, yKey }) {
   return (
-    <div className="box mb-2">
+    <div className="box mb-2 pb-1 pt-2">
       <span>{title}</span>
       <ResponsiveContainer width="100%" height={130}>
         <BarChart
