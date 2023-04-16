@@ -81,13 +81,15 @@
   -- Save - router action + loading animation + toast
   -- History page - get dailyGoals, render on charts, render in summary
 - move all files to typescript
-
-* vite TS paths
+- vite TS paths
 
 * Read react docs -> Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
-  ->> PR
 
 * Add dish with portions count (calories per portion)
+
+* add favorite dishes
+
+* поиск? https://www.algolia.com/pricing/ or better indexes
 
 * add react dialog to confirm
 * add react notifications
@@ -95,13 +97,9 @@
 * global loading spinner animation
 * settings save loading animation
 
-* add favorite dishes
-
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
-
-* поиск? https://www.algolia.com/pricing/ or better indexes
 
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts (rename in Dishes only, in days support 2 names)
