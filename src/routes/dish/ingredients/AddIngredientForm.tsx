@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import dishesDbService from "../../../core/firebase/dishesDbService";
+import dishesService from "../../../core/firebase/dishesService";
 import SelectDishPortionsForm from "../../../shared/components/dish-portions-form/SelectDishPortionsForm";
 
 function AddIngredientForm(props) {
@@ -8,13 +8,13 @@ function AddIngredientForm(props) {
   const handleAddIngredients = async (ingredient) => {
     dish.addIngredients([ingredient]);
 
-    await dishesDbService.replaceDish(dish);
+    await dishesService.replaceDish(dish);
   };
 
   const handleDeleteIngredients = async (ingredient) => {
     dish.deleteIngredient(ingredient);
 
-    await dishesDbService.replaceDish(dish);
+    await dishesService.replaceDish(dish);
   };
 
   return (

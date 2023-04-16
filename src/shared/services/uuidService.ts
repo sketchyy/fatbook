@@ -6,5 +6,4 @@ const uuidService = {
   },
 };
 
-// TODO: same as dateService
 export default uuidService;

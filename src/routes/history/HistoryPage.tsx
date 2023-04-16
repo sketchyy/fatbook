@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { FaInfo } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
-import eatingsDbService from "../../core/firebase/eatingsDbService";
+import eatingsService from "../../core/firebase/eatingsService";
 import FoodValue from "../../shared/components/FoodValue";
 import Message from "../../shared/components/Message";
 import DatePicker from "../../shared/components/ui/DatePicker";
@@ -40,7 +40,7 @@ function HistoryPage() {
     const fetchData = async () => {
       const logDays = await Promise.all(
         selectedDays.map(
-          async (day) => await eatingsDbService.getOrCreateLogDay(day)
+          async (day) => await eatingsService.getOrCreateLogDay(day)
         )
       );
       setChartData(

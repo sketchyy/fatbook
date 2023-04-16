@@ -80,23 +80,22 @@
 - settings page (daily kcal, proteins, fats threshold)
   -- Save - router action + loading animation + toast
   -- History page - get dailyGoals, render on charts, render in summary
-
-* move all files to typescript
-  ->> PR
+- move all files to typescript
 
 * vite TS paths
 
-* Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
+* Read react docs -> Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
   ->> PR
 
 * Add dish with portions count (calories per portion)
 
-* add favorite dishes
-
 * add react dialog to confirm
+* add react notifications
 * Move all fetch stuff to react router calls/think of only one method with spinnner support
 * global loading spinner animation
-* settings save loading animation + notification
+* settings save loading animation
+
+* add favorite dishes
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/

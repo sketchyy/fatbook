@@ -5,7 +5,7 @@ import {
   useOutletContext,
   useParams,
 } from "react-router-dom";
-import eatingsDbService from "../../core/firebase/eatingsDbService";
+import eatingsService from "../../core/firebase/eatingsService";
 import EditDishPortionsForm from "../../shared/components/dish-portions-form/EditDishPortionsForm";
 import FoodValue from "../../shared/components/FoodValue";
 import PageTitle from "../../shared/components/PageTitle";
@@ -19,11 +19,11 @@ function MealPage(props) {
   const foodValue = logDay.meals[meal!].totalFoodValue;
 
   const handleDaySave = async (portion) => {
-    const logDay = await eatingsDbService.getOrCreateLogDay(day);
+    const logDay = await eatingsService.getOrCreateLogDay(day);
 
     logDay.updateEating(meal, portion);
 
-    await eatingsDbService.replaceLogDay(day, logDay);
+    await eatingsService.replaceLogDay(day, logDay);
   };
 
   const handleAddEatingDelete = async (portion) => {
@@ -31,11 +31,11 @@ function MealPage(props) {
       return;
     }
 
-    const logDay = await eatingsDbService.getOrCreateLogDay(day);
+    const logDay = await eatingsService.getOrCreateLogDay(day);
 
     logDay.deleteEating(meal, portion);
 
-    await eatingsDbService.replaceLogDay(day, logDay);
+    await eatingsService.replaceLogDay(day, logDay);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import {
   Form,
@@ -7,7 +7,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import dishesDbService from "../../core/firebase/dishesDbService";
+import dishesService from "../../core/firebase/dishesService";
 import NavLinkTab from "../../shared/components/ui/NavLinkTab";
 import Dish from "../../shared/models/Dish";
 
@@ -18,7 +18,7 @@ function DishPage(props) {
   const [dish, setDish] = useState(Dish.empty());
 
   useEffect(() => {
-    const unsubscribe = dishesDbService.subscribeToDishChanges(
+    const unsubscribe = dishesService.subscribeToDishChanges(
       params.id,
       (dish) => {
         setDish(dish ?? Dish.empty());

@@ -1,6 +1,6 @@
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import dishesDbService from "../../../core/firebase/dishesDbService";
+import dishesService from "../../../core/firebase/dishesService";
 import EditDishPortionsForm from "../../../shared/components/dish-portions-form/EditDishPortionsForm";
 import PageTitle from "../../../shared/components/PageTitle";
 
@@ -15,7 +15,7 @@ function DishIngredientsForm(props) {
   const handleIngredientUpdate = async (ingredient) => {
     dish.updateIngredient(ingredient);
 
-    await dishesDbService.replaceDish(dish);
+    await dishesService.replaceDish(dish);
   };
 
   const handleIngredientDelete = async (ingredient) => {
@@ -25,7 +25,7 @@ function DishIngredientsForm(props) {
 
     dish.deleteIngredient(ingredient);
 
-    await dishesDbService.replaceDish(dish);
+    await dishesService.replaceDish(dish);
   };
 
   return (

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import eatingsDbService from "../../core/firebase/eatingsDbService";
+import eatingsService from "../../core/firebase/eatingsService";
 import { LogDay } from "../../shared/models/LogDay";
 
 function LogDayPage(props) {
@@ -9,7 +9,7 @@ function LogDayPage(props) {
   const [logDay, setLogDay] = useState(LogDay.empty());
 
   useEffect(() => {
-    const unsubscribe = eatingsDbService.subscribeToLogDayChanges(
+    const unsubscribe = eatingsService.subscribeToLogDayChanges(
       day,
       (dbLogDay) => {
         console.log("Log Day = ", dbLogDay);
