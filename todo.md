@@ -77,12 +77,9 @@
 - login page improve
 - date (today, yesterday, ...) fix
 - modify portion size -> enter click
-
-* settings page (daily kcal, proteins, fats threshold)
+- settings page (daily kcal, proteins, fats threshold)
   -- Save - router action + loading animation + toast
   -- History page - get dailyGoals, render on charts, render in summary
-  \*\* Log Day - get dailyGoals, render in summary
-  ->> PR
 
 * vite TS paths
 
@@ -99,6 +96,7 @@
 * add react dialog to confirm
 * Move all fetch stuff to react router calls/think of only one method with spinnner support
 * global loading spinner animation
+* settings save loading animation + notification
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/

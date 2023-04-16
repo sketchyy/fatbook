@@ -1,8 +1,9 @@
 import { Fragment, useEffect, useState } from "react";
-import { FaInfo, FaInfoCircle } from "react-icons/fa";
+import { FaInfo } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import eatingsDbService from "../../core/firebase/eatingsDbService";
 import FoodValue from "../../shared/components/FoodValue";
+import Message from "../../shared/components/Message";
 import DatePicker from "../../shared/components/ui/DatePicker";
 import { UserSettings } from "../../shared/models/User";
 import dateService from "../../shared/services/dateService";
@@ -100,27 +101,16 @@ function HistoryPage() {
             </div>
           </div>
           {showGoal && (
-            <article className="message is-info mt-2">
-              <div className="message-header">
-                <p className="is-flex is-align-items-center">
-                  <span className="icon is-medium">
-                    <FaInfoCircle />
-                  </span>
-                  Goal for selected days
-                </p>
-                <button
-                  className="delete"
-                  aria-label="delete"
-                  onClick={() => setShowGoal((s) => !s)}
-                ></button>
-              </div>
-              <div className="message-body">
-                <FoodValue
-                  foodValue={dietGoal}
-                  className="level-left is-size-7 has-text-dark"
-                />
-              </div>
-            </article>
+            <Message
+              title="Goal for selected days"
+              onClose={() => setShowGoal((s) => !s)}
+              className="mt-2"
+            >
+              <FoodValue
+                foodValue={dietGoal}
+                className="level-left is-size-7 has-text-dark"
+              />
+            </Message>
           )}
         </div>
       </div>

@@ -1,10 +1,10 @@
-import React from "react";
-import { FaInfoCircle, FaSave } from "react-icons/fa";
+import { FaSave } from "react-icons/fa";
 import { Form, useNavigate, useOutletContext } from "react-router-dom";
+import Message from "../../../shared/components/Message";
 
 function EditDish(props) {
   const navigate = useNavigate();
-  const { dish } = useOutletContext();
+  const { dish } = useOutletContext<any>();
 
   const onCancel = () => navigate("/dishes");
   const round = (numb) => {
@@ -37,19 +37,9 @@ function EditDish(props) {
         </div>
 
         {dish.hasIngredients() && (
-          <article className="message is-info">
-            <div className="message-header">
-              <p className="is-flex is-align-items-center">
-                <span className="icon is-medium">
-                  <FaInfoCircle />
-                </span>
-                Info
-              </p>
-            </div>
-            <div className="message-body">
-              Food Value is calculated from ingredients
-            </div>
-          </article>
+          <Message title="Info">
+            Food Value is calculated from ingredients
+          </Message>
         )}
 
         <div className="field is-grouped">
