@@ -18,10 +18,10 @@ function DailyTrendChart({ title, data, barFill, referenceValue, xKey, yKey }) {
           margin={{
             top: 15,
             right: 15,
-            left: 40,
+            left: 35,
             bottom: 5,
           }}
-          barSize={20}
+          barSize={18}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey={xKey} tick={{ fontSize: 12 }} />
@@ -34,7 +34,7 @@ function DailyTrendChart({ title, data, barFill, referenceValue, xKey, yKey }) {
           />
           <ReferenceLine
             y={referenceValue}
-            label={{ position: "left", value: referenceValue, fontSize: 12 }}
+            label={{ position: "left", value: referenceValue, fontSize: 9 }}
             stroke="red"
             strokeDasharray="3 3"
           />
