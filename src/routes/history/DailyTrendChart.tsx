@@ -10,15 +10,15 @@ import {
 
 function DailyTrendChart({ title, data, barFill, referenceValue, xKey, yKey }) {
   return (
-    <div className="box mb-2 pb-1 pt-2">
-      <span>{title}</span>
+    <div className="box mb-2 pb-1 pt-2 px-0">
+      <span className="pl-4">{title}</span>
       <ResponsiveContainer width="100%" height={130}>
         <BarChart
           data={data}
           margin={{
             top: 15,
-            right: 20,
-            left: 50,
+            right: 15,
+            left: 40,
             bottom: 5,
           }}
           barSize={20}
