@@ -84,6 +84,22 @@
 - vite TS paths
 
 * Read react docs -> Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
+* Rethink folder structure
+* move loaders/actions to page component
+* Consistent names:
+  ---DishPage
+  ---EditDishPage
+  ---DeleteDishPage??
+  ---DishIngredientsPage
+  ---AddIngredientPage
+* folder for components
+  ---history/HistoryPage
+  ---history/components/FoodValueDiff.tsx, ...
+* eatings LogDayPage <-> LogDaySummary. Page only loads data...
+
+* One component per file (exclusion - really small components < 3 lines)
+* replace "renderSomething" functions with components
+* model files hyphen case, pascal case only for TSX
 
 * Add dish with portions count (calories per portion)
 

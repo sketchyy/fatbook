@@ -1,4 +1,4 @@
-import Message from "@/shared/components/Message";
+import Message from "@/shared/components/ui/Message";
 import { FaSave } from "react-icons/fa";
 import { Form, useNavigate, useOutletContext } from "react-router-dom";
 
