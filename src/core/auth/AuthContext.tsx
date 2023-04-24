@@ -24,7 +24,7 @@ export const AuthContextProvider = (props) => {
     return () => unsubscribe();
   }, []);
 
-  if (user.uid === "no_user") {
+  if (user && user.uid === "no_user") {
     // TODO: spinner in the middle
     return <p>Loading...</p>;
   }

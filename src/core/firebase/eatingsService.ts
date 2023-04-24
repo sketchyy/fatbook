@@ -18,7 +18,7 @@ let logDaysRef;
 /* Read authenticated user's userId to use in logDays collection */
 const unsubscribe = authService.subscribeToAuthChanged((user) => {
   console.log("dbserv = ", user);
-  logDaysRef = collection(db, `users/${user.uid}/log-days`).withConverter(
+  logDaysRef = collection(db, `users/${user?.uid}/log-days`).withConverter(
     logDayConverter
   );
   unsubscribe();
