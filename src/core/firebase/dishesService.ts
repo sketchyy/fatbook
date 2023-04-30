@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { dishConverter } from "@/shared/models/Dish";
+import { EditDishInput } from "@/shared/models/EditDishInput";
 import dateService from "@/shared/services/dateService";
 import tokenize from "@/shared/utils/tokenize";
 import {
@@ -85,12 +86,12 @@ const dishesService = {
     return docRef.id;
   },
 
-  async updateDish(id, dishData) {
+  async updateDish(id: string, dishData: EditDishInput) {
     console.log("Updating dish...", id, dishData);
     dishData.createdAt = dateService.now(); //TODO: updatedAt || usedAt
 
     const docRef = doc(dishesRef, id);
-    updateDoc(docRef, dishData);
+    updateDoc(docRef, dishData as any); // TODO: typescript + firebase research
 
     await updateDishSearchIndex(docRef.id, dishData.name);
   },

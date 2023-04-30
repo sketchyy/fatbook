@@ -10,6 +10,7 @@ function Login(props) {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
+  // Try without useEffect
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/");

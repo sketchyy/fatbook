@@ -1,5 +1,6 @@
 import React from "react";
 
+//TODO: remove this and dropdown
 const useOutsideClick = (callback) => {
   const ref = React.useRef<HTMLElement>(null);
 

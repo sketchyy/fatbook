@@ -1,35 +1,30 @@
 import foodValueService from "../services/foodValueService";
+import { DishPortion } from "./DishPortion";
+import { NutritionFacts } from "./NutritionFacts";
 
 export default class Dish {
-  static empty() {
-    return new Dish(
-      null,
-      "",
-      {
-        carbs: "",
-        proteins: "",
-        calories: "",
-        fats: "",
-      },
-      [],
-      "",
-      null
-    );
+  static empty(): Dish {
+    return new Dish(null, "", undefined, [], null, null);
   }
 
-  id;
-  name;
-  foodValue;
-  ingredients;
-  defaultServingSize;
+  id: string | null;
+  name: string;
+  foodValue: NutritionFacts;
+  ingredients: DishPortion[];
+  defaultServingSize: number | null;
   createdAt;
 
   constructor(
-    id,
-    name,
-    foodValue = {},
+    id: string | null,
+    name: string,
+    foodValue = {
+      proteins: null,
+      fats: null,
+      carbs: null,
+      calories: null,
+    },
     ingredients = [],
-    defaultServingSize,
+    defaultServingSize: number | null,
     createdAt
   ) {
     this.id = id;
@@ -49,6 +44,7 @@ export default class Dish {
     this.foodValue = foodValueService.calculateDishValuePer100g(
       this.ingredients
     );
+    this.defaultServingSize = this.calculateDishServingSizeFromIngredients();
   }
 
   updateIngredient(ingredient) {
@@ -64,6 +60,8 @@ export default class Dish {
       this.foodValue = foodValueService.calculateDishValuePer100g(
         this.ingredients
       );
+
+      this.defaultServingSize = this.calculateDishServingSizeFromIngredients();
     }
   }
 
@@ -83,6 +81,8 @@ export default class Dish {
     } else {
       this.foodValue = foodValueService.emptyFoodValue();
     }
+
+    this.defaultServingSize = this.calculateDishServingSizeFromIngredients();
   }
 
   toJsonSimple() {
@@ -94,10 +94,21 @@ export default class Dish {
       createdAt: this.createdAt,
     };
   }
+
+  private calculateDishServingSizeFromIngredients(): number | null {
+    if (!this.hasIngredients()) {
+      return null;
+    }
+
+    return this.ingredients.reduce((sum, ingredient) => {
+      sum += ingredient.servingSize;
+      return sum;
+    }, 0);
+  }
 }
 
 export const dishConverter = {
-  toFirestore: (dish) => {
+  toFirestore: (dish: Dish) => {
     console.log("dish converter to firestore", dish);
     const jsonIngredients = dish.ingredients?.map((ingredient) => ({
       ...ingredient,

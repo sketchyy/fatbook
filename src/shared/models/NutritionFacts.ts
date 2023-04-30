@@ -1,6 +1,6 @@
 export interface NutritionFacts {
-  proteins: number;
-  fats: number;
-  carbs: number;
-  calories: number;
+  proteins: number | null;
+  fats: number | null;
+  carbs: number | null;
+  calories: number | null;
 }

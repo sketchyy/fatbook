@@ -36,6 +36,7 @@ function HistoryPage() {
     calories: totalFoodValue.calories - dietGoal.calories,
   };
 
+  // Try without useeffect
   useEffect(() => {
     const fetchData = async () => {
       const logDays = await Promise.all(

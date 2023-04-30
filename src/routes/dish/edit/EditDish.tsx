@@ -7,7 +7,7 @@ function EditDish(props) {
   const { dish } = useOutletContext<any>();
 
   const onCancel = () => navigate("/dishes");
-  const round = (numb) => {
+  const round = (numb: number) => {
     if (dish.hasIngredients()) {
       return Math.round(numb);
     } else {
