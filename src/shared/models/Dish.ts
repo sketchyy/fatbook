@@ -4,27 +4,22 @@ import { NutritionFacts } from "./NutritionFacts";
 
 export default class Dish {
   static empty(): Dish {
-    return new Dish(null, "", undefined, [], null, null);
+    return new Dish(undefined, "", undefined, [], undefined, null);
   }
 
-  id: string | null;
+  id?: string;
   name: string;
-  foodValue: NutritionFacts;
+  foodValue?: NutritionFacts;
   ingredients: DishPortion[];
-  defaultServingSize: number | null;
+  defaultServingSize?: number | null;
   createdAt;
 
   constructor(
-    id: string | null,
+    id: string | undefined,
     name: string,
-    foodValue = {
-      proteins: null,
-      fats: null,
-      carbs: null,
-      calories: null,
-    },
+    foodValue: NutritionFacts | undefined,
     ingredients = [],
-    defaultServingSize: number | null,
+    defaultServingSize: number | undefined,
     createdAt
   ) {
     this.id = id;

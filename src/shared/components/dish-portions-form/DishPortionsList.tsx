@@ -76,8 +76,8 @@ function DishPortionListItem({
   onDelete,
   isAdded,
 }: DishPortionsListItemProps) {
-  const [size, setSize] = useState(
-    dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? ""
+  const [size, setSize] = useState<number | undefined>(
+    dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? undefined
   );
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -94,7 +94,7 @@ function DishPortionListItem({
   };
 
   const handleDeleteClick = () => {
-    setSize(dishPortion.dish.defaultServingSize ?? "");
+    setSize(dishPortion.dish.defaultServingSize ?? undefined);
     onDelete(dishPortion);
   };
 

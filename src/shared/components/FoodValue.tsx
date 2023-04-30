@@ -2,7 +2,7 @@ import { NutritionFacts } from "../models/NutritionFacts";
 import foodValueService from "../services/foodValueService";
 
 interface FoodValueProps {
-  foodValue: NutritionFacts;
+  foodValue?: NutritionFacts;
   className?: string;
 }
 

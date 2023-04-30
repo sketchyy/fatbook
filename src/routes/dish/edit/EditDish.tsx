@@ -7,8 +7,10 @@ function EditDish(props) {
   const { dish } = useOutletContext<any>();
 
   const onCancel = () => navigate("/dishes");
-  const round = (numb: number) => {
-    if (dish.hasIngredients()) {
+  const format = (numb: number | undefined) => {
+    if (numb === undefined) {
+      return "";
+    } else if (dish.hasIngredients()) {
       return Math.round(numb);
     } else {
       return numb;
@@ -53,7 +55,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={round(dish.foodValue.proteins)}
+                defaultValue={format(dish.foodValue?.proteins)}
               />
             </div>
           </div>
@@ -67,7 +69,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={round(dish.foodValue.fats)}
+                defaultValue={format(dish.foodValue?.fats)}
               />
             </div>
           </div>
@@ -81,7 +83,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={round(dish.foodValue.carbs)}
+                defaultValue={format(dish.foodValue?.carbs)}
               />
             </div>
           </div>
@@ -98,7 +100,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={round(dish.foodValue.calories)}
+                defaultValue={format(dish.foodValue?.calories)}
               />
             </div>
           </div>
