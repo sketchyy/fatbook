@@ -82,6 +82,9 @@
   -- History page - get dailyGoals, render on charts, render in summary
 - move all files to typescript
 - vite TS paths
+- поиск? https://www.algolia.com/pricing/ or better indexes
+  Algolia требует тарифный план Blaze, на бесплатном не работает
+  \*\*\* Your project must be on the Blaze plan to use this extension - не подходит
 
 * Read react docs -> Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
 * Rethink folder structure
@@ -105,8 +108,6 @@
 
 * add favorite dishes
 
-* поиск? https://www.algolia.com/pricing/ or better indexes
-
 * add react dialog to confirm
 * add react notifications
 * Move all fetch stuff to react router calls/think of only one method with spinnner support
@@ -119,5 +120,13 @@
 
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts (rename in Dishes only, in days support 2 names)
+* Улучшить поиск
+  https://medium.com/@ken11zer01/firebase-firestore-text-search-and-pagination-91a0df8131ef
+  https://stackoverflow.com/questions/46568142/google-firestore-query-on-substring-of-a-property-value-text-search
 
-* https://pocketbase.io/docs/ + https://fly.io/
+* Переход с Firebase на pocketbase (или аналог)
+  - Гибкий поиск (в Firebase текущим методом максимум 10 опций можно искать)
+  - Нету квот
+  * придется платить за хостинг
+  * придется париться бекапом
+    https://pocketbase.io/docs/ + https://fly.io/

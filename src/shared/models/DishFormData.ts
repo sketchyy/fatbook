@@ -1,4 +1,4 @@
-export interface EditDishInput {
+export interface DishFormData {
   name: string;
   "foodValue.proteins": number;
   "foodValue.fats": number;

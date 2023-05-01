@@ -1,5 +1,5 @@
 import dishesService from "@/core/firebase/dishesService";
-import { EditDishInput } from "@/shared/models/EditDishInput";
+import { DishFormData } from "@/shared/models/DishFormData";
 import { redirect } from "react-router-dom";
 
 export default async function updateDishAction({ request, params }) {
@@ -7,7 +7,7 @@ export default async function updateDishAction({ request, params }) {
   const formObject = Object.fromEntries(formData);
 
   // Form data only contains Strings, but we want numbers in DB
-  const updates: EditDishInput = {
+  const updates: DishFormData = {
     name: formObject.name,
     defaultServingSize: Number(formObject.defaultServingSize),
     "foodValue.proteins": Number(formObject["foodValue.proteins"]),

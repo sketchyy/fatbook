@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { dishConverter } from "@/shared/models/Dish";
-import { EditDishInput } from "@/shared/models/EditDishInput";
+import { DishFormData } from "@/shared/models/DishFormData";
 import dateService from "@/shared/services/dateService";
 import tokenize from "@/shared/utils/tokenize";
 import {
@@ -86,7 +86,7 @@ const dishesService = {
     return docRef.id;
   },
 
-  async updateDish(id: string, dishData: EditDishInput) {
+  async updateDish(id: string, dishData: DishFormData) {
     console.log("Updating dish...", id, dishData);
     dishData.createdAt = dateService.now(); //TODO: updatedAt || usedAt
 

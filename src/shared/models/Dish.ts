@@ -4,23 +4,30 @@ import { NutritionFacts } from "./NutritionFacts";
 
 export default class Dish {
   static empty(): Dish {
-    return new Dish(undefined, "", undefined, [], undefined, null);
+    return new Dish(
+      null,
+      "",
+      foodValueService.emptyFoodValue(),
+      [],
+      null,
+      null
+    );
   }
 
-  id?: string;
+  id: string | null;
   name: string;
-  foodValue?: NutritionFacts;
+  foodValue: NutritionFacts;
   ingredients: DishPortion[];
-  defaultServingSize?: number | null;
-  createdAt;
+  defaultServingSize: number | null;
+  createdAt: number | null;
 
   constructor(
-    id: string | undefined,
+    id: string | null,
     name: string,
-    foodValue: NutritionFacts | undefined,
-    ingredients = [],
-    defaultServingSize: number | undefined,
-    createdAt
+    foodValue: NutritionFacts,
+    ingredients: DishPortion[],
+    defaultServingSize: number | null,
+    createdAt: number | null
   ) {
     this.id = id;
     this.name = name;
@@ -46,8 +53,6 @@ export default class Dish {
     const index = this.ingredients.findIndex(
       (ing) => ing.dish.id === ingredient.dish.id
     );
-
-    console.log("ing=", ingredient, index);
 
     if (index >= 0) {
       this.ingredients[index] = ingredient;
