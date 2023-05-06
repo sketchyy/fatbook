@@ -46,7 +46,8 @@ export default class Dish {
     this.foodValue = foodValueService.calculateDishValuePer100g(
       this.ingredients
     );
-    this.defaultServingSize = this.calculateDishServingSizeFromIngredients();
+
+    this.updateServingSize();
   }
 
   updateIngredient(ingredient) {
@@ -61,7 +62,7 @@ export default class Dish {
         this.ingredients
       );
 
-      this.defaultServingSize = this.calculateDishServingSizeFromIngredients();
+      this.updateServingSize();
     }
   }
 
@@ -82,7 +83,7 @@ export default class Dish {
       this.foodValue = foodValueService.emptyFoodValue();
     }
 
-    this.defaultServingSize = this.calculateDishServingSizeFromIngredients();
+    this.updateServingSize();
   }
 
   toJsonSimple() {
@@ -93,6 +94,10 @@ export default class Dish {
       defaultServingSize: this.defaultServingSize,
       createdAt: this.createdAt,
     };
+  }
+
+  private updateServingSize() {
+    this.defaultServingSize = this.calculateDishServingSizeFromIngredients();
   }
 
   private calculateDishServingSizeFromIngredients(): number | null {
