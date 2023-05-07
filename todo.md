@@ -93,20 +93,19 @@
   ---history/HistoryPage
   ---history/components/FoodValueDiff.tsx, ...
 - replace "renderSomething" functions with components
+- One component per file (exclusion - really small components < 3 lines)
 
 * add react dialog to confirm
+* Try dialog input for portion size instead of nested accordion
 * Add dish with portions count (calories per portion)
 * add favorite dishes
 
-* One component per file (exclusion - really small components < 3 lines)
-
+* revise firestore model and usage
 * Read react docs -> Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
-
-* revise firestore model and usage
 
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts (rename in Dishes only, in days support 2 names)

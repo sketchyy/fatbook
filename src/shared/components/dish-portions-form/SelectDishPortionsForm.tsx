@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useLoaderData, useNavigation, useSubmit } from "react-router-dom";
 import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
-import DishPortionsList from "./DishPortionsList";
+import DishPortionList from "./dish-portion-list/DishPortionList";
 
 interface SelectDishPortionsFormProps {
   title: string;
@@ -97,7 +97,7 @@ function SelectDishPortionsForm({
           }}
         />
 
-        <DishPortionsList
+        <DishPortionList
           dishPortions={renderedPortions}
           onAdd={handleAddClick}
           onUpdate={handleUpdateClick}

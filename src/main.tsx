@@ -125,6 +125,6 @@ root.render(
     <AuthContextProvider>
       <RouterProvider router={router} />
     </AuthContextProvider>
-    <ToastContainer position="top-center" />
+    <ToastContainer position="bottom-center" />
   </React.StrictMode>
 );

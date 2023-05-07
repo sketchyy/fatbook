@@ -1,4 +1,4 @@
-import DishPortionsList from "./DishPortionsList";
+import DishPortionList from "./dish-portion-list/DishPortionList";
 
 function EditDishPortionsForm({ dishPortions, onSave, onDelete }) {
   const handleSaveClick = (portion) => {
@@ -10,7 +10,7 @@ function EditDishPortionsForm({ dishPortions, onSave, onDelete }) {
   };
 
   return (
-    <DishPortionsList
+    <DishPortionList
       dishPortions={dishPortions}
       onUpdate={handleSaveClick}
       onDelete={handleDeleteClick}
