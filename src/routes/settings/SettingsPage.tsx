@@ -4,12 +4,16 @@ import { UserSettings } from "@/shared/models/User";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function SettingsPage(props) {
   const userSettings = useLoaderData() as UserSettings;
   const [dailyDietGoal, setDailyDietGoal] = useState<NutritionFacts>(
     userSettings.dailyDietGoal
   );
+  const [loading, setLoading] = useState(false);
+  const loadingBtnClassName = loading ? "is-loading" : "";
+  const loadingPageClassName = loading ? "loading" : "";
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDailyDietGoal({
@@ -18,13 +22,21 @@ function SettingsPage(props) {
     });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    userSettingsService.save(dailyDietGoal);
+    setLoading(true);
+    try {
+      await userSettingsService.save(dailyDietGoal);
+      toast.success("Settings saved");
+    } catch (error) {
+      toast.error(`Saving is failed: ${error}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={loadingPageClassName}>
       <div className="box">
         <div className="is-size-4 mb-4">My Daily Goals</div>
         <div className="field is-grouped">
@@ -89,7 +101,12 @@ function SettingsPage(props) {
 
         <div className="field mt-5">
           <p className="control is-clearfix">
-            <button className="button is-primary is-pulled-right" type="submit">
+            <button
+              className={
+                "button is-primary is-pulled-right " + loadingBtnClassName
+              }
+              type="submit"
+            >
               <span className="icon">
                 <FaSave />
               </span>

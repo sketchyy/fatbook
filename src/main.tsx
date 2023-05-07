@@ -9,6 +9,8 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthContextProvider } from "./core/auth/AuthContext";
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
@@ -123,5 +125,6 @@ root.render(
     <AuthContextProvider>
       <RouterProvider router={router} />
     </AuthContextProvider>
+    <ToastContainer position="top-center" />
   </React.StrictMode>
 );
