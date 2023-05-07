@@ -1,3 +1,4 @@
+import IceCreamSpinner from "@/shared/components/ui/IceCreamSpinner";
 import { User } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import authService from "../firebase/authService";
@@ -25,8 +26,7 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   if (user && user.uid === "no_user") {
-    // TODO: spinner in the middle
-    return <p>Loading...</p>;
+    return <IceCreamSpinner />;
   }
 
   return <AuthContext.Provider value={{ user }} {...props} />;

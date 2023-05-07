@@ -87,9 +87,9 @@
   \*\*\* Your project must be on the Blaze plan to use this extension - не подходит
 - model files hyphen case, pascal case only for TSX
 - global loading spinner animation (decided to keep same animation with opacity, added search spinner though)
+- settings save loading animation
+- add react notifications
 
-* settings save loading animation
-* add react notifications
 * add react dialog to confirm
 * Add dish with portions count (calories per portion)
 * add favorite dishes
