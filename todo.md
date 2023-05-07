@@ -85,38 +85,38 @@
 - поиск? https://www.algolia.com/pricing/ or better indexes
   Algolia требует тарифный план Blaze, на бесплатном не работает
   \*\*\* Your project must be on the Blaze plan to use this extension - не подходит
+- model files hyphen case, pascal case only for TSX
+- global loading spinner animation (decided to keep same animation with opacity, added search spinner though)
+
+* settings save loading animation
+* add react notifications
+* add react dialog to confirm
+* Add dish with portions count (calories per portion)
+* add favorite dishes
+
+* move loaders/actions to page component
+* One component per file (exclusion - really small components < 3 lines)
+* Move all fetch stuff to react router calls/think of only one method with spinnner support
 
 * Read react docs -> Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
 * Rethink folder structure
-* move loaders/actions to page component
 * Consistent names:
   ---DishPage
   ---EditDishPage
   ---DeleteDishPage??
   ---DishIngredientsPage
   ---AddIngredientPage
+* replace "renderSomething" functions with components
 * folder for components
   ---history/HistoryPage
   ---history/components/FoodValueDiff.tsx, ...
 * eatings LogDayPage <-> LogDaySummary. Page only loads data...
 
-* One component per file (exclusion - really small components < 3 lines)
-* replace "renderSomething" functions with components
-* model files hyphen case, pascal case only for TSX
-
-* Add dish with portions count (calories per portion)
-
-* add favorite dishes
-
-* add react dialog to confirm
-* add react notifications
-* Move all fetch stuff to react router calls/think of only one method with spinnner support
-* global loading spinner animation
-* settings save loading animation
-
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/
   https://create-react-app.dev/docs/adding-a-sass-stylesheet/
+
+* revise firestore model and usage
 
 * Refactor: "createdAt -> updatedAt" for sorting
 * Refactor: FoodValue -> NutritionFacts (rename in Dishes only, in days support 2 names)

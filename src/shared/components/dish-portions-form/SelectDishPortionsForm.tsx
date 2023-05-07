@@ -2,7 +2,7 @@ import { DishPortion } from "@/shared/models/DishPortion";
 import foodValueService from "@/shared/services/foodValueService";
 import uuidService from "@/shared/services/uuidService";
 import { useState } from "react";
-import { useLoaderData, useSubmit } from "react-router-dom";
+import { useLoaderData, useNavigation, useSubmit } from "react-router-dom";
 import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
 import DishPortionsList from "./DishPortionsList";
@@ -23,8 +23,12 @@ function SelectDishPortionsForm({
   onDelete,
 }: SelectDishPortionsFormProps) {
   const submit = useSubmit();
+  const navigation = useNavigation();
   const { searchResult, q } = useLoaderData() as any;
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
+  const isSearching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
 
   const dishPortions = searchResult.map((dish) => ({
     dish: dish,
@@ -86,6 +90,7 @@ function SelectDishPortionsForm({
         <PageTitle title={title} subtitle={subtitle} backPath={-1} />
 
         <SearchBar
+          isLoading={isSearching}
           defaultValue={q}
           onChange={(event) => {
             submit(event.target.form, { replace: true });

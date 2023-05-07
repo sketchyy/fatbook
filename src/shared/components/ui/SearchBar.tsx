@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
+import "./SearchBar.css";
 
-function SearchBar({ defaultValue, onChange }) {
+function SearchBar({ defaultValue, onChange, isLoading = false }) {
   const timeout = useRef<NodeJS.Timeout>();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState(defaultValue ?? "");
+  const loadingClassName = isLoading ? "is-loading" : "";
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -32,7 +34,10 @@ function SearchBar({ defaultValue, onChange }) {
       className="content content is-flex is-align-items-center"
     >
       <Form
-        className="control has-icons-left has-icons-right search-field is-flex-grow-1"
+        className={
+          "control has-icons-left has-icons-right search-field is-flex-grow-1 " +
+          loadingClassName
+        }
         onSubmit={(e) => e.preventDefault()}
       >
         <input

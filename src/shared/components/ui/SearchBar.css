@@ -1,0 +1,3 @@
+.control.is-loading::after {
+  right: 2rem;
+}
