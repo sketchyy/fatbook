@@ -30,7 +30,7 @@ function AddEatingForm() {
     await eatingsService.replaceLogDay(day, logDay);
   };
 
-  const renderSubtitle = () => {
+  const getSubtitle = () => {
     const today = dateService.now();
     if (dateService.isSame(day, today)) {
       return `${meal}, Today`;
@@ -47,7 +47,7 @@ function AddEatingForm() {
   return (
     <SelectDishPortionsForm
       title="Select Dish"
-      subtitle={renderSubtitle()}
+      subtitle={getSubtitle()}
       onAdd={handleAddEatings}
       onUpdate={handleUpdateEatings}
       onDelete={handleDeleteEatings}

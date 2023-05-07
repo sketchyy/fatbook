@@ -89,28 +89,18 @@
 - global loading spinner animation (decided to keep same animation with opacity, added search spinner though)
 - settings save loading animation
 - add react notifications
+- folder for components
+  ---history/HistoryPage
+  ---history/components/FoodValueDiff.tsx, ...
+- replace "renderSomething" functions with components
 
 * add react dialog to confirm
 * Add dish with portions count (calories per portion)
 * add favorite dishes
 
-* move loaders/actions to page component
 * One component per file (exclusion - really small components < 3 lines)
-* Move all fetch stuff to react router calls/think of only one method with spinnner support
 
 * Read react docs -> Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
-* Rethink folder structure
-* Consistent names:
-  ---DishPage
-  ---EditDishPage
-  ---DeleteDishPage??
-  ---DishIngredientsPage
-  ---AddIngredientPage
-* replace "renderSomething" functions with components
-* folder for components
-  ---history/HistoryPage
-  ---history/components/FoodValueDiff.tsx, ...
-* eatings LogDayPage <-> LogDaySummary. Page only loads data...
 
 * customize bulma (box-padding: 1rem, font-size smaller)
   https://bulma.io/documentation/customize/variables/

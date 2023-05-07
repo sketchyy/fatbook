@@ -10,8 +10,8 @@ import { useLoaderData } from "react-router-dom";
 import { UserSettings } from "@/shared/models/User";
 import dateService from "@/shared/services/dateService";
 import foodValueService from "@/shared/services/foodValueService";
-import DailyTrendChart from "./DailyTrendChart";
-import FoodValueDiff from "./FoodValueDiff";
+import DailyTrendChart from "./components/DailyTrendChart";
+import FoodValueDiff from "./components/FoodValueDiff";
 
 function HistoryPage() {
   const userSettings = useLoaderData() as UserSettings;

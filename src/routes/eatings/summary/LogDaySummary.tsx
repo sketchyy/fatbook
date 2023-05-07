@@ -4,7 +4,7 @@ import dateService from "@/shared/services/dateService";
 import { Fragment, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import MealCards from "./MealCards";
+import MealCards from "../components/MealCards";
 
 function LogDaySummary() {
   const navigate = useNavigate();
