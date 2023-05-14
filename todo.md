@@ -97,10 +97,12 @@
 
 * add react dialog to confirm
 * Try dialog input for portion size instead of nested accordion
-* Add dish with portions count (calories per portion)
-* add favorite dishes
 
+* Add dish with portions count (calories per portion)
+
+* add favorite dishes
 * revise firestore model and usage
+
 * Read react docs -> Plan to massive refactor (visualize components tree on paper for each page, think on how to simplify)
 
 * customize bulma (box-padding: 1rem, font-size smaller)

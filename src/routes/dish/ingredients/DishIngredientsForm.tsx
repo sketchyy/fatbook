@@ -1,12 +1,17 @@
 import dishesService from "@/core/firebase/dishesService";
 import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
 import PageTitle from "@/shared/components/PageTitle";
+import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
+import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
 function DishIngredientsForm(props) {
   const navigate = useNavigate();
   const { dish } = useOutletContext<any>();
+  const [confirm, setConfirm] = useState<Confirmation>({
+    visible: false,
+  });
 
   const handleAdd = (e) => {
     navigate("add", { state: { backUrl: `/dishes/${dish._id}/ingredients` } });
@@ -19,13 +24,16 @@ function DishIngredientsForm(props) {
   };
 
   const handleIngredientDelete = async (ingredient) => {
-    if (!window.confirm("Are you sure you want to delete this ingredient?")) {
-      return;
-    }
+    setConfirm({
+      visible: true,
+      accept: async () => {
+        setConfirm({ visible: false });
 
-    dish.deleteIngredient(ingredient);
+        dish.deleteIngredient(ingredient);
 
-    await dishesService.replaceDish(dish);
+        await dishesService.replaceDish(dish);
+      },
+    });
   };
 
   return (
@@ -43,6 +51,13 @@ function DishIngredientsForm(props) {
         dishPortions={dish.ingredients}
         onSave={handleIngredientUpdate}
         onDelete={handleIngredientDelete}
+      />
+
+      <Confirm
+        message="Are you sure you want to delete this ingredient?"
+        visible={confirm.visible}
+        onConfirm={confirm.accept}
+        onClose={() => setConfirm({ visible: false })}
       />
     </div>
   );
