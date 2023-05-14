@@ -94,9 +94,9 @@
   ---history/components/FoodValueDiff.tsx, ...
 - replace "renderSomething" functions with components
 - One component per file (exclusion - really small components < 3 lines)
+- add react dialog to confirm
 
-* add react dialog to confirm
-* Try dialog input for portion size instead of nested accordion
+* (new branch) Try dialog input for portion size instead of nested accordion
 
 * Add dish with portions count (calories per portion)
 
