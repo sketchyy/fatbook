@@ -11,7 +11,7 @@ interface ModalProps {
 function Modal({ visible, onClose, body, footer, title }: ModalProps) {
   return (
     <div className={"modal" + (visible ? " is-active" : "")}>
-      <div className="modal-background"></div>
+      <div className="modal-background" onClick={onClose}></div>
       <div className="modal-card px-2">
         <header className="modal-card-head">
           <p className="modal-card-title">{title}</p>
