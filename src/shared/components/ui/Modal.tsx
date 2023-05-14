@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 interface ModalProps {
   visible: boolean;
@@ -9,6 +9,19 @@ interface ModalProps {
 }
 
 function Modal({ visible, onClose, body, footer, title }: ModalProps) {
+  const closeOnEscapeKeydown = (event: KeyboardEvent) => {
+    if (visible && event.code === "Escape") {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    document.body.addEventListener("keydown", closeOnEscapeKeydown);
+    return function cleanup() {
+      document.body.removeEventListener("keydown", closeOnEscapeKeydown);
+    };
+  }, []);
+
   return (
     <div className={"modal" + (visible ? " is-active" : "")}>
       <div className="modal-background" onClick={onClose}></div>
