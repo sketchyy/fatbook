@@ -10,7 +10,7 @@ export default class Dish {
       foodValueService.emptyFoodValue(),
       [],
       null,
-      null
+      null,
     );
   }
 
@@ -18,7 +18,7 @@ export default class Dish {
   name: string;
   foodValue: NutritionFacts;
   ingredients: DishPortion[];
-  defaultServingSize: number | null;
+  defaultServingSize: number | null | undefined;
   createdAt: number | null;
 
   constructor(
@@ -27,7 +27,7 @@ export default class Dish {
     foodValue: NutritionFacts,
     ingredients: DishPortion[],
     defaultServingSize: number | null,
-    createdAt: number | null
+    createdAt: number | null,
   ) {
     this.id = id;
     this.name = name;
@@ -48,7 +48,7 @@ export default class Dish {
   addIngredients(ingredients) {
     this.ingredients = [...ingredients, ...this.ingredients];
     this.foodValue = foodValueService.calculateDishValuePer100g(
-      this.ingredients
+      this.ingredients,
     );
 
     this.updateServingSize();
@@ -56,14 +56,14 @@ export default class Dish {
 
   updateIngredient(ingredient) {
     const index = this.ingredients.findIndex(
-      (ing) => ing.dish.id === ingredient.dish.id
+      (ing) => ing.dish.id === ingredient.dish.id,
     );
 
     if (index >= 0) {
       this.ingredients[index] = ingredient;
 
       this.foodValue = foodValueService.calculateDishValuePer100g(
-        this.ingredients
+        this.ingredients,
       );
 
       this.updateServingSize();
@@ -81,7 +81,7 @@ export default class Dish {
 
     if (this.hasIngredients()) {
       this.foodValue = foodValueService.calculateDishValuePer100g(
-        this.ingredients
+        this.ingredients,
       );
     } else {
       this.foodValue = foodValueService.emptyFoodValue();
@@ -141,7 +141,7 @@ export const dishConverter = {
       data.foodValue,
       data.ingredients,
       data.defaultServingSize,
-      data.createdAt
+      data.createdAt,
     );
   },
 };
