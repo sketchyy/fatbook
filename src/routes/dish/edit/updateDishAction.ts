@@ -6,9 +6,6 @@ export default async function updateDishAction({ request, params }) {
   const formObject = Object.fromEntries(formData);
 
   // Form data only contains Strings, but we want numbers in DB
-  if (!formObject.defaultServingSize) {
-    delete formObject.defaultServingSize
-  }
   Object.keys(formObject)
     .filter((key) => key !== "name")
     .forEach((key) => {

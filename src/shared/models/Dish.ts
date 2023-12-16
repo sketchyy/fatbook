@@ -33,8 +33,12 @@ export default class Dish {
     this.name = name;
     this.foodValue = foodValue;
     this.ingredients = ingredients;
-    this.defaultServingSize = defaultServingSize ?? null;
     this.createdAt = createdAt ?? null;
+
+    // Avoid render defaultServingSize === 0
+    if (defaultServingSize) {
+      this.defaultServingSize = defaultServingSize;
+    }
   }
 
   hasIngredients() {
