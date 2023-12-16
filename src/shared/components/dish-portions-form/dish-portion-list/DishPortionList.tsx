@@ -22,20 +22,27 @@ function DishPortionList({
   isAdded,
 }: DishPortionsListProps) {
   const [activeIndex, setActiveIndex] = useState(-1);
+  const [prevItems, setPrevItems] = useState(dishPortions);
 
-  const handleAdd = (portion) => {
+  // Reset selection after search
+  if (dishPortions !== prevItems) {
+    setPrevItems(dishPortions);
+    setActiveIndex(-1);
+  }
+
+  const handleAdd = (portion: DishPortion) => {
     setActiveIndex(-1);
     if (onAdd) {
       onAdd(portion);
     }
   };
 
-  const handleUpdate = (portion) => {
+  const handleUpdate = (portion: DishPortion) => {
     setActiveIndex(-1);
     onUpdate(portion);
   };
 
-  const handleDelete = (portion) => {
+  const handleDelete = (portion: DishPortion) => {
     setActiveIndex(-1);
     onDelete(portion);
   };
