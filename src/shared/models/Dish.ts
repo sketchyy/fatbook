@@ -34,11 +34,9 @@ export default class Dish {
     this.foodValue = foodValue;
     this.ingredients = ingredients;
     this.createdAt = createdAt ?? null;
-
-    // Avoid render defaultServingSize === 0
-    if (defaultServingSize) {
-      this.defaultServingSize = defaultServingSize;
-    }
+    // undefined can't be written to Firebase, so initializing with null
+    // Also replace 0 with null, as 0 is useless
+    this.defaultServingSize = defaultServingSize || null;
   }
 
   hasIngredients() {

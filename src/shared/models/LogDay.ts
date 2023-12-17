@@ -1,6 +1,7 @@
 import dateService from "../services/dateService";
 import foodValueService from "../services/foodValueService";
 import { Meals } from "./Meals";
+import { DishPortion } from "@/shared/models/DishPortion";
 
 export class LogDay {
   static empty() {
@@ -20,8 +21,8 @@ export class LogDay {
   }
 
   addEatings(meal, rawEatings) {
-    const calculatedEatings = rawEatings.map((rawEating) =>
-      this.#calculateEating(rawEating)
+    const calculatedEatings = rawEatings.map((rawEating: DishPortion) =>
+      this.#calculateEating(rawEating),
     );
     this.meals[meal].eatings =
       this.meals[meal].eatings.concat(calculatedEatings);
@@ -33,7 +34,7 @@ export class LogDay {
 
   deleteEating(meal, removedEating) {
     this.meals[meal].eatings = this.meals[meal].eatings.filter(
-      (eating) => eating.id !== removedEating.id
+      (eating) => eating.id !== removedEating.id,
     );
 
     this.#updateMealTotals(meal);
@@ -70,13 +71,13 @@ export class LogDay {
 
   #updateMealTotals(meal) {
     this.meals[meal].totalFoodValue = foodValueService.sumFoodValues(
-      this.meals[meal].eatings.map((e) => e.totalFoodValue)
+      this.meals[meal].eatings.map((e) => e.totalFoodValue),
     );
   }
 
   #updateDayTotals() {
     const mealTotals = Object.keys(Meals).map(
-      (meal) => this.meals[meal].totalFoodValue
+      (meal) => this.meals[meal].totalFoodValue,
     );
 
     this.totalFoodValue = foodValueService.sumFoodValues(mealTotals);
@@ -108,7 +109,7 @@ export const logDayConverter = {
       snapshot.id,
       data.timestamp,
       data.totalFoodValue,
-      data.meals
+      data.meals,
     );
   },
 };
