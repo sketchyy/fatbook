@@ -32,3 +32,13 @@ Deploy:
 ```
 firebase deploy
 ```
+
+## Errors
+
+1) `Error: Failed to get Firebase project project-name. Please make sure the project exists and your account has permission to access it`
+
+    Fix: 
+    
+    ```
+    firebase login --reauth
+    ```
