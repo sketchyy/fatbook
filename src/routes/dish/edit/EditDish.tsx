@@ -62,6 +62,10 @@ function EditDish(props) {
     if (!cookedWeight) {
       return;
     }
+    dish.foodValue.calories = getValues("foodValue.calories");
+    dish.foodValue.proteins = getValues("foodValue.proteins");
+    dish.foodValue.fats = getValues("foodValue.fats");
+    dish.foodValue.carbs = getValues("foodValue.carbs");
     const newFoodValue = dish.calculateFoodValue(cookedWeight);
 
     reset({
