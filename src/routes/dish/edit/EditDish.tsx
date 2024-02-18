@@ -59,13 +59,13 @@ function EditDish(props) {
 
   const recalculateFoodValue = () => {
     const cookedWeight = getValues("cookedWeight");
-    dish.recalculateFoodValue(cookedWeight);
+    const newFoodValue = dish.calculateFoodValue(cookedWeight);
 
     reset({
-      "foodValue.calories": dish.foodValue.calories,
-      "foodValue.proteins": dish.foodValue.proteins,
-      "foodValue.fats": dish.foodValue.fats,
-      "foodValue.carbs": dish.foodValue.carbs,
+      "foodValue.calories": newFoodValue.calories,
+      "foodValue.proteins": newFoodValue.proteins,
+      "foodValue.fats": newFoodValue.fats,
+      "foodValue.carbs": newFoodValue.carbs,
     });
   };
 
@@ -158,33 +158,31 @@ function EditDish(props) {
               />
             </div>
           </div>
-          {dish.hasIngredients() && (
-            <div className="field" style={{ maxWidth: "186px" }}>
-              <label className="label">Cooked Dish Weight</label>
-              <div className="field is-grouped">
-                <div className="control is-expanded">
-                  <input
-                    className="input"
-                    type="number"
-                    placeholder="gramms"
-                    {...register("cookedWeight", { valueAsNumber: true })}
-                  />
-                </div>
+          <div className="field" style={{ maxWidth: "186px" }}>
+            <label className="label">Cooked Dish Weight</label>
+            <div className="field is-grouped">
+              <div className="control is-expanded">
+                <input
+                  className="input"
+                  type="number"
+                  placeholder="gramms"
+                  {...register("cookedWeight", { valueAsNumber: true })}
+                />
+              </div>
 
-                <div className="control">
-                  <button
-                    className="button is-info"
-                    type="button"
-                    onClick={() => recalculateFoodValue()}
-                  >
-                    <span className="icon is-small">
-                      <FaRedo />
-                    </span>
-                  </button>
-                </div>
+              <div className="control">
+                <button
+                  className="button is-info"
+                  type="button"
+                  onClick={() => recalculateFoodValue()}
+                >
+                  <span className="icon is-small">
+                    <FaRedo />
+                  </span>
+                </button>
               </div>
             </div>
-          )}
+          </div>
         </div>
 
         <div className="field is-grouped is-grouped-centered is-justify-content-space-around">

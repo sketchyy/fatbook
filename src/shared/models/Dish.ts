@@ -49,7 +49,7 @@ export default class Dish {
 
   addIngredients(ingredients) {
     this.ingredients = [...ingredients, ...this.ingredients];
-    this.recalculateFoodValue();
+    this.foodValue = this.calculateFoodValue();
 
     this.updateServingSize();
   }
@@ -62,7 +62,7 @@ export default class Dish {
     if (index >= 0) {
       this.ingredients[index] = ingredient;
 
-      this.recalculateFoodValue();
+      this.foodValue = this.calculateFoodValue();
 
       this.updateServingSize();
     }
@@ -78,7 +78,7 @@ export default class Dish {
     });
 
     if (this.hasIngredients()) {
-      this.recalculateFoodValue();
+      this.foodValue = this.calculateFoodValue();
     } else {
       this.foodValue = foodValueService.emptyFoodValue();
     }
@@ -86,11 +86,18 @@ export default class Dish {
     this.updateServingSize();
   }
 
-  recalculateFoodValue(cookedWeight?: number | null) {
-    this.foodValue = foodValueService.calculateDishValuePer100g(
-      this.ingredients,
-      cookedWeight ?? this.cookedWeight,
-    );
+  calculateFoodValue(cookedWeight?: number | null): NutritionFacts {
+    if (this.hasIngredients()) {
+      return foodValueService.calculateDishValuePer100g(
+        this.ingredients,
+        cookedWeight ?? this.cookedWeight,
+      );
+    } else {
+      return foodValueService.calculateOwnDishValuePer100g(
+        this,
+        cookedWeight ?? this.cookedWeight,
+      );
+    }
   }
 
   toJsonSimple() {

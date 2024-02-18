@@ -1,3 +1,5 @@
+import Dish from "@/shared/models/Dish";
+
 function calculateFoodValue(eating) {
   if (!eating.dish || !eating.dish.foodValue || !eating.servingSize) {
     return foodValueService.emptyFoodValue();
@@ -37,6 +39,17 @@ const foodValueService = {
       fats: (resultFoodValue.fats / totalDishWeight) * 100,
       carbs: (resultFoodValue.carbs / totalDishWeight) * 100,
       calories: (resultFoodValue.calories / totalDishWeight) * 100,
+    };
+  },
+
+  calculateOwnDishValuePer100g(dish: Dish, cookedWeight?: number | null) {
+    const totalDishWeight = cookedWeight ?? dish.defaultServingSize ?? 100;
+
+    return {
+      proteins: (dish.foodValue.proteins / totalDishWeight) * 100,
+      fats: (dish.foodValue.fats / totalDishWeight) * 100,
+      carbs: (dish.foodValue.carbs / totalDishWeight) * 100,
+      calories: (dish.foodValue.calories / totalDishWeight) * 100,
     };
   },
 
