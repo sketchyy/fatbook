@@ -49,7 +49,7 @@ function EditDish(props) {
       return Math.round(numb);
     }
 
-    return numb;
+    return parseFloat(numb.toPrecision(2));
   };
 
   const handleNameChange = ({ target }) => {
@@ -59,13 +59,16 @@ function EditDish(props) {
 
   const recalculateFoodValue = () => {
     const cookedWeight = getValues("cookedWeight");
+    if (!cookedWeight) {
+      return;
+    }
     const newFoodValue = dish.calculateFoodValue(cookedWeight);
 
     reset({
-      "foodValue.calories": newFoodValue.calories,
-      "foodValue.proteins": newFoodValue.proteins,
-      "foodValue.fats": newFoodValue.fats,
-      "foodValue.carbs": newFoodValue.carbs,
+      "foodValue.calories": format(newFoodValue.calories),
+      "foodValue.proteins": format(newFoodValue.proteins),
+      "foodValue.fats": format(newFoodValue.fats),
+      "foodValue.carbs": format(newFoodValue.carbs),
     });
   };
 
@@ -187,7 +190,11 @@ function EditDish(props) {
 
         <div className="field is-grouped is-grouped-centered is-justify-content-space-around">
           <p className="control">
-            <button className="button is-light" onClick={onCancel}>
+            <button
+              className="button is-light"
+              type="button"
+              onClick={onCancel}
+            >
               Cancel
             </button>
           </p>
