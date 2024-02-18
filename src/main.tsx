@@ -17,7 +17,6 @@ import "./index.css";
 import deleteDishAction from "./routes/dish/delete/deleteDishAction";
 import DishPage from "./routes/dish/DishPage";
 import EditDish from "./routes/dish/edit/EditDish.jsx";
-import updateDishAction from "./routes/dish/edit/updateDishAction";
 import AddIngredientForm from "./routes/dish/ingredients/AddIngredientForm";
 import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
 import createDishAction from "./routes/dishes/create/createDishAction";
@@ -33,6 +32,7 @@ import RequireAuth from "./shared/components/RequireAuth";
 import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
 import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
 import dateService from "./shared/services/dateService";
+
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
 
@@ -82,7 +82,6 @@ const router = createBrowserRouter([
           {
             path: "edit", // edit/delete
             element: <EditDish />,
-            action: updateDishAction,
           },
           {
             path: "delete",
@@ -118,7 +117,7 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
@@ -126,5 +125,5 @@ root.render(
       <RouterProvider router={router} />
     </AuthContextProvider>
     <ToastContainer position="bottom-center" />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

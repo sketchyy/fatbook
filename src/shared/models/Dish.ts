@@ -11,6 +11,7 @@ export default class Dish {
       [],
       null,
       null,
+      null,
     );
   }
 
@@ -20,6 +21,7 @@ export default class Dish {
   ingredients: DishPortion[];
   defaultServingSize: number | null | undefined;
   createdAt: number | null;
+  cookedWeight: number | null;
 
   constructor(
     id: string | null,
@@ -28,6 +30,7 @@ export default class Dish {
     ingredients: DishPortion[],
     defaultServingSize: number | null,
     createdAt: number | null,
+    cookedWeight: number | null,
   ) {
     this.id = id;
     this.name = name;
@@ -37,6 +40,7 @@ export default class Dish {
     // undefined can't be written to Firebase, so initializing with null
     // Also replace 0 with null, as 0 is useless
     this.defaultServingSize = defaultServingSize || null;
+    this.cookedWeight = cookedWeight || null;
   }
 
   hasIngredients() {
@@ -45,9 +49,7 @@ export default class Dish {
 
   addIngredients(ingredients) {
     this.ingredients = [...ingredients, ...this.ingredients];
-    this.foodValue = foodValueService.calculateDishValuePer100g(
-      this.ingredients,
-    );
+    this.recalculateFoodValue();
 
     this.updateServingSize();
   }
@@ -60,9 +62,7 @@ export default class Dish {
     if (index >= 0) {
       this.ingredients[index] = ingredient;
 
-      this.foodValue = foodValueService.calculateDishValuePer100g(
-        this.ingredients,
-      );
+      this.recalculateFoodValue();
 
       this.updateServingSize();
     }
@@ -78,14 +78,19 @@ export default class Dish {
     });
 
     if (this.hasIngredients()) {
-      this.foodValue = foodValueService.calculateDishValuePer100g(
-        this.ingredients,
-      );
+      this.recalculateFoodValue();
     } else {
       this.foodValue = foodValueService.emptyFoodValue();
     }
 
     this.updateServingSize();
+  }
+
+  recalculateFoodValue(cookedWeight?: number | null) {
+    this.foodValue = foodValueService.calculateDishValuePer100g(
+      this.ingredients,
+      cookedWeight ?? this.cookedWeight,
+    );
   }
 
   toJsonSimple() {
@@ -129,6 +134,7 @@ export const dishConverter = {
       ingredients: jsonIngredients ?? [],
       defaultServingSize: dish.defaultServingSize ?? null,
       createdAt: dish.createdAt ?? null,
+      cookedWeight: dish.cookedWeight ?? null,
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -140,6 +146,7 @@ export const dishConverter = {
       data.ingredients,
       data.defaultServingSize,
       data.createdAt,
+      data.cookedWeight,
     );
   },
 };

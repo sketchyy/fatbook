@@ -1,15 +1,48 @@
 import Message from "@/shared/components/ui/Message";
-import { FaSave } from "react-icons/fa";
-import { Form, useNavigate, useOutletContext } from "react-router-dom";
+import { FaRedo, FaSave } from "react-icons/fa";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import dishesService from "@/core/firebase/dishesService";
+import { useEffect } from "react";
+import Dish from "@/shared/models/Dish";
+
+type Inputs = {
+  name: string;
+  "foodValue.proteins": number | null;
+  "foodValue.fats": number | null;
+  "foodValue.carbs": number | null;
+  "foodValue.calories": number | null;
+  defaultServingSize: number | null;
+  cookedWeight: number | null;
+};
 
 function EditDish(props) {
+  const params = useParams();
   const navigate = useNavigate();
-  const { dish } = useOutletContext<any>();
+  const { dish } = useOutletContext<{ dish: Dish }>();
+  const { register, reset, getValues, handleSubmit } = useForm<Inputs>();
 
+  useEffect(() => {
+    reset({
+      name: dish.name,
+      defaultServingSize: dish.defaultServingSize,
+      cookedWeight: dish.cookedWeight,
+      "foodValue.calories": format(dish.foodValue.calories),
+      "foodValue.proteins": format(dish.foodValue.proteins),
+      "foodValue.fats": format(dish.foodValue.fats),
+      "foodValue.carbs": format(dish.foodValue.carbs),
+    });
+  }, [dish]);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    await dishesService.updateDish(params.id!, data);
+    navigate("/dishes");
+  };
   const onCancel = () => navigate("/dishes");
-  const format = (numb: number): number | string => {
+
+  const format = (numb: number): number | null => {
     if (!dish.name) {
-      return "";
+      return null;
     }
 
     if (dish.hasIngredients()) {
@@ -24,18 +57,28 @@ function EditDish(props) {
     dish.name = target.value;
   };
 
+  const recalculateFoodValue = () => {
+    const cookedWeight = getValues("cookedWeight");
+    dish.recalculateFoodValue(cookedWeight);
+
+    reset({
+      "foodValue.calories": dish.foodValue.calories,
+      "foodValue.proteins": dish.foodValue.proteins,
+      "foodValue.fats": dish.foodValue.fats,
+      "foodValue.carbs": dish.foodValue.carbs,
+    });
+  };
+
   return (
-    <Form method="post" id="dish-form">
+    <form id="dish-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="box">
         <div className="field">
           <label className="label">Name</label>
           <div className="control">
             <input
-              name="name"
               className="input"
               type="text"
-              defaultValue={dish.name}
-              onChange={handleNameChange}
+              {...register("name", { onChange: handleNameChange })}
             />
           </div>
         </div>
@@ -51,13 +94,14 @@ function EditDish(props) {
             <label className="label">Proteins</label>
             <div className="control">
               <input
-                name="foodValue.proteins"
                 className="input"
                 type="number"
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={format(dish.foodValue.proteins)}
+                {...register("foodValue.proteins", {
+                  valueAsNumber: true,
+                })}
               />
             </div>
           </div>
@@ -65,13 +109,12 @@ function EditDish(props) {
             <label className="label">Fats</label>
             <div className="control">
               <input
-                name="foodValue.fats"
                 className="input"
                 type="number"
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={format(dish.foodValue.fats)}
+                {...register("foodValue.fats", { valueAsNumber: true })}
               />
             </div>
           </div>
@@ -79,13 +122,12 @@ function EditDish(props) {
             <label className="label">Carbs</label>
             <div className="control">
               <input
-                name="foodValue.carbs"
                 className="input"
                 type="number"
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={format(dish.foodValue.carbs)}
+                {...register("foodValue.carbs", { valueAsNumber: true })}
               />
             </div>
           </div>
@@ -96,28 +138,53 @@ function EditDish(props) {
             <label className="label">KCal</label>
             <div className="control">
               <input
-                name="foodValue.calories"
                 className="input"
                 type="number"
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
-                defaultValue={format(dish.foodValue.calories)}
+                {...register("foodValue.calories", { valueAsNumber: true })}
               />
             </div>
           </div>
-          <div className="field">
+          <div className="field mr-3">
             <label className="label">Portion Size</label>
             <div className="control">
               <input
-                name="defaultServingSize"
                 className="input"
                 type="number"
                 placeholder="gramms"
-                defaultValue={dish.defaultServingSize}
+                {...register("defaultServingSize", { valueAsNumber: true })}
               />
             </div>
           </div>
+          {dish.hasIngredients() && (
+            <div className="field" style={{ maxWidth: "186px" }}>
+              <label className="label">Cooked Dish Weight</label>
+              <div className="field is-grouped">
+                <div className="control is-expanded">
+                  <input
+                    className="input"
+                    type="number"
+                    placeholder="gramms"
+                    {...register("cookedWeight", { valueAsNumber: true })}
+                  />
+                </div>
+
+                <div className="control">
+                  <button
+                    className="button is-info"
+                    type="button"
+                    onClick={() => recalculateFoodValue()}
+                  >
+                    <span className="icon is-small">
+                      <FaRedo />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="field is-grouped is-grouped-centered is-justify-content-space-around">
@@ -136,7 +203,7 @@ function EditDish(props) {
           </p>
         </div>
       </div>
-    </Form>
+    </form>
   );
 }
 

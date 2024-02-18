@@ -16,11 +16,11 @@ function calculateDishWeight(ingredients) {
 }
 
 const foodValueService = {
-  calculateDishValuePer100g(ingredients) {
-    const totalDishWeight = calculateDishWeight(ingredients);
+  calculateDishValuePer100g(ingredients, cookedWeight?: number | null) {
+    const totalDishWeight = cookedWeight ?? calculateDishWeight(ingredients);
 
     const foodValues = ingredients.map((ingredient) =>
-      calculateFoodValue(ingredient)
+      calculateFoodValue(ingredient),
     );
 
     const resultFoodValue = foodValues.reduce((result, item) => {
