@@ -10,6 +10,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { supabase } from "@/utils/supabase";
 
 function DishPage(props) {
   const navigate = useNavigate();
@@ -18,13 +19,16 @@ function DishPage(props) {
   const [dish, setDish] = useState(Dish.empty());
 
   useEffect(() => {
-    const unsubscribe = dishesService.subscribeToDishChanges(
-      params.id,
-      (dish) => {
-        setDish(dish ?? Dish.empty());
-      }
-    );
-    return unsubscribe;
+    async function fetchDish() {
+      const { data } = await supabase
+        .from("dishes")
+        .select()
+        .eq("id", params.id!)
+        .single();
+      setDish(Dish.fromSupabase(data!) ?? Dish.empty());
+    }
+
+    fetchDish();
   }, []);
 
   const handleBackClick = () => {

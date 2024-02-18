@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 
 function DishesPage(props) {
-  const { searchResult, q } = useLoaderData() as any;
+  const { data, error, q } = useLoaderData() as any;
   const submit = useSubmit();
   const navigate = useNavigate();
   const navigation = useNavigation();
@@ -41,7 +41,7 @@ function DishesPage(props) {
           }}
         />
 
-        <DishList dishes={searchResult} onDishClick={handleDishClick} />
+        <DishList dishes={data} onDishClick={handleDishClick} />
       </div>
     </Fragment>
   );

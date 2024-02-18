@@ -1,6 +1,7 @@
 import foodValueService from "../services/foodValueService";
 import { DishPortion } from "./DishPortion";
 import { NutritionFacts } from "./NutritionFacts";
+import { Tables } from "@/types/supabase.types";
 
 export default class Dish {
   static empty(): Dish {
@@ -8,6 +9,10 @@ export default class Dish {
       null,
       "",
       foodValueService.emptyFoodValue(),
+      null,
+      null,
+      null,
+      null,
       [],
       null,
       null,
@@ -15,8 +20,28 @@ export default class Dish {
     );
   }
 
+  static fromSupabase(row: Tables<"dishes">) {
+    return new Dish(
+      "" + row.id,
+      row.name,
+      null as any,
+      row.proteins,
+      row.fats,
+      row.carbs,
+      row.calories,
+      [],
+      row.portionSize,
+      row.created_at as any,
+      row.cookedWeight,
+    );
+  }
+
   id: string | null;
   name: string;
+  proteins: number | null;
+  fats: number | null;
+  carbs: number | null;
+  calories: number | null;
   foodValue: NutritionFacts;
   ingredients: DishPortion[];
   defaultServingSize: number | null | undefined;
@@ -27,6 +52,10 @@ export default class Dish {
     id: string | null,
     name: string,
     foodValue: NutritionFacts,
+    proteins: number | null,
+    fats: number | null,
+    carbs: number | null,
+    calories: number | null,
     ingredients: DishPortion[],
     defaultServingSize: number | null,
     createdAt: number | null,
@@ -34,9 +63,18 @@ export default class Dish {
   ) {
     this.id = id;
     this.name = name;
-    this.foodValue = foodValue;
     this.ingredients = ingredients;
     this.createdAt = createdAt ?? null;
+    this.proteins = proteins;
+    this.fats = fats;
+    this.carbs = carbs;
+    this.calories = calories;
+    this.foodValue = {
+      proteins: proteins!,
+      fats: fats!,
+      carbs: carbs!,
+      calories: calories!,
+    };
     // undefined can't be written to Firebase, so initializing with null
     // Also replace 0 with null, as 0 is useless
     this.defaultServingSize = defaultServingSize || null;
@@ -127,33 +165,33 @@ export default class Dish {
 }
 
 export const dishConverter = {
-  toFirestore: (dish: Dish) => {
-    console.log("dish converter to firestore", dish);
-    const jsonIngredients = dish.ingredients?.map((ingredient) => ({
-      ...ingredient,
-      dish: dishConverter.toFirestore(ingredient.dish),
-    }));
-
-    return {
-      id: dish.id ?? null,
-      name: dish.name,
-      foodValue: dish.foodValue,
-      ingredients: jsonIngredients ?? [],
-      defaultServingSize: dish.defaultServingSize ?? null,
-      createdAt: dish.createdAt ?? null,
-      cookedWeight: dish.cookedWeight ?? null,
-    };
-  },
-  fromFirestore: (snapshot, options) => {
-    const data = snapshot.data(options);
-    return new Dish(
-      snapshot.id,
-      data.name,
-      data.foodValue,
-      data.ingredients,
-      data.defaultServingSize,
-      data.createdAt,
-      data.cookedWeight,
-    );
-  },
+  // toFirestore: (dish: Dish) => {
+  //   console.log("dish converter to firestore", dish);
+  //   const jsonIngredients = dish.ingredients?.map((ingredient) => ({
+  //     ...ingredient,
+  //     dish: dishConverter.toFirestore(ingredient.dish),
+  //   }));
+  //
+  //   return {
+  //     id: dish.id ?? null,
+  //     name: dish.name,
+  //     foodValue: dish.foodValue,
+  //     ingredients: jsonIngredients ?? [],
+  //     defaultServingSize: dish.defaultServingSize ?? null,
+  //     createdAt: dish.createdAt ?? null,
+  //     cookedWeight: dish.cookedWeight ?? null,
+  //   };
+  // },
+  // fromFirestore: (snapshot, options) => {
+  //   const data = snapshot.data(options);
+  //   return new Dish(
+  //     snapshot.id,
+  //     data.name,
+  //     data.foodValue,
+  //     data.ingredients,
+  //     data.defaultServingSize,
+  //     data.createdAt,
+  //     data.cookedWeight,
+  //   );
+  // },
 };
