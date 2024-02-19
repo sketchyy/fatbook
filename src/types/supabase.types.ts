@@ -29,37 +29,37 @@ export type Database = {
           calories: number
           carbs: number
           cookedWeight: number | null
-          created_at: string
+          createdAt: string
           fats: number
           id: number
           name: string
           portionSize: number | null
           proteins: number
-          updated_at: string | null
+          updatedAt: string | null
         }
         Insert: {
           calories: number
           carbs: number
           cookedWeight?: number | null
-          created_at?: string
+          createdAt?: string
           fats: number
           id?: number
           name: string
           portionSize?: number | null
           proteins: number
-          updated_at?: string | null
+          updatedAt?: string | null
         }
         Update: {
           calories?: number
           carbs?: number
           cookedWeight?: number | null
-          created_at?: string
+          createdAt?: string
           fats?: number
           id?: number
           name?: string
           portionSize?: number | null
           proteins?: number
-          updated_at?: string | null
+          updatedAt?: string | null
         }
         Relationships: []
       }

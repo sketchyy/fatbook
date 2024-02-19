@@ -1,9 +1,8 @@
 // Import the functions you need from the SDKs you need
-import {dishConverter} from "@/shared/models/Dish";
+import { dishConverter } from "@/shared/models/Dish";
 import dateService from "@/shared/services/dateService";
 import tokenize from "@/shared/utils/tokenize";
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -20,6 +19,8 @@ import {
   where,
 } from "firebase/firestore";
 import firebaseApp from "./firebaseApp";
+import { supabase } from "@/utils/supabase";
+import { DishInputs } from "@/routes/dish/edit/EditDish";
 
 const db = getFirestore(firebaseApp);
 const dishesRef = collection(db, "dishes").withConverter(dishConverter);
@@ -29,7 +30,7 @@ const dishesSearchIndexRef = collection(db, "dishes-search-index");
 const dishesService = {
   async getDishes() {
     const querySnapshot = await getDocs(
-      query(dishesRef, orderBy("createdAt", "desc"), limit(50))
+      query(dishesRef, orderBy("createdAt", "desc"), limit(50)),
     );
 
     return querySnapshot.docs.map((doc) => doc.data());
@@ -37,7 +38,7 @@ const dishesService = {
 
   subscribeToDishChanges(id, onNext) {
     const unsubscribe = onSnapshot(doc(dishesRef, id), (doc) =>
-      onNext(doc.data())
+      onNext(doc.data()),
     );
 
     return unsubscribe;
@@ -60,8 +61,8 @@ const dishesService = {
         query(
           dishesSearchIndexRef,
           where("index", "array-contains", searchToken),
-          limit(10)
-        )
+          limit(10),
+        ),
       )
     ).docs.map((doc) => doc.id);
 
@@ -74,15 +75,8 @@ const dishesService = {
     ).docs.map((doc) => doc.data());
   },
 
-  async createDish(dish) {
-    dish.createdAt = dateService.now();
-
-    const docRef = await addDoc(dishesRef, dish);
-    console.log("Dish added with id...", docRef.id, dish);
-
-    await updateDishSearchIndex(docRef.id, dish.name);
-
-    return docRef.id;
+  async createDish(dish: DishInputs) {
+    await supabase.from("dishes").insert(dish);
   },
 
   async updateDish(id: string, dishData: any) {
@@ -90,7 +84,7 @@ const dishesService = {
     dishData.createdAt = dateService.now(); //TODO: updatedAt || usedAt
     // Don't store defaultServingSize === 0
     if (!dishData.defaultServingSize) {
-      delete dishData.defaultServingSize
+      delete dishData.defaultServingSize;
     }
 
     const docRef = doc(dishesRef, id);

@@ -6,51 +6,46 @@ import dishesService from "@/core/firebase/dishesService";
 import { useEffect } from "react";
 import Dish from "@/shared/models/Dish";
 
-type Inputs = {
+export type DishInputs = {
   name: string;
-  "foodValue.proteins": number | null;
-  "foodValue.fats": number | null;
-  "foodValue.carbs": number | null;
-  "foodValue.calories": number | null;
-  defaultServingSize: number | null;
+  proteins: number;
+  fats: number;
+  carbs: number;
+  calories: number;
+  portionSize: number | null;
   cookedWeight: number | null;
 };
 
 function EditDish(props) {
   const params = useParams();
   const navigate = useNavigate();
-  const { dish } = useOutletContext<{ dish: Dish }>();
-  const { register, reset, getValues, handleSubmit } = useForm<Inputs>();
+  const { dish } = useOutletContext<{ dish: Dish }>() ?? { dish: null };
+  const { register, reset, getValues, handleSubmit } = useForm<DishInputs>();
 
   useEffect(() => {
+    if (!dish) {
+      return;
+    }
     reset({
       name: dish.name,
-      defaultServingSize: dish.defaultServingSize,
+      portionSize: dish.defaultServingSize,
       cookedWeight: dish.cookedWeight,
-      "foodValue.calories": format(dish.foodValue.calories),
-      "foodValue.proteins": format(dish.foodValue.proteins),
-      "foodValue.fats": format(dish.foodValue.fats),
-      "foodValue.carbs": format(dish.foodValue.carbs),
+      calories: format(dish.calories),
+      proteins: format(dish.proteins),
+      fats: format(dish.fats),
+      carbs: format(dish.carbs),
     });
   }, [dish]);
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await dishesService.updateDish(params.id!, data);
+  const onSubmit: SubmitHandler<DishInputs> = async (data) => {
+    if (dish) {
+      await dishesService.updateDish(params.id!, data);
+    } else {
+      await dishesService.createDish(data);
+    }
     navigate("/dishes");
   };
   const onCancel = () => navigate("/dishes");
-
-  const format = (numb: number): number | null => {
-    if (!dish.name) {
-      return null;
-    }
-
-    if (dish.hasIngredients()) {
-      return Math.round(numb);
-    }
-
-    return parseFloat(numb.toPrecision(2));
-  };
 
   const handleNameChange = ({ target }) => {
     // Update outlet context to save when navigate to ingredients
@@ -62,17 +57,18 @@ function EditDish(props) {
     if (!cookedWeight) {
       return;
     }
-    dish.foodValue.calories = getValues("foodValue.calories");
-    dish.foodValue.proteins = getValues("foodValue.proteins");
-    dish.foodValue.fats = getValues("foodValue.fats");
-    dish.foodValue.carbs = getValues("foodValue.carbs");
+    // TODO: cookedWeight only for dish with ingredients
+    // dish.foodValue.calories = getValues("foodValue.calories");
+    // dish.foodValue.proteins = getValues("foodValue.proteins");
+    // dish.foodValue.fats = getValues("foodValue.fats");
+    // dish.foodValue.carbs = getValues("foodValue.carbs");
     const newFoodValue = dish.calculateFoodValue(cookedWeight);
 
     reset({
-      "foodValue.calories": format(newFoodValue.calories),
-      "foodValue.proteins": format(newFoodValue.proteins),
-      "foodValue.fats": format(newFoodValue.fats),
-      "foodValue.carbs": format(newFoodValue.carbs),
+      calories: format(newFoodValue.calories),
+      proteins: format(newFoodValue.proteins),
+      fats: format(newFoodValue.fats),
+      carbs: format(newFoodValue.carbs),
     });
   };
 
@@ -90,7 +86,7 @@ function EditDish(props) {
           </div>
         </div>
 
-        {dish.hasIngredients() && (
+        {dish?.hasIngredients() && (
           <Message title="Info">
             Food Value is calculated from ingredients
           </Message>
@@ -105,8 +101,8 @@ function EditDish(props) {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={dish.hasIngredients()}
-                {...register("foodValue.proteins", {
+                disabled={dish?.hasIngredients()}
+                {...register("proteins", {
                   valueAsNumber: true,
                 })}
               />
@@ -120,8 +116,8 @@ function EditDish(props) {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={dish.hasIngredients()}
-                {...register("foodValue.fats", { valueAsNumber: true })}
+                disabled={dish?.hasIngredients()}
+                {...register("fats", { valueAsNumber: true })}
               />
             </div>
           </div>
@@ -133,8 +129,8 @@ function EditDish(props) {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={dish.hasIngredients()}
-                {...register("foodValue.carbs", { valueAsNumber: true })}
+                disabled={dish?.hasIngredients()}
+                {...register("carbs", { valueAsNumber: true })}
               />
             </div>
           </div>
@@ -149,8 +145,8 @@ function EditDish(props) {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={dish.hasIngredients()}
-                {...register("foodValue.calories", { valueAsNumber: true })}
+                disabled={dish?.hasIngredients()}
+                {...register("calories", { valueAsNumber: true })}
               />
             </div>
           </div>
@@ -161,7 +157,7 @@ function EditDish(props) {
                 className="input"
                 type="number"
                 placeholder="gramms"
-                {...register("defaultServingSize", { valueAsNumber: true })}
+                {...register("portionSize", { valueAsNumber: true })}
               />
             </div>
           </div>
@@ -215,5 +211,9 @@ function EditDish(props) {
     </form>
   );
 }
+
+const format = (numb: number): number => {
+  return parseFloat(numb.toPrecision(2));
+};
 
 export default EditDish;

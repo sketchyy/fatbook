@@ -9,10 +9,10 @@ export default class Dish {
       null,
       "",
       foodValueService.emptyFoodValue(),
-      null,
-      null,
-      null,
-      null,
+      0,
+      0,
+      0,
+      0,
       [],
       null,
       null,
@@ -31,17 +31,17 @@ export default class Dish {
       row.calories,
       [],
       row.portionSize,
-      row.created_at as any,
+      row.createdAt as any,
       row.cookedWeight,
     );
   }
 
   id: string | null;
   name: string;
-  proteins: number | null;
-  fats: number | null;
-  carbs: number | null;
-  calories: number | null;
+  proteins: number;
+  fats: number;
+  carbs: number;
+  calories: number;
   foodValue: NutritionFacts;
   ingredients: DishPortion[];
   defaultServingSize: number | null | undefined;
@@ -52,10 +52,10 @@ export default class Dish {
     id: string | null,
     name: string,
     foodValue: NutritionFacts,
-    proteins: number | null,
-    fats: number | null,
-    carbs: number | null,
-    calories: number | null,
+    proteins: number,
+    fats: number,
+    carbs: number,
+    calories: number,
     ingredients: DishPortion[],
     defaultServingSize: number | null,
     createdAt: number | null,

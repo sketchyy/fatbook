@@ -3,14 +3,14 @@ import PageTitle from "@/shared/components/PageTitle";
 import SearchBar from "@/shared/components/ui/SearchBar";
 import { Fragment } from "react";
 import {
-  Form,
+  Link,
   useLoaderData,
   useNavigate,
   useNavigation,
   useSubmit,
 } from "react-router-dom";
 
-function DishesPage(props) {
+function DishesPage() {
   const { data, error, q } = useLoaderData() as any;
   const submit = useSubmit();
   const navigate = useNavigate();
@@ -28,9 +28,9 @@ function DishesPage(props) {
     <Fragment>
       <div className="box">
         <PageTitle title="My Dishes" subtitle="Recently used">
-          <Form method="post">
-            <button className="button is-success">New</button>
-          </Form>
+          <Link to="/dishes/new" className="button is-success">
+            New
+          </Link>
         </PageTitle>
 
         <SearchBar
