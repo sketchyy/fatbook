@@ -15,7 +15,6 @@ import {
   orderBy,
   query,
   setDoc,
-  updateDoc,
   where,
 } from "firebase/firestore";
 import firebaseApp from "./firebaseApp";
@@ -23,7 +22,7 @@ import { supabase } from "@/utils/supabase";
 import { DishInputs } from "@/routes/dish/edit/EditDish";
 
 const db = getFirestore(firebaseApp);
-const dishesRef = collection(db, "dishes").withConverter(dishConverter);
+const dishesRef = collection(db, "dishes"); /*.withConverter(dishConverter)*/
 const dishesSearchIndexRef = collection(db, "dishes-search-index");
 
 // Dishes
@@ -79,18 +78,14 @@ const dishesService = {
     await supabase.from("dishes").insert(dish);
   },
 
-  async updateDish(id: string, dishData: any) {
-    console.log("Updating dish...", id, dishData);
-    dishData.createdAt = dateService.now(); //TODO: updatedAt || usedAt
-    // Don't store defaultServingSize === 0
-    if (!dishData.defaultServingSize) {
-      delete dishData.defaultServingSize;
-    }
-
-    const docRef = doc(dishesRef, id);
-    updateDoc(docRef, dishData as any); // TODO: typescript + firebase research
-
-    await updateDishSearchIndex(docRef.id, dishData.name);
+  async updateDish(id: string, dish: DishInputs) {
+    const { error } = await supabase
+      .from("dishes")
+      .update({
+        ...dish,
+        updatedAt: dateService.nowAsDate().toISOString(),
+      })
+      .eq("id", id);
   },
 
   async replaceDish(dish) {
