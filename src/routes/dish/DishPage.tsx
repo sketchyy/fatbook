@@ -20,12 +20,8 @@ function DishPage(props) {
 
   useEffect(() => {
     async function fetchDish() {
-      const { data } = await supabase
-        .from("dishes")
-        .select()
-        .eq("id", params.id!)
-        .single();
-      setDish(Dish.fromSupabase(data!) ?? Dish.empty());
+      const dish = await dishesService.getDish(Number(params.id)!);
+      setDish(dish);
     }
 
     fetchDish();

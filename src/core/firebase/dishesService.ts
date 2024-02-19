@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { dishConverter } from "@/shared/models/Dish";
+import Dish, { dishConverter } from "@/shared/models/Dish";
 import dateService from "@/shared/services/dateService";
 import tokenize from "@/shared/utils/tokenize";
 import {
@@ -27,51 +27,27 @@ const dishesSearchIndexRef = collection(db, "dishes-search-index");
 
 // Dishes
 const dishesService = {
-  async getDishes() {
-    const querySnapshot = await getDocs(
-      query(dishesRef, orderBy("createdAt", "desc"), limit(50)),
-    );
-
-    return querySnapshot.docs.map((doc) => doc.data());
+  async getDish(id: number): Promise<Dish> {
+    const { data } = await supabase
+      .from("dishes")
+      .select()
+      .eq("id", id)
+      .single();
+    return Dish.fromSupabase(data!) ?? Dish.empty();
   },
 
-  subscribeToDishChanges(id, onNext) {
-    const unsubscribe = onSnapshot(doc(dishesRef, id), (doc) =>
-      onNext(doc.data()),
-    );
-
-    return unsubscribe;
-  },
-
-  async getDish(id) {
-    const docSnap = await getDoc(doc(dishesRef, id));
-
-    return docSnap.data();
-  },
-
-  async searchDishes(userQuery) {
-    if (!userQuery) {
-      return this.getDishes();
-    }
-    const searchToken = prepareSearchQuery(userQuery);
-
-    const ids = (
-      await getDocs(
-        query(
-          dishesSearchIndexRef,
-          where("index", "array-contains", searchToken),
-          limit(10),
-        ),
-      )
-    ).docs.map((doc) => doc.id);
-
-    if (ids.length === 0) {
-      return [];
-    }
-
+  async searchDishes(userQuery: string) {
     return (
-      await getDocs(query(dishesRef, where(documentId(), "in", ids)))
-    ).docs.map((doc) => doc.data());
+      supabase
+        .from("dishes")
+        .select()
+        .ilike("name", `%${userQuery}%`)
+        /*.textSearch("name", userQuery, {
+        type: "plain",
+        config: "english",
+      })*/
+        .order("updatedAt", { ascending: false })
+    );
   },
 
   async createDish(dish: DishInputs) {
