@@ -39,7 +39,7 @@ function EditDish(props) {
 
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
     if (dish) {
-      await dishesService.updateDish(params.id!, data);
+      await dishesService.updateDish(+params.id!, data);
     } else {
       await dishesService.createDish(data);
     }

@@ -2,6 +2,7 @@ import foodValueService from "../services/foodValueService";
 import { DishPortion } from "./DishPortion";
 import { NutritionFacts } from "./NutritionFacts";
 import { Tables } from "@/types/supabase.types";
+import { DishInputs } from "@/routes/dish/edit/EditDish";
 
 export default class Dish {
   static empty(): Dish {
@@ -22,7 +23,7 @@ export default class Dish {
 
   static fromSupabase(row: Tables<"dishes">) {
     return new Dish(
-      "" + row.id,
+      row.id,
       row.name,
       null as any,
       row.proteins,
@@ -36,7 +37,7 @@ export default class Dish {
     );
   }
 
-  id: string | null;
+  id: number | null;
   name: string;
   proteins: number;
   fats: number;
@@ -49,7 +50,7 @@ export default class Dish {
   cookedWeight: number | null;
 
   constructor(
-    id: string | null,
+    id: number | null,
     name: string,
     foodValue: NutritionFacts,
     proteins: number,
@@ -85,8 +86,12 @@ export default class Dish {
     return this.ingredients.length > 0;
   }
 
-  addIngredients(ingredients) {
-    this.ingredients = [...ingredients, ...this.ingredients];
+  setIngredients(ingredients: DishPortion[]) {
+    this.ingredients = ingredients;
+  }
+
+  addIngredient(ingredient: DishPortion) {
+    this.ingredients = [ingredient, ...this.ingredients];
     this.foodValue = this.calculateFoodValue();
 
     this.updateServingSize();
@@ -136,6 +141,18 @@ export default class Dish {
         cookedWeight ?? this.cookedWeight,
       );
     }
+  }
+
+  toForm(): DishInputs {
+    return {
+      name: this.name,
+      proteins: this.foodValue.proteins,
+      fats: this.foodValue.fats,
+      carbs: this.foodValue.carbs,
+      calories: this.foodValue.calories,
+      cookedWeight: this.cookedWeight,
+      portionSize: this.defaultServingSize ?? null,
+    };
   }
 
   toJsonSimple() {

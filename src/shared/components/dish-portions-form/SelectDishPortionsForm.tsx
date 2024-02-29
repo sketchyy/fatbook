@@ -24,13 +24,13 @@ function SelectDishPortionsForm({
 }: SelectDishPortionsFormProps) {
   const submit = useSubmit();
   const navigation = useNavigation();
-  const { searchResult, q } = useLoaderData() as any;
+  const { data, q } = useLoaderData() as any;
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
   const isSearching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
 
-  const dishPortions = searchResult.map((dish) => ({
+  const dishPortions = data.map((dish) => ({
     dish: dish,
     servingSize: null,
   }));
@@ -76,7 +76,7 @@ function SelectDishPortionsForm({
   const handleDeleteClick = (portion) => {
     delete portion.selected;
     const updatedSelectedPortions = selectedPortions.filter(
-      (p) => p.dish.id !== portion.dish.id
+      (p) => p.dish.id !== portion.dish.id,
     );
 
     setSelectedPortions(updatedSelectedPortions);

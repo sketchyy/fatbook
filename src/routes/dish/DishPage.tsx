@@ -10,22 +10,26 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { supabase } from "@/utils/supabase";
+import { useQuery } from "react-query";
+import { Simulate } from "react-dom/test-utils";
+import load = Simulate.load;
 
 function DishPage(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const [dish, setDish] = useState(Dish.empty());
+  const {
+    data: dish,
+    isLoading,
+    error,
+  } = useQuery(["dish", +params.id!], () => dishesService.getDish(+params.id!));
 
-  useEffect(() => {
-    async function fetchDish() {
-      const dish = await dishesService.getDish(Number(params.id)!);
-      setDish(dish);
-    }
-
-    fetchDish();
-  }, []);
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+  if (error) {
+    return <h2>Error: {error as any}</h2>;
+  }
 
   const handleBackClick = () => {
     if (location.state?.backUrl) {
@@ -49,7 +53,7 @@ function DishPage(props) {
         <ul>
           <NavLinkTab to="edit">Dish</NavLinkTab>
           <NavLinkTab to="ingredients">
-            Ingredients ({dish.ingredients.length})
+            Ingredients ({dish!.ingredients.length})
           </NavLinkTab>
         </ul>
         <Form method="post" action="delete" onSubmit={handleDelete}>

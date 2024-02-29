@@ -1,4 +1,3 @@
-import { supabase } from "@/utils/supabase";
 import Dish from "@/shared/models/Dish";
 import dishesService from "@/core/firebase/dishesService";
 

@@ -63,6 +63,47 @@ export type Database = {
         }
         Relationships: []
       }
+      dishIngredients: {
+        Row: {
+          calories: number
+          carbs: number
+          createdAt: string | null
+          dish: number
+          fats: number
+          id: number
+          portionSize: number
+          proteins: number
+        }
+        Insert: {
+          calories: number
+          carbs: number
+          createdAt?: string | null
+          dish: number
+          fats: number
+          id?: number
+          portionSize: number
+          proteins: number
+        }
+        Update: {
+          calories?: number
+          carbs?: number
+          createdAt?: string | null
+          dish?: number
+          fats?: number
+          id?: number
+          portionSize?: number
+          proteins?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_dishIngredients_dish_fkey"
+            columns: ["dish"]
+            isOneToOne: false
+            referencedRelation: "dishes"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never

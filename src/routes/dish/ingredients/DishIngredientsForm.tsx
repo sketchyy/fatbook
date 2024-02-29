@@ -5,16 +5,17 @@ import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import Dish from "@/shared/models/Dish";
 
 function DishIngredientsForm(props) {
   const navigate = useNavigate();
-  const { dish } = useOutletContext<any>();
+  const { dish } = useOutletContext<{ dish: Dish }>();
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
 
   const handleAdd = (e) => {
-    navigate("add", { state: { backUrl: `/dishes/${dish._id}/ingredients` } });
+    navigate("add", { state: { backUrl: `/dishes/${dish.id}/ingredients` } });
   };
 
   const handleIngredientUpdate = async (ingredient) => {

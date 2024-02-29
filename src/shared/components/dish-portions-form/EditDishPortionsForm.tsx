@@ -1,6 +1,13 @@
 import DishPortionList from "./dish-portion-list/DishPortionList";
+import { DishPortion } from "@/shared/models/DishPortion";
 
-function EditDishPortionsForm({ dishPortions, onSave, onDelete }) {
+interface Props {
+  dishPortions: DishPortion[];
+  onSave: (portion: DishPortion) => void;
+  onDelete: (portion: DishPortion) => void;
+}
+
+function EditDishPortionsForm({ dishPortions, onSave, onDelete }: Props) {
   const handleSaveClick = (portion) => {
     onSave(portion);
   };

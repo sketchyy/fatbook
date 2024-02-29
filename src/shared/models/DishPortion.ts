@@ -2,7 +2,7 @@ import Dish from "./Dish";
 import { NutritionFacts } from "./NutritionFacts";
 
 export interface DishPortion {
-  id: string;
+  id: number;
   totalFoodValue: NutritionFacts;
   dish: Dish;
   servingSize: number;

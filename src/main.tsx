@@ -31,6 +31,7 @@ import RequireAuth from "./shared/components/RequireAuth";
 import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
 import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
 import dateService from "./shared/services/dateService";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -119,13 +120,17 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </AuthContextProvider>
     <ToastContainer position="bottom-center" />
   </React.StrictMode>,
