@@ -14,7 +14,9 @@ function CurrentUser() {
   };
 
   const avatarUrl = user.photoURL!;
-  const displayName = user.displayName!.split(" ")[0];
+  const displayName = user.displayName
+    ? user.displayName.split(" ")[0]
+    : user.email;
 
   return (
     <div className="level is-mobile">

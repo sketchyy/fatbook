@@ -32,6 +32,7 @@ import RequireAuth from "./shared/components/RequireAuth";
 import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
 import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
 import dateService from "./shared/services/dateService";
+import LoginWithPassword from "@/routes/login/LoginWithPassword";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -113,6 +114,15 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/login-with-password",
+    element:
+      import.meta.env.MODE !== "production" ? (
+        <LoginWithPassword />
+      ) : (
+        <Navigate to="/login" />
+      ),
   },
 ]);
 
