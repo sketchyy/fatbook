@@ -25,12 +25,13 @@ Data:
    - parentDish: dishes // dish?
    
 3) eatings
-    - dish
+    - userId // index
+    - day // index
+    - meal: Breakf, Lunch, ... // index
+    - dishId
     - portion
     - ...nutritionFacts
     - createdAt
-    - logDay
-    - meal: Breakf, Lunch, ...
 
 4) logDays
    - userId
