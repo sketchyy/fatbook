@@ -18,7 +18,7 @@ declare global {
     interface Chainable {
       loginAsTestUser(): Chainable<void>;
 
-      cleanup(): Chainable<void>;
+      dishesCleanup(): Chainable<void>;
 
       getCy(testId: string): Chainable<JQuery<HTMLElement>>;
 
@@ -49,7 +49,7 @@ Cypress.Commands.add("loginAsTestUser", () => {
   });
 });
 
-Cypress.Commands.add("cleanup", () => {
+Cypress.Commands.add("dishesCleanup", () => {
   cy.visit("/dishes");
 
   cy.getCy("dishListName").then((elements) => {

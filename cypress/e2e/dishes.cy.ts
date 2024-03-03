@@ -1,11 +1,13 @@
 describe("dishes", () => {
-  beforeEach(() => {
-    cy.contains("Dishes").click();
-
-    cy.cleanup();
+  before(() => {
+    cy.dishesCleanup();
   });
 
-  it.skip("should create/update/delete simple dish", () => {
+  beforeEach(() => {
+    cy.visit("/dishes");
+  });
+
+  it("should create/update/delete simple dish", () => {
     // create dish
     cy.getCy("newBtn").click();
     cy.fillDishForm({
