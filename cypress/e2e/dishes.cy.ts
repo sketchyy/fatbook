@@ -7,14 +7,14 @@ describe("dishes", () => {
     // create dish
     cy.getCy("newBtn").click();
     cy.fillDishForm({
-      name: "test_hamburger",
+      name: "cy_hamburger",
       proteins: "10",
       fats: "20",
       carbs: "30",
       calories: "300",
     });
-    cy.contains("test_hamburger").should("be.visible");
-    cy.contains("test_hamburger").shouldHaveNutritionFacts({
+    cy.contains("cy_hamburger").should("be.visible");
+    cy.contains("cy_hamburger").shouldHaveNutritionFacts({
       proteins: "10",
       fats: "20",
       carbs: "30",
@@ -22,15 +22,15 @@ describe("dishes", () => {
     });
 
     // Update dish
-    cy.contains("test_hamburger").click();
+    cy.contains("cy_hamburger").click();
     cy.fillDishForm({
-      name: "test_hamburger",
+      name: "cy_hamburger",
       proteins: "11",
       fats: "22",
       carbs: "33",
       calories: "333",
     });
-    cy.contains("test_hamburger").shouldHaveNutritionFacts({
+    cy.contains("cy_hamburger").shouldHaveNutritionFacts({
       proteins: "11",
       fats: "22",
       carbs: "33",
@@ -38,11 +38,10 @@ describe("dishes", () => {
     });
 
     // Delete Dish
-    cy.contains("test_hamburger").should("be.visible").click();
-    cy.on("window:confirm", (str) => true);
-    cy.getCy("deleteDishBtn").click();
+    cy.deleteDish("cy_hamburger");
 
-    cy.contains("test_hamburger").should("not.exist");
+    cy.visit("/dishes");
+    cy.contains("cy_hamburger").should("not.exist");
   });
 
   it.skip("should create new dish with ingredients", () => {

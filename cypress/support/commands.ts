@@ -18,6 +18,8 @@ declare global {
     interface Chainable {
       loginAsTestUser(): Chainable<void>;
 
+      cleanup(): Chainable<void>;
+
       getCy(testId: string): Chainable<JQuery<HTMLElement>>;
 
       fillDishForm(args: CreateDishArgs): Chainable<void>;
@@ -47,6 +49,20 @@ Cypress.Commands.add("loginAsTestUser", () => {
   });
 });
 
+Cypress.Commands.add("cleanup", () => {
+  cy.visit("/dishes");
+
+  cy.getCy("dishListName").then((elements) => {
+    elements.toArray().forEach((element) => {
+      if (element.textContent === "<No Name>") {
+        cy.deleteDish("<No Name>");
+      } else if (element.textContent.startsWith("cy_")) {
+        cy.deleteDish(element.textContent);
+      }
+    });
+  });
+});
+
 Cypress.Commands.add("getCy", (testId: string, ...args) => {
   return cy.get(`[data-testid=${testId}]`, ...args);
 });
@@ -64,6 +80,13 @@ Cypress.Commands.add(
     cy.getCy("saveBtn").click();
   },
 );
+
+Cypress.Commands.add("deleteDish", (name: string) => {
+  cy.on("window:confirm", (str) => true);
+  cy.contains(name).should("be.visible").click();
+  cy.getCy("deleteDishBtn").click();
+  cy.visit("/dishes");
+});
 
 Cypress.Commands.add(
   "shouldHaveNutritionFacts",

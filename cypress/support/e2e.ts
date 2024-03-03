@@ -20,4 +20,6 @@ import "./commands";
 // require('./commands')
 before(() => {
   cy.loginAsTestUser();
+
+  cy.cleanup();
 });
