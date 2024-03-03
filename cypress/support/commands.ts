@@ -73,10 +73,18 @@ Cypress.Commands.add(
     cy.getCy("nameInput").should("be.visible").should("be.enabled");
     cy.wait(500);
     cy.getCy("nameInput").clear().type(name);
-    cy.getCy("proteinsInput").clear().type(proteins);
-    cy.getCy("fatsInput").clear().type(fats);
-    cy.getCy("carbsInput").clear().type(carbs);
-    cy.getCy("caloriesInput").clear().type(calories);
+    if (proteins) {
+      cy.getCy("proteinsInput").clear().type(proteins);
+    }
+    if (fats) {
+      cy.getCy("fatsInput").clear().type(fats);
+    }
+    if (carbs) {
+      cy.getCy("carbsInput").clear().type(carbs);
+    }
+    if (calories) {
+      cy.getCy("caloriesInput").clear().type(calories);
+    }
     cy.getCy("saveBtn").click();
   },
 );
@@ -85,7 +93,6 @@ Cypress.Commands.add("deleteDish", (name: string) => {
   cy.on("window:confirm", (str) => true);
   cy.contains(name).should("be.visible").click();
   cy.getCy("deleteDishBtn").click();
-  cy.visit("/dishes");
 });
 
 Cypress.Commands.add(

@@ -21,7 +21,7 @@ function DishPortionListItem({
   isAdded,
 }: DishPortionsListItemProps) {
   const [size, setSize] = useState<number | undefined>(
-    dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? undefined
+    dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? undefined,
   );
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -55,6 +55,7 @@ function DishPortionListItem({
               className="button is-danger mr-3"
               onClick={() => handleDeleteClick()}
               type="button"
+              data-testid="deleteDishPortionBtn"
             >
               <FaTimes />
             </button>
@@ -71,6 +72,7 @@ function DishPortionListItem({
                   placeholder="g."
                   value={size}
                   onChange={handleInputChange}
+                  data-testid="portionSizeInput"
                 />
               </p>
             </div>
@@ -79,6 +81,7 @@ function DishPortionListItem({
             <button
               className="button is-primary ml-3"
               onClick={() => handleAddClick()}
+              data-testid="addDishPortionBtn"
             >
               <FaPlus />
             </button>
@@ -87,6 +90,7 @@ function DishPortionListItem({
             <button
               className="button is-primary ml-3"
               onClick={() => handleUpdateClick()}
+              data-testid="updateDishPortionBtn"
             >
               <FaCheck />
             </button>

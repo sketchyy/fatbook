@@ -49,6 +49,7 @@ function SearchBar({ defaultValue, onChange, isLoading = false }) {
           placeholder="Search dish"
           className="input"
           onChange={handleChange}
+          data-testid="searchBarInput"
         />
         <span className="icon is-medium is-left">
           <FaSearch />
