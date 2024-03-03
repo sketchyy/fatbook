@@ -1,20 +1,48 @@
 describe("dishes", () => {
   beforeEach(() => {
-    cy.loginAsTestUser();
-
     cy.contains("Dishes").click();
   });
 
-  it("should create new dish", () => {
-    // create 3 test dishes
-    cy.contains("New").click();
-    cy.get('input[name="name"]').should("be.visible").should("be.enabled");
-    cy.get('input[name="name"]').type("test_hamburger");
-    cy.get('input[name="foodValue.proteins"]').type("20");
-    cy.get('input[name="foodValue.fats"]').type("30");
-    cy.get('input[name="foodValue.carbs"]').type("40");
-    cy.get('input[name="foodValue.calories"]').type("300");
-    cy.contains("Save").click();
+  it("should create/update/delete simple dish", () => {
+    // create dish
+    cy.getCy("newBtn").click();
+    cy.fillDishForm({
+      name: "test_hamburger",
+      proteins: "10",
+      fats: "20",
+      carbs: "30",
+      calories: "300",
+    });
+    cy.contains("test_hamburger").should("be.visible");
+    cy.contains("test_hamburger").shouldHaveNutritionFacts({
+      proteins: "10",
+      fats: "20",
+      carbs: "30",
+      calories: "300",
+    });
+
+    // Update dish
+    cy.contains("test_hamburger").click();
+    cy.fillDishForm({
+      name: "test_hamburger",
+      proteins: "11",
+      fats: "22",
+      carbs: "33",
+      calories: "333",
+    });
+    cy.contains("test_hamburger").shouldHaveNutritionFacts({
+      proteins: "11",
+      fats: "22",
+      carbs: "33",
+      calories: "333",
+    });
+
+    // Delete Dish
+    cy.contains("test_hamburger").should("be.visible").click();
+    cy.on("window:confirm", (str) => true);
+    cy.getCy("deleteDishBtn").click();
+
+    cy.contains("test_hamburger").should("not.exist");
   });
 
   it.skip("should create new dish with ingredients", () => {

@@ -85,6 +85,7 @@ function EditDish(props) {
             <input
               className="input"
               type="text"
+              data-testid="nameInput"
               {...register("name", { onChange: handleNameChange })}
             />
           </div>
@@ -106,6 +107,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
+                data-testid="proteinsInput"
                 {...register("foodValue.proteins", {
                   valueAsNumber: true,
                 })}
@@ -121,6 +123,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
+                data-testid="fatsInput"
                 {...register("foodValue.fats", { valueAsNumber: true })}
               />
             </div>
@@ -134,6 +137,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
+                data-testid="carbsInput"
                 {...register("foodValue.carbs", { valueAsNumber: true })}
               />
             </div>
@@ -150,6 +154,7 @@ function EditDish(props) {
                 step=".01"
                 placeholder="per 100g."
                 disabled={dish.hasIngredients()}
+                data-testid="caloriesInput"
                 {...register("foodValue.calories", { valueAsNumber: true })}
               />
             </div>
@@ -161,6 +166,7 @@ function EditDish(props) {
                 className="input"
                 type="number"
                 placeholder="gramms"
+                data-testid="portionSizeInput"
                 {...register("defaultServingSize", { valueAsNumber: true })}
               />
             </div>
@@ -173,6 +179,7 @@ function EditDish(props) {
                   className="input"
                   type="number"
                   placeholder="gramms"
+                  data-testid="cookedWeightInput"
                   {...register("cookedWeight", { valueAsNumber: true })}
                 />
               </div>
@@ -203,7 +210,11 @@ function EditDish(props) {
             </button>
           </p>
           <p className="control">
-            <button className="button is-primary" type="submit">
+            <button
+              className="button is-primary"
+              type="submit"
+              data-testid="saveBtn"
+            >
               <span className="icon">
                 <FaSave />
               </span>

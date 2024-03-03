@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import Divider from "../ui/Divider";
 import DishInfo from "./DishInfo";
 
+// TODO: [refactor] onClick not needed, navigate here
 function DishListItem({ dish, onClick }) {
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(false);

@@ -13,7 +13,7 @@ function FoodValue({
   const format = (val) => (val != null ? Math.round(val) : "n/a");
 
   return (
-    <span className={"level " + className}>
+    <span className={"level " + className} data-testid="nutritionFacts">
       <span className="mr-2">⚡ {format(foodValue.calories)} kcal</span>
       <span className="mr-2">🥩 {format(foodValue.proteins)} g</span>
       <span className="mr-2">🧈 {format(foodValue.fats)} g</span>

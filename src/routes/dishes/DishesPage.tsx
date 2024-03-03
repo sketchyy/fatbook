@@ -29,7 +29,9 @@ function DishesPage(props) {
       <div className="box">
         <PageTitle title="My Dishes" subtitle="Recently used">
           <Form method="post">
-            <button className="button is-success">New</button>
+            <button className="button is-success" data-testid="newBtn">
+              New
+            </button>
           </Form>
         </PageTitle>
 

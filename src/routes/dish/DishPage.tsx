@@ -22,7 +22,7 @@ function DishPage(props) {
       params.id,
       (dish) => {
         setDish(dish ?? Dish.empty());
-      }
+      },
     );
     return unsubscribe;
   }, []);
@@ -57,6 +57,7 @@ function DishPage(props) {
             type="submit"
             className="button is-text"
             onClick={handleBackClick}
+            data-testid="deleteDishBtn"
           >
             <FaTrash />
           </button>
