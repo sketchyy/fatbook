@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
+// TODO: [bug] food value not updated after portion size update
 function DishIngredientsForm(props) {
   const navigate = useNavigate();
   const { dish } = useOutletContext<any>();
