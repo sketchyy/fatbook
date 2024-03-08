@@ -14,7 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContextProvider } from "./core/auth/AuthContext";
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
-import deleteDishAction from "./routes/dish/delete/deleteDishAction";
 import DishPage from "./routes/dish/DishPage";
 import EditDish from "./routes/dish/edit/EditDish.jsx";
 import AddIngredientForm from "./routes/dish/ingredients/AddIngredientForm";
@@ -83,10 +82,6 @@ const router = createBrowserRouter([
           {
             path: "edit", // edit/delete
             element: <EditDish />,
-          },
-          {
-            path: "delete",
-            action: deleteDishAction,
           },
           {
             path: "ingredients",

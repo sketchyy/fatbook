@@ -37,7 +37,7 @@ export default class Dish {
     );
   }
 
-  id: number | null;
+  id!: number;
   name: string | null;
   proteins: number | null;
   fats: number | null;
@@ -62,7 +62,9 @@ export default class Dish {
     createdAt: number | null,
     cookedWeight: number | null,
   ) {
-    this.id = id;
+    if (id != null) {
+      this.id = id;
+    }
     this.name = name;
     this.ingredients = ingredients;
     this.createdAt = createdAt ?? null;

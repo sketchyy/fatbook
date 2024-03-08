@@ -1,18 +1,9 @@
 import dishesService from "@/core/firebase/dishesService";
 import NavLinkTab from "@/shared/components/ui/NavLinkTab";
-import Dish from "@/shared/models/Dish";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
-import {
-  Form,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-import { useQuery } from "react-query";
-import { Simulate } from "react-dom/test-utils";
-import load = Simulate.load;
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
 
 function DishPage(props) {
   const navigate = useNavigate();
@@ -23,6 +14,11 @@ function DishPage(props) {
     isLoading,
     error,
   } = useQuery(["dish", +params.id!], () => dishesService.getDish(+params.id!));
+  const deleteDish = useMutation(dishesService.deleteDish, {
+    onSuccess: () => {
+      navigate("/dishes");
+    },
+  });
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -40,8 +36,9 @@ function DishPage(props) {
   };
   const handleDelete = (event) => {
     if (!window.confirm("Please confirm you want to delete this record.")) {
-      event.preventDefault();
+      return;
     }
+    deleteDish.mutate(dish!.id);
   };
 
   return (
@@ -56,15 +53,9 @@ function DishPage(props) {
             Ingredients ({dish!.ingredients.length})
           </NavLinkTab>
         </ul>
-        <Form method="post" action="delete" onSubmit={handleDelete}>
-          <button
-            type="submit"
-            className="button is-text"
-            onClick={handleBackClick}
-          >
-            <FaTrash />
-          </button>
-        </Form>
+        <button type="submit" className="button is-text" onClick={handleDelete}>
+          <FaTrash />
+        </button>
       </div>
       <Outlet context={{ dish }} />
     </Fragment>

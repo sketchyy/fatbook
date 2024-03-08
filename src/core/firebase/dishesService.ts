@@ -115,11 +115,8 @@ const dishesService = {
     await supabase.from("dishIngredients").insert([]);
   },
 
-  async deleteDish(id) {
-    return Promise.all([
-      await deleteDoc(doc(dishesRef, id)),
-      await deleteDoc(doc(dishesSearchIndexRef, id)),
-    ]);
+  async deleteDish(id: number) {
+    return supabase.from("dishes").delete().eq("id", id);
   },
 };
 
