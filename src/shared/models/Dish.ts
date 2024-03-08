@@ -8,12 +8,12 @@ export default class Dish {
   static empty(): Dish {
     return new Dish(
       null,
-      "",
+      null,
       foodValueService.emptyFoodValue(),
-      0,
-      0,
-      0,
-      0,
+      null,
+      null,
+      null,
+      null,
       [],
       null,
       null,
@@ -38,11 +38,11 @@ export default class Dish {
   }
 
   id: number | null;
-  name: string;
-  proteins: number;
-  fats: number;
-  carbs: number;
-  calories: number;
+  name: string | null;
+  proteins: number | null;
+  fats: number | null;
+  carbs: number | null;
+  calories: number | null;
   foodValue: NutritionFacts;
   ingredients: DishPortion[];
   defaultServingSize: number | null | undefined;
@@ -51,12 +51,12 @@ export default class Dish {
 
   constructor(
     id: number | null,
-    name: string,
+    name: string | null,
     foodValue: NutritionFacts,
-    proteins: number,
-    fats: number,
-    carbs: number,
-    calories: number,
+    proteins: number | null,
+    fats: number | null,
+    carbs: number | null,
+    calories: number | null,
     ingredients: DishPortion[],
     defaultServingSize: number | null,
     createdAt: number | null,
@@ -145,7 +145,7 @@ export default class Dish {
 
   toForm(): DishInputs {
     return {
-      name: this.name,
+      name: this.name!,
       proteins: this.foodValue.proteins,
       fats: this.foodValue.fats,
       carbs: this.foodValue.carbs,

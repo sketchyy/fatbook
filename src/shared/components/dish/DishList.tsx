@@ -5,7 +5,7 @@ import DishInfo from "./DishInfo";
 function DishListItem({ dish, onClick }) {
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(false);
-  const noName = dish.name === "";
+  const noName = !dish.name;
 
   const toggleHover = () => setHovered(!hovered);
   const handleClick = () => {
@@ -32,6 +32,7 @@ function DishListItem({ dish, onClick }) {
   );
 }
 
+// TODO: early return, use <>
 function DishList({ dishes, onDishClick }) {
   return (
     <Fragment>

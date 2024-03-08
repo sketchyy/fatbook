@@ -7,11 +7,11 @@ import { useEffect } from "react";
 import Dish from "@/shared/models/Dish";
 
 export type DishInputs = {
-  name: string;
-  proteins: number;
-  fats: number;
-  carbs: number;
-  calories: number;
+  name: string | null;
+  proteins: number | null;
+  fats: number | null;
+  carbs: number | null;
+  calories: number | null;
   portionSize: number | null;
   cookedWeight: number | null;
 };
@@ -212,7 +212,10 @@ function EditDish(props) {
   );
 }
 
-const format = (numb: number): number => {
+const format = (numb: number | null): number | null => {
+  if (numb == null) {
+    return numb;
+  }
   return parseFloat(numb.toPrecision(2));
 };
 

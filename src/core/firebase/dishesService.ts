@@ -61,22 +61,30 @@ const dishesService = {
   },
 
   async searchDishes(userQuery: string) {
-    return (
-      supabase
+    if (userQuery) {
+      return (
+        supabase
+          .from("dishes")
+          .select()
+          .ilike("name", `%${userQuery}%`)
+          // TODO: research full text search with en/ru in supabase
+          /*.textSearch("name", userQuery, {
+          type: "plain",
+          config: "english",
+        })*/
+          .order("updatedAt", { ascending: false })
+      );
+    } else {
+      return supabase
         .from("dishes")
         .select()
-        .ilike("name", `%${userQuery}%`)
-        // TODO: research full text search with en/ru in supabase
-        /*.textSearch("name", userQuery, {
-        type: "plain",
-        config: "english",
-      })*/
-        .order("updatedAt", { ascending: false })
-    );
+        .order("updatedAt", { ascending: false });
+    }
   },
 
   async createDish(dish: DishInputs) {
-    await supabase.from("dishes").insert(dish);
+    const { data } = await supabase.from("dishes").insert(dish).select();
+    return data![0];
   },
 
   async updateDish(id: number, dish: DishInputs) {

@@ -8,7 +8,7 @@ export interface DishPortionTitleProps {
 }
 
 function DishPortionTitle({ dishPortion }: DishPortionTitleProps) {
-  const noName = dishPortion.dish.name === "";
+  const noName = !dishPortion.dish.name;
 
   return (
     <div
