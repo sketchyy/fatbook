@@ -18,14 +18,18 @@ function DishesPage() {
     navigate(`/dishes/${dish.id}`);
   };
 
+  const handleNewClick = () => {
+    navigate(`/dishes/new`);
+  };
+
   const handleSearch = (event) => setSearchParams({ q: event.target.value });
 
   return (
     <div className="box">
       <PageTitle title="My Dishes" subtitle="Recently used">
-        <Form method="post">
-          <button className="button is-success">New</button>
-        </Form>
+        <button className="button is-success" onClick={handleNewClick}>
+          New
+        </button>
       </PageTitle>
 
       <SearchBar

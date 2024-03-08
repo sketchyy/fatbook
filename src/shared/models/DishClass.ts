@@ -4,9 +4,9 @@ import { NutritionFacts } from "./NutritionFacts";
 import { Tables } from "@/types/supabase.types";
 import { DishInputs } from "@/routes/dish/edit/EditDish";
 
-export default class Dish {
-  static empty(): Dish {
-    return new Dish(
+export default class DishClass {
+  static empty(): DishClass {
+    return new DishClass(
       null,
       null,
       foodValueService.emptyFoodValue(),
@@ -22,7 +22,7 @@ export default class Dish {
   }
 
   static fromSupabase(row: Tables<"dishes">) {
-    return new Dish(
+    return new DishClass(
       row.id,
       row.name,
       null as any,
@@ -153,7 +153,7 @@ export default class Dish {
       carbs: this.foodValue.carbs,
       calories: this.foodValue.calories,
       cookedWeight: this.cookedWeight,
-      portionSize: this.defaultServingSize ?? null,
+      defaultPortion: this.defaultServingSize ?? null,
     };
   }
 

@@ -18,7 +18,6 @@ import DishPage from "./routes/dish/DishPage";
 import EditDish from "./routes/dish/edit/EditDish.jsx";
 import AddIngredientForm from "./routes/dish/ingredients/AddIngredientForm";
 import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
-import createDishAction from "./routes/dishes/create/createDishAction";
 import DishesPage from "./routes/dishes/DishesPage";
 import AddEatingForm from "./routes/eatings/add/AddEatingForm";
 import LogDayPage from "./routes/eatings/LogDayPage";
@@ -71,7 +70,6 @@ const router = createBrowserRouter([
       {
         path: "dishes",
         element: <DishesPage />,
-        action: createDishAction,
       },
       {
         path: "dishes/:id",

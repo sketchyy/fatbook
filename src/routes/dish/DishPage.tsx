@@ -10,7 +10,7 @@ function DishPage() {
   const location = useLocation();
   const params = useParams();
   const { data: dish, isLoading } = useQuery(["dish", +params.id!], () => {
-    return dishesService.getDish(+params.id!);
+    return dishesService.getDish(params.id!);
   });
   const deleteDish = useMutation(dishesService.deleteDish);
 
@@ -38,7 +38,7 @@ function DishPage() {
   };
 
   return (
-    <Fragment>
+    <>
       <div className="tabs is-boxed is-centered mb-0">
         <button className="button is-text" onClick={handleBackClick}>
           <FaChevronLeft />
@@ -46,15 +46,21 @@ function DishPage() {
         <ul>
           <NavLinkTab to="edit">Dish</NavLinkTab>
           <NavLinkTab to="ingredients">
-            Ingredients ({dish!.ingredients.length})
+            Ingredients ({dish?.ingredients.length ?? 0})
           </NavLinkTab>
         </ul>
-        <button type="submit" className="button is-text" onClick={handleDelete}>
-          <FaTrash />
-        </button>
+        {dish && (
+          <button
+            type="submit"
+            className="button is-text"
+            onClick={handleDelete}
+          >
+            <FaTrash />
+          </button>
+        )}
       </div>
       <Outlet context={{ dish }} />
-    </Fragment>
+    </>
   );
 }
 

@@ -1,15 +1,15 @@
-import dishesService from "@/core/firebase/dishesService";
+import dishesServiceOld from "@/core/firebase/dishesServiceOld";
 import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
 import PageTitle from "@/shared/components/PageTitle";
 import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import Dish from "@/shared/models/Dish";
+import DishClass from "@/shared/models/DishClass";
 
 function DishIngredientsForm(props) {
   const navigate = useNavigate();
-  const { dish } = useOutletContext<{ dish: Dish }>();
+  const { dish } = useOutletContext<{ dish: DishClass }>();
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
@@ -21,7 +21,7 @@ function DishIngredientsForm(props) {
   const handleIngredientUpdate = async (ingredient) => {
     dish.updateIngredient(ingredient);
 
-    await dishesService.replaceDish(dish);
+    await dishesServiceOld.replaceDish(dish);
   };
 
   const handleIngredientDelete = async (ingredient) => {
@@ -32,7 +32,7 @@ function DishIngredientsForm(props) {
 
         dish.deleteIngredient(ingredient);
 
-        await dishesService.replaceDish(dish);
+        await dishesServiceOld.replaceDish(dish);
       },
     });
   };

@@ -1,5 +1,5 @@
 import { NutritionFacts } from "@/types/nutrition-facts";
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortion } from "@/types/dish-portion";
 
 export type Dish = {
   id: number;

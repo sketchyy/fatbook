@@ -3,8 +3,15 @@ import { DishInputs } from "@/routes/dish/edit/EditDish";
 import dateService from "@/shared/services/dateService";
 import { DishPortion } from "@/shared/models/DishPortion";
 import { Dish } from "@/types/dish";
+import { NutritionFacts } from "@/shared/models/NutritionFacts";
+import foodValueService from "@/shared/services/foodValueService";
 
-async function getDish(id: number): Promise<Dish | null> {
+async function getDish(id: string): Promise<Dish | null> {
+  console.log("id", id);
+  if (id === "new") {
+    return null;
+  }
+
   const { data } = await supabase
     .from("dishes")
     .select(
@@ -41,18 +48,16 @@ async function getDish(id: number): Promise<Dish | null> {
   const { dishIngredients, ...rest } = data;
   const dish: Dish = { ...rest, ingredients: [] } as any; // REMOVE ANY AFTER NUTRITION FATCS REQUIRED IN DB
 
-  // dish.ingredients = data!.dishIngredients.map((r) => ({
-  //   totalFoodValue: {
-  //     proteins: r.proteins,
-  //     fats: r.fats,
-  //     carbs: r.carbs,
-  //     calories: r.calories,
-  //   },
-  //   dish: { name: r.dishes?.name } as any,
-  //   servingSize: r.portionSize!,
-  //   id: r.id,
-  //   selected: false,
-  // }));
+  dish.ingredients = dishIngredients.map((ingredient) => ({
+    id: ingredient.id,
+    dish: { name: ingredient.dishes?.name } as any,
+    portion: ingredient.portion,
+    proteins: ingredient.proteins,
+    fats: ingredient.fats,
+    carbs: ingredient.carbs,
+    calories: ingredient.calories,
+    selected: false,
+  }));
 
   return dish;
 }
@@ -111,8 +116,28 @@ async function deleteDish(id: number) {
   return supabase.from("dishes").delete().eq("id", id);
 }
 
+function calculateFoodValue(
+  dish: Dish,
+  cookedWeight?: number | null,
+): NutritionFacts {
+  if (dish.ingredients.length > 0) {
+    return foodValueService.calculateDishValuePer100g(
+      dish.ingredients,
+      cookedWeight ?? dish.cookedWeight,
+    );
+  } else {
+    return foodValueService.calculateOwnDishValuePer100g(
+      dish,
+      cookedWeight ?? dish.cookedWeight,
+    );
+  }
+}
+
 export default {
   getDish,
   searchDishes,
+  createDish,
+  updateDish,
   deleteDish,
+  calculateFoodValue,
 };

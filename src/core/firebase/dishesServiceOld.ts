@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import Dish from "@/shared/models/Dish";
+import DishClass from "@/shared/models/DishClass";
 import dateService from "@/shared/services/dateService";
 import { collection, deleteDoc, doc, getFirestore } from "firebase/firestore";
 import firebaseApp from "./firebaseApp";
@@ -11,8 +11,8 @@ const db = getFirestore(firebaseApp);
 const dishesRef = collection(db, "dishes"); /*.withConverter(dishConverter)*/
 const dishesSearchIndexRef = collection(db, "dishes-search-index");
 
-const dishesService = {
-  async getDish(id: number): Promise<Dish> {
+const dishesServiceOld = {
+  async getDish(id: number): Promise<DishClass> {
     const { data } = await supabase
       .from("dishes")
       .select(
@@ -42,7 +42,7 @@ const dishesService = {
       .eq("id", id)
       .single();
 
-    const dish = Dish.fromSupabase(data! as any) ?? Dish.empty();
+    const dish = DishClass.fromSupabase(data! as any) ?? DishClass.empty();
 
     dish.ingredients = data!.dishIngredients.map((r) => ({
       totalFoodValue: {
@@ -97,7 +97,7 @@ const dishesService = {
       .eq("id", id);
   },
 
-  async addIngredient(dish: Dish, ingredient: DishPortion) {
+  async addIngredient(dish: DishClass, ingredient: DishPortion) {
     await this.updateDish(dish.id!, dish.toForm());
 
     return supabase.from("dishIngredients").insert({
@@ -111,7 +111,7 @@ const dishesService = {
     });
   },
 
-  async replaceDish(dish: Dish) {
+  async replaceDish(dish: DishClass) {
     await supabase.from("dishIngredients").insert([]);
   },
 
@@ -120,4 +120,4 @@ const dishesService = {
   },
 };
 
-export default dishesService;
+export default dishesServiceOld;

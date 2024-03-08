@@ -1,4 +1,4 @@
-import Dish from "@/shared/models/Dish";
+import DishClass from "@/shared/models/DishClass";
 
 function calculateFoodValue(eating) {
   if (!eating.dish || !eating.dish.foodValue || !eating.servingSize) {
@@ -42,7 +42,7 @@ const foodValueService = {
     };
   },
 
-  calculateOwnDishValuePer100g(dish: Dish, cookedWeight?: number | null) {
+  calculateOwnDishValuePer100g(dish: DishClass, cookedWeight?: number | null) {
     const totalDishWeight = cookedWeight ?? dish.defaultServingSize ?? 100;
 
     return {

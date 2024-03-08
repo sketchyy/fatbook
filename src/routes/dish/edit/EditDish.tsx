@@ -2,24 +2,24 @@ import Message from "@/shared/components/ui/Message";
 import { FaRedo, FaSave } from "react-icons/fa";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import dishesService from "@/core/firebase/dishesService";
 import { useEffect } from "react";
-import Dish from "@/shared/models/Dish";
+import { Dish } from "@/types/dish";
+import dishesService from "@/services/dishes-service";
 
 export type DishInputs = {
-  name: string | null;
-  proteins: number | null;
-  fats: number | null;
-  carbs: number | null;
-  calories: number | null;
-  portionSize: number | null;
-  cookedWeight: number | null;
+  name: string;
+  proteins: number;
+  fats: number;
+  carbs: number;
+  calories: number;
+  defaultPortion: number;
+  cookedWeight: number;
 };
 
 function EditDish(props) {
   const params = useParams();
   const navigate = useNavigate();
-  const { dish } = useOutletContext<{ dish: Dish }>() ?? { dish: null };
+  const { dish } = useOutletContext<{ dish: Dish }>();
   const { register, reset, getValues, handleSubmit } = useForm<DishInputs>();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function EditDish(props) {
     }
     reset({
       name: dish.name,
-      portionSize: dish.defaultServingSize,
+      defaultPortion: dish.defaultPortion,
       cookedWeight: dish.cookedWeight,
       calories: format(dish.calories),
       proteins: format(dish.proteins),
@@ -38,7 +38,7 @@ function EditDish(props) {
   }, [dish]);
 
   // TODO: use dish.hasIngredients from DB
-  const hasIngredients = dish.ingredients.length > 0;
+  const hasIngredients = dish?.ingredients.length > 0;
 
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
     if (dish) {
@@ -65,7 +65,7 @@ function EditDish(props) {
     // dish.foodValue.proteins = getValues("foodValue.proteins");
     // dish.foodValue.fats = getValues("foodValue.fats");
     // dish.foodValue.carbs = getValues("foodValue.carbs");
-    const newFoodValue = dish.calculateFoodValue(cookedWeight);
+    const newFoodValue = dishesService.calculateFoodValue(dish, cookedWeight);
 
     reset({
       calories: format(newFoodValue.calories),
@@ -160,7 +160,7 @@ function EditDish(props) {
                 className="input"
                 type="number"
                 placeholder="gramms"
-                {...register("portionSize", { valueAsNumber: true })}
+                {...register("defaultPortion", { valueAsNumber: true })}
               />
             </div>
           </div>
@@ -215,11 +215,8 @@ function EditDish(props) {
   );
 }
 
-const format = (numb: number | null): number | null => {
-  if (numb == null) {
-    return numb;
-  }
-  return parseFloat(numb.toPrecision(2));
+const format = (numb: number): number => {
+  return numb != null ? parseFloat(numb.toPrecision(2)) : NaN;
 };
 
 export default EditDish;
