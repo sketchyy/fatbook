@@ -1,13 +1,13 @@
-import Dish from "@/shared/models/Dish";
 import FoodValue from "../FoodValue";
 import DishIcon from "./DishIcon";
+import { Dish } from "@/types/dish";
 
-interface DishInfoProps {
+type Props = {
   dish: Dish;
   servingSize?: number;
-}
+};
 
-function DishInfo({ dish, servingSize }: DishInfoProps) {
+function DishInfo({ dish, servingSize }: Props) {
   const renderedName = dish.name || "<No Name>";
 
   return (
@@ -21,7 +21,12 @@ function DishInfo({ dish, servingSize }: DishInfoProps) {
           <p className=" subtitle is-7">
             <span className="is-flex is-justify-content-space-between">
               <span>
-                <FoodValue foodValue={dish.foodValue} />
+                <FoodValue
+                  proteins={dish.proteins}
+                  carbs={dish.carbs}
+                  fats={dish.fats}
+                  calories={dish.calories}
+                />
               </span>
               {servingSize && <span>{servingSize} g.</span>}
             </span>

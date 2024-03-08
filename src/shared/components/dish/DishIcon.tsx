@@ -1,6 +1,11 @@
-import Dish from "@/shared/models/Dish";
+import { Dish } from "@/types/dish";
 
-function DishIcon({ dish = Dish.empty(), className }) {
+type Props = {
+  dish: Dish;
+  className: string;
+};
+
+function DishIcon({ dish, className }: Props) {
   const renderedIcon =
     dish.ingredients && dish.ingredients.length > 0 ? "🥘" : "🥫";
 

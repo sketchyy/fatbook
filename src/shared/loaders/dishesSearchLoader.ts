@@ -1,5 +1,4 @@
-import Dish from "@/shared/models/Dish";
-import dishesService from "@/core/firebase/dishesService";
+import dishesService from "@/services/dishes-service";
 
 export async function dishesSearchLoader({ request }) {
   const url = new URL(request.url);
@@ -7,7 +6,7 @@ export async function dishesSearchLoader({ request }) {
   const { data, error } = await dishesService.searchDishes(q);
 
   return {
-    data: data!.map((d) => Dish.fromSupabase(d)),
+    data,
     error,
     q,
   };
