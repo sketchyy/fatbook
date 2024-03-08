@@ -9,14 +9,10 @@ function DishPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const { data: dish, isLoading } = useQuery(["dish", +params.id!], () =>
-    dishesService.getDish(+params.id!),
-  );
-  const deleteDish = useMutation(dishesService.deleteDish, {
-    onSuccess: () => {
-      navigate("/dishes");
-    },
+  const { data: dish, isLoading } = useQuery(["dish", +params.id!], () => {
+    return dishesService.getDish(+params.id!);
   });
+  const deleteDish = useMutation(dishesService.deleteDish);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -29,11 +25,16 @@ function DishPage() {
       navigate("/dishes");
     }
   };
-  const handleDelete = (event) => {
+
+  const handleDelete = () => {
     if (!window.confirm("Please confirm you want to delete this record.")) {
       return;
     }
-    deleteDish.mutate(dish!.id);
+    deleteDish.mutate(dish!.id, {
+      onSuccess: () => {
+        navigate("/dishes");
+      },
+    });
   };
 
   return (
