@@ -1,19 +1,17 @@
-import dishesService from "@/core/firebase/dishesService";
 import NavLinkTab from "@/shared/components/ui/NavLinkTab";
 import { Fragment } from "react";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
+import dishesService from "@/services/dishes-service";
 
-function DishPage(props) {
+function DishPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const {
-    data: dish,
-    isLoading,
-    error,
-  } = useQuery(["dish", +params.id!], () => dishesService.getDish(+params.id!));
+  const { data: dish, isLoading } = useQuery(["dish", +params.id!], () =>
+    dishesService.getDish(+params.id!),
+  );
   const deleteDish = useMutation(dishesService.deleteDish, {
     onSuccess: () => {
       navigate("/dishes");
@@ -22,9 +20,6 @@ function DishPage(props) {
 
   if (isLoading) {
     return <h2>Loading...</h2>;
-  }
-  if (error) {
-    return <h2>Error: {error as any}</h2>;
   }
 
   const handleBackClick = () => {

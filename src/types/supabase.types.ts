@@ -26,39 +26,42 @@ export type Database = {
       }
       dishes: {
         Row: {
-          calories: number
-          carbs: number
+          calories: number | null
+          carbs: number | null
           cookedWeight: number | null
           createdAt: string
-          fats: number
+          defaultPortion: number | null
+          fats: number | null
+          hasIngredients: boolean | null
           id: number
-          name: string
-          portionSize: number | null
-          proteins: number
+          name: string | null
+          proteins: number | null
           updatedAt: string | null
         }
         Insert: {
-          calories: number
-          carbs: number
+          calories?: number | null
+          carbs?: number | null
           cookedWeight?: number | null
           createdAt?: string
-          fats: number
+          defaultPortion?: number | null
+          fats?: number | null
+          hasIngredients?: boolean | null
           id?: number
-          name: string
-          portionSize?: number | null
-          proteins: number
+          name?: string | null
+          proteins?: number | null
           updatedAt?: string | null
         }
         Update: {
-          calories?: number
-          carbs?: number
+          calories?: number | null
+          carbs?: number | null
           cookedWeight?: number | null
           createdAt?: string
-          fats?: number
+          defaultPortion?: number | null
+          fats?: number | null
+          hasIngredients?: boolean | null
           id?: number
-          name?: string
-          portionSize?: number | null
-          proteins?: number
+          name?: string | null
+          proteins?: number | null
           updatedAt?: string | null
         }
         Relationships: []
@@ -71,7 +74,8 @@ export type Database = {
           dish: number
           fats: number
           id: number
-          portionSize: number
+          parentDish: number | null
+          portion: number
           proteins: number
         }
         Insert: {
@@ -81,7 +85,8 @@ export type Database = {
           dish: number
           fats: number
           id?: number
-          portionSize: number
+          parentDish?: number | null
+          portion: number
           proteins: number
         }
         Update: {
@@ -91,13 +96,21 @@ export type Database = {
           dish?: number
           fats?: number
           id?: number
-          portionSize?: number
+          parentDish?: number | null
+          portion?: number
           proteins?: number
         }
         Relationships: [
           {
             foreignKeyName: "public_dishIngredients_dish_fkey"
             columns: ["dish"]
+            isOneToOne: false
+            referencedRelation: "dishes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_dishIngredients_ingredient_fkey"
+            columns: ["parentDish"]
             isOneToOne: false
             referencedRelation: "dishes"
             referencedColumns: ["id"]

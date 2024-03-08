@@ -37,6 +37,9 @@ function EditDish(props) {
     });
   }, [dish]);
 
+  // TODO: use dish.hasIngredients from DB
+  const hasIngredients = dish.ingredients.length > 0;
+
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
     if (dish) {
       await dishesService.updateDish(+params.id!, data);
@@ -86,7 +89,7 @@ function EditDish(props) {
           </div>
         </div>
 
-        {dish?.hasIngredients() && (
+        {hasIngredients && (
           <Message title="Info">
             Food Value is calculated from ingredients
           </Message>
@@ -101,7 +104,7 @@ function EditDish(props) {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={dish?.hasIngredients()}
+                disabled={hasIngredients}
                 {...register("proteins", {
                   valueAsNumber: true,
                 })}
@@ -116,7 +119,7 @@ function EditDish(props) {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={dish?.hasIngredients()}
+                disabled={hasIngredients}
                 {...register("fats", { valueAsNumber: true })}
               />
             </div>
@@ -129,7 +132,7 @@ function EditDish(props) {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={dish?.hasIngredients()}
+                disabled={hasIngredients}
                 {...register("carbs", { valueAsNumber: true })}
               />
             </div>
@@ -145,7 +148,7 @@ function EditDish(props) {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={dish?.hasIngredients()}
+                disabled={hasIngredients}
                 {...register("calories", { valueAsNumber: true })}
               />
             </div>

@@ -1,10 +1,10 @@
-import Dish from "@/shared/models/Dish";
 import { supabase } from "@/utils/supabase";
 import { DishInputs } from "@/routes/dish/edit/EditDish";
 import dateService from "@/shared/services/dateService";
 import { DishPortion } from "@/shared/models/DishPortion";
+import { Dish } from "@/types/dish";
 
-async function getDish(id: number): Promise<Dish> {
+async function getDish(id: number): Promise<Dish | null> {
   const { data } = await supabase
     .from("dishes")
     .select(
@@ -15,7 +15,7 @@ async function getDish(id: number): Promise<Dish> {
         fats,
         carbs,
         calories,
-        portionSize,
+        defaultPortion,
         cookedWeight,
         createdAt,
         dishIngredients!public_dishIngredients_ingredient_fkey (
@@ -24,7 +24,7 @@ async function getDish(id: number): Promise<Dish> {
           fats,
           carbs,
           calories,
-          portionSize,
+          portion,
           dishes!public_dishIngredients_dish_fkey (
             name
           )
@@ -34,20 +34,25 @@ async function getDish(id: number): Promise<Dish> {
     .eq("id", id)
     .single();
 
-  const dish = Dish.fromSupabase(data! as any) ?? Dish.empty();
+  if (!data) {
+    return null;
+  }
 
-  dish.ingredients = data!.dishIngredients.map((r) => ({
-    totalFoodValue: {
-      proteins: r.proteins,
-      fats: r.fats,
-      carbs: r.carbs,
-      calories: r.calories,
-    },
-    dish: { name: r.dishes?.name } as any,
-    servingSize: r.portionSize!,
-    id: r.id,
-    selected: false,
-  }));
+  const { dishIngredients, ...rest } = data;
+  const dish: Dish = { ...rest, ingredients: [] } as any; // REMOVE ANY AFTER NUTRITION FATCS REQUIRED IN DB
+
+  // dish.ingredients = data!.dishIngredients.map((r) => ({
+  //   totalFoodValue: {
+  //     proteins: r.proteins,
+  //     fats: r.fats,
+  //     carbs: r.carbs,
+  //     calories: r.calories,
+  //   },
+  //   dish: { name: r.dishes?.name } as any,
+  //   servingSize: r.portionSize!,
+  //   id: r.id,
+  //   selected: false,
+  // }));
 
   return dish;
 }
