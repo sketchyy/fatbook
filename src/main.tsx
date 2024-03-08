@@ -71,7 +71,6 @@ const router = createBrowserRouter([
       {
         path: "dishes",
         element: <DishesPage />,
-        loader: dishesSearchLoader,
         action: createDishAction,
       },
       {

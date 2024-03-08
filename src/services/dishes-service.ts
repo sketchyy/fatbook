@@ -52,26 +52,21 @@ async function getDish(id: number): Promise<Dish> {
   return dish;
 }
 
-async function searchDishes(userQuery: string) {
-  if (userQuery) {
-    return (
-      supabase
-        .from("dishes")
-        .select()
-        .ilike("name", `%${userQuery}%`)
-        // TODO: research full text search with en/ru in supabase
-        /*.textSearch("name", userQuery, {
+/* = "" default? */
+async function searchDishes(query: string) {
+  return (
+    supabase
+      .from("dishes")
+      .select()
+      .ilike("name", `%${query}%`)
+      // TODO: research full text search with en/ru in supabase
+      /*.textSearch("name", userQuery, {
         type: "plain",
         config: "english",
       })*/
-        .order("updatedAt", { ascending: false })
-    );
-  } else {
-    return supabase
-      .from("dishes")
-      .select()
-      .order("updatedAt", { ascending: false });
-  }
+      .order("updatedAt", { ascending: false })
+      .then((result) => result.data)
+  );
 }
 
 async function createDish(dish: DishInputs) {
