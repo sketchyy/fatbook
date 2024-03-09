@@ -1,7 +1,7 @@
 import DishClass from "./DishClass";
 import { NutritionFacts } from "./NutritionFacts";
 
-export interface DishPortion {
+export interface DishPortionOld {
   id: number;
   totalFoodValue: NutritionFacts;
   dish: DishClass;

@@ -1,10 +1,10 @@
 import DishPortionList from "./dish-portion-list/DishPortionList";
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 
 interface Props {
-  dishPortions: DishPortion[];
-  onSave: (portion: DishPortion) => void;
-  onDelete: (portion: DishPortion) => void;
+  dishPortions: DishPortionOld[];
+  onSave: (portion: DishPortionOld) => void;
+  onDelete: (portion: DishPortionOld) => void;
 }
 
 function EditDishPortionsForm({ dishPortions, onSave, onDelete }: Props) {

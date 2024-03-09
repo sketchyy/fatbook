@@ -9,8 +9,9 @@ function DishPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  const { data: dish, isLoading } = useQuery(["dish", +params.id!], () => {
-    return dishesService.getDish(params.id!);
+  const { data: dish, isLoading } = useQuery({
+    queryKey: ["dish", +params.id!],
+    queryFn: () => dishesService.getDish(params.id!),
   });
   const deleteDish = useMutation(dishesService.deleteDish);
 

@@ -1,15 +1,15 @@
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { useRef, useState } from "react";
 import { FaCheck, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
 
 interface DishPortionsListItemProps {
   focused: boolean;
-  dishPortion: DishPortion;
-  onAdd: (p: DishPortion) => void;
-  onUpdate: (p: DishPortion) => void;
-  onDelete: (p: DishPortion) => void;
-  isAdded: (p: DishPortion) => boolean;
+  dishPortion: DishPortionOld;
+  onAdd: (p: DishPortionOld) => void;
+  onUpdate: (p: DishPortionOld) => void;
+  onDelete: (p: DishPortionOld) => void;
+  isAdded: (p: DishPortionOld) => boolean;
 }
 
 function DishPortionListItem({
@@ -21,7 +21,7 @@ function DishPortionListItem({
   isAdded,
 }: DishPortionsListItemProps) {
   const [size, setSize] = useState<number | undefined>(
-    dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? undefined
+    dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? undefined,
   );
   const inputRef = useRef<HTMLInputElement>(null);
 

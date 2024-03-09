@@ -5,7 +5,7 @@ import { collection, deleteDoc, doc, getFirestore } from "firebase/firestore";
 import firebaseApp from "./firebaseApp";
 import { supabase } from "@/utils/supabase";
 import { DishInputs } from "@/routes/dish/edit/EditDish";
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 
 const db = getFirestore(firebaseApp);
 const dishesRef = collection(db, "dishes"); /*.withConverter(dishConverter)*/
@@ -97,7 +97,7 @@ const dishesServiceOld = {
       .eq("id", id);
   },
 
-  async addIngredient(dish: DishClass, ingredient: DishPortion) {
+  async addIngredient(dish: DishClass, ingredient: DishPortionOld) {
     await this.updateDish(dish.id!, dish.toForm());
 
     return supabase.from("dishIngredients").insert({

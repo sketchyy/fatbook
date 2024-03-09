@@ -1,15 +1,16 @@
 import { supabase } from "@/utils/supabase";
 import { DishInputs } from "@/routes/dish/edit/EditDish";
 import dateService from "@/shared/services/dateService";
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { Dish } from "@/types/dish";
 import { NutritionFacts } from "@/shared/models/NutritionFacts";
 import foodValueService from "@/shared/services/foodValueService";
+import { isNull } from "@/utils/is-null";
 
-async function getDish(id: string): Promise<Dish | null> {
-  console.log("id", id);
-  if (id === "new") {
-    return null;
+async function getDish(id: string | undefined): Promise<Dish | null> {
+  if (isNull(id)) {
+    // Placeholder data for create form
+    return { name: "", ingredients: [] } as unknown as Dish;
   }
 
   const { data } = await supabase
@@ -94,7 +95,7 @@ async function updateDish(id: number, dish: DishInputs) {
     .eq("id", id);
 }
 
-async function addIngredient(dish: Dish, ingredient: DishPortion) {
+async function addIngredient(dish: Dish, ingredient: DishPortionOld) {
   await updateDish(dish.id!, dish.toForm());
 
   return supabase.from("dishIngredients").insert({

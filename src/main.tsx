@@ -71,8 +71,8 @@ const router = createBrowserRouter([
         path: "dishes",
         element: <DishesPage />,
       },
-      {
-        path: "dishes/:id",
+      ...["dishes/:id", "dishes/new"].map((path) => ({
+        path: path,
         element: <DishPage />,
         children: [
           { path: "", element: <Navigate to={`edit`} replace /> },
@@ -90,7 +90,7 @@ const router = createBrowserRouter([
             loader: dishesSearchLoader,
           },
         ],
-      },
+      })),
       {
         path: "history",
         element: <HistoryPage />,

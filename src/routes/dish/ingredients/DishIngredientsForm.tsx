@@ -6,10 +6,12 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import DishClass from "@/shared/models/DishClass";
+import { Dish } from "@/types/dish";
 
+// TODO: DishIngredientsList
 function DishIngredientsForm(props) {
   const navigate = useNavigate();
-  const { dish } = useOutletContext<{ dish: DishClass }>();
+  const { dish } = useOutletContext<{ dish: Dish }>();
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });

@@ -1,10 +1,10 @@
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { FaCheckCircle } from "react-icons/fa";
 import DishIcon from "../../dish/DishIcon";
 import FoodValue from "../../FoodValue";
 
 export interface DishPortionTitleProps {
-  dishPortion: DishPortion;
+  dishPortion: DishPortionOld;
 }
 
 function DishPortionTitle({ dishPortion }: DishPortionTitleProps) {

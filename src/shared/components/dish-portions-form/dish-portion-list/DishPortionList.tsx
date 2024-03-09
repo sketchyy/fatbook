@@ -1,4 +1,4 @@
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { useState } from "react";
 import Accordion, { AccordionItem } from "../../ui/Accordion";
 import Divider from "../../ui/Divider";
@@ -7,11 +7,11 @@ import DishPortionListItem from "./DishPortionListItem";
 import DishPortionTitle from "./DishPortionTitle";
 
 interface DishPortionsListProps {
-  dishPortions: DishPortion[];
-  onAdd?: (p: DishPortion) => void;
-  onUpdate: (p: DishPortion) => void;
-  onDelete: (p: DishPortion) => void;
-  isAdded: (p: DishPortion) => boolean;
+  dishPortions: DishPortionOld[];
+  onAdd?: (p: DishPortionOld) => void;
+  onUpdate: (p: DishPortionOld) => void;
+  onDelete: (p: DishPortionOld) => void;
+  isAdded: (p: DishPortionOld) => boolean;
 }
 
 function DishPortionList({
@@ -30,19 +30,19 @@ function DishPortionList({
     setActiveIndex(-1);
   }
 
-  const handleAdd = (portion: DishPortion) => {
+  const handleAdd = (portion: DishPortionOld) => {
     setActiveIndex(-1);
     if (onAdd) {
       onAdd(portion);
     }
   };
 
-  const handleUpdate = (portion: DishPortion) => {
+  const handleUpdate = (portion: DishPortionOld) => {
     setActiveIndex(-1);
     onUpdate(portion);
   };
 
-  const handleDelete = (portion: DishPortion) => {
+  const handleDelete = (portion: DishPortionOld) => {
     setActiveIndex(-1);
     onDelete(portion);
   };

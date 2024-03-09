@@ -1,4 +1,4 @@
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import foodValueService from "@/shared/services/foodValueService";
 import uuidService from "@/shared/services/uuidService";
 import { useState } from "react";
@@ -10,9 +10,9 @@ import DishPortionList from "./dish-portion-list/DishPortionList";
 interface SelectDishPortionsFormProps {
   title: string;
   subtitle: string;
-  onAdd: (ingredient: DishPortion) => void;
-  onDelete: (ingredient: DishPortion) => void;
-  onUpdate?: (ingredient: DishPortion) => void;
+  onAdd: (ingredient: DishPortionOld) => void;
+  onDelete: (ingredient: DishPortionOld) => void;
+  onUpdate?: (ingredient: DishPortionOld) => void;
 }
 
 function SelectDishPortionsForm({
@@ -25,7 +25,9 @@ function SelectDishPortionsForm({
   const submit = useSubmit();
   const navigation = useNavigation();
   const { data, q } = useLoaderData() as any;
-  const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
+  const [selectedPortions, setSelectedPortions] = useState<DishPortionOld[]>(
+    [],
+  );
   const isSearching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
@@ -40,7 +42,7 @@ function SelectDishPortionsForm({
     ...dishPortions.filter((portion) => !selectedIds.includes(portion.dish.id)),
   ];
 
-  const handleAddClick = (portion: DishPortion) => {
+  const handleAddClick = (portion: DishPortionOld) => {
     portion.id = uuidService.get();
     // Only for rendering, actual submitted calculated in logDay.
     portion.totalFoodValue =
@@ -56,7 +58,7 @@ function SelectDishPortionsForm({
     onAdd(portion);
   };
 
-  const handleUpdateClick = (portion: DishPortion) => {
+  const handleUpdateClick = (portion: DishPortionOld) => {
     // Only for rendering, actual submitted calculated in logDay.
     portion.totalFoodValue =
       foodValueService.calculateFoodValueForPortion(portion);

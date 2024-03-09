@@ -2,14 +2,14 @@ import dishesServiceOld from "@/core/firebase/dishesServiceOld";
 import SelectDishPortionsForm from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
 import DishClass from "@/shared/models/DishClass";
 import { useOutletContext } from "react-router-dom";
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { useMutation, useQueryClient } from "react-query";
 
-function AddIngredientForm(props) {
+function AddIngredientForm() {
   const { dish } = useOutletContext<{ dish: DishClass }>();
   const queryClient = useQueryClient();
   const mutation = useMutation(
-    ({ dish, ingredient }: { dish: DishClass; ingredient: DishPortion }) =>
+    ({ dish, ingredient }: { dish: DishClass; ingredient: DishPortionOld }) =>
       dishesServiceOld.addIngredient(dish, ingredient),
     {
       onSuccess: () => {
@@ -18,7 +18,7 @@ function AddIngredientForm(props) {
     },
   );
 
-  const handleAddIngredients = async (ingredient: DishPortion) => {
+  const handleAddIngredients = async (ingredient: DishPortionOld) => {
     dish.addIngredient(ingredient);
 
     mutation.mutate({ dish, ingredient });

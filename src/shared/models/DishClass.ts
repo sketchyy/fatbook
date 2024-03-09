@@ -1,5 +1,5 @@
 import foodValueService from "../services/foodValueService";
-import { DishPortion } from "./DishPortion";
+import { DishPortionOld } from "./DishPortionOld";
 import { NutritionFacts } from "./NutritionFacts";
 import { Tables } from "@/types/supabase.types";
 import { DishInputs } from "@/routes/dish/edit/EditDish";
@@ -44,7 +44,7 @@ export default class DishClass {
   carbs: number | null;
   calories: number | null;
   foodValue: NutritionFacts;
-  ingredients: DishPortion[];
+  ingredients: DishPortionOld[];
   defaultServingSize: number | null | undefined;
   createdAt: number | null;
   cookedWeight: number | null;
@@ -57,7 +57,7 @@ export default class DishClass {
     fats: number | null,
     carbs: number | null,
     calories: number | null,
-    ingredients: DishPortion[],
+    ingredients: DishPortionOld[],
     defaultServingSize: number | null,
     createdAt: number | null,
     cookedWeight: number | null,
@@ -88,11 +88,11 @@ export default class DishClass {
     return this.ingredients.length > 0;
   }
 
-  setIngredients(ingredients: DishPortion[]) {
+  setIngredients(ingredients: DishPortionOld[]) {
     this.ingredients = ingredients;
   }
 
-  addIngredient(ingredient: DishPortion) {
+  addIngredient(ingredient: DishPortionOld) {
     this.ingredients = [ingredient, ...this.ingredients];
     this.foodValue = this.calculateFoodValue();
 

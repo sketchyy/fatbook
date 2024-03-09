@@ -1,7 +1,7 @@
 import dateService from "../services/dateService";
 import foodValueService from "../services/foodValueService";
 import { Meals } from "./Meals";
-import { DishPortion } from "@/shared/models/DishPortion";
+import { DishPortionOld } from "@/shared/models/DishPortionOld";
 
 export class LogDay {
   static empty() {
@@ -21,7 +21,7 @@ export class LogDay {
   }
 
   addEatings(meal, rawEatings) {
-    const calculatedEatings = rawEatings.map((rawEating: DishPortion) =>
+    const calculatedEatings = rawEatings.map((rawEating: DishPortionOld) =>
       this.#calculateEating(rawEating),
     );
     this.meals[meal].eatings =

@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { Dish } from "@/types/dish";
 import dishesService from "@/services/dishes-service";
+import { isNull } from "@/utils/is-null";
 
 export type DishInputs = {
   name: string;
@@ -12,11 +13,12 @@ export type DishInputs = {
   fats: number;
   carbs: number;
   calories: number;
-  defaultPortion: number;
-  cookedWeight: number;
+  defaultPortion: number | null;
+  cookedWeight: number | null;
 };
 
-function EditDish(props) {
+// TODO: DishForm
+function EditDish() {
   const params = useParams();
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
@@ -41,13 +43,14 @@ function EditDish(props) {
   const hasIngredients = dish?.ingredients.length > 0;
 
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
-    if (dish) {
-      await dishesService.updateDish(+params.id!, data);
-    } else {
+    if (isNull(params.id)) {
       await dishesService.createDish(data);
+    } else {
+      await dishesService.updateDish(+params.id!, data);
     }
     navigate("/dishes");
   };
+
   const onCancel = () => navigate("/dishes");
 
   const handleNameChange = ({ target }) => {
