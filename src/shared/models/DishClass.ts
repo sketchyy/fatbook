@@ -2,7 +2,7 @@ import foodValueService from "../services/foodValueService";
 import { DishPortionOld } from "./DishPortionOld";
 import { NutritionFacts } from "./NutritionFacts";
 import { Tables } from "@/types/supabase.types";
-import { DishInputs } from "@/routes/dish/edit/EditDish";
+import { DishInputs } from "@/routes/dish/edit/DishForm";
 
 export default class DishClass {
   static empty(): DishClass {

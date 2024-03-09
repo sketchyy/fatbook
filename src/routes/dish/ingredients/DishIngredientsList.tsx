@@ -8,8 +8,7 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import DishClass from "@/shared/models/DishClass";
 import { Dish } from "@/types/dish";
 
-// TODO: DishIngredientsList
-function DishIngredientsForm(props) {
+function DishIngredientsList() {
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
   const [confirm, setConfirm] = useState<Confirmation>({
@@ -66,4 +65,4 @@ function DishIngredientsForm(props) {
   );
 }
 
-export default DishIngredientsForm;
+export default DishIngredientsList;

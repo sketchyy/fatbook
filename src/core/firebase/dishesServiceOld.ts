@@ -4,7 +4,7 @@ import dateService from "@/shared/services/dateService";
 import { collection, deleteDoc, doc, getFirestore } from "firebase/firestore";
 import firebaseApp from "./firebaseApp";
 import { supabase } from "@/utils/supabase";
-import { DishInputs } from "@/routes/dish/edit/EditDish";
+import { DishInputs } from "@/routes/dish/edit/DishForm";
 import { DishPortionOld } from "@/shared/models/DishPortionOld";
 
 const db = getFirestore(firebaseApp);

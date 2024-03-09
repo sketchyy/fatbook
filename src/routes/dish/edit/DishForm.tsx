@@ -17,15 +17,15 @@ export type DishInputs = {
   cookedWeight: number | null;
 };
 
-// TODO: DishForm
-function EditDish() {
+function DishForm() {
   const params = useParams();
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
   const { register, reset, getValues, handleSubmit } = useForm<DishInputs>();
+  const isCreate = isNull(params.id);
 
   useEffect(() => {
-    if (!dish) {
+    if (isCreate) {
       return;
     }
     reset({
@@ -43,7 +43,7 @@ function EditDish() {
   const hasIngredients = dish?.ingredients.length > 0;
 
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
-    if (isNull(params.id)) {
+    if (isCreate) {
       await dishesService.createDish(data);
     } else {
       await dishesService.updateDish(+params.id!, data);
@@ -219,7 +219,7 @@ function EditDish() {
 }
 
 const format = (numb: number): number => {
-  return numb != null ? parseFloat(numb.toPrecision(2)) : NaN;
+  return parseFloat(numb.toPrecision(2));
 };
 
-export default EditDish;
+export default DishForm;

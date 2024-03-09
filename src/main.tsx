@@ -15,9 +15,9 @@ import { AuthContextProvider } from "./core/auth/AuthContext";
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import DishPage from "./routes/dish/DishPage";
-import EditDish from "./routes/dish/edit/EditDish.jsx";
+import DishForm from "./routes/dish/edit/DishForm";
 import AddIngredientForm from "./routes/dish/ingredients/AddIngredientForm";
-import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
+import DishIngredientsList from "./routes/dish/ingredients/DishIngredientsList";
 import DishesPage from "./routes/dishes/DishesPage";
 import AddEatingForm from "./routes/eatings/add/AddEatingForm";
 import LogDayPage from "./routes/eatings/LogDayPage";
@@ -78,11 +78,11 @@ const router = createBrowserRouter([
           { path: "", element: <Navigate to={`edit`} replace /> },
           {
             path: "edit", // edit/delete
-            element: <EditDish />,
+            element: <DishForm />,
           },
           {
             path: "ingredients",
-            element: <DishIngredientsForm />,
+            element: <DishIngredientsList />,
           },
           {
             path: "ingredients/add",
