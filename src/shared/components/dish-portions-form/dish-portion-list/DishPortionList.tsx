@@ -1,17 +1,18 @@
-import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { useState } from "react";
 import Accordion, { AccordionItem } from "../../ui/Accordion";
 import Divider from "../../ui/Divider";
 
 import DishPortionListItem from "./DishPortionListItem";
 import DishPortionTitle from "./DishPortionTitle";
+import { isNull } from "@/utils/is-null";
+import { DishPortion, DishPortionInputs } from "@/types/dish-portion";
 
-interface DishPortionsListProps {
-  dishPortions: DishPortionOld[];
-  onAdd?: (p: DishPortionOld) => void;
-  onUpdate: (p: DishPortionOld) => void;
-  onDelete: (p: DishPortionOld) => void;
-  isAdded: (p: DishPortionOld) => boolean;
+interface Props {
+  dishPortions?: DishPortionInputs[];
+  onAdd?: (p: DishPortionInputs) => void;
+  onUpdate: (p: DishPortionInputs) => void;
+  onDelete: (p: DishPortionInputs) => void;
+  isAdded: (p: DishPortionInputs) => boolean;
 }
 
 function DishPortionList({
@@ -20,9 +21,18 @@ function DishPortionList({
   onUpdate,
   onDelete,
   isAdded,
-}: DishPortionsListProps) {
+}: Props) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [prevItems, setPrevItems] = useState(dishPortions);
+
+  if (isNull(dishPortions) || dishPortions.length === 0) {
+    return (
+      <>
+        <Divider />
+        <p className="has-text-centered mt-3">Nothing was found.</p>
+      </>
+    );
+  }
 
   // Reset selection after search
   if (dishPortions !== prevItems) {
@@ -30,19 +40,19 @@ function DishPortionList({
     setActiveIndex(-1);
   }
 
-  const handleAdd = (portion: DishPortionOld) => {
+  const handleAdd = (portion: DishPortionInputs) => {
     setActiveIndex(-1);
     if (onAdd) {
       onAdd(portion);
     }
   };
 
-  const handleUpdate = (portion: DishPortionOld) => {
+  const handleUpdate = (portion: DishPortionInputs) => {
     setActiveIndex(-1);
     onUpdate(portion);
   };
 
-  const handleDelete = (portion: DishPortionOld) => {
+  const handleDelete = (portion: DishPortionInputs) => {
     setActiveIndex(-1);
     onDelete(portion);
   };
@@ -50,10 +60,6 @@ function DishPortionList({
   return (
     <>
       <Divider />
-
-      {dishPortions.length === 0 && (
-        <p className="has-text-centered mt-3">Nothing was found.</p>
-      )}
 
       <Accordion
         activeIndex={activeIndex}

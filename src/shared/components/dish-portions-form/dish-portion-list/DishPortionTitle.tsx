@@ -1,14 +1,18 @@
-import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { FaCheckCircle } from "react-icons/fa";
 import DishIcon from "../../dish/DishIcon";
 import FoodValue from "../../FoodValue";
+import { NutritionFacts } from "@/types/nutrition-facts";
+import { DishPortionInputs } from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
 
-export interface DishPortionTitleProps {
-  dishPortion: DishPortionOld;
-}
+type Props = {
+  dishPortion: DishPortionInputs;
+};
 
-function DishPortionTitle({ dishPortion }: DishPortionTitleProps) {
+function DishPortionTitle({ dishPortion }: Props) {
   const noName = !dishPortion.dish.name;
+  const nutritionFactsSource = (
+    dishPortion.portion ? dishPortion : dishPortion.dish
+  ) as NutritionFacts;
 
   return (
     <div
@@ -35,18 +39,17 @@ function DishPortionTitle({ dishPortion }: DishPortionTitleProps) {
                 <div className="is-flex is-justify-content-space-between">
                   <FoodValue
                     className="mb-0 is-size-7 is-justify-content-flex-start"
-                    foodValue={
-                      dishPortion.servingSize
-                        ? dishPortion.totalFoodValue
-                        : dishPortion.dish.foodValue
-                    }
+                    proteins={nutritionFactsSource.proteins}
+                    fats={nutritionFactsSource.fats}
+                    carbs={nutritionFactsSource.carbs}
+                    calories={nutritionFactsSource.calories}
                   />
-                  {dishPortion.servingSize && (
+                  {dishPortion.portion && (
                     <strong className="is-size-7">
-                      ⚖️ {dishPortion.servingSize} g.
+                      ⚖️ {dishPortion.portion} g.
                     </strong>
                   )}
-                  {!dishPortion.servingSize && (
+                  {!dishPortion.portion && (
                     <strong className="is-size-7">per 100 g.</strong>
                   )}
                 </div>

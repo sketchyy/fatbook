@@ -16,7 +16,7 @@ import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import DishPage from "./routes/dish/DishPage";
 import DishForm from "./routes/dish/edit/DishForm";
-import AddIngredientForm from "./routes/dish/ingredients/AddIngredientForm";
+import AddIngredient from "./routes/dish/ingredients/AddIngredient";
 import DishIngredientsList from "./routes/dish/ingredients/DishIngredientsList";
 import DishesPage from "./routes/dishes/DishesPage";
 import AddEatingForm from "./routes/eatings/add/AddEatingForm";
@@ -71,8 +71,8 @@ const router = createBrowserRouter([
         path: "dishes",
         element: <DishesPage />,
       },
-      ...["dishes/:id", "dishes/new"].map((path) => ({
-        path: path,
+      {
+        path: "dishes/:id",
         element: <DishPage />,
         children: [
           { path: "", element: <Navigate to={`edit`} replace /> },
@@ -86,11 +86,11 @@ const router = createBrowserRouter([
           },
           {
             path: "ingredients/add",
-            element: <AddIngredientForm />,
+            element: <AddIngredient />,
             loader: dishesSearchLoader,
           },
         ],
-      })),
+      },
       {
         path: "history",
         element: <HistoryPage />,

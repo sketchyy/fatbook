@@ -8,11 +8,11 @@ import dishesService from "@/services/dishes-service";
 import { isNull } from "@/utils/is-null";
 
 export type DishInputs = {
-  name: string;
-  proteins: number;
-  fats: number;
-  carbs: number;
-  calories: number;
+  name: string | null;
+  proteins: number | null;
+  fats: number | null;
+  carbs: number | null;
+  calories: number | null;
   defaultPortion: number | null;
   cookedWeight: number | null;
 };
@@ -22,12 +22,8 @@ function DishForm() {
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
   const { register, reset, getValues, handleSubmit } = useForm<DishInputs>();
-  const isCreate = isNull(params.id);
 
   useEffect(() => {
-    if (isCreate) {
-      return;
-    }
     reset({
       name: dish.name,
       defaultPortion: dish.defaultPortion,
@@ -39,15 +35,11 @@ function DishForm() {
     });
   }, [dish]);
 
-  // TODO: use dish.hasIngredients from DB
-  const hasIngredients = dish?.ingredients.length > 0;
+  const hasIngredients = dish?.ingredients?.length! > 0;
 
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
-    if (isCreate) {
-      await dishesService.createDish(data);
-    } else {
-      await dishesService.updateDish(+params.id!, data);
-    }
+    await dishesService.updateDish(+params.id!, data);
+
     navigate("/dishes");
   };
 
@@ -218,8 +210,8 @@ function DishForm() {
   );
 }
 
-const format = (numb: number): number => {
-  return parseFloat(numb.toPrecision(2));
+const format = (numb: number | null): number | null => {
+  return isNull(numb) ? null : parseFloat(numb.toPrecision(2));
 };
 
 export default DishForm;

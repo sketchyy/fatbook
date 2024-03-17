@@ -1,3 +1,4 @@
+// TODO: FoodValue
 export type NutritionFacts = {
   proteins: number;
   fats: number;

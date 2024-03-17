@@ -1,16 +1,16 @@
-import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { useRef, useState } from "react";
 import { FaCheck, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
+import { DishPortionInputs } from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
 
-interface DishPortionsListItemProps {
+type Props = {
   focused: boolean;
-  dishPortion: DishPortionOld;
-  onAdd: (p: DishPortionOld) => void;
-  onUpdate: (p: DishPortionOld) => void;
-  onDelete: (p: DishPortionOld) => void;
-  isAdded: (p: DishPortionOld) => boolean;
-}
+  dishPortion: DishPortionInputs;
+  onAdd: (p: DishPortionInputs) => void;
+  onUpdate: (p: DishPortionInputs) => void;
+  onDelete: (p: DishPortionInputs) => void;
+  isAdded: (p: DishPortionInputs) => boolean;
+};
 
 function DishPortionListItem({
   focused,
@@ -19,9 +19,9 @@ function DishPortionListItem({
   onUpdate,
   onDelete,
   isAdded,
-}: DishPortionsListItemProps) {
+}: Props) {
   const [size, setSize] = useState<number | undefined>(
-    dishPortion.servingSize ?? dishPortion.dish.defaultServingSize ?? undefined,
+    dishPortion.portion ?? dishPortion.dish.defaultPortion ?? undefined,
   );
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -30,15 +30,15 @@ function DishPortionListItem({
   };
 
   const handleAddClick = () => {
-    onAdd({ ...dishPortion, servingSize: Number(size) });
+    onAdd({ ...dishPortion, portion: Number(size) });
   };
 
   const handleUpdateClick = () => {
-    onUpdate({ ...dishPortion, servingSize: Number(size) });
+    onUpdate({ ...dishPortion, portion: Number(size) });
   };
 
   const handleDeleteClick = () => {
-    setSize(dishPortion.dish.defaultServingSize ?? undefined);
+    setSize(dishPortion.dish.defaultPortion ?? undefined);
     onDelete(dishPortion);
   };
 

@@ -32,7 +32,6 @@ export type Database = {
           createdAt: string
           defaultPortion: number | null
           fats: number | null
-          hasIngredients: boolean | null
           id: number
           name: string | null
           proteins: number | null
@@ -45,7 +44,6 @@ export type Database = {
           createdAt?: string
           defaultPortion?: number | null
           fats?: number | null
-          hasIngredients?: boolean | null
           id?: number
           name?: string | null
           proteins?: number | null
@@ -58,7 +56,6 @@ export type Database = {
           createdAt?: string
           defaultPortion?: number | null
           fats?: number | null
-          hasIngredients?: boolean | null
           id?: number
           name?: string | null
           proteins?: number | null
@@ -74,7 +71,7 @@ export type Database = {
           dish: number
           fats: number
           id: number
-          parentDish: number | null
+          parentDish: number
           portion: number
           proteins: number
         }
@@ -85,7 +82,7 @@ export type Database = {
           dish: number
           fats: number
           id?: number
-          parentDish?: number | null
+          parentDish: number
           portion: number
           proteins: number
         }
@@ -96,7 +93,7 @@ export type Database = {
           dish?: number
           fats?: number
           id?: number
-          parentDish?: number | null
+          parentDish?: number
           portion?: number
           proteins?: number
         }

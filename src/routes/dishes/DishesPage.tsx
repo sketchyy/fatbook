@@ -1,28 +1,32 @@
 import DishList from "@/shared/components/dish/DishList";
 import PageTitle from "@/shared/components/PageTitle";
 import SearchBar from "@/shared/components/ui/SearchBar";
-import { Form, useNavigate, useSearchParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
 import dishesService from "@/services/dishes-service";
 import { Dish } from "@/types/dish";
+import { useDishesSearch } from "@/hooks/use-dishes-search";
+import { ChangeEvent } from "react";
 
 function DishesPage() {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.has("q") ? searchParams.getAll("q")[0] : "";
-  const { data: dishes, isLoading } = useQuery(["dishes", query], () =>
-    dishesService.searchDishes(query),
-  );
+  const { dishes, isLoading, query, runSearch } = useDishesSearch();
+  const createDish = useMutation({
+    mutationFn: () => dishesService.createDish({ name: "" }),
+    onSuccess: (dish) =>
+      dish ? navigate(`/dishes/${dish.id}/edit`) : navigate(`/dishes/`),
+  });
 
   const handleDishClick = (dish: Dish) => {
     navigate(`/dishes/${dish.id}`);
   };
 
   const handleNewClick = () => {
-    navigate(`/dishes/new`);
+    createDish.mutate();
   };
 
-  const handleSearch = (event) => setSearchParams({ q: event.target.value });
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>
+    runSearch(event.target.value);
 
   return (
     <div className="box">

@@ -1,19 +1,22 @@
-import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import foodValueService from "@/shared/services/foodValueService";
-import uuidService from "@/shared/services/uuidService";
-import { useState } from "react";
-import { useLoaderData, useNavigation, useSubmit } from "react-router-dom";
+import { ChangeEvent, useState } from "react";
 import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
 import DishPortionList from "./dish-portion-list/DishPortionList";
+import { useDishesSearch } from "@/hooks/use-dishes-search";
+import {
+  DishPortionInputs,
+  mapDishToPortionInputs,
+} from "@/types/dish-portion";
+import uuidService from "@/shared/services/uuidService";
 
-interface SelectDishPortionsFormProps {
+type Props = {
   title: string;
   subtitle: string;
-  onAdd: (ingredient: DishPortionOld) => void;
-  onDelete: (ingredient: DishPortionOld) => void;
-  onUpdate?: (ingredient: DishPortionOld) => void;
-}
+  onAdd: (ingredient: DishPortionInputs) => void;
+  onDelete: (ingredient: DishPortionInputs) => void;
+  onUpdate?: (ingredient: DishPortionInputs) => void;
+};
 
 function SelectDishPortionsForm({
   title,
@@ -21,32 +24,29 @@ function SelectDishPortionsForm({
   onAdd,
   onUpdate,
   onDelete,
-}: SelectDishPortionsFormProps) {
-  const submit = useSubmit();
-  const navigation = useNavigation();
-  const { data, q } = useLoaderData() as any;
-  const [selectedPortions, setSelectedPortions] = useState<DishPortionOld[]>(
+}: Props) {
+  const { dishes, isLoading, query, runSearch } = useDishesSearch();
+  const [selectedPortions, setSelectedPortions] = useState<DishPortionInputs[]>(
     [],
   );
-  const isSearching =
-    navigation.location &&
-    new URLSearchParams(navigation.location.search).has("q");
 
-  const dishPortions = data.map((dish) => ({
-    dish: dish,
-    servingSize: null,
-  }));
+  const dishPortions: DishPortionInputs[] = dishes.map((d) =>
+    mapDishToPortionInputs(d),
+  );
   const selectedIds = selectedPortions.map((p) => p.dish.id);
-  const renderedPortions = [
+  const renderedPortions: DishPortionInputs[] = [
     ...selectedPortions,
     ...dishPortions.filter((portion) => !selectedIds.includes(portion.dish.id)),
   ];
 
-  const handleAddClick = (portion: DishPortionOld) => {
-    portion.id = uuidService.get();
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>
+    runSearch(event.target.value);
+
+  const handleAddClick = (portion: DishPortionInputs) => {
+    portion.tempId = uuidService.get();
     // Only for rendering, actual submitted calculated in logDay.
-    portion.totalFoodValue =
-      foodValueService.calculateFoodValueForPortion(portion);
+    const foodValue = foodValueService.calculateFoodValueForPortion(portion);
+    portion = { ...portion, ...foodValue };
 
     const updatedSelectedPortions = [
       ...selectedPortions,
@@ -58,12 +58,14 @@ function SelectDishPortionsForm({
     onAdd(portion);
   };
 
-  const handleUpdateClick = (portion: DishPortionOld) => {
+  const handleUpdateClick = (portion: DishPortionInputs) => {
     // Only for rendering, actual submitted calculated in logDay.
     portion.totalFoodValue =
       foodValueService.calculateFoodValueForPortion(portion);
 
-    const portionIndex = selectedPortions.findIndex((p) => p.id === portion.id);
+    const portionIndex = selectedPortions.findIndex(
+      (p) => p.tempId === portion.tempId,
+    );
     if (portionIndex > -1) {
       selectedPortions[portionIndex] = portion;
     }
@@ -92,11 +94,9 @@ function SelectDishPortionsForm({
         <PageTitle title={title} subtitle={subtitle} backPath={-1} />
 
         <SearchBar
-          isLoading={isSearching}
-          defaultValue={q}
-          onChange={(event) => {
-            submit(event.target.form, { replace: true });
-          }}
+          isLoading={isLoading}
+          defaultValue={query}
+          onChange={handleSearch}
         />
 
         <DishPortionList

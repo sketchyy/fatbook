@@ -1,27 +1,26 @@
 import dishesServiceOld from "@/core/firebase/dishesServiceOld";
 import SelectDishPortionsForm from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
-import DishClass from "@/shared/models/DishClass";
 import { useOutletContext } from "react-router-dom";
-import { DishPortionOld } from "@/shared/models/DishPortionOld";
 import { useMutation, useQueryClient } from "react-query";
+import { Dish } from "@/types/dish";
+import { DishPortionInputs } from "@/types/dish-portion";
+import ingredientsService from "@/services/ingredients-service";
 
-function AddIngredientForm() {
-  const { dish } = useOutletContext<{ dish: DishClass }>();
+function AddIngredient() {
+  const { dish } = useOutletContext<{ dish: Dish }>();
   const queryClient = useQueryClient();
   const mutation = useMutation(
-    ({ dish, ingredient }: { dish: DishClass; ingredient: DishPortionOld }) =>
-      dishesServiceOld.addIngredient(dish, ingredient),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("dish");
-      },
-    },
+    ({ dish, ingredient }: { dish: Dish; ingredient: DishPortionInputs }) =>
+      ingredientsService.addIngredient(dish, ingredient),
   );
 
-  const handleAddIngredients = async (ingredient: DishPortionOld) => {
-    dish.addIngredient(ingredient);
-
-    mutation.mutate({ dish, ingredient });
+  const handleAddIngredients = async (ingredient: DishPortionInputs) => {
+    mutation.mutate(
+      { dish, ingredient },
+      {
+        onSuccess: () => queryClient.invalidateQueries("dish"),
+      },
+    );
   };
 
   const handleDeleteIngredients = async (ingredient) => {
@@ -40,4 +39,4 @@ function AddIngredientForm() {
   );
 }
 
-export default AddIngredientForm;
+export default AddIngredient;

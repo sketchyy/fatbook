@@ -1,31 +1,32 @@
 import DishClass from "@/shared/models/DishClass";
+import { DishPortionInputs, DishPortionLight } from "@/types/dish-portion";
+import { NutritionFacts } from "@/types/nutrition-facts";
 
-function calculateFoodValue(eating) {
-  if (!eating.dish || !eating.dish.foodValue || !eating.servingSize) {
+export function calculateFoodValue(eating: DishPortionInputs): NutritionFacts {
+  if (!eating.dish || !eating.portion) {
     return foodValueService.emptyFoodValue();
   }
 
   return {
-    proteins: (eating.dish.foodValue.proteins * eating.servingSize) / 100,
-    fats: (eating.dish.foodValue.fats * eating.servingSize) / 100,
-    carbs: (eating.dish.foodValue.carbs * eating.servingSize) / 100,
-    calories: (eating.dish.foodValue.calories * eating.servingSize) / 100,
+    proteins: ((eating.dish.proteins ?? 0) * eating.portion) / 100,
+    fats: ((eating.dish.fats ?? 0) * eating.portion) / 100,
+    carbs: ((eating.dish.carbs ?? 0) * eating.portion) / 100,
+    calories: ((eating.dish.calories ?? 0) * eating.portion) / 100,
   };
 }
 
-function calculateDishWeight(ingredients) {
-  return ingredients.reduce((result, item) => (result += item.servingSize), 0);
+function calculateDishWeight(ingredients: DishPortionLight[]) {
+  return ingredients.reduce((result, item) => (result += item.portion), 0);
 }
 
 const foodValueService = {
-  calculateDishValuePer100g(ingredients, cookedWeight?: number | null) {
+  calculateDishValuePer100g(
+    ingredients: DishPortionLight[],
+    cookedWeight?: number | null,
+  ) {
     const totalDishWeight = cookedWeight ?? calculateDishWeight(ingredients);
 
-    const foodValues = ingredients.map((ingredient) =>
-      calculateFoodValue(ingredient),
-    );
-
-    const resultFoodValue = foodValues.reduce((result, item) => {
+    const resultFoodValue = ingredients.reduce((result, item) => {
       result.proteins += item.proteins;
       result.fats += item.fats;
       result.carbs += item.carbs;
@@ -53,12 +54,14 @@ const foodValueService = {
     };
   },
 
-  calculateFoodValueForPortion({ dish, servingSize }) {
+  calculateFoodValueForPortion({ dish, portion }: DishPortionInputs) {
+    portion = portion ?? 0;
+
     return {
-      proteins: (dish.foodValue.proteins * servingSize) / 100,
-      fats: (dish.foodValue.fats * servingSize) / 100,
-      carbs: (dish.foodValue.carbs * servingSize) / 100,
-      calories: (dish.foodValue.calories * servingSize) / 100,
+      proteins: ((dish.proteins ?? 0) * portion) / 100,
+      fats: ((dish.fats ?? 0) * portion) / 100,
+      carbs: ((dish.carbs ?? 0) * portion) / 100,
+      calories: ((dish.calories ?? 0) * portion) / 100,
     };
   },
 

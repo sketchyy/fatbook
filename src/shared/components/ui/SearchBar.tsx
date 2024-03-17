@@ -1,9 +1,15 @@
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { FaSearch, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
 import "./SearchBar.css";
 
-function SearchBar({ defaultValue, onChange, isLoading = false }) {
+type Props = {
+  defaultValue?: string;
+  isLoading?: boolean;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+function SearchBar({ defaultValue, onChange, isLoading = false }: Props) {
   const timeout = useRef<NodeJS.Timeout>();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState(defaultValue ?? "");

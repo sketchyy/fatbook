@@ -1,9 +1,9 @@
 import NavLinkTab from "@/shared/components/ui/NavLinkTab";
-import { Fragment } from "react";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import dishesService from "@/services/dishes-service";
+import { isNull } from "@/utils/is-null";
 
 function DishPage() {
   const navigate = useNavigate();
@@ -14,9 +14,14 @@ function DishPage() {
     queryFn: () => dishesService.getDish(params.id!),
   });
   const deleteDish = useMutation(dishesService.deleteDish);
+  const isCreate = isNull(params.id);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
+  }
+
+  if (isNull(dish)) {
+    return <div>No data found.</div>;
   }
 
   const handleBackClick = () => {
@@ -50,7 +55,7 @@ function DishPage() {
             Ingredients ({dish?.ingredients.length ?? 0})
           </NavLinkTab>
         </ul>
-        {dish && (
+        {!isCreate && (
           <button
             type="submit"
             className="button is-text"

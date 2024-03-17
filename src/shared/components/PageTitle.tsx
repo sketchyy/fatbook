@@ -3,7 +3,7 @@ import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 interface PageTitleProps {
-  title: string;
+  title?: string;
   subtitle?: string;
   backPath?: number;
   children?: ReactNode;
@@ -29,14 +29,6 @@ function PageTitle({ title, subtitle, backPath, children }: PageTitleProps) {
       </div>
       <div className="column is-narrow">{children}</div>
     </div>
-
-    // <div className="block is-flex is-align-items-center">
-    //   <div className=" is-flex-grow-1">
-    //     <p className="title is-size-5">{title}</p>
-    //     <p className="subtitle is-size-6">{subtitle}</p>
-    //   </div>
-    //   {children}
-    // </div>
   );
 }
 
