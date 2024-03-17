@@ -40,7 +40,7 @@ function SelectDishPortionsForm({
 
   const handleAddClick = (portion: DishPortion) => {
     portion.tempId = uuidService.get();
-    // Only for rendering, actual submitted calculated in indredients-service.
+    // Only for rendering, actual submitted calculated in ingredients-service.
     const foodValue = foodValueService.calculateFoodValueForPortion(portion);
     portion = { ...portion, ...foodValue };
 
@@ -55,7 +55,7 @@ function SelectDishPortionsForm({
   };
 
   const handleUpdateClick = (portion: DishPortion) => {
-    // Only for rendering, actual submitted calculated in indredients-service.
+    // Only for rendering, actual submitted calculated in ingredients-service.
     const foodValue = foodValueService.calculateFoodValueForPortion(portion);
     portion = { ...portion, ...foodValue };
 

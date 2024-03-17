@@ -6,7 +6,6 @@ type SimplifiedDish = Omit<
   "createdAt" | "updatedAt" | "cookedWeight"
 >;
 
-/* Used in UI */
 export type DishPortion = {
   id?: number;
   proteins: number;

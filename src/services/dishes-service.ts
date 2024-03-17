@@ -1,7 +1,9 @@
 import { supabase } from "@/utils/supabase";
 import dateService from "@/shared/services/dateService";
-import { Dish, mapDishToUi, NewDish, UpdateDish } from "@/types/dish";
+import { Dish } from "@/types/dish";
 import { isNull } from "@/utils/is-null";
+import { DishPortion } from "@/types/dish-portion";
+import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
 async function getDish(id: number): Promise<Dish | null> {
   const { data: dish } = await supabase
@@ -46,12 +48,15 @@ async function searchDishes(query: string): Promise<Dish[]> {
     .map((d) => mapDishToUi(d)) as Dish[];
 }
 
-async function createDish(dish: NewDish) {
+async function createDish(dish: TablesInsert<"dishes">) {
   const { data } = await supabase.from("dishes").insert(dish).select();
   return data ? data[0] : null;
 }
 
-async function updateDish(id: number, dish: UpdateDish): Promise<Dish | null> {
+async function updateDish(
+  id: number,
+  dish: TablesUpdate<"dishes">,
+): Promise<Dish | null> {
   const { data } = await supabase
     .from("dishes")
     .update({
@@ -66,6 +71,29 @@ async function updateDish(id: number, dish: UpdateDish): Promise<Dish | null> {
 
 async function deleteDish(id: number) {
   return supabase.from("dishes").delete().eq("id", id);
+}
+
+function mapDishToUi(dish: any): Dish | null {
+  if (isNull(dish)) {
+    return null;
+  }
+
+  if (isWithIngredients(dish)) {
+    dish.ingredients.sort(
+      (a: DishPortion, b: DishPortion) =>
+        a.dish.name?.localeCompare(b.dish.name!) ?? 0,
+    );
+    return dish;
+  }
+
+  return {
+    ...(dish as any),
+    ingredients: [],
+  };
+}
+
+function isWithIngredients(dish: any): dish is Dish {
+  return !!(dish as Dish)?.ingredients;
 }
 
 export default {
