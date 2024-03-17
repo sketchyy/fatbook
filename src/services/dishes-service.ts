@@ -3,7 +3,11 @@ import dateService from "@/shared/services/dateService";
 import { Dish } from "@/types/dish";
 import { isNull } from "@/utils/is-null";
 import { DishPortion } from "@/types/dish-portion";
-import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
+import { Tables, TablesInsert, TablesUpdate } from "@/types/supabase.types";
+
+type DishModel = Omit<Tables<"dishes">, "createdAt" | "updatedAt"> & {
+  ingredients?: Tables<"dishIngredients">[];
+};
 
 async function getDish(id: number): Promise<Dish | null> {
   const { data: dish } = await supabase
@@ -73,7 +77,7 @@ async function deleteDish(id: number) {
   return supabase.from("dishes").delete().eq("id", id);
 }
 
-function mapDishToUi(dish: any): Dish | null {
+function mapDishToUi(dish: DishModel | null): Dish | null {
   if (isNull(dish)) {
     return null;
   }
@@ -92,7 +96,7 @@ function mapDishToUi(dish: any): Dish | null {
   };
 }
 
-function isWithIngredients(dish: any): dish is Dish {
+function isWithIngredients(dish: DishModel | Dish | null): dish is Dish {
   return !!(dish as Dish)?.ingredients;
 }
 

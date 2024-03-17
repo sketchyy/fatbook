@@ -11,7 +11,7 @@ function DishPage() {
   const params = useParams();
   const { data: dish, isLoading } = useQuery({
     queryKey: ["dish", +params.id!],
-    queryFn: () => dishesService.getDish(params.id!),
+    queryFn: () => dishesService.getDish(+params.id!),
   });
   const deleteDish = useMutation(dishesService.deleteDish);
   const isCreate = isNull(params.id);

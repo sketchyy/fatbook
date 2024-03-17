@@ -8,6 +8,6 @@ export type Dish = {
   carbs: number;
   calories: number;
   cookedWeight?: number | null;
-  defaultPortion?: number | null;
+  defaultPortion: number | null;
   ingredients: DishPortion[];
 };
