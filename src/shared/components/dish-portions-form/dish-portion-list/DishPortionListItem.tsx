@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
 import { FaCheck, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
-import { DishPortionInputs } from "@/types/dish-portion";
+import { DishPortion } from "@/types/dish-portion";
 
 type Props = {
   focused: boolean;
-  dishPortion: DishPortionInputs;
-  onAdd: (p: DishPortionInputs) => void;
-  onUpdate: (p: DishPortionInputs) => void;
-  onDelete: (p: DishPortionInputs) => void;
-  isAdded: (p: DishPortionInputs) => boolean;
+  dishPortion: DishPortion;
+  onAdd: (p: DishPortion) => void;
+  onUpdate: (p: DishPortion) => void;
+  onDelete: (p: DishPortion) => void;
+  isAdded: (p: DishPortion) => boolean;
 };
 
 function DishPortionListItem({

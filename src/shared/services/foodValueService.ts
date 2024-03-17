@@ -1,8 +1,14 @@
 import DishClass from "@/shared/models/DishClass";
-import { DishPortionInputs, DishPortionLight } from "@/types/dish-portion";
+import { DishPortion } from "@/types/dish-portion";
 import { NutritionFacts } from "@/types/nutrition-facts";
+import { Tables } from "@/types/supabase.types";
 
-export function calculateFoodValue(eating: DishPortionInputs): NutritionFacts {
+type DishPortionLight = Pick<
+  Tables<"dishIngredients">,
+  "proteins" | "fats" | "carbs" | "calories" | "portion"
+>;
+
+export function calculateFoodValue(eating: DishPortion): NutritionFacts {
   if (!eating.dish || !eating.portion) {
     return foodValueService.emptyFoodValue();
   }
@@ -54,7 +60,7 @@ const foodValueService = {
     };
   },
 
-  calculateFoodValueForPortion({ dish, portion }: DishPortionInputs) {
+  calculateFoodValueForPortion({ dish, portion }: DishPortion) {
     portion = portion ?? 0;
 
     return {

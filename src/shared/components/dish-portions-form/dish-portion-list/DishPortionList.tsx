@@ -5,15 +5,15 @@ import Divider from "../../ui/Divider";
 import DishPortionListItem from "./DishPortionListItem";
 import DishPortionTitle from "./DishPortionTitle";
 import { isNull } from "@/utils/is-null";
-import { DishPortionInputs } from "@/types/dish-portion";
+import { DishPortion } from "@/types/dish-portion";
 import { clsx } from "clsx";
 
 interface Props {
-  dishPortions?: DishPortionInputs[];
-  onAdd?: (p: DishPortionInputs) => void;
-  onUpdate: (p: DishPortionInputs) => void;
-  onDelete: (p: DishPortionInputs) => void;
-  isAdded: (p: DishPortionInputs) => boolean;
+  dishPortions?: DishPortion[];
+  onAdd?: (p: DishPortion) => void;
+  onUpdate: (p: DishPortion) => void;
+  onDelete: (p: DishPortion) => void;
+  isAdded: (p: DishPortion) => boolean;
 }
 
 function DishPortionList({
@@ -41,19 +41,19 @@ function DishPortionList({
     setActiveIndex(-1);
   }
 
-  const handleAdd = (portion: DishPortionInputs) => {
+  const handleAdd = (portion: DishPortion) => {
     setActiveIndex(-1);
     if (onAdd) {
       onAdd(portion);
     }
   };
 
-  const handleUpdate = (portion: DishPortionInputs) => {
+  const handleUpdate = (portion: DishPortion) => {
     setActiveIndex(-1);
     onUpdate(portion);
   };
 
-  const handleDelete = (portion: DishPortionInputs) => {
+  const handleDelete = (portion: DishPortion) => {
     setActiveIndex(-1);
     onDelete(portion);
   };

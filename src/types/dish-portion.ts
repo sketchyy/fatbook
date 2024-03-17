@@ -1,5 +1,4 @@
-import { Tables, TablesInsert, TablesUpdate } from "@/types/supabase.types";
-import { Dish } from "@/types/dish";
+import { Tables } from "@/types/supabase.types";
 
 /* Used for dish portions only */
 type SimplifiedDish = Omit<
@@ -7,33 +6,14 @@ type SimplifiedDish = Omit<
   "createdAt" | "updatedAt" | "cookedWeight"
 >;
 
-export type DishPortionInputs = {
-  tempId?: string;
-  proteins?: number;
-  fats?: number;
-  carbs?: number;
-  calories?: number;
+/* Used in UI */
+export type DishPortion = {
+  id?: number;
+  proteins: number;
+  fats: number;
+  carbs: number;
+  calories: number;
   portion?: number;
   dish: SimplifiedDish;
   selected: boolean;
 };
-
-export type DishPortion = Omit<
-  Tables<"dishIngredients">,
-  "dish" | "createdAt" | "parentDish"
-> & {
-  dish: SimplifiedDish;
-};
-
-export type DishPortionLight = Pick<
-  Tables<"dishIngredients">,
-  "proteins" | "fats" | "carbs" | "calories" | "portion"
->;
-
-export function mapDishToPortionInputs(dish: Dish): DishPortionInputs {
-  const { ingredients, ...simplifiedDish } = dish;
-  return {
-    selected: false,
-    dish: simplifiedDish,
-  };
-}

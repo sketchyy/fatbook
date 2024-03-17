@@ -8,6 +8,7 @@ export type NewDish = TablesInsert<"dishes">;
 
 export type UpdateDish = TablesUpdate<"dishes">;
 
+/* TODO: Think to make it required. */
 export type Dish = Omit<Tables<"dishes">, "createdAt" | "updatedAt"> & {
   ingredients: DishPortion[];
 };
@@ -18,6 +19,10 @@ export function mapDishToUi(dish: Dish | DishModel | null): Dish | null {
   }
 
   if (isWithIngredients(dish)) {
+    dish.ingredients.sort(
+      (a: DishPortion, b: DishPortion) =>
+        a.dish.name?.localeCompare(b.dish.name!) ?? 0,
+    );
     return dish;
   }
 

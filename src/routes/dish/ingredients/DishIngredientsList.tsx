@@ -7,9 +7,9 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import { Dish } from "@/types/dish";
 import { useMutation, useQueryClient } from "react-query";
 import ingredientsService from "@/services/ingredients-service";
-import { DishPortionInputs } from "@/types/dish-portion";
+import { DishPortion } from "@/types/dish-portion";
 
-type MutationArg = { dish: Dish; ingredient: DishPortionInputs };
+type MutationArg = { dish: Dish; ingredient: DishPortion };
 
 function DishIngredientsList() {
   const navigate = useNavigate();
@@ -34,11 +34,11 @@ function DishIngredientsList() {
     navigate("add", { state: { backUrl: `/dishes/${dish.id}/ingredients` } });
   };
 
-  const handleUpgradeIngredient = async (ingredient: DishPortionInputs) => {
+  const handleUpgradeIngredient = async (ingredient: DishPortion) => {
     updateIngredient.mutate({ dish, ingredient });
   };
 
-  const handleDeleteIngredient = async (ingredient: DishPortionInputs) => {
+  const handleDeleteIngredient = async (ingredient: DishPortion) => {
     setConfirm({
       visible: true,
       accept: async () => {

@@ -4,18 +4,16 @@ import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
 import DishPortionList from "./dish-portion-list/DishPortionList";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
-import {
-  DishPortionInputs,
-  mapDishToPortionInputs,
-} from "@/types/dish-portion";
+import { DishPortion } from "@/types/dish-portion";
 import uuidService from "@/shared/services/uuidService";
+import { Dish } from "@/types/dish";
 
 type Props = {
   title: string;
   subtitle: string;
-  onAdd: (ingredient: DishPortionInputs) => void;
-  onDelete: (ingredient: DishPortionInputs) => void;
-  onUpdate?: (ingredient: DishPortionInputs) => void;
+  onAdd: (ingredient: DishPortion) => void;
+  onDelete: (ingredient: DishPortion) => void;
+  onUpdate?: (ingredient: DishPortion) => void;
 };
 
 function SelectDishPortionsForm({
@@ -26,15 +24,13 @@ function SelectDishPortionsForm({
   onDelete,
 }: Props) {
   const { dishes, isLoading, query, runSearch } = useDishesSearch();
-  const [selectedPortions, setSelectedPortions] = useState<DishPortionInputs[]>(
-    [],
-  );
+  const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
 
-  const dishPortions: DishPortionInputs[] = dishes.map((d) =>
+  const dishPortions: DishPortion[] = dishes.map((d) =>
     mapDishToPortionInputs(d),
   );
   const selectedIds = selectedPortions.map((p) => p.dish.id);
-  const renderedPortions: DishPortionInputs[] = [
+  const renderedPortions: DishPortion[] = [
     ...selectedPortions,
     ...dishPortions.filter((portion) => !selectedIds.includes(portion.dish.id)),
   ];
@@ -42,7 +38,7 @@ function SelectDishPortionsForm({
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>
     runSearch(event.target.value);
 
-  const handleAddClick = (portion: DishPortionInputs) => {
+  const handleAddClick = (portion: DishPortion) => {
     portion.tempId = uuidService.get();
     // Only for rendering, actual submitted calculated in indredients-service.
     const foodValue = foodValueService.calculateFoodValueForPortion(portion);
@@ -58,7 +54,7 @@ function SelectDishPortionsForm({
     onAdd(portion);
   };
 
-  const handleUpdateClick = (portion: DishPortionInputs) => {
+  const handleUpdateClick = (portion: DishPortion) => {
     // Only for rendering, actual submitted calculated in indredients-service.
     const foodValue = foodValueService.calculateFoodValueForPortion(portion);
     portion = { ...portion, ...foodValue };
@@ -106,10 +102,28 @@ function SelectDishPortionsForm({
           onDelete={handleDeleteClick}
           isAdded={(p) => p.selected}
         />
-        <pre>{JSON.stringify(renderedPortions, null, 2)}</pre>
       </div>
     </div>
   );
+}
+
+function mapDishToPortionInputs(dish: Dish): DishPortion {
+  return {
+    proteins: dish.proteins!,
+    fats: dish.fats!,
+    carbs: dish.carbs!,
+    calories: dish.calories!,
+    dish: {
+      id: dish.id,
+      name: dish.name,
+      proteins: dish.proteins,
+      fats: dish.fats,
+      carbs: dish.carbs,
+      calories: dish.calories,
+      defaultPortion: dish.defaultPortion,
+    },
+    selected: false,
+  };
 }
 
 export default SelectDishPortionsForm;

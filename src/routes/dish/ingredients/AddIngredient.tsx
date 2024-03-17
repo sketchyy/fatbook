@@ -1,13 +1,11 @@
-import dishesServiceOld from "@/core/firebase/dishesServiceOld";
 import SelectDishPortionsForm from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
 import { useOutletContext } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 import { Dish } from "@/types/dish";
-import { DishPortionInputs } from "@/types/dish-portion";
+import { DishPortion } from "@/types/dish-portion";
 import ingredientsService from "@/services/ingredients-service";
-import insert from "react-hook-form/dist/utils/insert";
 
-type MutationArg = { dish: Dish; ingredient: DishPortionInputs };
+type MutationArg = { dish: Dish; ingredient: DishPortion };
 
 function AddIngredient() {
   const { dish } = useOutletContext<{ dish: Dish }>();
@@ -29,15 +27,15 @@ function AddIngredient() {
     { onSuccess },
   );
 
-  const handleAddIngredients = async (ingredient: DishPortionInputs) => {
+  const handleAddIngredients = async (ingredient: DishPortion) => {
     addIngredient.mutate({ dish, ingredient });
   };
 
-  const handleUpgradeIngredient = async (ingredient: DishPortionInputs) => {
+  const handleUpgradeIngredient = async (ingredient: DishPortion) => {
     updateIngredient.mutate({ dish, ingredient });
   };
 
-  const handleDeleteIngredient = async (ingredient: DishPortionInputs) => {
+  const handleDeleteIngredient = async (ingredient: DishPortion) => {
     deleteIngredient.mutate({ dish, ingredient });
   };
 

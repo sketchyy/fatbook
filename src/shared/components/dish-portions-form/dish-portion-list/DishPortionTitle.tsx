@@ -1,18 +1,14 @@
 import { FaCheckCircle } from "react-icons/fa";
 import DishIcon from "../../dish/DishIcon";
 import FoodValue from "../../FoodValue";
-import { NutritionFacts } from "@/types/nutrition-facts";
-import { DishPortionInputs } from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
+import { DishPortion } from "@/types/dish-portion";
 
 type Props = {
-  dishPortion: DishPortionInputs;
+  dishPortion: DishPortion;
 };
 
 function DishPortionTitle({ dishPortion }: Props) {
   const noName = !dishPortion.dish.name;
-  const nutritionFactsSource = (
-    dishPortion.portion ? dishPortion : dishPortion.dish
-  ) as NutritionFacts;
 
   return (
     <div
@@ -39,10 +35,10 @@ function DishPortionTitle({ dishPortion }: Props) {
                 <div className="is-flex is-justify-content-space-between">
                   <FoodValue
                     className="mb-0 is-size-7 is-justify-content-flex-start"
-                    proteins={nutritionFactsSource.proteins}
-                    fats={nutritionFactsSource.fats}
-                    carbs={nutritionFactsSource.carbs}
-                    calories={nutritionFactsSource.calories}
+                    proteins={dishPortion.proteins}
+                    fats={dishPortion.fats}
+                    carbs={dishPortion.carbs}
+                    calories={dishPortion.calories}
                   />
                   {dishPortion.portion && (
                     <strong className="is-size-7">
