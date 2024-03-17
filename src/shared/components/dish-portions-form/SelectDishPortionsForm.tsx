@@ -5,7 +5,6 @@ import SearchBar from "../ui/SearchBar";
 import DishPortionList from "./dish-portion-list/DishPortionList";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { DishPortion } from "@/types/dish-portion";
-import uuidService from "@/shared/services/uuidService";
 import { Dish } from "@/types/dish";
 
 type Props = {
@@ -39,7 +38,6 @@ function SelectDishPortionsForm({
     runSearch(event.target.value);
 
   const handleAddClick = (portion: DishPortion) => {
-    portion.tempId = uuidService.get();
     // Only for rendering, actual submitted calculated in ingredients-service.
     const foodValue = foodValueService.calculateFoodValueForPortion(portion);
     portion = { ...portion, ...foodValue };
@@ -60,7 +58,7 @@ function SelectDishPortionsForm({
     portion = { ...portion, ...foodValue };
 
     const portionIndex = selectedPortions.findIndex(
-      (p) => p.tempId === portion.tempId,
+      (p) => p.dish.id === portion.dish.id,
     );
     if (portionIndex > -1) {
       selectedPortions[portionIndex] = portion;
