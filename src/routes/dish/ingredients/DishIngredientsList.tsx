@@ -1,4 +1,3 @@
-import dishesServiceOld from "@/core/firebase/dishesServiceOld";
 import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
 import PageTitle from "@/shared/components/PageTitle";
 import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
@@ -6,34 +5,45 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { Dish } from "@/types/dish";
+import { useMutation, useQueryClient } from "react-query";
+import ingredientsService from "@/services/ingredients-service";
+import { DishPortionInputs } from "@/types/dish-portion";
+
+type MutationArg = { dish: Dish; ingredient: DishPortionInputs };
 
 function DishIngredientsList() {
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
-
+  const queryClient = useQueryClient();
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
+  const onSuccess = () => queryClient.invalidateQueries("dish");
+  const updateIngredient = useMutation(
+    ({ dish, ingredient }: MutationArg) =>
+      ingredientsService.updateIngredient(dish, ingredient),
+    { onSuccess },
+  );
+  const deleteIngredient = useMutation(
+    ({ dish, ingredient }: MutationArg) =>
+      ingredientsService.deleteIngredient(dish, ingredient),
+    { onSuccess },
+  );
 
   const handleAdd = (e) => {
     navigate("add", { state: { backUrl: `/dishes/${dish.id}/ingredients` } });
   };
 
-  const handleIngredientUpdate = async (ingredient) => {
-    dish.updateIngredient(ingredient);
-
-    await dishesServiceOld.replaceDish(dish);
+  const handleUpgradeIngredient = async (ingredient: DishPortionInputs) => {
+    updateIngredient.mutate({ dish, ingredient });
   };
 
-  const handleIngredientDelete = async (ingredient) => {
+  const handleDeleteIngredient = async (ingredient: DishPortionInputs) => {
     setConfirm({
       visible: true,
       accept: async () => {
+        deleteIngredient.mutate({ dish, ingredient });
         setConfirm({ visible: false });
-
-        dish.deleteIngredient(ingredient);
-
-        await dishesServiceOld.replaceDish(dish);
       },
     });
   };
@@ -51,8 +61,8 @@ function DishIngredientsList() {
 
       <EditDishPortionsForm
         dishPortions={dish.ingredients}
-        onSave={handleIngredientUpdate}
-        onDelete={handleIngredientDelete}
+        onSave={handleUpgradeIngredient}
+        onDelete={handleDeleteIngredient}
       />
 
       <Confirm

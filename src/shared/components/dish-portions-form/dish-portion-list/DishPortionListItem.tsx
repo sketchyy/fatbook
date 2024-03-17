@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { FaCheck, FaPlus, FaTimes } from "react-icons/fa";
 import { Form } from "react-router-dom";
-import { DishPortionInputs } from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
+import { DishPortionInputs } from "@/types/dish-portion";
 
 type Props = {
   focused: boolean;

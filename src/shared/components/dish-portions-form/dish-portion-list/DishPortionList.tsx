@@ -5,7 +5,8 @@ import Divider from "../../ui/Divider";
 import DishPortionListItem from "./DishPortionListItem";
 import DishPortionTitle from "./DishPortionTitle";
 import { isNull } from "@/utils/is-null";
-import { DishPortion, DishPortionInputs } from "@/types/dish-portion";
+import { DishPortionInputs } from "@/types/dish-portion";
+import { clsx } from "clsx";
 
 interface Props {
   dishPortions?: DishPortionInputs[];
@@ -69,10 +70,9 @@ function DishPortionList({
           <AccordionItem
             key={dishPortion.dish.id + "-" + i}
             title={<DishPortionTitle dishPortion={dishPortion} />}
-            className={
-              "has-border-bottom-grey " +
-              (dishPortion.selected ? "has-background-success-light" : "")
-            }
+            className={clsx("has-border-bottom-grey", {
+              "has-background-success-light": dishPortion.selected,
+            })}
             selectedClassName="has-background-info-light"
           >
             <DishPortionListItem

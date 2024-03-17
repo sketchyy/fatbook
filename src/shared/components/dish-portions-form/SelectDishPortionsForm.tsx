@@ -44,7 +44,7 @@ function SelectDishPortionsForm({
 
   const handleAddClick = (portion: DishPortionInputs) => {
     portion.tempId = uuidService.get();
-    // Only for rendering, actual submitted calculated in logDay.
+    // Only for rendering, actual submitted calculated in indredients-service.
     const foodValue = foodValueService.calculateFoodValueForPortion(portion);
     portion = { ...portion, ...foodValue };
 
@@ -59,9 +59,9 @@ function SelectDishPortionsForm({
   };
 
   const handleUpdateClick = (portion: DishPortionInputs) => {
-    // Only for rendering, actual submitted calculated in logDay.
-    portion.totalFoodValue =
-      foodValueService.calculateFoodValueForPortion(portion);
+    // Only for rendering, actual submitted calculated in indredients-service.
+    const foodValue = foodValueService.calculateFoodValueForPortion(portion);
+    portion = { ...portion, ...foodValue };
 
     const portionIndex = selectedPortions.findIndex(
       (p) => p.tempId === portion.tempId,
@@ -106,6 +106,7 @@ function SelectDishPortionsForm({
           onDelete={handleDeleteClick}
           isAdded={(p) => p.selected}
         />
+        <pre>{JSON.stringify(renderedPortions, null, 2)}</pre>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ function EditDishPortionsForm({ dishPortions, onSave, onDelete }: Props) {
 
   return (
     <DishPortionList
-      dishPortions={dishPortions}
+      dishPortions={dishPortions as any}
       onUpdate={handleSaveClick}
       onDelete={handleDeleteClick}
       isAdded={(p) => true}
