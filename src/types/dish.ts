@@ -9,5 +9,6 @@ export type Dish = {
   calories: number;
   cookedWeight?: number | null;
   defaultPortion: number | null;
+  hasIngredients: boolean;
   ingredients: DishPortion[];
 };

@@ -1,7 +1,7 @@
 import { Tables } from "@/types/supabase.types";
 
 /* Used for dish portions only */
-type SimplifiedDish = Omit<
+export type SimplifiedDish = Omit<
   Tables<"dishes">,
   "createdAt" | "updatedAt" | "cookedWeight"
 >;

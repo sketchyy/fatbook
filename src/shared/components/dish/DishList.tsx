@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from "react";
 import Divider from "../ui/Divider";
 import DishInfo from "./DishInfo";
+import { Dish } from "@/types/dish";
 
-function DishListItem({ dish, onClick }) {
+type ListItemProps = { dish: Dish; onClick: (dish: Dish) => void };
+
+function DishListItem({ dish, onClick }: ListItemProps) {
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(false);
   const noName = !dish.name;
@@ -32,10 +35,14 @@ function DishListItem({ dish, onClick }) {
   );
 }
 
-// TODO: early return, use <>
-function DishList({ dishes, onDishClick }) {
+type Props = {
+  dishes: Dish[];
+  onDishClick: (dish: Dish) => void;
+};
+
+function DishList({ dishes, onDishClick }: Props) {
   return (
-    <Fragment>
+    <>
       <Divider />
 
       {dishes.length === 0 && (
@@ -48,7 +55,7 @@ function DishList({ dishes, onDishClick }) {
           <Divider />
         </Fragment>
       ))}
-    </Fragment>
+    </>
   );
 }
 

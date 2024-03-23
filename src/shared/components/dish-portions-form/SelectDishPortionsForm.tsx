@@ -118,6 +118,7 @@ function mapDishToPortionInputs(dish: Dish): DishPortion {
       fats: dish.fats,
       carbs: dish.carbs,
       calories: dish.calories,
+      hasIngredients: dish.hasIngredients,
       defaultPortion: dish.defaultPortion,
     },
     selected: false,

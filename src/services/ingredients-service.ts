@@ -59,6 +59,7 @@ async function updateDish(dish: Dish) {
   // Update dish table
   await dishesService.updateDish(dish.id, {
     name: dish.name,
+    hasIngredients: Boolean(ingredients && ingredients.length > 0),
     ...dishFoodValue,
   });
 }

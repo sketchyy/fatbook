@@ -1,15 +1,16 @@
 import { Dish } from "@/types/dish";
+import { clsx } from "clsx";
+import { SimplifiedDish } from "@/types/dish-portion";
 
 type Props = {
-  dish: Dish;
+  dish: Dish | SimplifiedDish;
   className: string;
 };
 
 function DishIcon({ dish, className }: Props) {
-  const renderedIcon =
-    dish.ingredients && dish.ingredients.length > 0 ? "🥘" : "🥫";
+  const renderedIcon = dish.hasIngredients ? "🥘" : "🥫";
 
-  return <span className={"is-size-4 " + className}>{renderedIcon}</span>;
+  return <span className={clsx("is-size-4", className)}>{renderedIcon}</span>;
 }
 
 export default DishIcon;
