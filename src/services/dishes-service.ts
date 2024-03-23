@@ -21,6 +21,7 @@ async function getDish(id: number): Promise<Dish | null> {
         carbs,
         calories,
         defaultPortion,
+        hasIngredients,
         cookedWeight,
         ingredients:dishIngredients!public_dishIngredients_ingredient_fkey (
           *,
