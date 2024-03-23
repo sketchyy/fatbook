@@ -40,16 +40,22 @@ function EditDish(props) {
   };
   const onCancel = () => navigate("/dishes");
 
-  const format = (numb: number): number | null => {
+  const format = (numb: number | string): number | null => {
     if (!dish.name) {
       return null;
     }
 
-    if (dish.hasIngredients()) {
-      return Math.round(numb);
+    const parsed = typeof numb === "string" ? parseFloat(numb) : numb;
+
+    if (isNaN(parsed)) {
+      return null;
     }
 
-    return parseFloat(numb.toPrecision(2));
+    if (dish.hasIngredients()) {
+      return Math.round(parsed);
+    }
+
+    return parseFloat(parsed.toPrecision(2));
   };
 
   const handleNameChange = ({ target }) => {
