@@ -1,4 +1,4 @@
-import eatingsService from "@/core/firebase/eatingsService";
+import eatingsServiceOld from "@/core/firebase/eatingsServiceOld";
 import Accordion, { AccordionItem } from "@/shared/components/ui/Accordion";
 import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
 import { Meals } from "@/shared/models/Meals";
@@ -19,11 +19,11 @@ function MealCards({ activeIndex, setActiveIndex }: MealCardsProps) {
   });
 
   const handleDaySave = async (meal, portion) => {
-    const logDay = await eatingsService.getOrCreateLogDay(day);
+    const logDay = await eatingsServiceOld.getOrCreateLogDay(day);
 
     logDay.updateEating(meal, portion);
 
-    await eatingsService.replaceLogDay(day, logDay);
+    await eatingsServiceOld.replaceLogDay(day, logDay);
   };
 
   const handleAddEatingDelete = async (meal, portion) => {
@@ -31,11 +31,11 @@ function MealCards({ activeIndex, setActiveIndex }: MealCardsProps) {
       visible: true,
       accept: async () => {
         setConfirm({ visible: false });
-        const logDay = await eatingsService.getOrCreateLogDay(day);
+        const logDay = await eatingsServiceOld.getOrCreateLogDay(day);
 
         logDay.deleteEating(meal, portion);
 
-        await eatingsService.replaceLogDay(day, logDay);
+        await eatingsServiceOld.replaceLogDay(day, logDay);
       },
     });
   };

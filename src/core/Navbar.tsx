@@ -2,7 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import CurrentUser from "./auth/CurrentUser";
 
-function Navbar(props) {
+function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const getNavLinkClass = ({ isActive }) =>
     "navbar-item" + (isActive ? " is-active" : "");

@@ -102,6 +102,63 @@ export type Database = {
           },
         ]
       }
+      eatings: {
+        Row: {
+          calories: number
+          carbs: number
+          created_at: string
+          day: string
+          dish: number
+          fats: number
+          id: number
+          meal: Database["public"]["Enums"]["meal"]
+          portion: number
+          proteins: number
+          user: string
+        }
+        Insert: {
+          calories: number
+          carbs: number
+          created_at?: string
+          day: string
+          dish: number
+          fats: number
+          id?: number
+          meal: Database["public"]["Enums"]["meal"]
+          portion: number
+          proteins: number
+          user?: string
+        }
+        Update: {
+          calories?: number
+          carbs?: number
+          created_at?: string
+          day?: string
+          dish?: number
+          fats?: number
+          id?: number
+          meal?: Database["public"]["Enums"]["meal"]
+          portion?: number
+          proteins?: number
+          user?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_eatings_dish_fkey"
+            columns: ["dish"]
+            isOneToOne: false
+            referencedRelation: "dishes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_eatings_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -110,7 +167,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      meal: "breakfast" | "lunch" | "dinner" | "snack"
     }
     CompositeTypes: {
       [_ in never]: never

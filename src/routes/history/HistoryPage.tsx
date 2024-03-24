@@ -1,4 +1,4 @@
-import eatingsService from "@/core/firebase/eatingsService";
+import eatingsServiceOld from "@/core/firebase/eatingsServiceOld";
 import FoodValue from "@/shared/components/FoodValue";
 import DatePicker from "@/shared/components/ui/DatePicker";
 import Message from "@/shared/components/ui/Message";
@@ -18,7 +18,7 @@ function HistoryPage() {
   const [showGoal, setShowGoal] = useState(false);
   const [chartData, setChartData] = useState<any[]>([]);
   const [dietGoal, setDietGoal] = useState<NutritionFacts>(
-    userSettings.dailyDietGoal
+    userSettings.dailyDietGoal,
   );
   const [dateRange, setDateRange] = useState([
     dateService.subtractDays(dateService.now(), 7),
@@ -27,7 +27,7 @@ function HistoryPage() {
   const [startDate, endDate] = dateRange;
   const selectedDays = dateService.getDaysBetween(startDate, endDate);
   const [totalFoodValue, setTotalFoodValue] = useState<NutritionFacts>(
-    foodValueService.emptyFoodValue()
+    foodValueService.emptyFoodValue(),
   );
   const dietGoalDiff: NutritionFacts = {
     proteins: totalFoodValue.proteins - dietGoal.proteins,
@@ -41,8 +41,8 @@ function HistoryPage() {
     const fetchData = async () => {
       const logDays = await Promise.all(
         selectedDays.map(
-          async (day) => await eatingsService.getOrCreateLogDay(day)
-        )
+          async (day) => await eatingsServiceOld.getOrCreateLogDay(day),
+        ),
       );
       setChartData(
         logDays.map((logDay) => ({
@@ -51,11 +51,11 @@ function HistoryPage() {
           proteins: Math.round(logDay.totalFoodValue.proteins),
           fats: Math.round(logDay.totalFoodValue.fats),
           carbs: Math.round(logDay.totalFoodValue.carbs),
-        }))
+        })),
       );
 
       setTotalFoodValue(
-        foodValueService.sumFoodValues(logDays.map((ld) => ld.totalFoodValue))
+        foodValueService.sumFoodValues(logDays.map((ld) => ld.totalFoodValue)),
       );
 
       setDietGoal({

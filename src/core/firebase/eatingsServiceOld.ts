@@ -19,12 +19,12 @@ let logDaysRef;
 const unsubscribe = authService.subscribeToAuthChanged((user) => {
   console.log("dbserv = ", user);
   logDaysRef = collection(db, `users/${user?.uid}/log-days`).withConverter(
-    logDayConverter
+    logDayConverter,
   );
   unsubscribe();
 });
 
-const eatingsService = {
+const eatingsServiceOld = {
   async getOrCreateLogDay(date: string | undefined): Promise<LogDay> {
     const docRef = await getDoc(doc(logDaysRef, date));
     let logDayFromDb = docRef.data() as LogDay;
@@ -43,7 +43,7 @@ const eatingsService = {
     const id = dateService.format(day);
 
     const unsubscribe = onSnapshot(doc(logDaysRef, id), (doc) =>
-      onNext(doc.data())
+      onNext(doc.data()),
     );
 
     return unsubscribe;
@@ -58,4 +58,4 @@ const eatingsService = {
   },
 };
 
-export default eatingsService;
+export default eatingsServiceOld;

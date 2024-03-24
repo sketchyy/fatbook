@@ -16,3 +16,5 @@ export const Meals = {
     title: "Snack",
   },
 };
+
+export type MealType = keyof typeof Meals;

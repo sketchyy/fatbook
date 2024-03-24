@@ -1,33 +1,35 @@
-import eatingsService from "@/core/firebase/eatingsService";
+import eatingsService2 from "@/core/firebase/eatingsServiceOld";
 import SelectDishPortionsForm from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
 import dateService from "@/shared/services/dateService";
 import { useParams } from "react-router-dom";
+import { DishPortion } from "@/types/dish-portion";
+import { useAuth } from "@/contexts/Auth";
+import eatingsService from "@/services/eatings-service";
 
 function AddEatingForm() {
   const { day, meal } = useParams();
+  const { user } = useAuth();
 
-  const handleAddEatings = async (portion) => {
-    const logDay = await eatingsService.getOrCreateLogDay(day);
+  const handleAddEating = async (portion: DishPortion) => {
+    const userId = user?.id!;
 
-    logDay.addEatings(meal, [portion]);
-
-    await eatingsService.replaceLogDay(day, logDay);
+    await eatingsService.createEating(userId, day!, meal!, portion);
   };
 
   const handleUpdateEatings = async (portion) => {
-    const logDay = await eatingsService.getOrCreateLogDay(day);
+    const logDay = await eatingsService2.getOrCreateLogDay(day);
 
     logDay.updateEating(meal, portion);
 
-    await eatingsService.replaceLogDay(day, logDay);
+    await eatingsService2.replaceLogDay(day, logDay);
   };
 
   const handleDeleteEatings = async (portion) => {
-    const logDay = await eatingsService.getOrCreateLogDay(day);
+    const logDay = await eatingsService2.getOrCreateLogDay(day);
 
     logDay.deleteEating(meal, portion);
 
-    await eatingsService.replaceLogDay(day, logDay);
+    await eatingsService2.replaceLogDay(day, logDay);
   };
 
   const getSubtitle = () => {
@@ -48,7 +50,7 @@ function AddEatingForm() {
     <SelectDishPortionsForm
       title="Select Dish"
       subtitle={getSubtitle()}
-      onAdd={handleAddEatings}
+      onAdd={handleAddEating}
       onUpdate={handleUpdateEatings}
       onDelete={handleDeleteEatings}
     />
