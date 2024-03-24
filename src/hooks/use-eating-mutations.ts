@@ -5,9 +5,9 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "@/contexts/Auth";
 
 type UseEatingMutations = {
-  addEating: UseMutationResult<DishPortion, unknown, DishPortion>;
-  updateEating: UseMutationResult<DishPortion, unknown, DishPortion>;
-  deleteEating: UseMutationResult<void, unknown, DishPortion>;
+  add: UseMutationResult<DishPortion, unknown, DishPortion>;
+  update: UseMutationResult<DishPortion, unknown, DishPortion>;
+  remove: UseMutationResult<void, unknown, DishPortion>;
 };
 
 export function useEatingMutations(meal: string): UseEatingMutations {
@@ -17,25 +17,25 @@ export function useEatingMutations(meal: string): UseEatingMutations {
 
   const onSuccess = () => queryClient.invalidateQueries(["dailyEatings", day]);
 
-  const addEating = useMutation({
+  const add = useMutation({
     mutationFn: (portion: DishPortion) =>
       eatingsService.createEating(user?.id!, day!, meal!, portion),
     onSuccess,
   });
 
-  const updateEating = useMutation({
+  const update = useMutation({
     mutationFn: (portion: DishPortion) => eatingsService.updateEating(portion),
     onSuccess,
   });
 
-  const deleteEating = useMutation({
+  const remove = useMutation({
     mutationFn: (portion: DishPortion) => eatingsService.deleteEating(portion),
     onSuccess,
   });
 
   return {
-    addEating,
-    updateEating,
-    deleteEating,
+    add,
+    update,
+    remove,
   };
 }

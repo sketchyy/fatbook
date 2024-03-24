@@ -8,10 +8,10 @@ import { useEatingMutations } from "@/hooks/use-eating-mutations";
 function AddEatingForm() {
   const { day, meal } = useParams();
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
-  const { addEating, updateEating, deleteEating } = useEatingMutations(meal!);
+  const { add, update, remove } = useEatingMutations(meal!);
 
   const handleAddEating = async (portion: DishPortion) => {
-    addEating.mutate(portion, {
+    add.mutate(portion, {
       onSuccess: (response) => {
         setSelectedPortions((portions) => [...portions, response]);
       },
@@ -19,7 +19,7 @@ function AddEatingForm() {
   };
 
   const handleUpdateEatings = async (portion: DishPortion) => {
-    updateEating.mutate(portion, {
+    update.mutate(portion, {
       onSuccess: (response) => {
         setSelectedPortions((portions) =>
           portions.map((p) => (p.id === response.id ? response : p)),
@@ -29,7 +29,7 @@ function AddEatingForm() {
   };
 
   const handleDeleteEatings = async (portion: DishPortion) => {
-    deleteEating.mutate(portion, {
+    remove.mutate(portion, {
       onSuccess: () => {
         setSelectedPortions((portions) =>
           portions.filter((p) => p.id !== portion.id),

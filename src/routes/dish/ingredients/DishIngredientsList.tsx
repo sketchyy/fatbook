@@ -5,44 +5,30 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { Dish } from "@/types/dish";
-import { useMutation, useQueryClient } from "react-query";
-import ingredientsService from "@/services/ingredients-service";
 import { DishPortion } from "@/types/dish-portion";
-
-type MutationArg = { dish: Dish; ingredient: DishPortion };
+import { useIngredientMutations } from "@/hooks/use-ingredients-mutations";
 
 function DishIngredientsList() {
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
-  const queryClient = useQueryClient();
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
-  const onSuccess = () => queryClient.invalidateQueries("dish");
-  const updateIngredient = useMutation(
-    ({ dish, ingredient }: MutationArg) =>
-      ingredientsService.updateIngredient(dish, ingredient),
-    { onSuccess },
-  );
-  const deleteIngredient = useMutation(
-    ({ dish, ingredient }: MutationArg) =>
-      ingredientsService.deleteIngredient(dish, ingredient),
-    { onSuccess },
-  );
+  const { update, remove } = useIngredientMutations(dish);
 
   const handleAdd = (e) => {
     navigate("add", { state: { backUrl: `/dishes/${dish.id}/ingredients` } });
   };
 
   const handleUpgradeIngredient = async (ingredient: DishPortion) => {
-    updateIngredient.mutate({ dish, ingredient });
+    update.mutate(ingredient);
   };
 
   const handleDeleteIngredient = async (ingredient: DishPortion) => {
     setConfirm({
       visible: true,
       accept: async () => {
-        deleteIngredient.mutate({ dish, ingredient });
+        remove.mutate(ingredient);
         setConfirm({ visible: false });
       },
     });

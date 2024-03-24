@@ -16,10 +16,10 @@ function MealContent({ dailyEatings, meal }: Props) {
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
-  const { updateEating, deleteEating } = useEatingMutations(meal!);
+  const { update, remove } = useEatingMutations(meal!);
 
   const handleDaySave = async (portion: DishPortion) => {
-    updateEating.mutate(portion);
+    update.mutate(portion);
   };
 
   const handleAddEatingDelete = async (portion: DishPortion) => {
@@ -27,7 +27,7 @@ function MealContent({ dailyEatings, meal }: Props) {
       visible: true,
       accept: async () => {
         setConfirm({ visible: false });
-        deleteEating.mutate(portion);
+        remove.mutate(portion);
       },
     });
   };
