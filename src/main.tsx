@@ -26,7 +26,6 @@ import Login from "./routes/login/Login";
 import Root from "./routes/Root";
 import SettingsPage from "./routes/settings/SettingsPage";
 import RequireAuth from "./shared/components/RequireAuth";
-import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
 import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
 import dateService from "./shared/services/dateService";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -63,7 +62,6 @@ const router = createBrowserRouter([
           {
             path: ":meal/add",
             element: <AddEatingForm />,
-            loader: dishesSearchLoader,
           },
         ],
       },
@@ -87,7 +85,6 @@ const router = createBrowserRouter([
           {
             path: "ingredients/add",
             element: <AddIngredient />,
-            loader: dishesSearchLoader,
           },
         ],
       },
