@@ -4,7 +4,7 @@ import { NutritionFacts } from "@/types/nutrition-facts";
 import { Tables } from "@/types/supabase.types";
 
 type DishPortionLight = Pick<
-  Tables<"dishIngredients">,
+  Tables<"ingredients">,
   "proteins" | "fats" | "carbs" | "calories" | "portion"
 >;
 

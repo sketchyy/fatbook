@@ -6,7 +6,7 @@ import { DishPortion } from "@/types/dish-portion";
 import { Tables, TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
 type DishModel = Omit<Tables<"dishes">, "createdAt" | "updatedAt"> & {
-  ingredients?: Tables<"dishIngredients">[];
+  ingredients?: Tables<"ingredients">[];
 };
 
 async function getDish(id: number): Promise<Dish | null> {
@@ -23,7 +23,7 @@ async function getDish(id: number): Promise<Dish | null> {
         defaultPortion,
         hasIngredients,
         cookedWeight,
-        ingredients:dishIngredients!public_dishIngredients_ingredient_fkey (
+        ingredients!public_dishIngredients_ingredient_fkey (
           *,
           dish:dishes!public_dishIngredients_dish_fkey (*)
         )  

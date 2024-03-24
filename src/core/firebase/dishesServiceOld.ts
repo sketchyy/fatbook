@@ -100,7 +100,7 @@ const dishesServiceOld = {
   async addIngredient(dish: DishClass, ingredient: DishPortionOld) {
     await this.updateDish(dish.id!, dish.toForm());
 
-    return supabase.from("dishIngredients").insert({
+    return supabase.from("ingredients").insert({
       portionSize: ingredient.servingSize,
       proteins: ingredient.totalFoodValue.proteins,
       fats: ingredient.totalFoodValue.fats,
@@ -112,7 +112,7 @@ const dishesServiceOld = {
   },
 
   async replaceDish(dish: DishClass) {
-    await supabase.from("dishIngredients").insert([]);
+    await supabase.from("ingredients").insert([]);
   },
 
   async deleteDish(id: number) {

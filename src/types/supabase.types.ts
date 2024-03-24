@@ -51,57 +51,6 @@ export type Database = {
         }
         Relationships: []
       }
-      dishIngredients: {
-        Row: {
-          calories: number
-          carbs: number
-          createdAt: string | null
-          dish: number
-          fats: number
-          id: number
-          parentDish: number
-          portion: number
-          proteins: number
-        }
-        Insert: {
-          calories: number
-          carbs: number
-          createdAt?: string | null
-          dish: number
-          fats: number
-          id?: number
-          parentDish: number
-          portion: number
-          proteins: number
-        }
-        Update: {
-          calories?: number
-          carbs?: number
-          createdAt?: string | null
-          dish?: number
-          fats?: number
-          id?: number
-          parentDish?: number
-          portion?: number
-          proteins?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "public_dishIngredients_dish_fkey"
-            columns: ["dish"]
-            isOneToOne: false
-            referencedRelation: "dishes"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_dishIngredients_ingredient_fkey"
-            columns: ["parentDish"]
-            isOneToOne: false
-            referencedRelation: "dishes"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       eatings: {
         Row: {
           calories: number
@@ -159,9 +108,78 @@ export type Database = {
           },
         ]
       }
+      ingredients: {
+        Row: {
+          calories: number
+          carbs: number
+          createdAt: string | null
+          dish: number
+          fats: number
+          id: number
+          parentDish: number
+          portion: number
+          proteins: number
+        }
+        Insert: {
+          calories: number
+          carbs: number
+          createdAt?: string | null
+          dish: number
+          fats: number
+          id?: number
+          parentDish: number
+          portion: number
+          proteins: number
+        }
+        Update: {
+          calories?: number
+          carbs?: number
+          createdAt?: string | null
+          dish?: number
+          fats?: number
+          id?: number
+          parentDish?: number
+          portion?: number
+          proteins?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_dishIngredients_dish_fkey"
+            columns: ["dish"]
+            isOneToOne: false
+            referencedRelation: "dishes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_dishIngredients_ingredient_fkey"
+            columns: ["parentDish"]
+            isOneToOne: false
+            referencedRelation: "dishes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
-      [_ in never]: never
+      eatings_by_day: {
+        Row: {
+          calories: number | null
+          carbs: number | null
+          day: string | null
+          fats: number | null
+          proteins: number | null
+          user: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_eatings_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       [_ in never]: never

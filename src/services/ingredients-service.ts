@@ -12,7 +12,7 @@ async function addIngredient(
   inputs: DishPortion,
 ): Promise<DishPortion> {
   const foodValue = foodValueService.calculateFoodValueForPortion(inputs);
-  const newIngredient: TablesInsert<"dishIngredients"> = {
+  const newIngredient: TablesInsert<"ingredients"> = {
     portion: inputs.portion ?? 0,
     dish: inputs.dish.id,
     parentDish: dish.id,
@@ -20,7 +20,7 @@ async function addIngredient(
   };
 
   const { data: ingredient } = await supabase
-    .from("dishIngredients")
+    .from("ingredients")
     .insert(newIngredient)
     .select(SELECT_INGREDIENT_WITH_DISH)
     .single()
@@ -39,13 +39,13 @@ async function updateIngredient(
   inputs: DishPortion,
 ): Promise<DishPortion> {
   const foodValue = foodValueService.calculateFoodValueForPortion(inputs);
-  const updatedIngredient: TablesUpdate<"dishIngredients"> = {
+  const updatedIngredient: TablesUpdate<"ingredients"> = {
     portion: inputs.portion,
     ...foodValue,
   };
 
   const { data: ingredient } = await supabase
-    .from("dishIngredients")
+    .from("ingredients")
     .update(updatedIngredient)
     .eq("dish", inputs.dish.id)
     .eq("parentDish", dish.id)
@@ -63,7 +63,7 @@ async function updateIngredient(
 
 async function deleteIngredient(dish: Dish, inputs: DishPortion) {
   await supabase
-    .from("dishIngredients")
+    .from("ingredients")
     .delete()
     .eq("dish", inputs.dish.id)
     .eq("parentDish", dish.id);
@@ -74,7 +74,7 @@ async function deleteIngredient(dish: Dish, inputs: DishPortion) {
 async function updateDish(dish: Dish) {
   // Calculate food value for dish
   const { data: ingredients } = await supabase
-    .from("dishIngredients")
+    .from("ingredients")
     .select(`proteins,fats,carbs,calories,portion`)
     .eq("parentDish", dish.id);
 
