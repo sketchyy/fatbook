@@ -1,15 +1,14 @@
-import authService from "@/services/auth-service";
 import { useAuth } from "@/contexts/Auth";
 
 function CurrentUser() {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   if (!user) {
     return null;
   }
 
   const handleLogout = () => {
-    authService.logout();
+    signOut();
   };
 
   const avatarUrl = user.user_metadata?.avatar_url;
