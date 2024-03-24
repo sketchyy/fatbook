@@ -28,15 +28,13 @@ export function AuthProvider({ children }) {
     });
 
     // Listen for changes on auth state (logged in, signed out, etc.)
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user ?? null);
-        setLoading(false);
-      },
-    );
+    const { data } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
     return () => {
-      listener?.subscription.unsubscribe();
+      data?.subscription.unsubscribe();
     };
   }, []);
 
