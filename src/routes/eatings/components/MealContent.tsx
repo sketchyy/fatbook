@@ -1,7 +1,21 @@
 import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
+import { DailyEatings } from "@/types/eating";
+import { MealType } from "@/shared/models/Meals";
+import { DishPortion } from "@/types/dish-portion";
 
-function MealContent({ logDay, meal, handleDaySave, handleAddEatingDelete }) {
-  const mealData = logDay.meals[meal];
+type Props = {
+  dailyEatings: DailyEatings;
+  meal: MealType;
+  handleDaySave: (meal: MealType, portion: DishPortion) => void;
+  handleAddEatingDelete: (meal: MealType, portion: DishPortion) => void;
+};
+function MealContent({
+  dailyEatings,
+  meal,
+  handleDaySave,
+  handleAddEatingDelete,
+}: Props) {
+  const mealData = dailyEatings.meals[meal];
 
   return (
     <div className="mt-3">

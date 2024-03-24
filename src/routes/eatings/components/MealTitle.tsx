@@ -1,13 +1,20 @@
 import FoodValue from "@/shared/components/FoodValue";
-import { Meals } from "@/shared/models/Meals";
+import { Meals, MealType } from "@/shared/models/Meals";
 import dateService from "@/shared/services/dateService";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { DailyEatings } from "@/types/eating";
 
-function MealTitle({ logDay, meal, day }) {
+type Props = {
+  dailyEatings: DailyEatings;
+  meal: MealType;
+  day: string;
+};
+
+function MealTitle({ dailyEatings, meal, day }: Props) {
   const eatingPath = `/eatings/${dateService.format(day)}/${meal}`;
   const addEatingFormPath = eatingPath + "/add";
-  const mealData = logDay.meals[meal];
+  const mealData = dailyEatings.meals[meal];
 
   return (
     <div className="is-clickable">
@@ -33,7 +40,10 @@ function MealTitle({ logDay, meal, day }) {
         </div>
       </div>
       <FoodValue
-        foodValue={mealData.totalFoodValue}
+        proteins={mealData.proteins}
+        fats={mealData.fats}
+        carbs={mealData.carbs}
+        calories={mealData.calories}
         className="level-left is-size-7"
       />
     </div>

@@ -1,30 +1,29 @@
-import eatingsServiceOld from "@/core/firebase/eatingsServiceOld";
-import { LogDay } from "@/shared/models/LogDay";
-import { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import eatingsService from "@/services/eatings-service";
+import { useAuth } from "@/contexts/Auth";
 
 /* EatingsPage */
 function LogDayPage() {
+  const { user } = useAuth();
   const params = useParams();
   const day = params.day;
-  const [logDay, setLogDay] = useState(LogDay.empty());
 
-  useEffect(() => {
-    // const unsubscribe = eatingsService.subscribeToLogDayChanges(
-    //   day,
-    //   (dbLogDay) => {
-    //     console.log("Log Day = ", dbLogDay);
-    //     if (dbLogDay) {
-    //       setLogDay(dbLogDay);
-    //     } else {
-    //       setLogDay(LogDay.empty());
-    //     }
-    //   },
-    // );
-    // return unsubscribe;
-  }, [day]);
+  /* TODO: useDailyEatings()
+   *   const day = params.day
+   *  use
+   * */
+  const { data: dailyEatings, isLoading } = useQuery({
+    queryKey: ["dailyEatings", day],
+    queryFn: () => eatingsService.getDailyEatings(user?.id!, day!),
+  });
 
-  return <Outlet context={{ day, logDay }} />;
+  if (isLoading) {
+    /* TODO: Meals page skeleton */
+    return <span>"Loading..."</span>;
+  }
+
+  return <Outlet context={{ day, dailyEatings }} />;
 }
 
 export default LogDayPage;

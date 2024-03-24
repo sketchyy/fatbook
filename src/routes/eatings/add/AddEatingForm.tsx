@@ -5,15 +5,20 @@ import { useParams } from "react-router-dom";
 import { DishPortion } from "@/types/dish-portion";
 import { useAuth } from "@/contexts/Auth";
 import eatingsService from "@/services/eatings-service";
+import { useMutation, useQueryClient } from "react-query";
 
 function AddEatingForm() {
   const { day, meal } = useParams();
   const { user } = useAuth();
+  const queryClient = useQueryClient();
+  const addEating = useMutation({
+    mutationFn: (portion: DishPortion) =>
+      eatingsService.createEating(user?.id!, day!, meal!, portion),
+    onSuccess: () => queryClient.invalidateQueries(["dailyEatings", day]),
+  });
 
   const handleAddEating = async (portion: DishPortion) => {
-    const userId = user?.id!;
-
-    await eatingsService.createEating(userId, day!, meal!, portion);
+    addEating.mutate(portion);
   };
 
   const handleUpdateEatings = async (portion) => {

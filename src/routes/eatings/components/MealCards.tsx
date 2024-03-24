@@ -1,19 +1,23 @@
 import eatingsServiceOld from "@/core/firebase/eatingsServiceOld";
 import Accordion, { AccordionItem } from "@/shared/components/ui/Accordion";
 import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
-import { Meals } from "@/shared/models/Meals";
+import { Meals, MealType } from "@/shared/models/Meals";
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import MealContent from "./MealContent";
 import MealTitle from "./MealTitle";
+import { DailyEatings } from "@/types/eating";
 
-interface MealCardsProps {
+interface Props {
   activeIndex: number;
-  setActiveIndex: (number) => void;
+  setActiveIndex: (number: number) => void;
 }
 
-function MealCards({ activeIndex, setActiveIndex }: MealCardsProps) {
-  const { day, logDay } = useOutletContext<any>();
+function MealCards({ activeIndex, setActiveIndex }: Props) {
+  const { day, dailyEatings } = useOutletContext<{
+    day: string;
+    dailyEatings: DailyEatings;
+  }>();
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
@@ -49,7 +53,13 @@ function MealCards({ activeIndex, setActiveIndex }: MealCardsProps) {
         {Object.keys(Meals).map((meal) => (
           <AccordionItem
             key={meal}
-            title={<MealTitle logDay={logDay} meal={meal} day={day} />}
+            title={
+              <MealTitle
+                dailyEatings={dailyEatings}
+                meal={meal as MealType}
+                day={day}
+              />
+            }
             className="box mb-4"
             selectedStyle={{
               width: "104%",
@@ -57,8 +67,8 @@ function MealCards({ activeIndex, setActiveIndex }: MealCardsProps) {
             }}
           >
             <MealContent
-              logDay={logDay}
-              meal={meal}
+              dailyEatings={dailyEatings}
+              meal={meal as MealType}
               handleAddEatingDelete={handleAddEatingDelete}
               handleDaySave={handleDaySave}
             />

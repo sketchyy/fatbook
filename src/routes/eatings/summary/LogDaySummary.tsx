@@ -5,10 +5,14 @@ import { Fragment, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import MealCards from "../components/MealCards";
+import { DailyEatings } from "@/types/eating";
 
 function LogDaySummary() {
   const navigate = useNavigate();
-  const { day, logDay } = useOutletContext<any>();
+  const { day, dailyEatings } = useOutletContext<{
+    day: string;
+    dailyEatings: DailyEatings;
+  }>();
   const [activeIndex, setActiveIndex] = useState(-1);
   const isToday = dateService.isSame(dateService.now(), day);
   const parsedDay = dateService.parse(day);
@@ -76,7 +80,10 @@ function LogDaySummary() {
         </div>
         <div className="block level is-mobile">
           <FoodValue
-            foodValue={logDay.totalFoodValue}
+            proteins={dailyEatings.proteins}
+            fats={dailyEatings.fats}
+            carbs={dailyEatings.carbs}
+            calories={dailyEatings.calories}
             className="level-left is-size-7"
           />
         </div>

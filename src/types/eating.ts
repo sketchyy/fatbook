@@ -1,4 +1,21 @@
-import {Tables} from "@/types/supabase.types";
-
+import { Tables } from "@/types/supabase.types";
+import { MealType } from "@/shared/models/Meals";
+import { DishPortion } from "@/types/dish-portion";
 
 export type Eating = Tables<"eatings">;
+
+export type DailyEatings = {
+  proteins: number;
+  fats: number;
+  carbs: number;
+  calories: number;
+  meals: {
+    [key in MealType]: {
+      proteins: number;
+      fats: number;
+      carbs: number;
+      calories: number;
+      eatings: DishPortion[];
+    };
+  };
+};
