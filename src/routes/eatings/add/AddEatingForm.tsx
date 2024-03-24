@@ -2,32 +2,13 @@ import SelectDishPortionsForm from "@/shared/components/dish-portions-form/Selec
 import dateService from "@/shared/services/dateService";
 import { useParams } from "react-router-dom";
 import { DishPortion } from "@/types/dish-portion";
-import { useAuth } from "@/contexts/Auth";
-import eatingsService from "@/services/eatings-service";
-import { useMutation, useQueryClient } from "react-query";
 import { useState } from "react";
+import { useEatingMutations } from "@/hooks/use-eating-mutations";
 
 function AddEatingForm() {
   const { day, meal } = useParams();
-  const { user } = useAuth();
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
-
-  const queryClient = useQueryClient();
-  /* TODO: Refactor: const {addEating, updateEating, deleteEating} = useEatingMutations() */
-  const onSuccess = () => queryClient.invalidateQueries(["dailyEatings", day]);
-  const addEating = useMutation({
-    mutationFn: (portion: DishPortion) =>
-      eatingsService.createEating(user?.id!, day!, meal!, portion),
-    onSuccess,
-  });
-  const updateEating = useMutation({
-    mutationFn: (portion: DishPortion) => eatingsService.updateEating(portion),
-    onSuccess,
-  });
-  const deleteEating = useMutation({
-    mutationFn: (portion: DishPortion) => eatingsService.deleteEating(portion),
-    onSuccess,
-  });
+  const { addEating, updateEating, deleteEating } = useEatingMutations(meal!);
 
   const handleAddEating = async (portion: DishPortion) => {
     addEating.mutate(portion, {

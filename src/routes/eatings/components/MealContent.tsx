@@ -2,11 +2,9 @@ import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDis
 import { DailyEatings } from "@/types/eating";
 import { MealType } from "@/shared/models/Meals";
 import { DishPortion } from "@/types/dish-portion";
-import { useMutation, useQueryClient } from "react-query";
-import eatingsService from "@/services/eatings-service";
 import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEatingMutations } from "@/hooks/use-eating-mutations";
 
 type Props = {
   dailyEatings: DailyEatings;
@@ -14,21 +12,11 @@ type Props = {
 };
 
 function MealContent({ dailyEatings, meal }: Props) {
-  const { day } = useParams();
   const mealData = dailyEatings.meals[meal];
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
-  const queryClient = useQueryClient();
-  const onSuccess = () => queryClient.invalidateQueries(["dailyEatings", day]);
-  const updateEating = useMutation({
-    mutationFn: (portion: DishPortion) => eatingsService.updateEating(portion),
-    onSuccess,
-  });
-  const deleteEating = useMutation({
-    mutationFn: (portion: DishPortion) => eatingsService.deleteEating(portion),
-    onSuccess,
-  });
+  const { updateEating, deleteEating } = useEatingMutations(meal!);
 
   const handleDaySave = async (portion: DishPortion) => {
     updateEating.mutate(portion);
