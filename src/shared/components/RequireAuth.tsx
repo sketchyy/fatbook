@@ -1,11 +1,11 @@
-import { useAuthState } from "@/core/auth/useAuthState";
 import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/contexts/Auth";
 
 function RequireAuth({ children }) {
-  const { isAuthenticated } = useAuthState();
+  const { user } = useAuth();
   const location = useLocation();
 
-  if (!isAuthenticated) {
+  if (!user) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
     // along to that page after they login, which is a nicer user experience

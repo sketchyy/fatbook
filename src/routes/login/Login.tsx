@@ -1,26 +1,30 @@
-import { useAuthState } from "@/core/auth/useAuthState";
-import authService from "@/core/firebase/authService";
 import { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/Auth";
 
-function Login(props) {
-  const { isAuthenticated } = useAuthState();
+function Login() {
+  const { user, signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   // Try without useEffect
   useEffect(() => {
-    if (isAuthenticated) {
+    if (user) {
       navigate("/");
     }
   });
 
   const handleLogin = async () => {
-    await authService.login();
+    const { error } = await signIn();
 
-    navigate(from, { replace: true });
+    if (error) {
+      alert("Error signing in");
+      console.error("Error signing in:", error);
+    } else {
+      navigate(from, { replace: true });
+    }
   };
 
   return (

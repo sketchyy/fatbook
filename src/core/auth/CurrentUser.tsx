@@ -1,9 +1,8 @@
-import authService from "../firebase/authService";
-
-import { useAuthState } from "./useAuthState";
+import authService from "@/services/auth-service";
+import { useAuth } from "@/contexts/Auth";
 
 function CurrentUser() {
-  const { user } = useAuthState();
+  const { user } = useAuth();
 
   if (!user) {
     return null;
@@ -13,8 +12,10 @@ function CurrentUser() {
     authService.logout();
   };
 
-  const avatarUrl = user.photoURL!;
-  const displayName = user.displayName!.split(" ")[0];
+  const avatarUrl = user.user_metadata?.avatar_url;
+  const displayName = user.user_metadata?.name
+    ? user.user_metadata.name.split(" ")[0]
+    : user.email;
 
   return (
     <div className="level is-mobile">

@@ -1,6 +1,6 @@
 import "./IceCreamSpinner.css";
 
-function IceCreamSpinner(props) {
+function IceCreamSpinner() {
   return (
     <div
       id="backdrop"

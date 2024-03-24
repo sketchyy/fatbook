@@ -11,7 +11,6 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContextProvider } from "./core/auth/AuthContext";
 import ErrorPage from "./core/ErrorPage";
 import "./index.css";
 import DishPage from "./routes/dish/DishPage";
@@ -31,6 +30,7 @@ import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
 import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
 import dateService from "./shared/services/dateService";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { AuthProvider } from "@/contexts/Auth";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -116,11 +116,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
+    <AuthProvider>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>
-    </AuthContextProvider>
+    </AuthProvider>
     <ToastContainer position="bottom-center" />
   </React.StrictMode>,
 );
