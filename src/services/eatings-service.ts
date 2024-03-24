@@ -4,18 +4,15 @@ import foodValueService from "@/shared/services/foodValueService";
 import { MealType } from "@/shared/models/Meals";
 import { DailyEatings, Eating } from "@/types/eating";
 
+const SELECT_EATING_WITH_DISH = `*, dish:dishes (*)`;
+
 async function getDailyEatings(
   userId: string,
   day: string,
 ): Promise<DailyEatings> {
   const { data, error } = await supabase
     .from("eatings")
-    .select(
-      `
-      *,
-      dish:dishes (*)
-    `,
-    )
+    .select(SELECT_EATING_WITH_DISH)
     .eq("user", userId)
     .eq("day", day);
 
@@ -59,30 +56,48 @@ async function createEating(
   day: string,
   meal: string,
   eating: DishPortion,
-) {
+): Promise<DishPortion> {
   const eatingFoodValue = foodValueService.calculateFoodValueForPortion(eating);
 
-  await supabase.from("eatings").insert({
-    user: userId,
-    day,
-    meal: meal as MealType,
-    dish: eating.dish.id,
-    portion: eating.portion!,
-    ...eatingFoodValue,
-  });
+  const { data } = await supabase
+    .from("eatings")
+    .insert({
+      user: userId,
+      day,
+      meal: meal as MealType,
+      dish: eating.dish.id,
+      portion: eating.portion!,
+      ...eatingFoodValue,
+    })
+    .select(SELECT_EATING_WITH_DISH)
+    .single()
+    .throwOnError();
+
+  return {
+    ...data!,
+    selected: true,
+  };
 }
 
-async function updateEating(eating: DishPortion) {
+async function updateEating(eating: DishPortion): Promise<DishPortion> {
   const eatingFoodValue = foodValueService.calculateFoodValueForPortion(eating);
 
-  await supabase
+  const { data } = await supabase
     .from("eatings")
     .update({
       dish: eating.dish.id,
       portion: eating.portion!,
       ...eatingFoodValue,
     })
-    .eq("id", eating.id!);
+    .eq("id", eating.id!)
+    .select(SELECT_EATING_WITH_DISH)
+    .single()
+    .throwOnError();
+
+  return {
+    ...data!,
+    selected: true,
+  };
 }
 
 async function deleteEating(eating: DishPortion) {

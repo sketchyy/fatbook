@@ -5,7 +5,12 @@ import foodValueService from "@/shared/services/foodValueService";
 import dishesService from "@/services/dishes-service";
 import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
-async function addIngredient(dish: Dish, inputs: DishPortion) {
+const SELECT_INGREDIENT_WITH_DISH = `*, dish:dishes!public_dishIngredients_dish_fkey (*)`;
+
+async function addIngredient(
+  dish: Dish,
+  inputs: DishPortion,
+): Promise<DishPortion> {
   const foodValue = foodValueService.calculateFoodValueForPortion(inputs);
   const newIngredient: TablesInsert<"dishIngredients"> = {
     portion: inputs.portion ?? 0,
@@ -14,25 +19,46 @@ async function addIngredient(dish: Dish, inputs: DishPortion) {
     ...foodValue,
   };
 
-  await supabase.from("dishIngredients").insert(newIngredient);
+  const { data: ingredient } = await supabase
+    .from("dishIngredients")
+    .insert(newIngredient)
+    .select(SELECT_INGREDIENT_WITH_DISH)
+    .single()
+    .throwOnError();
 
   await updateDish(dish);
+
+  return {
+    ...ingredient!,
+    selected: true,
+  };
 }
 
-async function updateIngredient(dish: Dish, inputs: DishPortion) {
+async function updateIngredient(
+  dish: Dish,
+  inputs: DishPortion,
+): Promise<DishPortion> {
   const foodValue = foodValueService.calculateFoodValueForPortion(inputs);
   const updatedIngredient: TablesUpdate<"dishIngredients"> = {
     portion: inputs.portion,
     ...foodValue,
   };
 
-  await supabase
+  const { data: ingredient } = await supabase
     .from("dishIngredients")
     .update(updatedIngredient)
     .eq("dish", inputs.dish.id)
-    .eq("parentDish", dish.id);
+    .eq("parentDish", dish.id)
+    .select(SELECT_INGREDIENT_WITH_DISH)
+    .single()
+    .throwOnError();
 
   await updateDish(dish);
+
+  return {
+    ...ingredient!,
+    selected: true,
+  };
 }
 
 async function deleteIngredient(dish: Dish, inputs: DishPortion) {

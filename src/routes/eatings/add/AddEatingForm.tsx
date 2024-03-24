@@ -1,4 +1,3 @@
-import eatingsService2 from "@/core/firebase/eatingsServiceOld";
 import SelectDishPortionsForm from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
 import dateService from "@/shared/services/dateService";
 import { useParams } from "react-router-dom";
@@ -6,10 +5,13 @@ import { DishPortion } from "@/types/dish-portion";
 import { useAuth } from "@/contexts/Auth";
 import eatingsService from "@/services/eatings-service";
 import { useMutation, useQueryClient } from "react-query";
+import { useState } from "react";
 
 function AddEatingForm() {
   const { day, meal } = useParams();
   const { user } = useAuth();
+  const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
+
   const queryClient = useQueryClient();
   /* TODO: Refactor: const {addEating, updateEating, deleteEating} = useEatingMutations() */
   const onSuccess = () => queryClient.invalidateQueries(["dailyEatings", day]);
@@ -28,15 +30,31 @@ function AddEatingForm() {
   });
 
   const handleAddEating = async (portion: DishPortion) => {
-    addEating.mutate(portion);
+    addEating.mutate(portion, {
+      onSuccess: (response) => {
+        setSelectedPortions((portions) => [...portions, response]);
+      },
+    });
   };
 
   const handleUpdateEatings = async (portion: DishPortion) => {
-    updateEating.mutate(portion);
+    updateEating.mutate(portion, {
+      onSuccess: (response) => {
+        setSelectedPortions((portions) =>
+          portions.map((p) => (p.id === response.id ? response : p)),
+        );
+      },
+    });
   };
 
-  const handleDeleteEatings = async (portion) => {
-    deleteEating.mutate(portion);
+  const handleDeleteEatings = async (portion: DishPortion) => {
+    deleteEating.mutate(portion, {
+      onSuccess: () => {
+        setSelectedPortions((portions) =>
+          portions.filter((p) => p.id !== portion.id),
+        );
+      },
+    });
   };
 
   const getSubtitle = () => {
@@ -56,6 +74,7 @@ function AddEatingForm() {
   return (
     <SelectDishPortionsForm
       title="Select Dish"
+      selectedPortions={selectedPortions}
       subtitle={getSubtitle()}
       onAdd={handleAddEating}
       onUpdate={handleUpdateEatings}

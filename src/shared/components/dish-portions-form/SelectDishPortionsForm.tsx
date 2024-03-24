@@ -1,5 +1,4 @@
-import foodValueService from "@/shared/services/foodValueService";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import PageTitle from "../PageTitle";
 import SearchBar from "../ui/SearchBar";
 import DishPortionList from "./dish-portion-list/DishPortionList";
@@ -10,6 +9,7 @@ import { Dish } from "@/types/dish";
 type Props = {
   title: string;
   subtitle: string;
+  selectedPortions: DishPortion[];
   onAdd: (ingredient: DishPortion) => void;
   onDelete: (ingredient: DishPortion) => void;
   onUpdate?: (ingredient: DishPortion) => void;
@@ -18,12 +18,12 @@ type Props = {
 function SelectDishPortionsForm({
   title,
   subtitle,
+  selectedPortions,
   onAdd,
   onUpdate,
   onDelete,
 }: Props) {
   const { dishes, isLoading, query, runSearch } = useDishesSearch();
-  const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
 
   const dishPortions: DishPortion[] = dishes.map((d) =>
     mapDishToPortionInputs(d),
@@ -36,51 +36,6 @@ function SelectDishPortionsForm({
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>
     runSearch(event.target.value);
-
-  const handleAddClick = (portion: DishPortion) => {
-    // Only for rendering, actual submitted calculated in ingredients-service.
-    const foodValue = foodValueService.calculateFoodValueForPortion(portion);
-    portion = { ...portion, ...foodValue };
-
-    const updatedSelectedPortions = [
-      ...selectedPortions,
-      { ...portion, selected: true },
-    ];
-
-    setSelectedPortions(updatedSelectedPortions);
-
-    onAdd(portion);
-  };
-
-  const handleUpdateClick = (portion: DishPortion) => {
-    // Only for rendering, actual submitted calculated in ingredients-service.
-    const foodValue = foodValueService.calculateFoodValueForPortion(portion);
-    portion = { ...portion, ...foodValue };
-
-    const portionIndex = selectedPortions.findIndex(
-      (p) => p.dish.id === portion.dish.id,
-    );
-    if (portionIndex > -1) {
-      selectedPortions[portionIndex] = portion;
-    }
-
-    setSelectedPortions([...selectedPortions]);
-
-    if (onUpdate) {
-      onUpdate(portion);
-    }
-  };
-
-  const handleDeleteClick = (portion) => {
-    delete portion.selected;
-    const updatedSelectedPortions = selectedPortions.filter(
-      (p) => p.dish.id !== portion.dish.id,
-    );
-
-    setSelectedPortions(updatedSelectedPortions);
-
-    onDelete(portion);
-  };
 
   return (
     <div className="block">
@@ -95,9 +50,9 @@ function SelectDishPortionsForm({
 
         <DishPortionList
           dishPortions={renderedPortions}
-          onAdd={handleAddClick}
-          onUpdate={handleUpdateClick}
-          onDelete={handleDeleteClick}
+          onAdd={onAdd}
+          onUpdate={onUpdate ?? (() => null)}
+          onDelete={onDelete}
           isAdded={(p) => p.selected}
         />
       </div>

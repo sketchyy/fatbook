@@ -48,6 +48,7 @@ function DishPortionTitle({ dishPortion }: Props) {
                   {!dishPortion.portion && (
                     <strong className="is-size-7">per 100 g.</strong>
                   )}
+                  <span>ID={dishPortion.id ?? "null"}</span>
                 </div>
               </div>
             </div>
