@@ -11,30 +11,32 @@ function AddEatingForm() {
   const { day, meal } = useParams();
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  /* TODO: Refactor: const {addEating, updateEating, deleteEating} = useEatingMutations() */
+  const onSuccess = () => queryClient.invalidateQueries(["dailyEatings", day]);
   const addEating = useMutation({
     mutationFn: (portion: DishPortion) =>
       eatingsService.createEating(user?.id!, day!, meal!, portion),
-    onSuccess: () => queryClient.invalidateQueries(["dailyEatings", day]),
+    onSuccess,
+  });
+  const updateEating = useMutation({
+    mutationFn: (portion: DishPortion) => eatingsService.updateEating(portion),
+    onSuccess,
+  });
+  const deleteEating = useMutation({
+    mutationFn: (portion: DishPortion) => eatingsService.deleteEating(portion),
+    onSuccess,
   });
 
   const handleAddEating = async (portion: DishPortion) => {
     addEating.mutate(portion);
   };
 
-  const handleUpdateEatings = async (portion) => {
-    const logDay = await eatingsService2.getOrCreateLogDay(day);
-
-    logDay.updateEating(meal, portion);
-
-    await eatingsService2.replaceLogDay(day, logDay);
+  const handleUpdateEatings = async (portion: DishPortion) => {
+    updateEating.mutate(portion);
   };
 
   const handleDeleteEatings = async (portion) => {
-    const logDay = await eatingsService2.getOrCreateLogDay(day);
-
-    logDay.deleteEating(meal, portion);
-
-    await eatingsService2.replaceLogDay(day, logDay);
+    deleteEating.mutate(portion);
   };
 
   const getSubtitle = () => {

@@ -4,7 +4,7 @@ import foodValueService from "@/shared/services/foodValueService";
 import { MealType } from "@/shared/models/Meals";
 import { DailyEatings, Eating } from "@/types/eating";
 
-export async function getDailyEatings(
+async function getDailyEatings(
   userId: string,
   day: string,
 ): Promise<DailyEatings> {
@@ -54,7 +54,7 @@ export async function getDailyEatings(
   };
 }
 
-export async function createEating(
+async function createEating(
   userId: string,
   day: string,
   meal: string,
@@ -62,7 +62,7 @@ export async function createEating(
 ) {
   const eatingFoodValue = foodValueService.calculateFoodValueForPortion(eating);
 
-  const response = await supabase.from("eatings").insert({
+  await supabase.from("eatings").insert({
     user: userId,
     day,
     meal: meal as MealType,
@@ -70,10 +70,28 @@ export async function createEating(
     portion: eating.portion!,
     ...eatingFoodValue,
   });
-  console.log("response", response);
+}
+
+async function updateEating(eating: DishPortion) {
+  const eatingFoodValue = foodValueService.calculateFoodValueForPortion(eating);
+
+  await supabase
+    .from("eatings")
+    .update({
+      dish: eating.dish.id,
+      portion: eating.portion!,
+      ...eatingFoodValue,
+    })
+    .eq("id", eating.id!);
+}
+
+async function deleteEating(eating: DishPortion) {
+  await supabase.from("eatings").delete().eq("id", eating.id!);
 }
 
 export default {
   getDailyEatings,
   createEating,
+  updateEating,
+  deleteEating,
 };

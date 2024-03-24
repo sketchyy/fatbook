@@ -1,8 +1,5 @@
-import eatingsServiceOld from "@/core/firebase/eatingsServiceOld";
 import Accordion, { AccordionItem } from "@/shared/components/ui/Accordion";
-import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
 import { Meals, MealType } from "@/shared/models/Meals";
-import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import MealContent from "./MealContent";
 import MealTitle from "./MealTitle";
@@ -18,31 +15,6 @@ function MealCards({ activeIndex, setActiveIndex }: Props) {
     day: string;
     dailyEatings: DailyEatings;
   }>();
-  const [confirm, setConfirm] = useState<Confirmation>({
-    visible: false,
-  });
-
-  const handleDaySave = async (meal, portion) => {
-    const logDay = await eatingsServiceOld.getOrCreateLogDay(day);
-
-    logDay.updateEating(meal, portion);
-
-    await eatingsServiceOld.replaceLogDay(day, logDay);
-  };
-
-  const handleAddEatingDelete = async (meal, portion) => {
-    setConfirm({
-      visible: true,
-      accept: async () => {
-        setConfirm({ visible: false });
-        const logDay = await eatingsServiceOld.getOrCreateLogDay(day);
-
-        logDay.deleteEating(meal, portion);
-
-        await eatingsServiceOld.replaceLogDay(day, logDay);
-      },
-    });
-  };
 
   return (
     <>
@@ -66,22 +38,10 @@ function MealCards({ activeIndex, setActiveIndex }: Props) {
               marginLeft: "-2%",
             }}
           >
-            <MealContent
-              dailyEatings={dailyEatings}
-              meal={meal as MealType}
-              handleAddEatingDelete={handleAddEatingDelete}
-              handleDaySave={handleDaySave}
-            />
+            <MealContent dailyEatings={dailyEatings} meal={meal as MealType} />
           </AccordionItem>
         ))}
       </Accordion>
-
-      <Confirm
-        message="Are you sure you want to delete this eating?"
-        visible={confirm.visible}
-        onConfirm={confirm.accept}
-        onClose={() => setConfirm({ visible: false })}
-      />
     </>
   );
 }
