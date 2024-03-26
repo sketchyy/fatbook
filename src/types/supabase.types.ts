@@ -159,6 +159,33 @@ export type Database = {
           },
         ]
       }
+      settings: {
+        Row: {
+          calories: number
+          carbs: number
+          fats: number
+          id: number
+          proteins: number
+          user: string | null
+        }
+        Insert: {
+          calories: number
+          carbs: number
+          fats: number
+          id?: number
+          proteins: number
+          user?: string | null
+        }
+        Update: {
+          calories?: number
+          carbs?: number
+          fats?: number
+          id?: number
+          proteins?: number
+          user?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       eatings_by_day: {

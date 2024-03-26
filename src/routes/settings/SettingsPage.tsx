@@ -1,42 +1,44 @@
-import userSettingsService from "@/core/firebase/userSettingsService";
 import { NutritionFacts } from "@/shared/models/NutritionFacts";
-import { UserSettings } from "@/shared/models/User";
-import { ChangeEvent, FormEvent, useState } from "react";
 import { FaSave } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { clsx } from "clsx";
+import { useMutation } from "react-query";
+import settingsService from "@/services/settings-service";
+import { useAuth } from "@/contexts/Auth";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useSettings } from "@/hooks/use-settings";
 
-function SettingsPage(props) {
-  const userSettings = useLoaderData() as UserSettings;
-  const [dailyDietGoal, setDailyDietGoal] = useState<NutritionFacts>(
-    userSettings.dailyDietGoal
-  );
-  const [loading, setLoading] = useState(false);
-  const loadingBtnClassName = loading ? "is-loading" : "";
-  const loadingPageClassName = loading ? "loading" : "";
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDailyDietGoal({
-      ...dailyDietGoal,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await userSettingsService.save(dailyDietGoal);
+function SettingsPage() {
+  const { user } = useAuth();
+  const { data, isLoading: queryLoading } = useSettings(user?.id!);
+  const { register, handleSubmit } = useForm<NutritionFacts>({
+    values: data,
+    resetOptions: {
+      keepDirtyValues: true,
+    },
+  });
+  const saveSettings = useMutation({
+    mutationFn: (values: NutritionFacts) =>
+      settingsService.saveSettings(user?.id!, values),
+    onSuccess: () => {
       toast.success("Settings saved");
-    } catch (error) {
-      toast.error(`Saving is failed: ${error}`);
-    } finally {
-      setLoading(false);
-    }
+    },
+    onError: (err) => {
+      toast.error(`Saving is failed: ${err}`);
+    },
+  });
+
+  const onSubmit: SubmitHandler<NutritionFacts> = async (data) => {
+    saveSettings.mutate(data);
   };
+
+  const loading = queryLoading || saveSettings.isLoading;
 
   return (
-    <form onSubmit={handleSubmit} className={loadingPageClassName}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={clsx({ loading: loading })}
+    >
       <div className="box">
         <div className="is-size-4 mb-4">My Daily Goals</div>
         <div className="field is-grouped">
@@ -44,13 +46,10 @@ function SettingsPage(props) {
             <label className="label">Proteins</label>
             <div className="control">
               <input
-                name="proteins"
+                {...register("proteins")}
                 className="input"
                 type="number"
-                step=".01"
                 placeholder="per 100g."
-                value={dailyDietGoal.proteins}
-                onChange={handleChange}
               />
             </div>
           </div>
@@ -58,13 +57,10 @@ function SettingsPage(props) {
             <label className="label">Fats</label>
             <div className="control">
               <input
-                name="fats"
+                {...register("fats")}
                 className="input"
                 type="number"
-                step=".01"
                 placeholder="per 100g."
-                value={dailyDietGoal.fats}
-                onChange={handleChange}
               />
             </div>
           </div>
@@ -72,13 +68,10 @@ function SettingsPage(props) {
             <label className="label">Carbs</label>
             <div className="control">
               <input
-                name="carbs"
+                {...register("carbs")}
                 className="input"
                 type="number"
-                step=".01"
                 placeholder="per 100g."
-                value={dailyDietGoal.carbs}
-                onChange={handleChange}
               />
             </div>
           </div>
@@ -88,13 +81,10 @@ function SettingsPage(props) {
           <label className="label">KCal</label>
           <div className="control">
             <input
-              name="calories"
+              {...register("calories")}
               className="input"
               type="number"
-              step=".01"
               placeholder="per 100g."
-              value={dailyDietGoal.calories}
-              onChange={handleChange}
             />
           </div>
         </div>
@@ -102,9 +92,9 @@ function SettingsPage(props) {
         <div className="field mt-5">
           <p className="control is-clearfix">
             <button
-              className={
-                "button is-primary is-pulled-right " + loadingBtnClassName
-              }
+              className={clsx("button is-primary is-pulled-right", {
+                "is-loading": loading,
+              })}
               type="submit"
             >
               <span className="icon">

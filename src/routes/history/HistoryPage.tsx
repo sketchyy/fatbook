@@ -12,14 +12,16 @@ import dateService from "@/shared/services/dateService";
 import foodValueService from "@/shared/services/foodValueService";
 import DailyTrendChart from "./components/DailyTrendChart";
 import FoodValueDiff from "./components/FoodValueDiff";
+import { useSettings } from "@/hooks/use-settings";
+import { useAuth } from "@/contexts/Auth";
 
 function HistoryPage() {
-  const userSettings = useLoaderData() as UserSettings;
+  const { user } = useAuth();
+  const { data: userSettings } = useSettings(user?.id!);
+  // TODO: load user settings + trends data in parallel?
   const [showGoal, setShowGoal] = useState(false);
   const [chartData, setChartData] = useState<any[]>([]);
-  const [dietGoal, setDietGoal] = useState<NutritionFacts>(
-    userSettings.dailyDietGoal,
-  );
+  const [dietGoal, setDietGoal] = useState<NutritionFacts>(userSettings);
   const [dateRange, setDateRange] = useState([
     dateService.subtractDays(dateService.now(), 7),
     dateService.nowAsDate(),

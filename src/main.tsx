@@ -26,7 +26,6 @@ import Login from "./routes/login/Login";
 import Root from "./routes/Root";
 import SettingsPage from "./routes/settings/SettingsPage";
 import RequireAuth from "./shared/components/RequireAuth";
-import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
 import dateService from "./shared/services/dateService";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "@/contexts/Auth";
@@ -91,12 +90,10 @@ const router = createBrowserRouter([
       {
         path: "history",
         element: <HistoryPage />,
-        loader: userSettingsLoader,
       },
       {
         path: "settings",
         element: <SettingsPage />,
-        loader: userSettingsLoader,
       },
     ],
   },

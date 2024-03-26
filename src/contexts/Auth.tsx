@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
 import IceCreamSpinner from "@/shared/components/ui/IceCreamSpinner";
 
+// TODO: Type user so ID is existing always
 interface AuthContextType {
   user: User | null;
   signIn: () => Promise<OAuthResponse>;
