@@ -41,7 +41,7 @@ const dateService = {
 
     let date = start;
     while (date <= end) {
-      result.push(this.format(date));
+      result.push(this.format(date, "YYYY-MM-DD"));
       date = this.getNextDay(date);
     }
 

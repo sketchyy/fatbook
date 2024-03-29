@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import ReactDatePicker, { ReactDatePickerProps } from "react-datepicker";
 import { FaCalendar } from "react-icons/fa";
 
-interface DatePickerProps extends ReactDatePickerProps<string, boolean> {
+interface DatePickerProps extends ReactDatePickerProps<boolean, boolean> {
   width: number;
   withIcon?: boolean;
 }

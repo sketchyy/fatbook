@@ -1,75 +1,37 @@
-import eatingsServiceOld from "@/core/firebase/eatingsServiceOld";
 import FoodValue from "@/shared/components/FoodValue";
 import DatePicker from "@/shared/components/ui/DatePicker";
 import Message from "@/shared/components/ui/Message";
-import { NutritionFacts } from "@/shared/models/NutritionFacts";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { FaInfo } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
-
-import { UserSettings } from "@/shared/models/User";
 import dateService from "@/shared/services/dateService";
-import foodValueService from "@/shared/services/foodValueService";
 import DailyTrendChart from "./components/DailyTrendChart";
 import FoodValueDiff from "./components/FoodValueDiff";
-import { useSettings } from "@/hooks/use-settings";
-import { useAuth } from "@/contexts/Auth";
+import { useHistoryData } from "@/hooks/use-history-data";
 
 function HistoryPage() {
-  const { user } = useAuth();
-  const { data: userSettings } = useSettings(user?.id!);
-  // TODO: load user settings + trends data in parallel?
   const [showGoal, setShowGoal] = useState(false);
-  const [chartData, setChartData] = useState<any[]>([]);
-  const [dietGoal, setDietGoal] = useState<NutritionFacts>(userSettings);
   const [dateRange, setDateRange] = useState([
     dateService.subtractDays(dateService.now(), 7),
     dateService.nowAsDate(),
   ]);
   const [startDate, endDate] = dateRange;
-  const selectedDays = dateService.getDaysBetween(startDate, endDate);
-  const [totalFoodValue, setTotalFoodValue] = useState<NutritionFacts>(
-    foodValueService.emptyFoodValue(),
-  );
-  const dietGoalDiff: NutritionFacts = {
-    proteins: totalFoodValue.proteins - dietGoal.proteins,
-    fats: totalFoodValue.fats - dietGoal.fats,
-    carbs: totalFoodValue.carbs - dietGoal.carbs,
-    calories: totalFoodValue.calories - dietGoal.calories,
+
+  const {
+    chartData,
+    isLoading,
+    totalFoodValue,
+    dietGoal,
+    dietGoalDiff,
+    settings,
+  } = useHistoryData(startDate, endDate);
+
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  const handleDateChange = async (update: [Date, Date]) => {
+    setDateRange(update);
   };
-
-  // Try without useeffect
-  useEffect(() => {
-    const fetchData = async () => {
-      const logDays = await Promise.all(
-        selectedDays.map(
-          async (day) => await eatingsServiceOld.getOrCreateLogDay(day),
-        ),
-      );
-      setChartData(
-        logDays.map((logDay) => ({
-          date: dateService.format(logDay.id, "DD MMM"),
-          kcal: Math.round(logDay.totalFoodValue.calories),
-          proteins: Math.round(logDay.totalFoodValue.proteins),
-          fats: Math.round(logDay.totalFoodValue.fats),
-          carbs: Math.round(logDay.totalFoodValue.carbs),
-        })),
-      );
-
-      setTotalFoodValue(
-        foodValueService.sumFoodValues(logDays.map((ld) => ld.totalFoodValue)),
-      );
-
-      setDietGoal({
-        proteins: userSettings.dailyDietGoal.proteins * selectedDays.length,
-        fats: userSettings.dailyDietGoal.fats * selectedDays.length,
-        carbs: userSettings.dailyDietGoal.carbs * selectedDays.length,
-        calories: userSettings.dailyDietGoal.calories * selectedDays.length,
-      });
-    };
-
-    fetchData();
-  }, [dateRange]);
 
   return (
     <Fragment>
@@ -82,15 +44,16 @@ function HistoryPage() {
             selectsRange={true}
             startDate={startDate}
             endDate={endDate}
-            onChange={(update: [Date, Date]) => {
-              setDateRange(update);
-            }}
+            onChange={handleDateChange}
           />
         </div>
         <div>
           <div className="mt-2">
             <FoodValue
-              foodValue={totalFoodValue}
+              proteins={totalFoodValue.proteins}
+              fats={totalFoodValue.fats}
+              carbs={totalFoodValue.carbs}
+              calories={totalFoodValue.calories}
               className="level-left is-size-7"
             />
           </div>
@@ -112,7 +75,10 @@ function HistoryPage() {
               className="mt-2"
             >
               <FoodValue
-                foodValue={dietGoal}
+                proteins={dietGoal.proteins}
+                fats={dietGoal.fats}
+                carbs={dietGoal.carbs}
+                calories={dietGoal.calories}
                 className="level-left is-size-7 has-text-dark"
               />
             </Message>
@@ -123,15 +89,15 @@ function HistoryPage() {
         title="⚡ Calories"
         data={chartData}
         barFill="hsl(171, 100%, 41%)"
-        referenceValue={userSettings.dailyDietGoal.calories}
+        referenceValue={settings.calories}
         xKey="date"
-        yKey="kcal"
+        yKey="calories"
       />
       <DailyTrendChart
         title="🥩 Proteins"
         data={chartData}
         barFill="hsl(204, 86%, 53%)"
-        referenceValue={userSettings.dailyDietGoal.proteins}
+        referenceValue={settings.proteins}
         xKey="date"
         yKey="proteins"
       />
@@ -139,7 +105,7 @@ function HistoryPage() {
         title="🧈 Fats"
         data={chartData}
         barFill="hsl(48, 100%, 67%)"
-        referenceValue={userSettings.dailyDietGoal.fats}
+        referenceValue={settings.fats}
         xKey="date"
         yKey="fats"
       />
@@ -147,7 +113,7 @@ function HistoryPage() {
         title="🍚 Carbs"
         data={chartData}
         barFill="hsl(348, 100%, 61%)"
-        referenceValue={userSettings.dailyDietGoal.carbs}
+        referenceValue={settings.carbs}
         xKey="date"
         yKey="carbs"
       />
