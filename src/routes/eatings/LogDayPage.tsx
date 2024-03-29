@@ -1,7 +1,7 @@
 import { Outlet, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import eatingsService from "@/services/eatings-service";
-import { useAuth } from "@/contexts/Auth";
+import { useAuth } from "@/context/Auth";
 
 /* EatingsPage */
 function LogDayPage() {
