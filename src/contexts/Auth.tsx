@@ -3,15 +3,16 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase";
 import IceCreamSpinner from "@/shared/components/ui/IceCreamSpinner";
 
-// TODO: Type user so ID is existing always
 interface AuthContextType {
   user: User | null;
+  userId: string;
   signIn: () => Promise<OAuthResponse>;
   signOut: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  userId: "guest",
   signIn: () => supabase.auth.signInWithOAuth({ provider: "google" }),
   signOut: () => supabase.auth.signOut(),
 });
@@ -40,9 +41,10 @@ export function AuthProvider({ children }) {
   }, []);
 
   // Will be passed down to Signup, Login and Dashboard components
-  const value = {
+  const value: AuthContextType = {
     ...defaultContextValue,
     user,
+    userId: user?.id!,
   };
 
   if (loading) {

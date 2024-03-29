@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/Auth";
 
 /* EatingsPage */
 function LogDayPage() {
-  const { user } = useAuth();
+  const { userId } = useAuth();
   const params = useParams();
   const day = params.day;
 
@@ -15,7 +15,7 @@ function LogDayPage() {
    * */
   const { data: dailyEatings, isLoading } = useQuery({
     queryKey: ["dailyEatings", day],
-    queryFn: () => eatingsService.getDailyEatings(user?.id!, day!),
+    queryFn: () => eatingsService.getDailyEatings(userId, day!),
   });
 
   if (isLoading) {

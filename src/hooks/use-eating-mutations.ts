@@ -13,13 +13,13 @@ type UseEatingMutations = {
 export function useEatingMutations(meal: string): UseEatingMutations {
   const queryClient = useQueryClient();
   const { day } = useParams();
-  const { user } = useAuth();
+  const { userId } = useAuth();
 
   const onSuccess = () => queryClient.invalidateQueries(["dailyEatings", day]);
 
   const add = useMutation({
     mutationFn: (portion: DishPortion) =>
-      eatingsService.createEating(user?.id!, day!, meal!, portion),
+      eatingsService.createEating(userId, day!, meal!, portion),
     onSuccess,
   });
 

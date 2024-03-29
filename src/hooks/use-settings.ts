@@ -1,8 +1,10 @@
 import { useQuery } from "react-query";
 import settingsService from "@/services/settings-service";
+import { useAuth } from "@/contexts/Auth";
 
-//TODO: useAuth hook here
-export function useSettings(userId: string) {
+export function useSettings() {
+  const { userId } = useAuth();
+
   return useQuery({
     queryKey: "settings",
     queryFn: () => settingsService.getSettings(userId),

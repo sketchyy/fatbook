@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";
 
 function SettingsPage() {
-  const { user } = useAuth();
-  const { data, isLoading: queryLoading } = useSettings(user?.id!);
+  const { userId } = useAuth();
+  const { data, isLoading: queryLoading } = useSettings();
   const { register, handleSubmit } = useForm<NutritionFacts>({
     values: data,
     resetOptions: {
@@ -19,7 +19,7 @@ function SettingsPage() {
   });
   const saveSettings = useMutation({
     mutationFn: (values: NutritionFacts) =>
-      settingsService.saveSettings(user?.id!, values),
+      settingsService.saveSettings(userId, values),
     onSuccess: () => {
       toast.success("Settings saved");
     },

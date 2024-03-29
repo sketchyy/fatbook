@@ -25,15 +25,15 @@ type HistoryResult =
     };
 
 export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
-  const { user } = useAuth();
+  const { userId } = useAuth();
   const selectedDays = dateService.getDaysBetween(startDate, endDate);
 
   const { data: history, isLoading: historyLoading } = useQuery({
     queryKey: ["history", startDate, endDate],
-    queryFn: () => historyService.getHistory(user?.id!, selectedDays),
+    queryFn: () => historyService.getHistory(userId, selectedDays),
     enabled: Boolean(startDate && endDate),
   });
-  const { data: settings, isLoading: settingsLoading } = useSettings(user?.id!);
+  const { data: settings, isLoading: settingsLoading } = useSettings();
 
   if (historyLoading || settingsLoading || !settings) {
     return {
