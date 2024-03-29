@@ -1,5 +1,5 @@
-import { NutritionFacts } from "../models/NutritionFacts";
 import foodValueService from "../services/foodValueService";
+import { NutritionFacts } from "@/types/nutrition-facts";
 
 type Props = NutritionFacts & {
   // TODO: source: NutritionFacts; <FoodValue source={dishPortion | dish | anything} />

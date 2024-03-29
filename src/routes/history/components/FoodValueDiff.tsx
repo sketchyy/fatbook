@@ -1,5 +1,5 @@
-import { NutritionFacts } from "@/shared/models/NutritionFacts";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { NutritionFacts } from "@/types/nutrition-facts";
 
 interface FoodValueDiffProps {
   foodValue: NutritionFacts;

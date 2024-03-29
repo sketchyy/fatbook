@@ -1,6 +1,6 @@
 import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
 import { DailyEatings } from "@/types/eating";
-import { MealType } from "@/shared/models/Meals";
+import { MealType } from "@/types/meals";
 import { DishPortion } from "@/types/dish-portion";
 import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
 import { useState } from "react";

@@ -1,5 +1,5 @@
 import Accordion, { AccordionItem } from "@/shared/components/ui/Accordion";
-import { Meals, MealType } from "@/shared/models/Meals";
+import { Meals, MealType } from "@/types/meals";
 import { useOutletContext } from "react-router-dom";
 import MealContent from "./MealContent";
 import MealTitle from "./MealTitle";

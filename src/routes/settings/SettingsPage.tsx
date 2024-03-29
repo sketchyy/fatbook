@@ -1,4 +1,3 @@
-import { NutritionFacts } from "@/shared/models/NutritionFacts";
 import { FaSave } from "react-icons/fa";
 import { clsx } from "clsx";
 import { useMutation } from "react-query";
@@ -7,6 +6,7 @@ import { useAuth } from "@/context/Auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";
+import { NutritionFacts } from "@/types/nutrition-facts";
 
 function SettingsPage() {
   const { userId } = useAuth();

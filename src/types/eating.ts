@@ -1,5 +1,5 @@
 import { Tables } from "@/types/supabase.types";
-import { MealType } from "@/shared/models/Meals";
+import { MealType } from "@/types/meals";
 import { DishPortion } from "@/types/dish-portion";
 
 export type Eating = Tables<"eatings">;

@@ -1,7 +1,7 @@
 import { supabase } from "@/services/supabase";
 import { DishPortion } from "@/types/dish-portion";
 import foodValueService from "@/shared/services/foodValueService";
-import { MealType } from "@/shared/models/Meals";
+import { MealType } from "@/types/meals";
 import { DailyEatings, Eating } from "@/types/eating";
 
 const SELECT_EATING_WITH_DISH = `*, dish:dishes (*)`;

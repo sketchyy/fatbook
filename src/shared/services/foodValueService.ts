@@ -1,4 +1,3 @@
-import DishClass from "@/shared/models/DishClass";
 import { DishPortion } from "@/types/dish-portion";
 import { NutritionFacts } from "@/types/nutrition-facts";
 import { Tables } from "@/types/supabase.types";
@@ -49,7 +48,8 @@ const foodValueService = {
     };
   },
 
-  calculateOwnDishValuePer100g(dish: DishClass, cookedWeight?: number | null) {
+  // TODO: check if needed
+  calculateOwnDishValuePer100g(dish: any, cookedWeight?: number | null) {
     const totalDishWeight = cookedWeight ?? dish.defaultServingSize ?? 100;
 
     return {
