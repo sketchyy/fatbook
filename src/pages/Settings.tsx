@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";
 import { NutritionFacts } from "@/types/nutrition-facts";
 
-function SettingsPage() {
+function Settings() {
   const { userId } = useAuth();
   const { data, isLoading: queryLoading } = useSettings();
   const { register, handleSubmit } = useForm<NutritionFacts>({
@@ -109,4 +109,4 @@ function SettingsPage() {
   );
 }
 
-export default SettingsPage;
+export default Settings;

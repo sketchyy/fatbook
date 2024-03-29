@@ -5,7 +5,7 @@ import { DishPortion } from "@/types/dish-portion";
 import { useState } from "react";
 import { useEatingMutations } from "@/hooks/use-eating-mutations";
 
-function AddEatingForm() {
+function EatingsAdd() {
   const { day, meal } = useParams();
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
   const { add, update, remove } = useEatingMutations(meal!);
@@ -64,4 +64,4 @@ function AddEatingForm() {
   );
 }
 
-export default AddEatingForm;
+export default EatingsAdd;

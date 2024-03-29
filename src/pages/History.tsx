@@ -4,11 +4,11 @@ import Message from "@/components/ui/Message";
 import { useState } from "react";
 import { FaInfo } from "react-icons/fa";
 import dateUtils from "@/utils/date-utils";
-import DailyTrendChart from "./components/DailyTrendChart";
-import FoodValueDiff from "./components/FoodValueDiff";
+import DailyTrendChart from "../components/history/DailyTrendChart";
+import FoodValueDiff from "../components/history/FoodValueDiff";
 import { useHistoryData } from "@/hooks/use-history-data";
 
-function HistoryPage() {
+function History() {
   const [showGoal, setShowGoal] = useState(false);
   const [dateRange, setDateRange] = useState([
     dateUtils.subtractDays(dateUtils.now(), 7),
@@ -121,4 +121,4 @@ function HistoryPage() {
   );
 }
 
-export default HistoryPage;
+export default History;

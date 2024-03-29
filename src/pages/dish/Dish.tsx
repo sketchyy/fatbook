@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "react-query";
 import dishesService from "@/services/dishes-service";
 import { isNull } from "@/utils/is-null";
 
-function DishPage() {
+function Dish() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
@@ -70,4 +70,4 @@ function DishPage() {
   );
 }
 
-export default DishPage;
+export default Dish;

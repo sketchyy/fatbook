@@ -8,7 +8,7 @@ import { Dish } from "@/types/dish";
 import { DishPortion } from "@/types/dish-portion";
 import { useIngredientMutations } from "@/hooks/use-ingredients-mutations";
 
-function DishIngredientsList() {
+function DishIngredients() {
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
   const [confirm, setConfirm] = useState<Confirmation>({
@@ -61,4 +61,4 @@ function DishIngredientsList() {
   );
 }
 
-export default DishIngredientsList;
+export default DishIngredients;

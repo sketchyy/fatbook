@@ -5,7 +5,7 @@ import { DishPortion } from "@/types/dish-portion";
 import { useState } from "react";
 import { useIngredientMutations } from "@/hooks/use-ingredients-mutations";
 
-function AddIngredient() {
+function DishIngredientAdd() {
   const { dish } = useOutletContext<{ dish: Dish }>();
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
   const { add, update, remove } = useIngredientMutations(dish);
@@ -50,4 +50,4 @@ function AddIngredient() {
   );
 }
 
-export default AddIngredient;
+export default DishIngredientAdd;

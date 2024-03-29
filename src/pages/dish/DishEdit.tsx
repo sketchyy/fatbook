@@ -17,7 +17,7 @@ export type DishInputs = {
   cookedWeight: number | null;
 };
 
-function DishForm() {
+function DishEdit() {
   const params = useParams();
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
@@ -214,4 +214,4 @@ const format = (numb: number | null): number | null => {
   return isNull(numb) ? null : parseFloat(numb.toPrecision(2));
 };
 
-export default DishForm;
+export default DishEdit;

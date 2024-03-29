@@ -4,7 +4,7 @@ import eatingsService from "@/services/eatings-service";
 import { useAuth } from "@/context/Auth";
 
 /* EatingsPage */
-function LogDayPage() {
+function Eatings() {
   const { userId } = useAuth();
   const params = useParams();
   const day = params.day;
@@ -26,4 +26,4 @@ function LogDayPage() {
   return <Outlet context={{ day, dailyEatings }} />;
 }
 
-export default LogDayPage;
+export default Eatings;

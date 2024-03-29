@@ -11,21 +11,21 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ErrorPage from "./core/ErrorPage";
+import ErrorPage from "@/pages/ErrorPage";
 import "./index.css";
-import DishPage from "./routes/dish/DishPage";
-import DishForm from "./routes/dish/edit/DishForm";
-import AddIngredient from "./routes/dish/ingredients/AddIngredient";
-import DishIngredientsList from "./routes/dish/ingredients/DishIngredientsList";
-import DishesPage from "./routes/dishes/DishesPage";
-import AddEatingForm from "./routes/eatings/add/AddEatingForm";
-import LogDayPage from "./routes/eatings/LogDayPage";
-import LogDaySummary from "./routes/eatings/summary/LogDaySummary";
-import HistoryPage from "./routes/history/HistoryPage";
-import Login from "./routes/login/Login";
-import Root from "./routes/Root";
-import SettingsPage from "./routes/settings/SettingsPage";
-import RequireAuth from "@/components/RequireAuth";
+import Dish from "@/pages/dish/Dish";
+import DishEdit from "@/pages/dish/DishEdit";
+import DishIngredientAdd from "@/pages/dish/DishIngredientAdd";
+import DishIngredients from "@/pages/dish/DishIngredients";
+import Dishes from "@/pages/dishes/Dishes";
+import EatingsAdd from "@/pages/eatings/EatingsAdd";
+import Eatings from "@/pages/eatings/Eatings";
+import EatingsSummary from "@/pages/eatings/EatingsSummary";
+import History from "@/pages/History";
+import Login from "@/pages/Login";
+import Root from "@/pages/Root";
+import Settings from "@/pages/Settings";
+import RequireAuth from "@/components/auth/RequireAuth";
 import dateUtils from "./utils/date-utils";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "@/context/Auth";
@@ -52,48 +52,48 @@ const router = createBrowserRouter([
       },
       {
         path: "eatings/:day",
-        element: <LogDayPage />,
+        element: <Eatings />,
         children: [
           {
             path: "",
-            element: <LogDaySummary />,
+            element: <EatingsSummary />,
           },
           {
             path: ":meal/add",
-            element: <AddEatingForm />,
+            element: <EatingsAdd />,
           },
         ],
       },
       {
         path: "dishes",
-        element: <DishesPage />,
+        element: <Dishes />,
       },
       {
         path: "dishes/:id",
-        element: <DishPage />,
+        element: <Dish />,
         children: [
           { path: "", element: <Navigate to={`edit`} replace /> },
           {
             path: "edit", // edit/delete
-            element: <DishForm />,
+            element: <DishEdit />,
           },
           {
             path: "ingredients",
-            element: <DishIngredientsList />,
+            element: <DishIngredients />,
           },
           {
             path: "ingredients/add",
-            element: <AddIngredient />,
+            element: <DishIngredientAdd />,
           },
         ],
       },
       {
         path: "history",
-        element: <HistoryPage />,
+        element: <History />,
       },
       {
         path: "settings",
-        element: <SettingsPage />,
+        element: <Settings />,
       },
     ],
   },

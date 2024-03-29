@@ -8,7 +8,7 @@ import { Dish } from "@/types/dish";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { ChangeEvent } from "react";
 
-function DishesPage() {
+function Dishes() {
   const navigate = useNavigate();
   const { dishes, isLoading, query, runSearch } = useDishesSearch();
   const createDish = useMutation({
@@ -47,4 +47,4 @@ function DishesPage() {
   );
 }
 
-export default DishesPage;
+export default Dishes;

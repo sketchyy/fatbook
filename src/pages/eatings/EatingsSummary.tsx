@@ -4,10 +4,10 @@ import dateUtils from "@/utils/date-utils";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import MealCards from "../components/MealCards";
+import MealCards from "../../components/eatings/MealCards";
 import { DailyEatings } from "@/types/eating";
 
-function LogDaySummary() {
+function EatingsSummary() {
   const navigate = useNavigate();
   const { day, dailyEatings } = useOutletContext<{
     day: string;
@@ -93,4 +93,4 @@ function LogDaySummary() {
   );
 }
 
-export default LogDaySummary;
+export default EatingsSummary;
