@@ -26,7 +26,7 @@ import Login from "@/pages/Login";
 import Root from "@/pages/Root";
 import Settings from "@/pages/Settings";
 import RequireAuth from "@/components/auth/RequireAuth";
-import dateUtils from "./utils/date-utils";
+import dateUtils from "@/utils/date-utils";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "@/context/Auth";
 

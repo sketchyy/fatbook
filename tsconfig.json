@@ -17,11 +17,7 @@
     "jsx": "react-jsx",
     "noImplicitAny": false,
     "paths": {
-      "@/*": ["./src/*"],
-      "@/components": ["./src/components"],
-      "@/pages": ["./src/pages"],
-      "@/shared": ["./src/shared"],
-      "@/types": ["./src/types"],
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
