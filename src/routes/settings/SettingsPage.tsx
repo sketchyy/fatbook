@@ -3,7 +3,7 @@ import { FaSave } from "react-icons/fa";
 import { clsx } from "clsx";
 import { useMutation } from "react-query";
 import settingsService from "@/services/settings-service";
-import { useAuth } from "@/contexts/Auth";
+import { useAuth } from "@/context/Auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";

@@ -28,7 +28,7 @@ import SettingsPage from "./routes/settings/SettingsPage";
 import RequireAuth from "./shared/components/RequireAuth";
 import dateService from "./shared/services/dateService";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { AuthProvider } from "@/contexts/Auth";
+import { AuthProvider } from "@/context/Auth";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");

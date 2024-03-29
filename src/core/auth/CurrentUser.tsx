@@ -1,4 +1,4 @@
-import { useAuth } from "@/contexts/Auth";
+import { useAuth } from "@/context/Auth";
 
 function CurrentUser() {
   const { user, signOut } = useAuth();

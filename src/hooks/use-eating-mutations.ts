@@ -2,7 +2,7 @@ import { useMutation, UseMutationResult, useQueryClient } from "react-query";
 import { DishPortion } from "@/types/dish-portion";
 import eatingsService from "@/services/eatings-service";
 import { useParams } from "react-router-dom";
-import { useAuth } from "@/contexts/Auth";
+import { useAuth } from "@/context/Auth";
 
 type UseEatingMutations = {
   add: UseMutationResult<DishPortion, unknown, DishPortion>;

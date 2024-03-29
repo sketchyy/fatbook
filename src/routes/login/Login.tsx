@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "@/contexts/Auth";
+import { useAuth } from "@/context/Auth";
 
 function Login() {
   const { user, signIn } = useAuth();

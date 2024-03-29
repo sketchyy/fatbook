@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import historyService from "@/services/history-service";
 import { NutritionFacts } from "@/types/nutrition-facts";
-import { useAuth } from "@/contexts/Auth";
+import { useAuth } from "@/context/Auth";
 import dateService from "@/shared/services/dateService";
 import foodValueService from "@/shared/services/foodValueService";
 import { useSettings } from "@/hooks/use-settings";
