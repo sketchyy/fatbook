@@ -34,7 +34,7 @@ function HistoryPage() {
   };
 
   return (
-    <Fragment>
+    <>
       <div className="box mb-2">
         <div className="is-flex is-justify-content-space-between mb-4">
           <div className="is-size-4 mr-2">History</div>
@@ -117,7 +117,7 @@ function HistoryPage() {
         xKey="date"
         yKey="carbs"
       />
-    </Fragment>
+    </>
   );
 }
 

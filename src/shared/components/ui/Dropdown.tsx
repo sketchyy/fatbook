@@ -5,7 +5,7 @@ import { FaChevronDown } from "react-icons/fa";
 function Dropdown({ menuItems, dropdownTriggerTemplate, children, className }) {
   const [open, setOpen] = useState(false);
   const ref = useOutsideClick(() =>
-    setOpen(false)
+    setOpen(false),
   ) as RefObject<HTMLDivElement>;
 
   const handleTriggerClick = () => {
@@ -29,12 +29,12 @@ function Dropdown({ menuItems, dropdownTriggerTemplate, children, className }) {
         >
           {dropdownTriggerTemplate && dropdownTriggerTemplate()}
           {!dropdownTriggerTemplate && (
-            <Fragment>
+            <>
               <span>{children}</span>
               <span className="icon is-small">
                 <FaChevronDown />
               </span>
-            </Fragment>
+            </>
           )}
         </button>
       </div>

@@ -37,7 +37,7 @@ function LogDaySummary() {
   };
 
   return (
-    <Fragment>
+    <>
       <div className="box mb-4">
         <div className="level block">
           <div className="level-left">
@@ -89,7 +89,7 @@ function LogDaySummary() {
         </div>
       </div>
       <MealCards activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
-    </Fragment>
+    </>
   );
 }
 

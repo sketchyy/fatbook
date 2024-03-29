@@ -9,7 +9,7 @@ function Root() {
   const isLoading = fetchingCount > 0;
 
   return (
-    <Fragment>
+    <>
       <Navbar />
       <div
         className={clsx("container is-max-desktop ", { loading: isLoading })}
@@ -18,7 +18,7 @@ function Root() {
           <Outlet />
         </div>
       </div>
-    </Fragment>
+    </>
   );
 }
 
