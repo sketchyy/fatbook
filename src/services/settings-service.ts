@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/supabase";
+import { supabase } from "@/services/supabase";
 import { UserSettings } from "@/types/settings";
 import { isNull } from "@/utils/is-null";
 

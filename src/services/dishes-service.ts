@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/supabase";
+import { supabase } from "@/services/supabase";
 import dateService from "@/shared/services/dateService";
 import { Dish } from "@/types/dish";
 import { isNull } from "@/utils/is-null";

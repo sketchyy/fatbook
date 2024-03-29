@@ -1,6 +1,6 @@
 import { OAuthResponse, User } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
-import { supabase } from "@/utils/supabase";
+import { supabase } from "@/services/supabase";
 import IceCreamSpinner from "@/shared/components/ui/IceCreamSpinner";
 
 interface AuthContextType {

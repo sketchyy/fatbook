@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/supabase";
+import { supabase } from "@/services/supabase";
 import { DishPortion } from "@/types/dish-portion";
 import foodValueService from "@/shared/services/foodValueService";
 import { MealType } from "@/shared/models/Meals";

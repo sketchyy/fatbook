@@ -1,6 +1,6 @@
 import { Dish } from "@/types/dish";
 import { DishPortion } from "@/types/dish-portion";
-import { supabase } from "@/utils/supabase";
+import { supabase } from "@/services/supabase";
 import foodValueService from "@/shared/services/foodValueService";
 import dishesService from "@/services/dishes-service";
 import { TablesInsert, TablesUpdate } from "@/types/supabase.types";

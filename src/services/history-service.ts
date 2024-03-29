@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/supabase";
+import { supabase } from "@/services/supabase";
 import dateService from "@/shared/services/dateService";
 
 async function getHistory(userId: string, selectedDays: string[]) {
