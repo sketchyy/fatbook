@@ -1,6 +1,6 @@
 import { supabase } from "@/services/supabase";
 import { DishPortion } from "@/types/dish-portion";
-import foodValueService from "@/shared/services/foodValueService";
+import foodValueUtils from "@/utils/food-value-utils";
 import { MealType } from "@/types/meals";
 import { DailyEatings, Eating } from "@/types/eating";
 
@@ -29,23 +29,23 @@ async function getDailyEatings(
   const snack = eatings.filter((e) => e.meal === "snack");
 
   return {
-    ...foodValueService.sumFoodValues(eatings),
+    ...foodValueUtils.sumFoodValues(eatings),
     meals: {
       breakfast: {
         eatings: breakfast,
-        ...foodValueService.sumFoodValues(breakfast),
+        ...foodValueUtils.sumFoodValues(breakfast),
       },
       lunch: {
         eatings: lunch,
-        ...foodValueService.sumFoodValues(lunch),
+        ...foodValueUtils.sumFoodValues(lunch),
       },
       dinner: {
         eatings: dinner,
-        ...foodValueService.sumFoodValues(dinner),
+        ...foodValueUtils.sumFoodValues(dinner),
       },
       snack: {
         eatings: snack,
-        ...foodValueService.sumFoodValues(snack),
+        ...foodValueUtils.sumFoodValues(snack),
       },
     },
   };
@@ -57,7 +57,7 @@ async function createEating(
   meal: string,
   eating: DishPortion,
 ): Promise<DishPortion> {
-  const eatingFoodValue = foodValueService.calculateFoodValueForPortion(eating);
+  const eatingFoodValue = foodValueUtils.calculateFoodValueForPortion(eating);
 
   const { data } = await supabase
     .from("eatings")
@@ -80,7 +80,7 @@ async function createEating(
 }
 
 async function updateEating(eating: DishPortion): Promise<DishPortion> {
-  const eatingFoodValue = foodValueService.calculateFoodValueForPortion(eating);
+  const eatingFoodValue = foodValueUtils.calculateFoodValueForPortion(eating);
 
   const { data } = await supabase
     .from("eatings")

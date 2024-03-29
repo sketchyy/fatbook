@@ -3,7 +3,7 @@ import DatePicker from "@/components/ui/DatePicker";
 import Message from "@/components/ui/Message";
 import { useState } from "react";
 import { FaInfo } from "react-icons/fa";
-import dateService from "@/shared/services/dateService";
+import dateUtils from "@/utils/date-utils";
 import DailyTrendChart from "./components/DailyTrendChart";
 import FoodValueDiff from "./components/FoodValueDiff";
 import { useHistoryData } from "@/hooks/use-history-data";
@@ -11,8 +11,8 @@ import { useHistoryData } from "@/hooks/use-history-data";
 function HistoryPage() {
   const [showGoal, setShowGoal] = useState(false);
   const [dateRange, setDateRange] = useState([
-    dateService.subtractDays(dateService.now(), 7),
-    dateService.nowAsDate(),
+    dateUtils.subtractDays(dateUtils.now(), 7),
+    dateUtils.nowAsDate(),
   ]);
   const [startDate, endDate] = dateRange;
 

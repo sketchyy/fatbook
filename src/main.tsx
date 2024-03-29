@@ -26,14 +26,14 @@ import Login from "./routes/login/Login";
 import Root from "./routes/Root";
 import SettingsPage from "./routes/settings/SettingsPage";
 import RequireAuth from "@/components/RequireAuth";
-import dateService from "./shared/services/dateService";
+import dateUtils from "./utils/date-utils";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthProvider } from "@/context/Auth";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
 
-const today = dateService.format(dateService.now());
+const today = dateUtils.format(dateUtils.now());
 
 const router = createBrowserRouter([
   {

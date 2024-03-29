@@ -9,7 +9,7 @@ type DishPortionLight = Pick<
 
 export function calculateFoodValue(eating: DishPortion): NutritionFacts {
   if (!eating.dish || !eating.portion) {
-    return foodValueService.emptyFoodValue();
+    return foodValueUtils.emptyFoodValue();
   }
 
   return {
@@ -24,7 +24,7 @@ function calculateDishWeight(ingredients: DishPortionLight[]) {
   return ingredients.reduce((result, item) => (result += item.portion), 0);
 }
 
-const foodValueService = {
+const foodValueUtils = {
   calculateDishValuePer100g(
     ingredients: DishPortionLight[],
     cookedWeight?: number | null,
@@ -92,4 +92,4 @@ const foodValueService = {
   },
 };
 
-export default foodValueService;
+export default foodValueUtils;

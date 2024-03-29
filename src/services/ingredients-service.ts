@@ -1,7 +1,7 @@
 import { Dish } from "@/types/dish";
 import { DishPortion } from "@/types/dish-portion";
 import { supabase } from "@/services/supabase";
-import foodValueService from "@/shared/services/foodValueService";
+import foodValueUtils from "@/utils/food-value-utils";
 import dishesService from "@/services/dishes-service";
 import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
@@ -11,7 +11,7 @@ async function addIngredient(
   dish: Dish,
   inputs: DishPortion,
 ): Promise<DishPortion> {
-  const foodValue = foodValueService.calculateFoodValueForPortion(inputs);
+  const foodValue = foodValueUtils.calculateFoodValueForPortion(inputs);
   const newIngredient: TablesInsert<"ingredients"> = {
     portion: inputs.portion ?? 0,
     dish: inputs.dish.id,
@@ -38,7 +38,7 @@ async function updateIngredient(
   dish: Dish,
   inputs: DishPortion,
 ): Promise<DishPortion> {
-  const foodValue = foodValueService.calculateFoodValueForPortion(inputs);
+  const foodValue = foodValueUtils.calculateFoodValueForPortion(inputs);
   const updatedIngredient: TablesUpdate<"ingredients"> = {
     portion: inputs.portion,
     ...foodValue,
@@ -78,7 +78,7 @@ async function updateDish(dish: Dish) {
     .select(`proteins,fats,carbs,calories,portion`)
     .eq("parentDish", dish.id);
 
-  const dishFoodValue = foodValueService.calculateDishValuePer100g(
+  const dishFoodValue = foodValueUtils.calculateDishValuePer100g(
     ingredients ?? [],
   );
 

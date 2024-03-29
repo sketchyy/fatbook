@@ -1,5 +1,5 @@
 import { NutritionFacts } from "@/types/nutrition-facts";
-import foodValueService from "@/shared/services/foodValueService";
+import foodValueUtils from "@/utils/food-value-utils";
 
 type Props = NutritionFacts & {
   // TODO: source: NutritionFacts; <FoodValue source={dishPortion | dish | anything} />
@@ -12,7 +12,7 @@ function FoodValue({
   fats,
   carbs,
   calories,
-  foodValue = foodValueService.emptyFoodValue(),
+  foodValue = foodValueUtils.emptyFoodValue(),
   className = "",
 }: Props) {
   // TODO: single format func

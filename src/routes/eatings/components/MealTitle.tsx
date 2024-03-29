@@ -1,6 +1,6 @@
 import FoodValue from "@/components/FoodValue";
 import { Meals, MealType } from "@/types/meals";
-import dateService from "@/shared/services/dateService";
+import dateUtils from "@/utils/date-utils";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DailyEatings } from "@/types/eating";
@@ -12,7 +12,7 @@ type Props = {
 };
 
 function MealTitle({ dailyEatings, meal, day }: Props) {
-  const eatingPath = `/eatings/${dateService.format(day)}/${meal}`;
+  const eatingPath = `/eatings/${dateUtils.format(day)}/${meal}`;
   const addEatingFormPath = eatingPath + "/add";
   const mealData = dailyEatings.meals[meal];
 

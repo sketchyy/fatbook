@@ -2,8 +2,8 @@ import { useQuery } from "react-query";
 import historyService from "@/services/history-service";
 import { NutritionFacts } from "@/types/nutrition-facts";
 import { useAuth } from "@/context/Auth";
-import dateService from "@/shared/services/dateService";
-import foodValueService from "@/shared/services/foodValueService";
+import dateUtils from "@/utils/date-utils";
+import foodValueUtils from "@/utils/food-value-utils";
 import { useSettings } from "@/hooks/use-settings";
 
 type HistoryResult =
@@ -26,7 +26,7 @@ type HistoryResult =
 
 export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
   const { userId } = useAuth();
-  const selectedDays = dateService.getDaysBetween(startDate, endDate);
+  const selectedDays = dateUtils.getDaysBetween(startDate, endDate);
 
   const { data: history, isLoading: historyLoading } = useQuery({
     queryKey: ["history", startDate, endDate],
@@ -43,7 +43,7 @@ export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
   }
 
   const chartData = history ?? [];
-  const totalFoodValue = foodValueService.sumFoodValues(chartData);
+  const totalFoodValue = foodValueUtils.sumFoodValues(chartData);
   const dietGoal = {
     proteins: settings.proteins * selectedDays.length,
     fats: settings.fats * selectedDays.length,

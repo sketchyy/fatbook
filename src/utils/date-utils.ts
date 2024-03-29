@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-const dateService = {
+const dateUtils = {
   now() {
     return dayjs().toDate().getTime();
   },
@@ -49,4 +49,4 @@ const dateService = {
   },
 };
 
-export default dateService;
+export default dateUtils;
