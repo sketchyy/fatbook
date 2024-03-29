@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
     };
   }, []);
 
-  // Will be passed down to Signup, Login and Dashboard components
+  // Will be passed down to Signup, Login and other components
   const value: AuthContextType = {
     ...defaultContextValue,
     user,
