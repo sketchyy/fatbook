@@ -1,4 +1,4 @@
-import NavLinkTab from "@/shared/components/ui/NavLinkTab";
+import NavLinkTab from "@/components/ui/NavLinkTab";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";

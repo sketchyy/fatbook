@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import CurrentUser from "./auth/CurrentUser";
+import CurrentUser from "@/components/auth/CurrentUser";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,7 +31,7 @@ function Navbar() {
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarMenu"
-          href="/"
+          href="/public"
           onClick={handleBurgerClick}
         >
           <span aria-hidden="true"></span>

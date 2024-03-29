@@ -1,4 +1,4 @@
-import FoodValue from "@/shared/components/FoodValue";
+import FoodValue from "@/components/FoodValue";
 import { Meals, MealType } from "@/types/meals";
 import dateService from "@/shared/services/dateService";
 import { FaPlus } from "react-icons/fa";

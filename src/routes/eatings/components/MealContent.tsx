@@ -1,8 +1,8 @@
-import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
+import EditDishPortionsForm from "@/components/dish-portions-form/EditDishPortionsForm";
 import { DailyEatings } from "@/types/eating";
 import { MealType } from "@/types/meals";
 import { DishPortion } from "@/types/dish-portion";
-import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
+import Confirm, { Confirmation } from "@/components/ui/Confirm";
 import { useState } from "react";
 import { useEatingMutations } from "@/hooks/use-eating-mutations";
 

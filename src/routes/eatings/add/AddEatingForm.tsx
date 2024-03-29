@@ -1,4 +1,4 @@
-import SelectDishPortionsForm from "@/shared/components/dish-portions-form/SelectDishPortionsForm";
+import SelectDishPortionsForm from "@/components/dish-portions-form/SelectDishPortionsForm";
 import dateService from "@/shared/services/dateService";
 import { useParams } from "react-router-dom";
 import { DishPortion } from "@/types/dish-portion";

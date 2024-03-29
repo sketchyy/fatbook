@@ -1,6 +1,6 @@
-import DishList from "@/shared/components/dish/DishList";
-import PageTitle from "@/shared/components/PageTitle";
-import SearchBar from "@/shared/components/ui/SearchBar";
+import DishList from "@/components/dish/DishList";
+import PageTitle from "@/components/PageTitle";
+import SearchBar from "@/components/ui/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import dishesService from "@/services/dishes-service";

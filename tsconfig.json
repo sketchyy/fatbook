@@ -18,7 +18,7 @@
     "noImplicitAny": false,
     "paths": {
       "@/*": ["./src/*"],
-      "@/core": ["./src/core"],
+      "@/components": ["./src/components"],
       "@/pages": ["./src/pages"],
       "@/shared": ["./src/shared"],
       "@/types": ["./src/types"],

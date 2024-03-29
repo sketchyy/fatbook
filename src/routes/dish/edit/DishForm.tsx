@@ -1,4 +1,4 @@
-import Message from "@/shared/components/ui/Message";
+import Message from "@/components/ui/Message";
 import { FaRedo, FaSave } from "react-icons/fa";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";

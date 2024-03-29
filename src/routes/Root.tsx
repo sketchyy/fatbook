@@ -1,6 +1,5 @@
-import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../core/Navbar";
+import Navbar from "@/components/Navbar";
 import { useIsFetching } from "react-query";
 import { clsx } from "clsx";
 

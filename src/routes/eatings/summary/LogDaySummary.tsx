@@ -1,7 +1,7 @@
-import FoodValue from "@/shared/components/FoodValue";
-import DatePicker from "@/shared/components/ui/DatePicker";
+import FoodValue from "@/components/FoodValue";
+import DatePicker from "@/components/ui/DatePicker";
 import dateService from "@/shared/services/dateService";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import MealCards from "../components/MealCards";

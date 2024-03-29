@@ -1,7 +1,7 @@
-import FoodValue from "@/shared/components/FoodValue";
-import DatePicker from "@/shared/components/ui/DatePicker";
-import Message from "@/shared/components/ui/Message";
-import { Fragment, useState } from "react";
+import FoodValue from "@/components/FoodValue";
+import DatePicker from "@/components/ui/DatePicker";
+import Message from "@/components/ui/Message";
+import { useState } from "react";
 import { FaInfo } from "react-icons/fa";
 import dateService from "@/shared/services/dateService";
 import DailyTrendChart from "./components/DailyTrendChart";

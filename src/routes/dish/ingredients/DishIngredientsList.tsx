@@ -1,6 +1,6 @@
-import EditDishPortionsForm from "@/shared/components/dish-portions-form/EditDishPortionsForm";
-import PageTitle from "@/shared/components/PageTitle";
-import Confirm, { Confirmation } from "@/shared/components/ui/Confirm";
+import EditDishPortionsForm from "@/components/dish-portions-form/EditDishPortionsForm";
+import PageTitle from "@/components/PageTitle";
+import Confirm, { Confirmation } from "@/components/ui/Confirm";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
