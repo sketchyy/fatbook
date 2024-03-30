@@ -39,13 +39,7 @@ function MealTitle({ dailyEatings, meal, day }: Props) {
           </Link>
         </div>
       </div>
-      <FoodValue
-        proteins={mealData.proteins}
-        fats={mealData.fats}
-        carbs={mealData.carbs}
-        calories={mealData.calories}
-        className="level-left is-size-7"
-      />
+      <FoodValue source={mealData} className="level-left is-size-7" />
     </div>
   );
 }

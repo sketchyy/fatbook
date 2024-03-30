@@ -1,29 +1,25 @@
 import { NutritionFacts } from "@/types/nutrition-facts";
 import foodValueUtils from "@/utils/food-value-utils";
+import { clsx } from "clsx";
 
-type Props = NutritionFacts & {
-  // TODO: source: NutritionFacts; <FoodValue source={dishPortion | dish | anything} />
-  foodValue?: NutritionFacts;
+type Props = {
+  source: NutritionFacts;
   className?: string;
 };
 
 function FoodValue({
-  proteins,
-  fats,
-  carbs,
-  calories,
-  foodValue = foodValueUtils.emptyFoodValue(),
+  source = foodValueUtils.emptyFoodValue(),
   className = "",
 }: Props) {
   // TODO: single format func
   const format = (val: number) => (val != null ? Math.round(val) : "n/a");
 
   return (
-    <span className={"level " + className}>
-      <span className="mr-2">⚡ {format(calories)} kcal</span>
-      <span className="mr-2">🥩 {format(proteins)} g</span>
-      <span className="mr-2">🧈 {format(fats)} g</span>
-      <span className="mr-2">🍚 {format(carbs)} g</span>
+    <span className={clsx("level ", className)}>
+      <span className="mr-2">⚡ {format(source.calories)} kcal</span>
+      <span className="mr-2">🥩 {format(source.proteins)} g</span>
+      <span className="mr-2">🧈 {format(source.fats)} g</span>
+      <span className="mr-2">🍚 {format(source.carbs)} g</span>
     </span>
   );
 }

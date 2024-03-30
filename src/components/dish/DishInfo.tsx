@@ -21,12 +21,7 @@ function DishInfo({ dish, servingSize }: Props) {
           <p className=" subtitle is-7">
             <span className="is-flex is-justify-content-space-between">
               <span>
-                <FoodValue
-                  proteins={dish.proteins}
-                  carbs={dish.carbs}
-                  fats={dish.fats}
-                  calories={dish.calories}
-                />
+                <FoodValue source={dish} />
               </span>
               {servingSize && <span>{servingSize} g.</span>}
             </span>

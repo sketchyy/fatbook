@@ -79,13 +79,7 @@ function EatingsSummary() {
           </div>
         </div>
         <div className="block level is-mobile">
-          <FoodValue
-            proteins={dailyEatings.proteins}
-            fats={dailyEatings.fats}
-            carbs={dailyEatings.carbs}
-            calories={dailyEatings.calories}
-            className="level-left is-size-7"
-          />
+          <FoodValue source={dailyEatings} className="level-left is-size-7" />
         </div>
       </div>
       <MealCards activeIndex={activeIndex} setActiveIndex={setActiveIndex} />

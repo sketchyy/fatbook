@@ -50,10 +50,7 @@ function History() {
         <div>
           <div className="mt-2">
             <FoodValue
-              proteins={totalFoodValue.proteins}
-              fats={totalFoodValue.fats}
-              carbs={totalFoodValue.carbs}
-              calories={totalFoodValue.calories}
+              source={totalFoodValue}
               className="level-left is-size-7"
             />
           </div>
@@ -75,10 +72,7 @@ function History() {
               className="mt-2"
             >
               <FoodValue
-                proteins={dietGoal.proteins}
-                fats={dietGoal.fats}
-                carbs={dietGoal.carbs}
-                calories={dietGoal.calories}
+                source={dietGoal}
                 className="level-left is-size-7 has-text-dark"
               />
             </Message>

@@ -34,11 +34,8 @@ function DishPortionTitle({ dishPortion }: Props) {
                 </div>
                 <div className="is-flex is-justify-content-space-between">
                   <FoodValue
+                    source={dishPortion}
                     className="mb-0 is-size-7 is-justify-content-flex-start"
-                    proteins={dishPortion.proteins}
-                    fats={dishPortion.fats}
-                    carbs={dishPortion.carbs}
-                    calories={dishPortion.calories}
                   />
                   {dishPortion.portion && (
                     <strong className="is-size-7">
