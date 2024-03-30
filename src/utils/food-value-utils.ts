@@ -1,5 +1,5 @@
 import { DishPortion } from "@/types/dish-portion";
-import { NutritionFacts } from "@/types/nutrition-facts";
+import { FoodValue } from "@/types/food-value";
 import { Tables } from "@/types/supabase.types";
 
 type DishPortionLight = Pick<
@@ -7,7 +7,7 @@ type DishPortionLight = Pick<
   "proteins" | "fats" | "carbs" | "calories" | "portion"
 >;
 
-export function calculateFoodValue(eating: DishPortion): NutritionFacts {
+export function calculateFoodValue(eating: DishPortion): FoodValue {
   if (!eating.dish || !eating.portion) {
     return foodValueUtils.emptyFoodValue();
   }

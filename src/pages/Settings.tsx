@@ -6,19 +6,19 @@ import { useAuth } from "@/context/Auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";
-import { NutritionFacts } from "@/types/nutrition-facts";
+import { FoodValue } from "@/types/food-value";
 
 function Settings() {
   const { userId } = useAuth();
   const { data, isLoading: queryLoading } = useSettings();
-  const { register, handleSubmit } = useForm<NutritionFacts>({
+  const { register, handleSubmit } = useForm<FoodValue>({
     values: data,
     resetOptions: {
       keepDirtyValues: true,
     },
   });
   const saveSettings = useMutation({
-    mutationFn: (values: NutritionFacts) =>
+    mutationFn: (values: FoodValue) =>
       settingsService.saveSettings(userId, values),
     onSuccess: () => {
       toast.success("Settings saved");
@@ -28,7 +28,7 @@ function Settings() {
     },
   });
 
-  const onSubmit: SubmitHandler<NutritionFacts> = async (data) => {
+  const onSubmit: SubmitHandler<FoodValue> = async (data) => {
     saveSettings.mutate(data);
   };
 

@@ -1,8 +1,8 @@
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
-import { NutritionFacts } from "@/types/nutrition-facts";
+import { FoodValue } from "@/types/food-value";
 
 interface FoodValueDiffProps {
-  foodValue: NutritionFacts;
+  foodValue: FoodValue;
 }
 
 const FoodValueDiffItem = ({

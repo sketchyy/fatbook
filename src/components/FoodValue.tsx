@@ -1,9 +1,9 @@
-import { NutritionFacts } from "@/types/nutrition-facts";
+import { FoodValue as FoodValueType } from "@/types/food-value";
 import foodValueUtils from "@/utils/food-value-utils";
 import { clsx } from "clsx";
 
 type Props = {
-  source: NutritionFacts;
+  source: FoodValueType;
   className?: string;
 };
 

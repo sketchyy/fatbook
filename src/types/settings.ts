@@ -1,4 +1,4 @@
-import { NutritionFacts } from "@/types/nutrition-facts";
+import { FoodValue } from "@/types/food-value";
 
 // May be expanded later
-export type UserSettings = NutritionFacts;
+export type UserSettings = FoodValue;

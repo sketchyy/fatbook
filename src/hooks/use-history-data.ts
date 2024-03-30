@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import historyService from "@/services/history-service";
-import { NutritionFacts } from "@/types/nutrition-facts";
+import { FoodValue } from "@/types/food-value";
 import { useAuth } from "@/context/Auth";
 import dateUtils from "@/utils/date-utils";
 import foodValueUtils from "@/utils/food-value-utils";
@@ -9,19 +9,19 @@ import { useSettings } from "@/hooks/use-settings";
 type HistoryResult =
   | {
       isLoading: false;
-      chartData: NutritionFacts[];
-      totalFoodValue: NutritionFacts;
-      dietGoal: NutritionFacts;
-      dietGoalDiff: NutritionFacts;
-      settings: NutritionFacts;
+      chartData: FoodValue[];
+      totalFoodValue: FoodValue;
+      dietGoal: FoodValue;
+      dietGoalDiff: FoodValue;
+      settings: FoodValue;
     }
   | {
       isLoading: true;
-      chartData: NutritionFacts[];
-      totalFoodValue?: NutritionFacts;
-      dietGoal?: NutritionFacts;
-      dietGoalDiff?: NutritionFacts;
-      settings?: NutritionFacts;
+      chartData: FoodValue[];
+      totalFoodValue?: FoodValue;
+      dietGoal?: FoodValue;
+      dietGoalDiff?: FoodValue;
+      settings?: FoodValue;
     };
 
 export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
@@ -50,7 +50,7 @@ export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
     carbs: settings.carbs * selectedDays.length,
     calories: settings.calories * selectedDays.length,
   };
-  const dietGoalDiff: NutritionFacts = {
+  const dietGoalDiff: FoodValue = {
     proteins: totalFoodValue.proteins - dietGoal.proteins,
     fats: totalFoodValue.fats - dietGoal.fats,
     carbs: totalFoodValue.carbs - dietGoal.carbs,
