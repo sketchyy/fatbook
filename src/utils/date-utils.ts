@@ -1,52 +1,55 @@
 import dayjs from "dayjs";
 
-const dateUtils = {
-  now() {
-    return dayjs().toDate().getTime();
-  },
+type DayjsArgType = dayjs.ConfigType;
 
-  nowAsDate() {
-    return dayjs().toDate();
-  },
+export function now() {
+  return dayjs().toDate().getTime();
+}
 
-  parse(dateStr) {
-    return dayjs(dateStr).toDate();
-  },
+export function nowAsDate() {
+  return dayjs().toDate();
+}
 
-  format(date, format = "DD-MMM-YYYY") {
-    if (typeof date === "string") {
-      date = this.parse(date);
-    }
-    return dayjs(date).format(format);
-  },
+export function parse(dateStr: string) {
+  return dayjs(dateStr).toDate();
+}
 
-  getNextDay(date) {
-    return dayjs(date).add(1, "day").toDate();
-  },
+export function formatDate(date: DayjsArgType, format = "DD-MMM-YYYY") {
+  if (typeof date === "string") {
+    date = parse(date);
+  }
+  return dayjs(date).format(format);
+}
 
-  getPrevDay(date) {
-    return dayjs(date).subtract(1, "day").toDate();
-  },
+export function getNextDay(date: Date) {
+  return dayjs(date).add(1, "day").toDate();
+}
 
-  subtractDays(date, amount) {
-    return dayjs(date).subtract(amount, "day").toDate();
-  },
+export function getPrevDay(date: Date) {
+  return dayjs(date).subtract(1, "day").toDate();
+}
 
-  isSame(date1, date2) {
-    return dayjs(date1).isSame(date2, "day");
-  },
+export function subtractDays(date: DayjsArgType, amount: number) {
+  return dayjs(date).subtract(amount, "day").toDate();
+}
 
-  getDaysBetween(start, end) {
-    const result: string[] = [];
+export function isToday(date: DayjsArgType): boolean {
+  return dayjs(date).isSame(now(), "day");
+}
 
-    let date = start;
-    while (date <= end) {
-      result.push(this.format(date, "YYYY-MM-DD"));
-      date = this.getNextDay(date);
-    }
+export function isYesterday(date: DayjsArgType): boolean {
+  const yesterday = subtractDays(now(), 1);
+  return dayjs(date).isSame(yesterday, "day");
+}
 
-    return result;
-  },
-};
+export function getDaysBetween(start: Date, end: Date) {
+  const result: string[] = [];
 
-export default dateUtils;
+  let date = start;
+  while (date <= end) {
+    result.push(formatDate(date, "YYYY-MM-DD"));
+    date = getNextDay(date);
+  }
+
+  return result;
+}

@@ -1,5 +1,5 @@
 import { supabase } from "@/services/supabase";
-import dateUtils from "@/utils/date-utils";
+import { nowAsDate } from "@/utils/date-utils";
 import { Dish } from "@/types/dish";
 import { isNull } from "@/utils/is-null";
 import { DishPortion } from "@/types/dish-portion";
@@ -66,7 +66,7 @@ async function updateDish(
     .from("dishes")
     .update({
       ...dish,
-      updatedAt: dateUtils.nowAsDate().toISOString(),
+      updatedAt: nowAsDate().toISOString(),
     })
     .eq("id", id)
     .select();

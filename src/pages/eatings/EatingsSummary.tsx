@@ -1,6 +1,13 @@
 import FoodValue from "@/components/FoodValue";
 import DatePicker from "@/components/ui/DatePicker";
-import dateUtils from "@/utils/date-utils";
+import {
+  formatDate,
+  getNextDay,
+  getPrevDay,
+  isToday as checkIsToday,
+  now,
+  parse,
+} from "@/utils/date-utils";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
@@ -14,25 +21,25 @@ function EatingsSummary() {
     dailyEatings: DailyEatings;
   }>();
   const [activeIndex, setActiveIndex] = useState(-1);
-  const isToday = dateUtils.isSame(dateUtils.now(), day);
-  const parsedDay = dateUtils.parse(day);
+  const isToday = checkIsToday(day);
+  const parsedDay = parse(day);
 
   const handleDayChange = (date) => {
-    const selectedDay = dateUtils.format(date);
+    const selectedDay = formatDate(date);
     setActiveIndex(-1);
     navigate(`/eatings/${selectedDay}`);
   };
 
   const handleBackClick = () => {
-    const newDate = dateUtils.getPrevDay(day);
+    const newDate = getPrevDay(parsedDay);
     handleDayChange(newDate);
   };
   const handleForwardClick = () => {
-    const newDate = dateUtils.getNextDay(day);
+    const newDate = getNextDay(parsedDay);
     handleDayChange(newDate);
   };
   const handleTodayClick = () => {
-    const newDate = dateUtils.now();
+    const newDate = now();
     handleDayChange(newDate);
   };
 

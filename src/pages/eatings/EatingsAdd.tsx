@@ -1,5 +1,5 @@
 import SelectDishPortionsForm from "@/components/dish-portions-form/SelectDishPortionsForm";
-import dateUtils from "@/utils/date-utils";
+import { isToday, isYesterday } from "@/utils/date-utils";
 import { useParams } from "react-router-dom";
 import { DishPortion } from "@/types/dish-portion";
 import { useState } from "react";
@@ -39,13 +39,11 @@ function EatingsAdd() {
   };
 
   const getSubtitle = () => {
-    const today = dateUtils.now();
-    if (dateUtils.isSame(day, today)) {
+    if (isToday(day)) {
       return `${meal}, Today`;
     }
 
-    const yesterday = dateUtils.subtractDays(today, 1);
-    if (dateUtils.isSame(day, yesterday)) {
+    if (isYesterday(day)) {
       return `${meal}, Yesterday`;
     }
 

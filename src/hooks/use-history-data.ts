@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import historyService from "@/services/history-service";
 import { FoodValue } from "@/types/food-value";
 import { useAuth } from "@/context/Auth";
-import dateUtils from "@/utils/date-utils";
+import { getDaysBetween } from "@/utils/date-utils";
 import foodValueUtils from "@/utils/food-value-utils";
 import { useSettings } from "@/hooks/use-settings";
 
@@ -26,7 +26,7 @@ type HistoryResult =
 
 export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
   const { userId } = useAuth();
-  const selectedDays = dateUtils.getDaysBetween(startDate, endDate);
+  const selectedDays = getDaysBetween(startDate, endDate);
 
   const { data: history, isLoading: historyLoading } = useQuery({
     queryKey: ["history", startDate, endDate],

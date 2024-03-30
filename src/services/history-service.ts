@@ -1,5 +1,5 @@
 import { supabase } from "@/services/supabase";
-import dateUtils from "@/utils/date-utils";
+import { formatDate } from "@/utils/date-utils";
 
 async function getHistory(userId: string, selectedDays: string[]) {
   const { data: dbData } = await supabase
@@ -14,7 +14,7 @@ async function getHistory(userId: string, selectedDays: string[]) {
     const summary = data.find((r) => r.day === day);
 
     return {
-      date: dateUtils.format(day, "DD MMM"),
+      date: formatDate(day, "DD MMM"),
       calories: Math.round(summary?.calories ?? 0),
       proteins: Math.round(summary?.proteins ?? 0),
       fats: Math.round(summary?.fats ?? 0),
