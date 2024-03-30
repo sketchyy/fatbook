@@ -3,7 +3,7 @@ import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import dishesService from "@/services/dishes-service";
-import { isNull } from "@/utils/is-null";
+import { isNil } from "@/utils/is-nil";
 
 function Dish() {
   const navigate = useNavigate();
@@ -14,13 +14,13 @@ function Dish() {
     queryFn: () => dishesService.getDish(+params.id!),
   });
   const deleteDish = useMutation(dishesService.deleteDish);
-  const isCreate = isNull(params.id);
+  const isCreate = isNil(params.id);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
 
-  if (isNull(dish)) {
+  if (isNil(dish)) {
     return <div>No data found.</div>;
   }
 

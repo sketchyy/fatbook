@@ -1,6 +1,6 @@
 import { supabase } from "@/services/supabase";
 import { UserSettings } from "@/types/settings";
-import { isNull } from "@/utils/is-null";
+import { isNil } from "@/utils/is-nil";
 
 async function getSettings(userId: string): Promise<UserSettings> {
   const { data } = await supabase
@@ -9,7 +9,7 @@ async function getSettings(userId: string): Promise<UserSettings> {
     .eq("user", userId)
     .throwOnError();
 
-  if (isNull(data) || data.length === 0) {
+  if (isNil(data) || data.length === 0) {
     return {
       proteins: 100,
       fats: 70,

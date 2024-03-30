@@ -1,7 +1,7 @@
 import { supabase } from "@/services/supabase";
 import { nowAsDate } from "@/utils/date-utils";
 import { Dish } from "@/types/dish";
-import { isNull } from "@/utils/is-null";
+import { isNil } from "@/utils/is-nil";
 import { DishPortion } from "@/types/dish-portion";
 import { Tables, TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
@@ -49,7 +49,7 @@ async function searchDishes(query: string): Promise<Dish[]> {
 
   // All nulls are filtered
   return (data ?? [])
-    .filter((d) => !isNull(d))
+    .filter((d) => !isNil(d))
     .map((d) => mapDishToUi(d)) as Dish[];
 }
 
@@ -79,7 +79,7 @@ async function deleteDish(id: number) {
 }
 
 function mapDishToUi(dish: DishModel | null): Dish | null {
-  if (isNull(dish)) {
+  if (isNil(dish)) {
     return null;
   }
 

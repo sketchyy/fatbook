@@ -4,7 +4,7 @@ import Divider from "../../ui/Divider";
 
 import DishPortionListItem from "./DishPortionListItem";
 import DishPortionTitle from "./DishPortionTitle";
-import { isNull } from "@/utils/is-null";
+import { isNil } from "@/utils/is-nil";
 import { DishPortion } from "@/types/dish-portion";
 import { clsx } from "clsx";
 
@@ -26,7 +26,7 @@ function DishPortionList({
   const [activeIndex, setActiveIndex] = useState(-1);
   const [prevItems, setPrevItems] = useState(dishPortions);
 
-  if (isNull(dishPortions) || dishPortions.length === 0) {
+  if (isNil(dishPortions) || dishPortions.length === 0) {
     return (
       <>
         <Divider />

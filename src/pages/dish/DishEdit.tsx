@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { Dish } from "@/types/dish";
 import dishesService from "@/services/dishes-service";
-import { isNull } from "@/utils/is-null";
+import { isNil } from "@/utils/is-nil";
 
 export type DishInputs = {
   name: string | null;
@@ -211,7 +211,7 @@ function DishEdit() {
 }
 
 const format = (numb: number | null): number | null => {
-  return isNull(numb) ? null : parseFloat(numb.toPrecision(2));
+  return isNil(numb) ? null : parseFloat(numb.toPrecision(2));
 };
 
 export default DishEdit;
