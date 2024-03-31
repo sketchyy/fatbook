@@ -47,21 +47,6 @@ export function calculateDishValuePer100g(
   };
 }
 
-// TODO: check if needed
-export function calculateOwnDishValuePer100g(
-  dish: any,
-  cookedWeight?: number | null,
-) {
-  const totalDishWeight = cookedWeight ?? dish.defaultServingSize ?? 100;
-
-  return {
-    proteins: (dish.foodValue.proteins / totalDishWeight) * 100,
-    fats: (dish.foodValue.fats / totalDishWeight) * 100,
-    carbs: (dish.foodValue.carbs / totalDishWeight) * 100,
-    calories: (dish.foodValue.calories / totalDishWeight) * 100,
-  };
-}
-
 export function calculateFoodValueForPortion({ dish, portion }: DishPortion) {
   portion = portion ?? 0;
 
