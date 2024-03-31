@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { Dish } from "@/types/dish";
 import { updateDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
-import foodValueUtils from "@/utils/food-value-utils";
+import { emptyFoodValue } from "@/utils/food-value-utils";
 
 export type DishInputs = {
   name: string | null;
@@ -62,7 +62,7 @@ function DishEdit() {
     // dish.foodValue.fats = getValues("foodValue.fats");
     // dish.foodValue.carbs = getValues("foodValue.carbs");
     // const newFoodValue = dishesService.calculateFoodValue(dish, cookedWeight);
-    const newFoodValue = foodValueUtils.emptyFoodValue();
+    const newFoodValue = emptyFoodValue();
 
     reset({
       calories: format(newFoodValue.calories),

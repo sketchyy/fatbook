@@ -1,6 +1,9 @@
 import { supabase } from "@/services/supabase";
 import { DishPortion } from "@/types/dish-portion";
-import foodValueUtils from "@/utils/food-value-utils";
+import {
+  calculateFoodValueForPortion,
+  sumFoodValues,
+} from "@/utils/food-value-utils";
 import { MealType } from "@/types/meals";
 import { DailyEatings, Eating } from "@/types/eating";
 
@@ -20,7 +23,7 @@ export async function fetchDailyEatings(
     console.error("Failed fetch eatings:", error);
   }
 
-  let eatings: Eating[] = error ? [] : data;
+  let eatings: Eating[] = error ? [] : data.map((r) => ({ ...r }));
 
   // Group by is not supported by Supabase out of the box at the moment of writing (see https://github.com/orgs/supabase/discussions/19517)
   const breakfast = eatings.filter((e) => e.meal === "breakfast");
@@ -28,24 +31,25 @@ export async function fetchDailyEatings(
   const dinner = eatings.filter((e) => e.meal === "dinner");
   const snack = eatings.filter((e) => e.meal === "snack");
 
+  // TODO: TS errors
   return {
-    ...foodValueUtils.sumFoodValues(eatings),
+    ...sumFoodValues(eatings),
     meals: {
       breakfast: {
         eatings: breakfast,
-        ...foodValueUtils.sumFoodValues(breakfast),
+        ...sumFoodValues(breakfast),
       },
       lunch: {
         eatings: lunch,
-        ...foodValueUtils.sumFoodValues(lunch),
+        ...sumFoodValues(lunch),
       },
       dinner: {
         eatings: dinner,
-        ...foodValueUtils.sumFoodValues(dinner),
+        ...sumFoodValues(dinner),
       },
       snack: {
         eatings: snack,
-        ...foodValueUtils.sumFoodValues(snack),
+        ...sumFoodValues(snack),
       },
     },
   };
@@ -57,7 +61,7 @@ export async function createEating(
   meal: string,
   eating: DishPortion,
 ): Promise<DishPortion> {
-  const eatingFoodValue = foodValueUtils.calculateFoodValueForPortion(eating);
+  const eatingFoodValue = calculateFoodValueForPortion(eating);
 
   const { data } = await supabase
     .from("eatings")
@@ -80,7 +84,7 @@ export async function createEating(
 }
 
 export async function updateEating(eating: DishPortion): Promise<DishPortion> {
-  const eatingFoodValue = foodValueUtils.calculateFoodValueForPortion(eating);
+  const eatingFoodValue = calculateFoodValueForPortion(eating);
 
   const { data } = await supabase
     .from("eatings")

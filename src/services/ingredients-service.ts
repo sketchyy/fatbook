@@ -1,7 +1,10 @@
 import { Dish } from "@/types/dish";
 import { DishPortion } from "@/types/dish-portion";
 import { supabase } from "@/services/supabase";
-import foodValueUtils from "@/utils/food-value-utils";
+import {
+  calculateDishValuePer100g,
+  calculateFoodValueForPortion,
+} from "@/utils/food-value-utils";
 import { updateDish } from "@/services/dishes-service";
 import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
@@ -11,7 +14,7 @@ export async function addIngredient(
   dish: Dish,
   inputs: DishPortion,
 ): Promise<DishPortion> {
-  const foodValue = foodValueUtils.calculateFoodValueForPortion(inputs);
+  const foodValue = calculateFoodValueForPortion(inputs);
   const newIngredient: TablesInsert<"ingredients"> = {
     portion: inputs.portion ?? 0,
     dish: inputs.dish.id,
@@ -38,7 +41,7 @@ export async function updateIngredient(
   dish: Dish,
   inputs: DishPortion,
 ): Promise<DishPortion> {
-  const foodValue = foodValueUtils.calculateFoodValueForPortion(inputs);
+  const foodValue = calculateFoodValueForPortion(inputs);
   const updatedIngredient: TablesUpdate<"ingredients"> = {
     portion: inputs.portion,
     ...foodValue,
@@ -78,9 +81,7 @@ async function updateDishFoodValue(dish: Dish) {
     .select(`proteins,fats,carbs,calories,portion`)
     .eq("parentDish", dish.id);
 
-  const dishFoodValue = foodValueUtils.calculateDishValuePer100g(
-    ingredients ?? [],
-  );
+  const dishFoodValue = calculateDishValuePer100g(ingredients ?? []);
 
   // Update dish table
   await updateDish(dish.id, {

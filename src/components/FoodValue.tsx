@@ -1,5 +1,5 @@
 import { FoodValue as FoodValueType } from "@/types/food-value";
-import foodValueUtils from "@/utils/food-value-utils";
+import { emptyFoodValue } from "@/utils/food-value-utils";
 import { clsx } from "clsx";
 
 type Props = {
@@ -7,10 +7,7 @@ type Props = {
   className?: string;
 };
 
-function FoodValue({
-  source = foodValueUtils.emptyFoodValue(),
-  className = "",
-}: Props) {
+function FoodValue({ source = emptyFoodValue(), className = "" }: Props) {
   // TODO: single format func
   const format = (val: number) => (val != null ? Math.round(val) : "n/a");
 

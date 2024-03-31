@@ -14,5 +14,5 @@ export type DishPortion = {
   calories: number;
   portion?: number;
   dish: SimplifiedDish;
-  selected: boolean;
+  selected?: boolean;
 };

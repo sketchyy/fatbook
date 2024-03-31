@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { FoodValue } from "@/types/food-value";
 import { useAuth } from "@/context/Auth";
 import { getDaysBetween } from "@/utils/date-utils";
-import foodValueUtils from "@/utils/food-value-utils";
+import { sumFoodValues } from "@/utils/food-value-utils";
 import { useSettings } from "@/hooks/use-settings";
 import { fetchHistory } from "@/services/history-service";
 
@@ -43,7 +43,7 @@ export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
   }
 
   const chartData = history ?? [];
-  const totalFoodValue = foodValueUtils.sumFoodValues(chartData);
+  const totalFoodValue = sumFoodValues(chartData);
   const dietGoal = {
     proteins: settings.proteins * selectedDays.length,
     fats: settings.fats * selectedDays.length,

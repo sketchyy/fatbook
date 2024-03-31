@@ -2,7 +2,7 @@ import { Tables } from "@/types/supabase.types";
 import { MealType } from "@/types/meals";
 import { DishPortion } from "@/types/dish-portion";
 
-export type Eating = Tables<"eatings">;
+export type Eating = DishPortion & { meal: MealType };
 
 export type DailyEatings = {
   proteins: number;
