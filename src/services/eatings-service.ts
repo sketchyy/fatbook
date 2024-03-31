@@ -6,7 +6,7 @@ import { DailyEatings, Eating } from "@/types/eating";
 
 const SELECT_EATING_WITH_DISH = `*, dish:dishes (*)`;
 
-async function getDailyEatings(
+export async function fetchDailyEatings(
   userId: string,
   day: string,
 ): Promise<DailyEatings> {
@@ -51,7 +51,7 @@ async function getDailyEatings(
   };
 }
 
-async function createEating(
+export async function createEating(
   userId: string,
   day: string,
   meal: string,
@@ -79,7 +79,7 @@ async function createEating(
   };
 }
 
-async function updateEating(eating: DishPortion): Promise<DishPortion> {
+export async function updateEating(eating: DishPortion): Promise<DishPortion> {
   const eatingFoodValue = foodValueUtils.calculateFoodValueForPortion(eating);
 
   const { data } = await supabase
@@ -100,13 +100,6 @@ async function updateEating(eating: DishPortion): Promise<DishPortion> {
   };
 }
 
-async function deleteEating(eating: DishPortion) {
+export async function deleteEating(eating: DishPortion) {
   await supabase.from("eatings").delete().eq("id", eating.id!);
 }
-
-export default {
-  getDailyEatings,
-  createEating,
-  updateEating,
-  deleteEating,
-};

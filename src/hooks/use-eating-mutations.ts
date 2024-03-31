@@ -1,6 +1,10 @@
 import { useMutation, UseMutationResult, useQueryClient } from "react-query";
 import { DishPortion } from "@/types/dish-portion";
-import eatingsService from "@/services/eatings-service";
+import {
+  createEating,
+  deleteEating,
+  updateEating,
+} from "@/services/eatings-service";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@/context/Auth";
 
@@ -19,17 +23,17 @@ export function useEatingMutations(meal: string): UseEatingMutations {
 
   const add = useMutation({
     mutationFn: (portion: DishPortion) =>
-      eatingsService.createEating(userId, day!, meal!, portion),
+      createEating(userId, day!, meal!, portion),
     onSuccess,
   });
 
   const update = useMutation({
-    mutationFn: (portion: DishPortion) => eatingsService.updateEating(portion),
+    mutationFn: (portion: DishPortion) => updateEating(portion),
     onSuccess,
   });
 
   const remove = useMutation({
-    mutationFn: (portion: DishPortion) => eatingsService.deleteEating(portion),
+    mutationFn: (portion: DishPortion) => deleteEating(portion),
     onSuccess,
   });
 

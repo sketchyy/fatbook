@@ -1,6 +1,6 @@
 import { Outlet, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import eatingsService from "@/services/eatings-service";
+import { fetchDailyEatings } from "@/services/eatings-service";
 import { useAuth } from "@/context/Auth";
 
 /* EatingsPage */
@@ -15,7 +15,7 @@ function Eatings() {
    * */
   const { data: dailyEatings, isLoading } = useQuery({
     queryKey: ["dailyEatings", day],
-    queryFn: () => eatingsService.getDailyEatings(userId, day!),
+    queryFn: () => fetchDailyEatings(userId, day!),
   });
 
   if (isLoading) {
