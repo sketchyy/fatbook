@@ -2,7 +2,7 @@ import { supabase } from "@/services/supabase";
 import { UserSettings } from "@/types/settings";
 import { isNil } from "@/utils/is-nil";
 
-async function getSettings(userId: string): Promise<UserSettings> {
+export async function fetchSettings(userId: string): Promise<UserSettings> {
   const { data } = await supabase
     .from("settings")
     .select(`proteins, fats, carbs, calories`)
@@ -21,11 +21,6 @@ async function getSettings(userId: string): Promise<UserSettings> {
   return data[0];
 }
 
-async function saveSettings(userId: string, userSettings: UserSettings) {
+export async function saveSettings(userId: string, userSettings: UserSettings) {
   await supabase.from("settings").upsert({ user: userId, ...userSettings });
 }
-
-export default {
-  getSettings,
-  saveSettings,
-};
