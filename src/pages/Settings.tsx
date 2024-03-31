@@ -1,12 +1,12 @@
 import { FaSave } from "react-icons/fa";
 import { clsx } from "clsx";
 import { useMutation } from "react-query";
-import settingsService from "@/services/settings-service";
 import { useAuth } from "@/context/Auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";
 import { FoodValue } from "@/types/food-value";
+import { saveSettings } from "@/services/settings-service";
 
 function Settings() {
   const { userId } = useAuth();
@@ -17,9 +17,8 @@ function Settings() {
       keepDirtyValues: true,
     },
   });
-  const saveSettings = useMutation({
-    mutationFn: (values: FoodValue) =>
-      settingsService.saveSettings(userId, values),
+  const saveMutation = useMutation({
+    mutationFn: (values: FoodValue) => saveSettings(userId, values),
     onSuccess: () => {
       toast.success("Settings saved");
     },
@@ -29,10 +28,10 @@ function Settings() {
   });
 
   const onSubmit: SubmitHandler<FoodValue> = async (data) => {
-    saveSettings.mutate(data);
+    saveMutation.mutate(data);
   };
 
-  const loading = queryLoading || saveSettings.isLoading;
+  const loading = queryLoading || saveMutation.isLoading;
 
   return (
     <form
