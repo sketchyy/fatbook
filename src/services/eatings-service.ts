@@ -31,7 +31,6 @@ export async function fetchDailyEatings(
   const dinner = eatings.filter((e) => e.meal === "dinner");
   const snack = eatings.filter((e) => e.meal === "snack");
 
-  // TODO: TS errors
   return {
     ...sumFoodValues(eatings),
     meals: {
