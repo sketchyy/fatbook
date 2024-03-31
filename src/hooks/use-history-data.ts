@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
-import historyService from "@/services/history-service";
 import { FoodValue } from "@/types/food-value";
 import { useAuth } from "@/context/Auth";
 import { getDaysBetween } from "@/utils/date-utils";
 import foodValueUtils from "@/utils/food-value-utils";
 import { useSettings } from "@/hooks/use-settings";
+import { fetchHistory } from "@/services/history-service";
 
 type HistoryResult =
   | {
@@ -30,7 +30,7 @@ export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
 
   const { data: history, isLoading: historyLoading } = useQuery({
     queryKey: ["history", startDate, endDate],
-    queryFn: () => historyService.getHistory(userId, selectedDays),
+    queryFn: () => fetchHistory(userId, selectedDays),
     enabled: Boolean(startDate && endDate),
   });
   const { data: settings, isLoading: settingsLoading } = useSettings();

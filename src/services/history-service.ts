@@ -1,7 +1,7 @@
 import { supabase } from "@/services/supabase";
 import { formatDate } from "@/utils/date-utils";
 
-async function getHistory(userId: string, selectedDays: string[]) {
+export async function fetchHistory(userId: string, selectedDays: string[]) {
   const { data: dbData } = await supabase
     .from("eatings_by_day")
     .select()
@@ -22,7 +22,3 @@ async function getHistory(userId: string, selectedDays: string[]) {
     };
   });
 }
-
-export default {
-  getHistory,
-};
