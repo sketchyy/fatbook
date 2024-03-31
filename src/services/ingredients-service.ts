@@ -7,7 +7,7 @@ import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
 const SELECT_INGREDIENT_WITH_DISH = `*, dish:dishes!public_dishIngredients_dish_fkey (*)`;
 
-async function addIngredient(
+export async function addIngredient(
   dish: Dish,
   inputs: DishPortion,
 ): Promise<DishPortion> {
@@ -34,7 +34,7 @@ async function addIngredient(
   };
 }
 
-async function updateIngredient(
+export async function updateIngredient(
   dish: Dish,
   inputs: DishPortion,
 ): Promise<DishPortion> {
@@ -61,7 +61,7 @@ async function updateIngredient(
   };
 }
 
-async function deleteIngredient(dish: Dish, inputs: DishPortion) {
+export async function deleteIngredient(dish: Dish, inputs: DishPortion) {
   await supabase
     .from("ingredients")
     .delete()
@@ -89,9 +89,3 @@ async function updateDish(dish: Dish) {
     ...dishFoodValue,
   });
 }
-
-export default {
-  addIngredient,
-  updateIngredient,
-  deleteIngredient,
-};

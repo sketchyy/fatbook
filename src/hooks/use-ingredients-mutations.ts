@@ -1,6 +1,10 @@
 import { useMutation, UseMutationResult, useQueryClient } from "react-query";
 import { DishPortion } from "@/types/dish-portion";
-import ingredientsService from "@/services/ingredients-service";
+import {
+  addIngredient,
+  deleteIngredient,
+  updateIngredient,
+} from "@/services/ingredients-service";
 import { Dish } from "@/types/dish";
 
 type UseIngredientMutations = {
@@ -15,20 +19,17 @@ export function useIngredientMutations(dish: Dish): UseIngredientMutations {
   const onSuccess = () => queryClient.invalidateQueries("dish");
 
   const add = useMutation(
-    (ingredient: DishPortion) =>
-      ingredientsService.addIngredient(dish, ingredient),
+    (ingredient: DishPortion) => addIngredient(dish, ingredient),
     { onSuccess },
   );
 
   const update = useMutation(
-    (ingredient: DishPortion) =>
-      ingredientsService.updateIngredient(dish, ingredient),
+    (ingredient: DishPortion) => updateIngredient(dish, ingredient),
     { onSuccess },
   );
 
   const remove = useMutation(
-    (ingredient: DishPortion) =>
-      ingredientsService.deleteIngredient(dish, ingredient),
+    (ingredient: DishPortion) => deleteIngredient(dish, ingredient),
     { onSuccess },
   );
 
