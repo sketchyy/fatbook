@@ -9,7 +9,7 @@ type DishModel = Omit<Tables<"dishes">, "createdAt" | "updatedAt"> & {
   ingredients?: Tables<"ingredients">[];
 };
 
-async function getDish(id: number): Promise<Dish | null> {
+export async function fetchDish(id: number): Promise<Dish | null> {
   const { data: dish } = await supabase
     .from("dishes")
     .select(
@@ -35,7 +35,7 @@ async function getDish(id: number): Promise<Dish | null> {
   return mapDishToUi(dish);
 }
 
-async function searchDishes(query: string): Promise<Dish[]> {
+export async function searchDishes(query: string): Promise<Dish[]> {
   const { data } = await supabase
     .from("dishes")
     .select()
@@ -53,12 +53,12 @@ async function searchDishes(query: string): Promise<Dish[]> {
     .map((d) => mapDishToUi(d)) as Dish[];
 }
 
-async function createDish(dish: TablesInsert<"dishes">) {
+export async function createDish(dish: TablesInsert<"dishes">) {
   const { data } = await supabase.from("dishes").insert(dish).select();
   return data ? data[0] : null;
 }
 
-async function updateDish(
+export async function updateDish(
   id: number,
   dish: TablesUpdate<"dishes">,
 ): Promise<Dish | null> {
@@ -74,7 +74,7 @@ async function updateDish(
   return data ? mapDishToUi(data[0]) : null;
 }
 
-async function deleteDish(id: number) {
+export async function deleteDish(id: number) {
   return supabase.from("dishes").delete().eq("id", id);
 }
 
@@ -100,11 +100,3 @@ function mapDishToUi(dish: DishModel | null): Dish | null {
 function isWithIngredients(dish: DishModel | Dish | null): dish is Dish {
   return !!(dish as Dish)?.ingredients;
 }
-
-export default {
-  getDish,
-  searchDishes,
-  createDish,
-  updateDish,
-  deleteDish,
-};

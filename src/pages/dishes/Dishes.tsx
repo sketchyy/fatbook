@@ -3,7 +3,7 @@ import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/ui/SearchBar";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
-import dishesService from "@/services/dishes-service";
+import { createDish } from "@/services/dishes-service";
 import { Dish } from "@/types/dish";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { ChangeEvent } from "react";
@@ -11,8 +11,8 @@ import { ChangeEvent } from "react";
 function Dishes() {
   const navigate = useNavigate();
   const { dishes, isLoading, query, runSearch } = useDishesSearch();
-  const createDish = useMutation({
-    mutationFn: () => dishesService.createDish({ name: "" }),
+  const createMutation = useMutation({
+    mutationFn: () => createDish({ name: "" }),
     onSuccess: (dish) =>
       dish ? navigate(`/dishes/${dish.id}/edit`) : navigate(`/dishes/`),
   });
@@ -22,7 +22,7 @@ function Dishes() {
   };
 
   const handleNewClick = () => {
-    createDish.mutate();
+    createMutation.mutate();
   };
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>

@@ -2,7 +2,7 @@ import NavLinkTab from "@/components/ui/NavLinkTab";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
-import dishesService from "@/services/dishes-service";
+import { deleteDish, fetchDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 
 function Dish() {
@@ -11,9 +11,9 @@ function Dish() {
   const params = useParams();
   const { data: dish, isLoading } = useQuery({
     queryKey: ["dish", +params.id!],
-    queryFn: () => dishesService.getDish(+params.id!),
+    queryFn: () => fetchDish(+params.id!),
   });
-  const deleteDish = useMutation(dishesService.deleteDish);
+  const deleteMutation = useMutation(deleteDish);
   const isCreate = isNil(params.id);
 
   if (isLoading) {
@@ -36,7 +36,7 @@ function Dish() {
     if (!window.confirm("Please confirm you want to delete this record.")) {
       return;
     }
-    deleteDish.mutate(dish!.id, {
+    deleteMutation.mutate(dish!.id, {
       onSuccess: () => {
         navigate("/dishes");
       },

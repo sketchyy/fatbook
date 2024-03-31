@@ -2,7 +2,7 @@ import { Dish } from "@/types/dish";
 import { DishPortion } from "@/types/dish-portion";
 import { supabase } from "@/services/supabase";
 import foodValueUtils from "@/utils/food-value-utils";
-import dishesService from "@/services/dishes-service";
+import { updateDish } from "@/services/dishes-service";
 import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
 const SELECT_INGREDIENT_WITH_DISH = `*, dish:dishes!public_dishIngredients_dish_fkey (*)`;
@@ -26,7 +26,7 @@ export async function addIngredient(
     .single()
     .throwOnError();
 
-  await updateDish(dish);
+  await updateDishFoodValue(dish);
 
   return {
     ...ingredient!,
@@ -53,7 +53,7 @@ export async function updateIngredient(
     .single()
     .throwOnError();
 
-  await updateDish(dish);
+  await updateDishFoodValue(dish);
 
   return {
     ...ingredient!,
@@ -68,10 +68,10 @@ export async function deleteIngredient(dish: Dish, inputs: DishPortion) {
     .eq("dish", inputs.dish.id)
     .eq("parentDish", dish.id);
 
-  await updateDish(dish);
+  await updateDishFoodValue(dish);
 }
 
-async function updateDish(dish: Dish) {
+async function updateDishFoodValue(dish: Dish) {
   // Calculate food value for dish
   const { data: ingredients } = await supabase
     .from("ingredients")
@@ -83,7 +83,7 @@ async function updateDish(dish: Dish) {
   );
 
   // Update dish table
-  await dishesService.updateDish(dish.id, {
+  await updateDish(dish.id, {
     name: dish.name,
     hasIngredients: Boolean(ingredients && ingredients.length > 0),
     ...dishFoodValue,

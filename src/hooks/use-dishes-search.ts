@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import dishesService from "@/services/dishes-service";
+import { searchDishes } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 
 export function useDishesSearch() {
@@ -13,7 +13,7 @@ export function useDishesSearch() {
     isError,
   } = useQuery({
     queryKey: ["dishes", query],
-    queryFn: () => dishesService.searchDishes(query),
+    queryFn: () => searchDishes(query),
   });
 
   const runSearch = (query: string) => {

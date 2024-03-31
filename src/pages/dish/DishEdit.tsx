@@ -4,8 +4,9 @@ import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { Dish } from "@/types/dish";
-import dishesService from "@/services/dishes-service";
+import { updateDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
+import foodValueUtils from "@/utils/food-value-utils";
 
 export type DishInputs = {
   name: string | null;
@@ -38,7 +39,7 @@ function DishEdit() {
   const hasIngredients = dish?.ingredients?.length! > 0;
 
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
-    await dishesService.updateDish(+params.id!, data);
+    await updateDish(+params.id!, data);
 
     navigate("/dishes");
   };
@@ -60,7 +61,8 @@ function DishEdit() {
     // dish.foodValue.proteins = getValues("foodValue.proteins");
     // dish.foodValue.fats = getValues("foodValue.fats");
     // dish.foodValue.carbs = getValues("foodValue.carbs");
-    const newFoodValue = dishesService.calculateFoodValue(dish, cookedWeight);
+    // const newFoodValue = dishesService.calculateFoodValue(dish, cookedWeight);
+    const newFoodValue = foodValueUtils.emptyFoodValue();
 
     reset({
       calories: format(newFoodValue.calories),
