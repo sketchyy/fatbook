@@ -16,7 +16,7 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["dishes", query],
+    queryKey: ["dishes", query, { filterEmpty }],
     queryFn: () => searchDishes({ query, filterDishId, filterEmpty }),
   });
 
