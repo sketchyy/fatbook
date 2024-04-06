@@ -48,7 +48,7 @@ function EatingsSummary() {
       <div className="box mb-4">
         <div className="level block">
           <div className="level-left">
-            <div className="level is-mobile mb-0">
+            <div className="level is-mobile mb-0" style={{ height: "40px" }}>
               <div className="level-left">
                 <div className="level-item">
                   <span className="is-size-5">📝</span>
@@ -60,7 +60,7 @@ function EatingsSummary() {
               <div className="level-right">
                 <div className="level-item">
                   {!isToday && (
-                    <button className="button ml-4" onClick={handleTodayClick}>
+                    <button className="button  ml-4" onClick={handleTodayClick}>
                       To Today
                     </button>
                   )}
