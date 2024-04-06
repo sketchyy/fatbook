@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { searchDishes } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 

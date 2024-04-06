@@ -2,7 +2,7 @@ import DishList from "@/components/dish/DishList";
 import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/ui/SearchBar";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { createDish } from "@/services/dishes-service";
 import { Dish } from "@/types/dish";
 import { useDishesSearch } from "@/hooks/use-dishes-search";

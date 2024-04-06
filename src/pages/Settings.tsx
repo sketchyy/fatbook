@@ -1,6 +1,6 @@
 import { FaSave } from "react-icons/fa";
 import { clsx } from "clsx";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useAuth } from "@/context/Auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -31,7 +31,7 @@ function Settings() {
     saveMutation.mutate(data);
   };
 
-  const loading = queryLoading || saveMutation.isLoading;
+  const loading = queryLoading || saveMutation.isPending;
 
   return (
     <form

@@ -1,4 +1,8 @@
-import { useMutation, UseMutationResult, useQueryClient } from "react-query";
+import {
+  useMutation,
+  UseMutationResult,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { DishPortion } from "@/types/dish-portion";
 import {
   createEating,
@@ -19,7 +23,8 @@ export function useEatingMutations(meal: string): UseEatingMutations {
   const { day } = useParams();
   const { userId } = useAuth();
 
-  const onSuccess = () => queryClient.invalidateQueries(["dailyEatings", day]);
+  const onSuccess = () =>
+    queryClient.invalidateQueries({ queryKey: ["dailyEatings", day] });
 
   const add = useMutation({
     mutationFn: (portion: DishPortion) =>

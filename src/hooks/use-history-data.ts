@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { FoodValue } from "@/types/food-value";
 import { useAuth } from "@/context/Auth";
 import { getDaysBetween } from "@/utils/date-utils";

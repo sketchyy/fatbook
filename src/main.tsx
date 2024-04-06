@@ -26,7 +26,7 @@ import Login from "@/pages/Login";
 import Root from "@/pages/Root";
 import Settings from "@/pages/Settings";
 import RequireAuth from "@/components/auth/RequireAuth";
-import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/context/Auth";
 import { formatDate, now } from "@/utils/date-utils";
 

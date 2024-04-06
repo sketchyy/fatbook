@@ -1,7 +1,7 @@
 import NavLinkTab from "@/components/ui/NavLinkTab";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteDish, fetchDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 
@@ -13,7 +13,7 @@ function Dish() {
     queryKey: ["dish", +params.id!],
     queryFn: () => fetchDish(+params.id!),
   });
-  const deleteMutation = useMutation(deleteDish);
+  const deleteMutation = useMutation({ mutationFn: deleteDish });
   const isCreate = isNil(params.id);
 
   if (isLoading) {

@@ -1,4 +1,8 @@
-import { useMutation, UseMutationResult, useQueryClient } from "react-query";
+import {
+  useMutation,
+  UseMutationResult,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { DishPortion } from "@/types/dish-portion";
 import {
   addIngredient,
@@ -16,22 +20,22 @@ type UseIngredientMutations = {
 export function useIngredientMutations(dish: Dish): UseIngredientMutations {
   const queryClient = useQueryClient();
 
-  const onSuccess = () => queryClient.invalidateQueries("dish");
+  const onSuccess = () => queryClient.invalidateQueries({ queryKey: ["dish"] });
 
-  const add = useMutation(
-    (ingredient: DishPortion) => addIngredient(dish, ingredient),
-    { onSuccess },
-  );
+  const add = useMutation({
+    mutationFn: (ingredient: DishPortion) => addIngredient(dish, ingredient),
+    onSuccess,
+  });
 
-  const update = useMutation(
-    (ingredient: DishPortion) => updateIngredient(dish, ingredient),
-    { onSuccess },
-  );
+  const update = useMutation({
+    mutationFn: (ingredient: DishPortion) => updateIngredient(dish, ingredient),
+    onSuccess,
+  });
 
-  const remove = useMutation(
-    (ingredient: DishPortion) => deleteIngredient(dish, ingredient),
-    { onSuccess },
-  );
+  const remove = useMutation({
+    mutationFn: (ingredient: DishPortion) => deleteIngredient(dish, ingredient),
+    onSuccess,
+  });
 
   return {
     add,
