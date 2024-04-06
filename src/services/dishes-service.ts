@@ -55,7 +55,8 @@ export async function searchDishes({
           type: "plain",
           config: "english",
         })*/
-    .order("updatedAt", { ascending: false });
+    .order("updatedAt", { ascending: false })
+    .throwOnError();
 
   if (filterEmpty) {
     dbQuery = dbQuery
