@@ -35,17 +35,41 @@ export async function fetchDish(id: number): Promise<Dish | null> {
   return mapDishToUi(dish);
 }
 
-export async function searchDishes(query: string): Promise<Dish[]> {
-  const { data } = await supabase
+type SearchProps = {
+  query: string;
+  filterDishId?: number;
+  filterEmpty?: boolean;
+};
+export async function searchDishes({
+  query,
+  filterDishId,
+  filterEmpty,
+}: SearchProps): Promise<Dish[]> {
+  let dbQuery = supabase
     .from("dishes")
     .select()
     .ilike("name", `%${query}%`)
+
     // TODO: research full text search with en/ru in supabase
     /*.textSearch("name", userQuery, {
           type: "plain",
           config: "english",
         })*/
     .order("updatedAt", { ascending: false });
+
+  if (filterEmpty) {
+    dbQuery = dbQuery
+      .not("proteins", "is", null)
+      .not("fats", "is", null)
+      .not("carbs", "is", null)
+      .not("calories", "is", null);
+  }
+
+  if (filterDishId) {
+    dbQuery = dbQuery.not("id", "eq", filterDishId);
+  }
+
+  const { data } = await dbQuery;
 
   // All nulls are filtered
   return (data ?? [])

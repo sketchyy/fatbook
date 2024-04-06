@@ -3,7 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { searchDishes } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 
-export function useDishesSearch() {
+type Props = {
+  filterDishId?: number;
+  filterEmpty?: boolean;
+};
+export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.has("q") ? searchParams.getAll("q")[0] : "";
 
@@ -13,7 +17,7 @@ export function useDishesSearch() {
     isError,
   } = useQuery({
     queryKey: ["dishes", query],
-    queryFn: () => searchDishes(query),
+    queryFn: () => searchDishes({ query, filterDishId, filterEmpty }),
   });
 
   const runSearch = (query: string) => {

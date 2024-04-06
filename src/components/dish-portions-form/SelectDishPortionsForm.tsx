@@ -13,6 +13,7 @@ type Props = {
   onAdd: (ingredient: DishPortion) => void;
   onDelete: (ingredient: DishPortion) => void;
   onUpdate?: (ingredient: DishPortion) => void;
+  filterDishId?: number;
 };
 
 function SelectDishPortionsForm({
@@ -22,8 +23,12 @@ function SelectDishPortionsForm({
   onAdd,
   onUpdate,
   onDelete,
+  filterDishId,
 }: Props) {
-  const { dishes, isLoading, query, runSearch } = useDishesSearch();
+  const { dishes, isLoading, query, runSearch } = useDishesSearch({
+    filterEmpty: true,
+    filterDishId: filterDishId,
+  });
 
   const dishPortions: DishPortion[] = dishes.map((d) =>
     mapDishToPortionInputs(d),

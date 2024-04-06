@@ -40,6 +40,7 @@ function DishIngredientAdd() {
 
   return (
     <SelectDishPortionsForm
+      filterDishId={dish.id}
       title="Select Ingredient"
       subtitle={"For " + dish.name}
       selectedPortions={selectedPortions}
