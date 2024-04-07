@@ -17,8 +17,8 @@ export async function addIngredient(
   const foodValue = calculateFoodValueForPortion(inputs);
   const newIngredient: TablesInsert<"ingredients"> = {
     portion: inputs.portion ?? 0,
-    dish: inputs.dish.id,
-    parentDish: dish.id,
+    dishId: inputs.dish.id,
+    parentDishId: dish.id,
     ...foodValue,
   };
 
@@ -26,7 +26,7 @@ export async function addIngredient(
     .from("ingredients")
     .insert(newIngredient)
     .select(SELECT_INGREDIENT_WITH_DISH)
-    .single()
+    .single<DishPortion>()
     .throwOnError();
 
   await updateDishFoodValue(dish);
@@ -50,10 +50,10 @@ export async function updateIngredient(
   const { data: ingredient } = await supabase
     .from("ingredients")
     .update(updatedIngredient)
-    .eq("dish", inputs.dish.id)
-    .eq("parentDish", dish.id)
+    .eq("dishId", inputs.dish.id)
+    .eq("parentDishId", dish.id)
     .select(SELECT_INGREDIENT_WITH_DISH)
-    .single()
+    .single<DishPortion>()
     .throwOnError();
 
   await updateDishFoodValue(dish);
@@ -68,8 +68,8 @@ export async function deleteIngredient(dish: Dish, inputs: DishPortion) {
   await supabase
     .from("ingredients")
     .delete()
-    .eq("dish", inputs.dish.id)
-    .eq("parentDish", dish.id);
+    .eq("dishId", inputs.dish.id)
+    .eq("parentDishId", dish.id);
 
   await updateDishFoodValue(dish);
 }
@@ -79,7 +79,7 @@ async function updateDishFoodValue(dish: Dish) {
   const { data: ingredients } = await supabase
     .from("ingredients")
     .select(`proteins,fats,carbs,calories,portion`)
-    .eq("parentDish", dish.id);
+    .eq("parentDishId", dish.id);
 
   const dishFoodValue = calculateDishValuePer100g(ingredients ?? []);
 

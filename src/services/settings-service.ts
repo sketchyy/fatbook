@@ -6,7 +6,7 @@ export async function fetchSettings(userId: string): Promise<UserSettings> {
   const { data } = await supabase
     .from("settings")
     .select(`proteins, fats, carbs, calories`)
-    .eq("user", userId)
+    .eq("userId", userId)
     .throwOnError();
 
   if (isNil(data) || data.length === 0) {
@@ -22,5 +22,5 @@ export async function fetchSettings(userId: string): Promise<UserSettings> {
 }
 
 export async function saveSettings(userId: string, userSettings: UserSettings) {
-  await supabase.from("settings").upsert({ user: userId, ...userSettings });
+  await supabase.from("settings").upsert({ userId, ...userSettings });
 }

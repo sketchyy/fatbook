@@ -55,53 +55,53 @@ export type Database = {
         Row: {
           calories: number
           carbs: number
-          created_at: string
+          createdAt: string
           day: string
-          dish: number
+          dishId: number
           fats: number
           id: number
           meal: Database["public"]["Enums"]["meal"]
           portion: number
           proteins: number
-          user: string
+          userId: string
         }
         Insert: {
           calories: number
           carbs: number
-          created_at?: string
+          createdAt?: string
           day: string
-          dish: number
+          dishId: number
           fats: number
           id?: number
           meal: Database["public"]["Enums"]["meal"]
           portion: number
           proteins: number
-          user?: string
+          userId: string
         }
         Update: {
           calories?: number
           carbs?: number
-          created_at?: string
+          createdAt?: string
           day?: string
-          dish?: number
+          dishId?: number
           fats?: number
           id?: number
           meal?: Database["public"]["Enums"]["meal"]
           portion?: number
           proteins?: number
-          user?: string
+          userId?: string
         }
         Relationships: [
           {
             foreignKeyName: "public_eatings_dish_fkey"
-            columns: ["dish"]
+            columns: ["dishId"]
             isOneToOne: false
             referencedRelation: "dishes"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "public_eatings_user_fkey"
-            columns: ["user"]
+            columns: ["userId"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
@@ -113,10 +113,10 @@ export type Database = {
           calories: number
           carbs: number
           createdAt: string | null
-          dish: number
+          dishId: number
           fats: number
           id: number
-          parentDish: number
+          parentDishId: number
           portion: number
           proteins: number
         }
@@ -124,10 +124,10 @@ export type Database = {
           calories: number
           carbs: number
           createdAt?: string | null
-          dish: number
+          dishId: number
           fats: number
           id?: number
-          parentDish: number
+          parentDishId: number
           portion: number
           proteins: number
         }
@@ -135,24 +135,24 @@ export type Database = {
           calories?: number
           carbs?: number
           createdAt?: string | null
-          dish?: number
+          dishId?: number
           fats?: number
           id?: number
-          parentDish?: number
+          parentDishId?: number
           portion?: number
           proteins?: number
         }
         Relationships: [
           {
             foreignKeyName: "public_dishIngredients_dish_fkey"
-            columns: ["dish"]
+            columns: ["dishId"]
             isOneToOne: false
             referencedRelation: "dishes"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "public_dishIngredients_ingredient_fkey"
-            columns: ["parentDish"]
+            columns: ["parentDishId"]
             isOneToOne: false
             referencedRelation: "dishes"
             referencedColumns: ["id"]
@@ -164,27 +164,32 @@ export type Database = {
           calories: number
           carbs: number
           fats: number
-          id: number
           proteins: number
-          user: string | null
+          userId: string
         }
         Insert: {
           calories: number
           carbs: number
           fats: number
-          id?: number
           proteins: number
-          user?: string | null
+          userId: string
         }
         Update: {
           calories?: number
           carbs?: number
           fats?: number
-          id?: number
           proteins?: number
-          user?: string | null
+          userId?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "public_settings_user_fkey"
+            columns: ["userId"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
@@ -195,12 +200,12 @@ export type Database = {
           day: string | null
           fats: number | null
           proteins: number | null
-          user: string | null
+          userId: string | null
         }
         Relationships: [
           {
             foreignKeyName: "public_eatings_user_fkey"
-            columns: ["user"]
+            columns: ["userId"]
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]

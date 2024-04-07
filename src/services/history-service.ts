@@ -5,7 +5,7 @@ export async function fetchHistory(userId: string, selectedDays: string[]) {
   const { data: dbData } = await supabase
     .from("eatings_by_day")
     .select()
-    .eq("user", userId)
+    .eq("userId ", userId)
     .throwOnError();
 
   const data = dbData ?? [];

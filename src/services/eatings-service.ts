@@ -16,8 +16,9 @@ export async function fetchDailyEatings(
   const { data, error } = await supabase
     .from("eatings")
     .select(SELECT_EATING_WITH_DISH)
-    .eq("user", userId)
-    .eq("day", day);
+    .eq("userId", userId)
+    .eq("day", day)
+    .returns<Eating[]>();
 
   if (error) {
     console.error("Failed fetch eatings:", error);
@@ -65,15 +66,15 @@ export async function createEating(
   const { data } = await supabase
     .from("eatings")
     .insert({
-      user: userId,
+      userId,
       day,
       meal: meal as MealType,
-      dish: eating.dish.id,
+      dishId: eating.dish.id,
       portion: eating.portion!,
       ...eatingFoodValue,
     })
     .select(SELECT_EATING_WITH_DISH)
-    .single()
+    .single<DishPortion>()
     .throwOnError();
 
   return {
@@ -88,13 +89,13 @@ export async function updateEating(eating: DishPortion): Promise<DishPortion> {
   const { data } = await supabase
     .from("eatings")
     .update({
-      dish: eating.dish.id,
+      dishId: eating.dish.id,
       portion: eating.portion!,
       ...eatingFoodValue,
     })
     .eq("id", eating.id!)
     .select(SELECT_EATING_WITH_DISH)
-    .single()
+    .single<DishPortion>()
     .throwOnError();
 
   return {
