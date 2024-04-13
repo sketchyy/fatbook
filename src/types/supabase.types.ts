@@ -16,6 +16,7 @@ export type Database = {
           cookedWeight: number | null
           createdAt: string
           defaultPortion: number | null
+          deleted: boolean | null
           fats: number | null
           hasIngredients: boolean
           id: number
@@ -29,6 +30,7 @@ export type Database = {
           cookedWeight?: number | null
           createdAt?: string
           defaultPortion?: number | null
+          deleted?: boolean | null
           fats?: number | null
           hasIngredients?: boolean
           id?: number
@@ -42,6 +44,7 @@ export type Database = {
           cookedWeight?: number | null
           createdAt?: string
           defaultPortion?: number | null
+          deleted?: boolean | null
           fats?: number | null
           hasIngredients?: boolean
           id?: number
@@ -57,7 +60,7 @@ export type Database = {
           carbs: number
           createdAt: string
           day: string
-          dishId: number
+          dishId: number | null
           fats: number
           id: number
           meal: Database["public"]["Enums"]["meal"]
@@ -70,7 +73,7 @@ export type Database = {
           carbs: number
           createdAt?: string
           day: string
-          dishId: number
+          dishId?: number | null
           fats: number
           id?: number
           meal: Database["public"]["Enums"]["meal"]
@@ -83,7 +86,7 @@ export type Database = {
           carbs?: number
           createdAt?: string
           day?: string
-          dishId?: number
+          dishId?: number | null
           fats?: number
           id?: number
           meal?: Database["public"]["Enums"]["meal"]
@@ -93,14 +96,14 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_eatings_dish_fkey"
+            foreignKeyName: "public_eatings_dishId_fkey"
             columns: ["dishId"]
             isOneToOne: false
             referencedRelation: "dishes"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "public_eatings_user_fkey"
+            foreignKeyName: "public_eatings_userId_fkey"
             columns: ["userId"]
             isOneToOne: false
             referencedRelation: "users"
@@ -204,7 +207,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_eatings_user_fkey"
+            foreignKeyName: "public_eatings_userId_fkey"
             columns: ["userId"]
             isOneToOne: false
             referencedRelation: "users"

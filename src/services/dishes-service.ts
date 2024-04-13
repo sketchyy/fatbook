@@ -5,7 +5,10 @@ import { isNil } from "@/utils/is-nil";
 import { DishPortion } from "@/types/dish-portion";
 import { Tables, TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
-type DishModel = Omit<Tables<"dishes">, "createdAt" | "updatedAt"> & {
+type DishModel = Omit<
+  Tables<"dishes">,
+  "createdAt" | "updatedAt" | "deleted"
+> & {
   ingredients?: Tables<"ingredients">[];
 };
 
@@ -49,6 +52,7 @@ export async function searchDishes({
     .from("dishes")
     .select()
     .ilike("name", `%${query}%`)
+    .is("deleted", false)
 
     // TODO: research full text search with en/ru in supabase
     /*.textSearch("name", userQuery, {
@@ -99,8 +103,12 @@ export async function updateDish(
   return data ? mapDishToUi(data[0]) : null;
 }
 
+/* Delete will only mark dish as `deleted`.
+ * It will be hidden from search, but remain referenced by Eatings/DishIngredients.
+ * Housekeeping procedure will delete `deleted` dishes each month, if there are no references left.
+ * */
 export async function deleteDish(id: number) {
-  return supabase.from("dishes").delete().eq("id", id);
+  return supabase.from("dishes").update({ deleted: true }).eq("id", id);
 }
 
 function mapDishToUi(dish: DishModel | null): Dish | null {
