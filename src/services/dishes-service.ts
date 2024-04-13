@@ -33,6 +33,7 @@ export async function fetchDish(id: number): Promise<Dish | null> {
      `,
     )
     .eq("id", id)
+    .eq("deleted", false)
     .single();
 
   return mapDishToUi(dish);
