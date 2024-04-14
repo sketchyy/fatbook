@@ -2,15 +2,17 @@ import EditDishPortionsForm from "@/components/dish-portions-form/EditDishPortio
 import PageTitle from "@/components/PageTitle";
 import Confirm, { Confirmation } from "@/components/ui/Confirm";
 import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaChevronDown, FaPlus } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { Dish } from "@/types/dish";
 import { DishPortion } from "@/types/dish-portion";
 import { useIngredientMutations } from "@/hooks/use-ingredients-mutations";
+import { DishIngredientsDetails } from "@/components/dish/DishIngredientsDetails";
 
 function DishIngredients() {
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
+  const [showDetails, setShowDetails] = useState(false);
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
@@ -36,7 +38,7 @@ function DishIngredients() {
 
   return (
     <div className="box">
-      <PageTitle title={dish.name}>
+      <PageTitle title={dish.name} className="mb-0">
         <button className="button is-primary" onClick={handleAdd}>
           <span className="icon">
             <FaPlus />
@@ -44,6 +46,24 @@ function DishIngredients() {
           <span>Add</span>
         </button>
       </PageTitle>
+
+      {dish.ingredients.length > 0 && !showDetails && (
+        <div className="is-flex is-justify-content-end mb-2">
+          <button
+            onClick={() => setShowDetails((s) => !s)}
+            className="button is-small is-rounded mt-1"
+          >
+            <span className="mr-2">Cooking</span>
+            <FaChevronDown />
+          </button>
+        </div>
+      )}
+
+      <DishIngredientsDetails
+        visible={showDetails}
+        setVisible={setShowDetails}
+        dish={dish}
+      />
 
       <EditDishPortionsForm
         dishPortions={dish.ingredients}

@@ -2,6 +2,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import DishIcon from "../../dish/DishIcon";
 import FoodValue from "../../FoodValue";
 import { DishPortion } from "@/types/dish-portion";
+import { FoodWeight } from "@/components/FoodWeight";
 
 type Props = {
   dishPortion: DishPortion;
@@ -35,17 +36,11 @@ function DishPortionTitle({ dishPortion }: Props) {
                 <div className="is-flex is-justify-content-space-between">
                   <FoodValue
                     source={dishPortion}
-                    className="mb-0 is-size-7 is-justify-content-flex-start"
+                    className="is-size-7 is-justify-content-flex-start"
                   />
-                  {dishPortion.portion && (
-                    <strong className="is-size-7">
-                      ⚖️ {dishPortion.portion} g.
-                    </strong>
-                  )}
-                  {!dishPortion.portion && (
-                    <strong className="is-size-7">per 100 g.</strong>
-                  )}
-                  <span>ID={dishPortion.id ?? "null"}</span>
+                  <FoodWeight value={dishPortion.portion} />
+                  {/*For Debug:*/}
+                  {/*<span>ID={dishPortion.id ?? "null"}</span>*/}
                 </div>
               </div>
             </div>

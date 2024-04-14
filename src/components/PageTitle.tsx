@@ -1,19 +1,27 @@
 import { ReactNode } from "react";
-import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronLeft, FaInfo } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { clsx } from "clsx";
 
 interface PageTitleProps {
   title?: string | null;
   subtitle?: string;
   backPath?: number;
   children?: ReactNode;
+  className?: string;
 }
 
-function PageTitle({ title, subtitle, backPath, children }: PageTitleProps) {
+function PageTitle({
+  title,
+  subtitle,
+  backPath,
+  children,
+  className,
+}: PageTitleProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="block columns is-mobile is-vcentered">
+    <div className={clsx("block columns is-mobile is-vcentered", className)}>
       {backPath && (
         <div className="column is-narrow">
           <button className="button is-text" onClick={() => navigate(backPath)}>

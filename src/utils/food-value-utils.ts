@@ -1,11 +1,5 @@
 import { DishPortion } from "@/types/dish-portion";
 import { FoodValue } from "@/types/food-value";
-import { Tables } from "@/types/supabase.types";
-
-type DishPortionLight = Pick<
-  Tables<"ingredients">,
-  "proteins" | "fats" | "carbs" | "calories" | "portion"
->;
 
 export function calculateFoodValue(eating: DishPortion): FoodValue {
   if (!eating.dish || !eating.portion) {
@@ -20,12 +14,12 @@ export function calculateFoodValue(eating: DishPortion): FoodValue {
   };
 }
 
-function calculateDishWeight(ingredients: DishPortionLight[]) {
-  return ingredients.reduce((result, item) => (result += item.portion), 0);
+function calculateDishWeight(ingredients: DishPortion[]) {
+  return ingredients.reduce((result, item) => (result += item.portion ?? 0), 0);
 }
 
 export function calculateDishValuePer100g(
-  ingredients: DishPortionLight[],
+  ingredients: DishPortion[],
   cookedWeight?: number | null,
 ) {
   const totalDishWeight = cookedWeight ?? calculateDishWeight(ingredients);

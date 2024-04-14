@@ -1,11 +1,13 @@
 import { PropsWithChildren } from "react";
 import { FaInfoCircle } from "react-icons/fa";
+import { clsx } from "clsx";
 
 interface MessageProps {
   title: string;
   onClose?: () => void;
   severity?: string;
   className?: string;
+  bodyClassName?: string;
 }
 
 function Message({
@@ -14,6 +16,7 @@ function Message({
   children,
   severity = "is-info",
   className = "",
+  bodyClassName,
 }: PropsWithChildren<MessageProps>) {
   return (
     <article className={"message " + severity + " " + className}>
@@ -32,7 +35,7 @@ function Message({
           ></button>
         )}
       </div>
-      <div className="message-body">{children}</div>
+      <div className={clsx("message-body", bodyClassName)}>{children}</div>
     </article>
   );
 }

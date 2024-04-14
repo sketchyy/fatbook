@@ -1,12 +1,11 @@
 import Message from "@/components/ui/Message";
-import { FaRedo, FaSave } from "react-icons/fa";
+import { FaSave } from "react-icons/fa";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { Dish } from "@/types/dish";
 import { updateDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
-import { emptyFoodValue } from "@/utils/food-value-utils";
 
 export type DishInputs = {
   name: string | null;
@@ -22,7 +21,7 @@ function DishEdit() {
   const params = useParams();
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
-  const { register, reset, getValues, handleSubmit } = useForm<DishInputs>();
+  const { register, reset, handleSubmit } = useForm<DishInputs>();
 
   useEffect(() => {
     reset({
@@ -49,27 +48,6 @@ function DishEdit() {
   const handleNameChange = ({ target }) => {
     // Update outlet context to save when navigate to ingredients
     dish.name = target.value;
-  };
-
-  const recalculateFoodValue = () => {
-    const cookedWeight = getValues("cookedWeight");
-    if (!cookedWeight) {
-      return;
-    }
-    // TODO: cookedWeight only for dish with ingredients
-    // dish.foodValue.calories = getValues("foodValue.calories");
-    // dish.foodValue.proteins = getValues("foodValue.proteins");
-    // dish.foodValue.fats = getValues("foodValue.fats");
-    // dish.foodValue.carbs = getValues("foodValue.carbs");
-    // const newFoodValue = dishesService.calculateFoodValue(dish, cookedWeight);
-    const newFoodValue = emptyFoodValue();
-
-    reset({
-      calories: format(newFoodValue.calories),
-      proteins: format(newFoodValue.proteins),
-      fats: format(newFoodValue.fats),
-      carbs: format(newFoodValue.carbs),
-    });
   };
 
   return (
@@ -161,31 +139,6 @@ function DishEdit() {
               />
             </div>
           </div>
-          <div className="field" style={{ maxWidth: "186px" }}>
-            <label className="label">Cooked Dish Weight</label>
-            <div className="field is-grouped">
-              <div className="control is-expanded">
-                <input
-                  className="input"
-                  type="number"
-                  placeholder="gramms"
-                  {...register("cookedWeight", { valueAsNumber: true })}
-                />
-              </div>
-
-              <div className="control">
-                <button
-                  className="button is-info"
-                  type="button"
-                  onClick={() => recalculateFoodValue()}
-                >
-                  <span className="icon is-small">
-                    <FaRedo />
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="field is-grouped is-grouped-centered is-justify-content-space-around">
@@ -213,7 +166,7 @@ function DishEdit() {
 }
 
 const format = (numb: number | null): number | null => {
-  return isNil(numb) ? null : parseFloat(numb.toPrecision(2));
+  return isNil(numb) ? null : parseFloat(Math.round(numb));
 };
 
 export default DishEdit;

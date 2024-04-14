@@ -79,7 +79,8 @@ async function updateDishFoodValue(dish: Dish) {
   const { data: ingredients } = await supabase
     .from("ingredients")
     .select(`proteins,fats,carbs,calories,portion`)
-    .eq("parentDishId", dish.id);
+    .eq("parentDishId", dish.id)
+    .returns<DishPortion[]>();
 
   const dishFoodValue = calculateDishValuePer100g(ingredients ?? []);
 
@@ -87,6 +88,7 @@ async function updateDishFoodValue(dish: Dish) {
   await updateDish(dish.id, {
     name: dish.name,
     hasIngredients: Boolean(ingredients && ingredients.length > 0),
+    cookedWeight: null, // Reset cooked weight, as the ingredients were changed
     ...dishFoodValue,
   });
 }

@@ -12,7 +12,7 @@ function FoodValue({ source = emptyFoodValue(), className = "" }: Props) {
   const format = (val: number) => (val != null ? Math.round(val) : "n/a");
 
   return (
-    <span className={clsx("level ", className)}>
+    <span className={clsx("level", "mb-0", className)}>
       <span className="mr-2">⚡ {format(source.calories)} kcal</span>
       <span className="mr-2">🥩 {format(source.proteins)} g</span>
       <span className="mr-2">🧈 {format(source.fats)} g</span>
