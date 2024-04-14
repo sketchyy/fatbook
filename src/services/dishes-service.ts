@@ -44,6 +44,7 @@ type SearchProps = {
   filterDishId?: number;
   filterEmpty?: boolean;
 };
+
 export async function searchDishes({
   query,
   filterDishId,

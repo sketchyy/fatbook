@@ -38,7 +38,7 @@ function DishIngredients() {
 
   return (
     <div className="box">
-      <PageTitle title={dish.name} className="mb-0">
+      <PageTitle title={dish.name} className="mb-0 pb-4">
         <button className="button is-primary" onClick={handleAdd}>
           <span className="icon">
             <FaPlus />
@@ -48,10 +48,10 @@ function DishIngredients() {
       </PageTitle>
 
       {dish.ingredients.length > 0 && !showDetails && (
-        <div className="is-flex is-justify-content-end mb-2">
+        <div className="is-flex is-justify-content-end mt-4 mb-2">
           <button
             onClick={() => setShowDetails((s) => !s)}
-            className="button is-small is-rounded mt-1"
+            className="button is-small is-rounded"
           >
             <span className="mr-2">Cooking</span>
             <FaChevronDown />
