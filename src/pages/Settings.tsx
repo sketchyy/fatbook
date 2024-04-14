@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";
 import { FoodValue } from "@/types/food-value";
 import { saveSettings } from "@/services/settings-service";
+import Skeleton from "react-loading-skeleton";
 
 function Settings() {
   const { userId } = useAuth();
@@ -31,12 +32,14 @@ function Settings() {
     saveMutation.mutate(data);
   };
 
-  const loading = queryLoading || saveMutation.isPending;
+  if (queryLoading) {
+    return <Skeleton height={316} />;
+  }
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={clsx({ loading: loading })}
+      className={clsx({ loading: saveMutation.isPending })}
     >
       <div className="box">
         <div className="is-size-4 mb-4">My Daily Goals</div>
@@ -92,7 +95,7 @@ function Settings() {
           <p className="control is-clearfix">
             <button
               className={clsx("button is-primary is-pulled-right", {
-                "is-loading": loading,
+                "is-loading": saveMutation.isPending,
               })}
               type="submit"
             >

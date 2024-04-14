@@ -11,6 +11,7 @@ import { FaCheck } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDishMutations } from "@/hooks/use-dish-mutations";
+import { clsx } from "clsx";
 
 type CookedWeightInput = { cookedWeight: number | null };
 
@@ -50,7 +51,7 @@ export const DishIngredientsDetails = ({
     const dishUpdate = { ...newFoodValue, cookedWeight };
 
     update.mutate(dishUpdate, {
-      onSuccess: () => toast.success("Saved!", { position: "top-center" }),
+      onSuccess: () => toast.success("Saved!"),
       onError: () =>
         toast.error("Error while saving!", { position: "top-center" }),
     });
@@ -83,8 +84,12 @@ export const DishIngredientsDetails = ({
           </p>
 
           <p className="control">
-            <button className="button is-info">
-              <span className="icon is-small">
+            <button
+              className={clsx("button is-info", {
+                "is-loading": update.isPending,
+              })}
+            >
+              <span className={clsx("icon is-small")}>
                 <FaCheck />
               </span>
             </button>
