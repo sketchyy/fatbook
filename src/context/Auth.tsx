@@ -13,10 +13,13 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   userId: "guest",
-  signIn: () => supabase.auth.signInWithOAuth({ provider: "google" }),
+  signIn: () =>
+    supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin },
+    }),
   signOut: () => supabase.auth.signOut(),
 });
-
 export function AuthProvider({ children }) {
   const defaultContextValue = useAuth();
   const [user, setUser] = useState<User | null>(null);
