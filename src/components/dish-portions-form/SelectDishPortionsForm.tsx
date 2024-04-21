@@ -40,7 +40,7 @@ function SelectDishPortionsForm({
   ];
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>
-    runSearch(event.target.value);
+    runSearch(event.target.value, { replace: true });
 
   return (
     <div className="block">

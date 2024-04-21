@@ -3,6 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { searchDishes } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 
+type RunSearchOptions = {
+  replace?: boolean;
+};
+
 type Props = {
   filterDishId?: number;
   filterEmpty?: boolean;
@@ -20,11 +24,11 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
     queryFn: () => searchDishes({ query, filterDishId, filterEmpty }),
   });
 
-  const runSearch = (query: string) => {
+  const runSearch = (query: string, { replace }: RunSearchOptions = {}) => {
     if (isNil(query)) {
       setSearchParams({});
     } else {
-      setSearchParams({ q: query });
+      setSearchParams({ q: query }, { replace: replace ?? false });
     }
   };
 
