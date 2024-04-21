@@ -1,13 +1,6 @@
 # Fatbook
 
-A small diet and nutrition helping app for personal use.
-
-
-## Infra
-
-* Cloudflare Pages - web hosting
-* Supabase - DB, Auth
-* Google - Auth Provider
+Small app to track calories for personal use.
 
 ## Using Vite
 
@@ -23,3 +16,8 @@ Prod build:
 npm run build
 ```
 
+## Infra
+
+* **Cloudflare Pages** - web hosting
+* **Supabase** - DB, Auth
+* **Google** - Auth Provider
