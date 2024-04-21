@@ -1,4 +1,5 @@
 import "bulma/css/bulma.min.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import enGB from "date-fns/locale/en-GB";
 import React from "react";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
@@ -11,33 +12,29 @@ import {
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthContextProvider } from "./core/auth/AuthContext";
-import ErrorPage from "./core/ErrorPage";
+import ErrorPage from "@/pages/ErrorPage";
 import "./index.css";
-import deleteDishAction from "./routes/dish/delete/deleteDishAction";
-import DishPage from "./routes/dish/DishPage";
-import EditDish from "./routes/dish/edit/EditDish.jsx";
-import AddIngredientForm from "./routes/dish/ingredients/AddIngredientForm";
-import DishIngredientsForm from "./routes/dish/ingredients/DishIngredientsForm";
-import createDishAction from "./routes/dishes/create/createDishAction";
-import DishesPage from "./routes/dishes/DishesPage";
-import AddEatingForm from "./routes/eatings/add/AddEatingForm";
-import LogDayPage from "./routes/eatings/LogDayPage";
-import LogDaySummary from "./routes/eatings/summary/LogDaySummary";
-import HistoryPage from "./routes/history/HistoryPage";
-import Login from "./routes/login/Login";
-import Root from "./routes/Root";
-import SettingsPage from "./routes/settings/SettingsPage";
-import RequireAuth from "./shared/components/RequireAuth";
-import { dishesSearchLoader } from "./shared/loaders/dishesSearchLoader";
-import { userSettingsLoader } from "./shared/loaders/userSettingsLoader";
-import dateService from "./shared/services/dateService";
-import LoginWithPassword from "@/routes/login/LoginWithPassword";
+import Dish from "@/pages/dish/Dish";
+import DishEdit from "@/pages/dish/DishEdit";
+import DishIngredientAdd from "@/pages/dish/DishIngredientAdd";
+import DishIngredients from "@/pages/dish/DishIngredients";
+import Dishes from "@/pages/dishes/Dishes";
+import EatingsAdd from "@/pages/eatings/EatingsAdd";
+import Eatings from "@/pages/eatings/Eatings";
+import EatingsSummary from "@/pages/eatings/EatingsSummary";
+import History from "@/pages/History";
+import Login from "@/pages/Login";
+import Root from "@/pages/Root";
+import Settings from "@/pages/Settings";
+import RequireAuth from "@/components/auth/RequireAuth";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AuthProvider } from "@/context/Auth";
+import { formatDate, now } from "@/utils/date-utils";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
 
-const today = dateService.format(dateService.now());
+const today = formatDate(now());
 
 const router = createBrowserRouter([
   {
@@ -56,58 +53,48 @@ const router = createBrowserRouter([
       },
       {
         path: "eatings/:day",
-        element: <LogDayPage />,
+        element: <Eatings />,
         children: [
           {
             path: "",
-            element: <LogDaySummary />,
+            element: <EatingsSummary />,
           },
           {
             path: ":meal/add",
-            element: <AddEatingForm />,
-            loader: dishesSearchLoader,
+            element: <EatingsAdd />,
           },
         ],
       },
       {
         path: "dishes",
-        element: <DishesPage />,
-        loader: dishesSearchLoader,
-        action: createDishAction,
+        element: <Dishes />,
       },
       {
         path: "dishes/:id",
-        element: <DishPage />,
+        element: <Dish />,
         children: [
           { path: "", element: <Navigate to={`edit`} replace /> },
           {
             path: "edit", // edit/delete
-            element: <EditDish />,
-          },
-          {
-            path: "delete",
-            action: deleteDishAction,
+            element: <DishEdit />,
           },
           {
             path: "ingredients",
-            element: <DishIngredientsForm />,
+            element: <DishIngredients />,
           },
           {
             path: "ingredients/add",
-            element: <AddIngredientForm />,
-            loader: dishesSearchLoader,
+            element: <DishIngredientAdd />,
           },
         ],
       },
       {
         path: "history",
-        element: <HistoryPage />,
-        loader: userSettingsLoader,
+        element: <History />,
       },
       {
         path: "settings",
-        element: <SettingsPage />,
-        loader: userSettingsLoader,
+        element: <Settings />,
       },
     ],
   },
@@ -115,25 +102,20 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/login-with-password",
-    element:
-      import.meta.env.MODE !== "production" ? (
-        <LoginWithPassword />
-      ) : (
-        <Navigate to="/login" />
-      ),
-  },
 ]);
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <RouterProvider router={router} />
-    </AuthContextProvider>
-    <ToastContainer position="bottom-center" />
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </AuthProvider>
+    <ToastContainer position="top-center" />
   </React.StrictMode>,
 );
