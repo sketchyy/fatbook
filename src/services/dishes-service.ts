@@ -55,6 +55,7 @@ export async function searchDishes({
     .select()
     .ilike("name", `%${query}%`)
     .is("deleted", false)
+    .limit(50)
 
     // TODO: research full text search with en/ru in supabase
     /*.textSearch("name", userQuery, {
