@@ -3,7 +3,7 @@ import { Tables } from "@/types/supabase.types";
 /* Used for dish portions only */
 export type SimplifiedDish = Omit<
   Tables<"dishes">,
-  "createdAt" | "updatedAt" | "cookedWeight"
+  "createdAt" | "updatedAt" | "cookedWeight" | "deleted"
 >;
 
 export type DishPortion = {

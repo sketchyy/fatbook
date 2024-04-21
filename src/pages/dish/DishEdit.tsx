@@ -166,7 +166,7 @@ function DishEdit() {
 }
 
 const format = (numb: number | null): number | null => {
-  return isNil(numb) ? null : parseFloat(Math.round(numb));
+  return isNil(numb) ? null : Math.round(numb);
 };
 
 export default DishEdit;
