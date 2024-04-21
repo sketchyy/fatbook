@@ -1,10 +1,7 @@
-import { Tables } from "@/types/supabase.types";
-
 /* Used for dish portions only */
-export type SimplifiedDish = Omit<
-  Tables<"dishes">,
-  "createdAt" | "updatedAt" | "cookedWeight" | "deleted"
->;
+import { DishModel } from "@/types/dish";
+
+export type SimplifiedDish = Omit<DishModel, "ingredients" | "cookedWeight">;
 
 export type DishPortion = {
   id?: number;

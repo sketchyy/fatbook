@@ -20,8 +20,11 @@ export type Database = {
           fats: number | null
           hasIngredients: boolean
           id: number
+          legacyId: string | null
           name: string | null
           proteins: number | null
+          searchable: unknown | null
+          test: boolean | null
           updatedAt: string | null
         }
         Insert: {
@@ -34,8 +37,11 @@ export type Database = {
           fats?: number | null
           hasIngredients?: boolean
           id?: number
+          legacyId?: string | null
           name?: string | null
           proteins?: number | null
+          searchable?: unknown | null
+          test?: boolean | null
           updatedAt?: string | null
         }
         Update: {
@@ -48,8 +54,11 @@ export type Database = {
           fats?: number | null
           hasIngredients?: boolean
           id?: number
+          legacyId?: string | null
           name?: string | null
           proteins?: number | null
+          searchable?: unknown | null
+          test?: boolean | null
           updatedAt?: string | null
         }
         Relationships: []
@@ -122,6 +131,7 @@ export type Database = {
           parentDishId: number
           portion: number
           proteins: number
+          test: boolean | null
         }
         Insert: {
           calories: number
@@ -133,6 +143,7 @@ export type Database = {
           parentDishId: number
           portion: number
           proteins: number
+          test?: boolean | null
         }
         Update: {
           calories?: number
@@ -144,6 +155,7 @@ export type Database = {
           parentDishId?: number
           portion?: number
           proteins?: number
+          test?: boolean | null
         }
         Relationships: [
           {

@@ -1,16 +1,9 @@
 import { supabase } from "@/services/supabase";
 import { nowAsDate } from "@/utils/date-utils";
-import { Dish } from "@/types/dish";
+import { Dish, DishModel } from "@/types/dish";
 import { isNil } from "@/utils/is-nil";
 import { DishPortion } from "@/types/dish-portion";
-import { Tables, TablesInsert, TablesUpdate } from "@/types/supabase.types";
-
-type DishModel = Omit<
-  Tables<"dishes">,
-  "createdAt" | "updatedAt" | "deleted"
-> & {
-  ingredients?: Tables<"ingredients">[];
-};
+import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
 export async function fetchDish(id: number): Promise<Dish | null> {
   const { data: dish } = await supabase
@@ -53,17 +46,23 @@ export async function searchDishes({
   let dbQuery = supabase
     .from("dishes")
     .select()
-    .ilike("name", `%${query}%`)
     .is("deleted", false)
     .limit(50)
-
-    // TODO: research full text search with en/ru in supabase
-    /*.textSearch("name", userQuery, {
-          type: "plain",
-          config: "english",
-        })*/
     .order("updatedAt", { ascending: false })
     .throwOnError();
+
+  if (query) {
+    const tsQuery = query.includes(" ") ? query : query + ":*";
+    dbQuery = dbQuery
+      .textSearch("searchable", tsQuery, {
+        type: "websearch",
+        config: "russian",
+      })
+      .textSearch("searchable", tsQuery, {
+        type: "websearch",
+        config: "english",
+      });
+  }
 
   if (filterEmpty) {
     dbQuery = dbQuery
