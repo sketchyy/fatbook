@@ -26,7 +26,7 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
 
   const runSearch = (query: string, { replace }: RunSearchOptions = {}) => {
     if (isNil(query)) {
-      setSearchParams({});
+      setSearchParams({}, { replace: replace ?? false });
     } else {
       setSearchParams({ q: query }, { replace: replace ?? false });
     }
