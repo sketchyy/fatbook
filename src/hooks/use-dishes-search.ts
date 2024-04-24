@@ -25,11 +25,13 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
   });
 
   const runSearch = (query: string, { replace }: RunSearchOptions = {}) => {
-    if (isNil(query)) {
-      setSearchParams({}, { replace: replace ?? false });
-    } else {
-      setSearchParams({ q: query }, { replace: replace ?? false });
+    const queryParams = new URLSearchParams();
+
+    if (!isNil(query)) {
+      queryParams.append("q", query);
     }
+
+    setSearchParams(queryParams, { replace: replace ?? false });
   };
 
   return { dishes: dishes ?? [], isLoading, isError, query, runSearch };
