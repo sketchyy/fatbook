@@ -93,7 +93,6 @@ export function useIngredientMutations(dish: Dish): UseIngredientMutations {
   const remove = useMutation({
     mutationFn: (ingredient: DishPortion) => deleteIngredient(dish, ingredient),
     onMutate: createOnMutate((deletedIngredient) => {
-      console.log("asd", deletedIngredient);
       setSelectedPortions((portions) => {
         return portions.filter((p) => p.dish.id !== deletedIngredient.dish.id);
       });
