@@ -15,7 +15,7 @@ import { useState } from "react";
 import { calculateFoodValue } from "@/utils/food-value-utils";
 import { toast } from "react-toastify";
 
-type EatingOnMutate = (portion: DishPortion) => void;
+type OnMutate = (portion: DishPortion) => void;
 
 type UseEatingMutations = {
   add: UseMutationResult<DishPortion, unknown, DishPortion>;
@@ -31,29 +31,28 @@ export function useEatingMutations(meal: string): UseEatingMutations {
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
 
   // Optimistic update
-  const createOnMutate = (actualMutation: EatingOnMutate) => (portion) => {
+  const createOnMutate = (actualMutation: OnMutate) => (portion) => {
     // Perform optimistic update
     actualMutation(portion);
     // Snapshot the previous value (will be used in case of error)
     return { previousValue: selectedPortions.slice() };
   };
   // Write actual value from the response
-  const onSuccess = (response) => {
-    setSelectedPortions((portions) => {
-      const optimisticIndex = portions.findIndex(
-        // Only one dish can be added at a time, hence dish id is unique
-        (p) => p.dish.id === response.dish.id,
-      );
-      portions[optimisticIndex] = response;
-      return portions;
-    });
-    queryClient.invalidateQueries({ queryKey: makeKey(day) });
+  const onSuccess = (response: DishPortion | void) => {
+    queryClient.invalidateQueries({ queryKey: ["dailyEatings", day] });
+    if (response) {
+      setSelectedPortions((portions) => {
+        const optimisticIndex = portions.findIndex(
+          // Only one dish can be added at a time, hence dish id is unique
+          (p) => p.dish.id === response.dish.id,
+        );
+        portions[optimisticIndex] = response;
+        return portions;
+      });
+    }
   };
-  // const onSettled = () => {
-  //   queryClient.invalidateQueries({ queryKey: key(day) });
-  // };
   // Revert to previous value if error occured
-  const onError = (_err, _newTodo, context) => {
+  const onError = (_err, _newItem, context) => {
     toast.error("Error while saving");
     setSelectedPortions(context!.previousValue);
   };
@@ -78,11 +77,11 @@ export function useEatingMutations(meal: string): UseEatingMutations {
     onMutate: createOnMutate((updatedPortion) => {
       setSelectedPortions((portions) => {
         const foodValue = calculateFoodValue(updatedPortion);
-        const idx = portions.findIndex(
-          (p) => p.dish.id === updatedPortion.dish.id,
+        return portions.map((p) =>
+          p.dish.id === updatedPortion.dish.id
+            ? { ...updatedPortion, ...foodValue }
+            : p,
         );
-        portions[idx] = { ...updatedPortion, ...foodValue };
-        return portions;
       });
     }),
     onSuccess,
@@ -107,5 +106,3 @@ export function useEatingMutations(meal: string): UseEatingMutations {
     selectedPortions,
   };
 }
-
-const makeKey = (day?: string) => ["dailyEatings", day];
