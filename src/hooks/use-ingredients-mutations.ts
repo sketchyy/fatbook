@@ -30,9 +30,9 @@ export function useIngredientMutations(dish: Dish): UseIngredientMutations {
   const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
 
   // Optimistic update
-  const createOnMutate = (actualMutation: OnMutate) => (portion) => {
+  const createOnMutate = (optimisticMutation: OnMutate) => (portion) => {
     // Perform optimistic update
-    actualMutation(portion);
+    optimisticMutation(portion);
     // Snapshot the previous value (will be used in case of error)
     return { previousValue: selectedPortions.slice() };
   };
