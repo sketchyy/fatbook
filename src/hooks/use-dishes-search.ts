@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { searchDishes } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 
@@ -22,6 +22,7 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
   } = useQuery({
     queryKey: ["dishes", query, { filterEmpty }],
     queryFn: () => searchDishes({ query, filterDishId, filterEmpty }),
+    placeholderData: keepPreviousData,
   });
 
   const runSearch = (query: string, { replace }: RunSearchOptions = {}) => {
