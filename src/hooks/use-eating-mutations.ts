@@ -24,11 +24,15 @@ type UseEatingMutations = {
   selectedPortions: DishPortion[];
 };
 
-export function useEatingMutations(meal: string): UseEatingMutations {
+export function useEatingMutations(
+  meal: string,
+  initialPortions: DishPortion[] = [],
+) {
   const queryClient = useQueryClient();
   const { day } = useParams();
   const { userId } = useAuth();
-  const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
+  const [selectedPortions, setSelectedPortions] =
+    useState<DishPortion[]>(initialPortions);
 
   // Optimistic update
   const createOnMutate = (optimisticMutation: OnMutate) => (portion) => {

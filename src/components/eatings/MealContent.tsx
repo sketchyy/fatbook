@@ -16,7 +16,11 @@ function MealContent({ dailyEatings, meal }: Props) {
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
-  const { update, remove } = useEatingMutations(meal!);
+  const { update, remove, selectedPortions } = useEatingMutations(
+    meal!,
+    mealData.eatings,
+  );
+  const eatings = selectedPortions.map((p) => ({ ...p, selected: false }));
 
   const handleDaySave = async (portion: DishPortion) => {
     update.mutate(portion);
@@ -35,7 +39,7 @@ function MealContent({ dailyEatings, meal }: Props) {
   return (
     <div className="mt-3">
       <EditDishPortionsForm
-        dishPortions={mealData.eatings}
+        dishPortions={eatings}
         onSave={handleDaySave}
         onDelete={handleAddEatingDelete}
       />
