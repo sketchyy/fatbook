@@ -4,7 +4,7 @@ import { useIsFetching } from "@tanstack/react-query";
 import { clsx } from "clsx";
 
 function Root() {
-  const fetchingCount = useIsFetching({ stale: false });
+  const fetchingCount = useIsFetching({ queryKey: ["dishes"] });
   const isLoading = fetchingCount > 0;
 
   return (
