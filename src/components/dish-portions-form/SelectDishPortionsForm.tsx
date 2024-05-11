@@ -80,6 +80,7 @@ function mapDishToPortionInputs(dish: Dish): DishPortion {
       calories: dish.calories,
       hasIngredients: dish.hasIngredients,
       defaultPortion: dish.defaultPortion,
+      updatedAt: dish.updatedAt,
     },
     selected: false,
   };
