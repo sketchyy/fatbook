@@ -1,5 +1,5 @@
 import Message from "@/components/ui/Message";
-import { FaSave } from "react-icons/fa";
+import { FaInfoCircle, FaSave } from "react-icons/fa";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
@@ -65,8 +65,13 @@ function DishEdit() {
         </div>
 
         {hasIngredients && (
-          <Message title="Info">
-            Food Value is calculated from ingredients
+          <Message>
+            <p className="is-flex is-align-items-center">
+              <span className="icon is-medium">
+                <FaInfoCircle />
+              </span>
+              Food Value is calculated from ingredients
+            </p>
           </Message>
         )}
 
