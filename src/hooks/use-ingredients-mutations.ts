@@ -25,9 +25,13 @@ type UseIngredientMutations = {
   setSelectedPortions: React.Dispatch<React.SetStateAction<DishPortion[]>>;
 };
 
-export function useIngredientMutations(dish: Dish): UseIngredientMutations {
+export function useIngredientMutations(
+  dish: Dish,
+  initialPortions: DishPortion[] = [],
+): UseIngredientMutations {
   const queryClient = useQueryClient();
-  const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
+  const [selectedPortions, setSelectedPortions] =
+    useState<DishPortion[]>(initialPortions);
 
   // Optimistic update
   const createOnMutate = (optimisticMutation: OnMutate) => (portion) => {

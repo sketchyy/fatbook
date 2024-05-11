@@ -16,7 +16,11 @@ function DishIngredients() {
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
-  const { update, remove } = useIngredientMutations(dish);
+  const { update, remove, selectedPortions } = useIngredientMutations(
+    dish,
+    dish.ingredients,
+  );
+  const ingredients = selectedPortions.map((p) => ({ ...p, selected: false }));
 
   const handleAdd = (e) => {
     navigate("add", { state: { backUrl: `/dishes/${dish.id}/ingredients` } });
@@ -66,7 +70,7 @@ function DishIngredients() {
       />
 
       <EditDishPortionsForm
-        dishPortions={dish.ingredients}
+        dishPortions={ingredients}
         onSave={handleUpgradeIngredient}
         onDelete={handleDeleteIngredient}
       />
