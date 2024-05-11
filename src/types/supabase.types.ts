@@ -19,6 +19,7 @@ export type Database = {
           deleted: boolean | null
           fats: number | null
           hasIngredients: boolean
+          icon: string
           id: number
           legacyId: string | null
           name: string | null
@@ -36,6 +37,7 @@ export type Database = {
           deleted?: boolean | null
           fats?: number | null
           hasIngredients?: boolean
+          icon?: string
           id?: number
           legacyId?: string | null
           name?: string | null
@@ -53,6 +55,7 @@ export type Database = {
           deleted?: boolean | null
           fats?: number | null
           hasIngredients?: boolean
+          icon?: string
           id?: number
           legacyId?: string | null
           name?: string | null

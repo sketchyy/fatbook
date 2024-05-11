@@ -2,14 +2,16 @@ import Message from "@/components/ui/Message";
 import { FaInfoCircle, FaSave } from "react-icons/fa";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Dish } from "@/types/dish";
 import { updateDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 import { formatDate } from "@/utils/date-utils";
+import { IconPicker } from "@/components/dish/IconPicker";
 
 export type DishInputs = {
   name: string | null;
+  icon: string;
   proteins: number | null;
   fats: number | null;
   carbs: number | null;
@@ -22,11 +24,14 @@ function DishEdit() {
   const params = useParams();
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
-  const { register, reset, handleSubmit } = useForm<DishInputs>();
+  const { register, reset, handleSubmit, getValues, setValue } =
+    useForm<DishInputs>();
+  const [icon, setIcon] = useState<string>("");
 
   useEffect(() => {
     reset({
       name: dish.name,
+      icon: dish.icon,
       defaultPortion: dish.defaultPortion,
       cookedWeight: dish.cookedWeight,
       calories: format(dish.calories),
@@ -34,6 +39,7 @@ function DishEdit() {
       fats: format(dish.fats),
       carbs: format(dish.carbs),
     });
+    setIcon(dish.icon);
   }, [dish]);
 
   const hasIngredients = dish?.ingredients?.length! > 0;
@@ -51,17 +57,30 @@ function DishEdit() {
     dish.name = target.value;
   };
 
+  const handleIconChange = (icon: string) => {
+    setValue("icon", icon);
+    setIcon(icon);
+  };
+
   return (
     <form id="dish-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="box">
-        <div className="field">
-          <label className="label">Name</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              {...register("name", { onChange: handleNameChange })}
-            />
+        <div className="is-flex is-align-items-start">
+          <div className="field mr-3">
+            <label className="label">Icon</label>
+            <div className="control">
+              <IconPicker value={icon} onChange={handleIconChange} />
+            </div>
+          </div>
+          <div className="field is-flex-grow-1">
+            <label className="label">Name</label>
+            <div className="control is-expanded">
+              <input
+                className="input"
+                type="text"
+                {...register("name", { onChange: handleNameChange })}
+              />
+            </div>
           </div>
         </div>
 
@@ -134,7 +153,7 @@ function DishEdit() {
               />
             </div>
           </div>
-          <div className="field mr-3">
+          <div className="field">
             <label className="label">Portion Size</label>
             <div className="control">
               <input
@@ -148,9 +167,13 @@ function DishEdit() {
         </div>
 
         <div className="field is-grouped is-grouped-centered">
+          <div className="is-size-7 is-align-self-flex-end mr-3">
+            <strong>Created</strong>
+            <p>{formatDate(dish.createdAt, "DD MMM YYYY")}</p>
+          </div>
           <div className="is-size-7 is-align-self-flex-end is-flex-grow-1">
             <strong>Updated</strong>
-            <p>{formatDate(dish.updatedAt, "hh:mm, DD MMM YYYY")}</p>
+            <p>{formatDate(dish.updatedAt, "DD MMM YYYY")}</p>
           </div>
           <p className="control mr-5">
             <button

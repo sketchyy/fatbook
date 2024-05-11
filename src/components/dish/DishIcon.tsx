@@ -8,9 +8,7 @@ type Props = {
 };
 
 function DishIcon({ dish, className }: Props) {
-  const renderedIcon = dish.hasIngredients ? "🥘" : "🥫";
-
-  return <span className={clsx("is-size-4", className)}>{renderedIcon}</span>;
+  return <span className={clsx("is-size-4", className)}>{dish.icon}</span>;
 }
 
 export default DishIcon;

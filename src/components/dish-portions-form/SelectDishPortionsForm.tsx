@@ -74,6 +74,7 @@ function mapDishToPortionInputs(dish: Dish): DishPortion {
     dish: {
       id: dish.id,
       name: dish.name,
+      icon: dish.icon,
       proteins: dish.proteins,
       fats: dish.fats,
       carbs: dish.carbs,
@@ -81,6 +82,7 @@ function mapDishToPortionInputs(dish: Dish): DishPortion {
       hasIngredients: dish.hasIngredients,
       defaultPortion: dish.defaultPortion,
       updatedAt: dish.updatedAt,
+      createdAt: dish.createdAt,
     },
     selected: false,
   };

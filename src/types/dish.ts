@@ -4,6 +4,7 @@ import { Tables } from "@/types/supabase.types";
 export type Dish = {
   id: number;
   name: string;
+  icon: string;
   proteins: number;
   fats: number;
   carbs: number;
@@ -13,12 +14,13 @@ export type Dish = {
   hasIngredients: boolean;
   ingredients: DishPortion[];
   updatedAt: string;
+  createdAt: string;
 };
 
 /* DB model - internal fields */
 export type DishModel = Omit<
   Tables<"dishes">,
-  "createdAt" | "deleted" | "legacyId" | "searchable" | "test"
+  "deleted" | "legacyId" | "searchable" | "test"
 > & {
   ingredients?: Tables<"ingredients">[];
 };

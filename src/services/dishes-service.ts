@@ -12,6 +12,7 @@ export async function fetchDish(id: number): Promise<Dish | null> {
       `
         id,
         name,
+        icon,
         proteins,
         fats,
         carbs,
@@ -20,6 +21,7 @@ export async function fetchDish(id: number): Promise<Dish | null> {
         hasIngredients,
         cookedWeight,
         updatedAt,
+        createdAt,
         ingredients!public_dishIngredients_ingredient_fkey (
           *,
           dish:dishes!public_dishIngredients_dish_fkey (*)
