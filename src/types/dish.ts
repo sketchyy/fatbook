@@ -12,12 +12,13 @@ export type Dish = {
   defaultPortion: number | null;
   hasIngredients: boolean;
   ingredients: DishPortion[];
+  updatedAt: string;
 };
 
 /* DB model - internal fields */
 export type DishModel = Omit<
   Tables<"dishes">,
-  "createdAt" | "updatedAt" | "deleted" | "legacyId" | "searchable" | "test"
+  "createdAt" | "deleted" | "legacyId" | "searchable" | "test"
 > & {
   ingredients?: Tables<"ingredients">[];
 };

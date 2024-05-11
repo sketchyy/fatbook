@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { Dish } from "@/types/dish";
 import { updateDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
+import { formatDate } from "@/utils/date-utils";
 
 export type DishInputs = {
   name: string | null;
@@ -146,8 +147,12 @@ function DishEdit() {
           </div>
         </div>
 
-        <div className="field is-grouped is-grouped-centered is-justify-content-space-around">
-          <p className="control">
+        <div className="field is-grouped is-grouped-centered">
+          <div className="is-size-7 is-align-self-flex-end is-flex-grow-1">
+            <strong>Updated</strong>
+            <p>{formatDate(dish.updatedAt, "hh:mm, DD MMM YYYY")}</p>
+          </div>
+          <p className="control mr-5">
             <button
               className="button is-light"
               type="button"
