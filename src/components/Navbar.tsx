@@ -56,11 +56,11 @@ function Navbar() {
             Dishes
           </NavLink>
           <NavLink
-            to="history"
+            to="trends"
             className={getNavLinkClass}
             onClick={handleLinkClick}
           >
-            History
+            Trends
           </NavLink>
           <NavLink
             to="settings"

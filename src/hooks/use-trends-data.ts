@@ -4,9 +4,9 @@ import { useAuth } from "@/context/Auth";
 import { getDaysBetween } from "@/utils/date-utils";
 import { sumFoodValues } from "@/utils/food-value-utils";
 import { useSettings } from "@/hooks/use-settings";
-import { fetchHistory } from "@/services/history-service";
+import { fetchTrendsData } from "@/services/trends-service";
 
-type HistoryResult =
+type TrendsResult =
   | {
       isLoading: false;
       chartData: FoodValue[];
@@ -24,25 +24,25 @@ type HistoryResult =
       settings?: FoodValue;
     };
 
-export function useHistoryData(startDate: Date, endDate: Date): HistoryResult {
+export function useTrendsData(startDate: Date, endDate: Date): TrendsResult {
   const { userId } = useAuth();
   const selectedDays = getDaysBetween(startDate, endDate);
 
-  const { data: history, isLoading: historyLoading } = useQuery({
-    queryKey: ["history", startDate, endDate],
-    queryFn: () => fetchHistory(userId, selectedDays),
+  const { data: trends, isLoading: trendsLoading } = useQuery({
+    queryKey: ["trends", startDate, endDate],
+    queryFn: () => fetchTrendsData(userId, selectedDays),
     enabled: Boolean(startDate && endDate),
   });
   const { data: settings, isLoading: settingsLoading } = useSettings();
 
-  if (historyLoading || settingsLoading || !settings) {
+  if (trendsLoading || settingsLoading || !settings) {
     return {
       chartData: [],
       isLoading: true,
     };
   }
 
-  const chartData = history ?? [];
+  const chartData = trends ?? [];
   const totalFoodValue = sumFoodValues(chartData);
   const dietGoal = {
     proteins: settings.proteins * selectedDays.length,

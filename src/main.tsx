@@ -22,7 +22,7 @@ import Dishes from "@/pages/dishes/Dishes";
 import EatingsAdd from "@/pages/eatings/EatingsAdd";
 import Eatings from "@/pages/eatings/Eatings";
 import EatingsSummary from "@/pages/eatings/EatingsSummary";
-import History from "@/pages/History";
+import Trends from "@/pages/Trends";
 import Login from "@/pages/Login";
 import Root from "@/pages/Root";
 import Settings from "@/pages/Settings";
@@ -89,8 +89,8 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "history",
-        element: <History />,
+        path: "trends",
+        element: <Trends />,
       },
       {
         path: "settings",

@@ -4,11 +4,11 @@ import Message from "@/components/ui/Message";
 import { useState } from "react";
 import { FaInfo } from "react-icons/fa";
 import { now, nowAsDate, subtractDays } from "@/utils/date-utils";
-import DailyTrendChart from "../components/history/DailyTrendChart";
-import FoodValueDiff from "../components/history/FoodValueDiff";
-import { useHistoryData } from "@/hooks/use-history-data";
+import DailyTrendChart from "../components/trends/DailyTrendChart";
+import FoodValueDiff from "../components/trends/FoodValueDiff";
+import { useTrendsData } from "@/hooks/use-trends-data";
 
-function History() {
+function Trends() {
   const [showGoal, setShowGoal] = useState(false);
   const [dateRange, setDateRange] = useState([
     subtractDays(now(), 7),
@@ -23,7 +23,7 @@ function History() {
     dietGoal,
     dietGoalDiff,
     settings,
-  } = useHistoryData(startDate, endDate);
+  } = useTrendsData(startDate, endDate);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -37,7 +37,7 @@ function History() {
     <>
       <div className="box mb-2">
         <div className="is-flex is-justify-content-space-between mb-4">
-          <div className="is-size-4 mr-2">History</div>
+          <div className="is-size-4 mr-2">Trends</div>
 
           <DatePicker
             width={230}
@@ -115,4 +115,4 @@ function History() {
   );
 }
 
-export default History;
+export default Trends;
