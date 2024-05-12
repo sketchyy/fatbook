@@ -7,9 +7,11 @@ import { now, nowAsDate, subtractDays } from "@/utils/date-utils";
 import DailyTrendChart from "../components/trends/DailyTrendChart";
 import FoodValueDiff from "../components/trends/FoodValueDiff";
 import { useTrendsData } from "@/hooks/use-trends-data";
+import { TimeSpan, TimeSpanSelect } from "@/components/trends/TimeSpanSelect";
 
 function Trends() {
   const [showGoal, setShowGoal] = useState(false);
+  const [activeTimeSpan, setActiveTimeSpan] = useState<TimeSpan | null>("Week");
   const [dateRange, setDateRange] = useState([
     subtractDays(now(), 7),
     nowAsDate(),
@@ -25,12 +27,19 @@ function Trends() {
     settings,
   } = useTrendsData(startDate, endDate);
 
+  // TODO: proper loading state (skeleton)
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  const handleDateChange = async (update: [Date, Date]) => {
-    setDateRange(update);
+  const handleDateChange = (range: [Date, Date]) => {
+    setActiveTimeSpan(null);
+    setDateRange(range);
+  };
+
+  const handleTimeSpanChange = (timespan: TimeSpan, range: [Date, Date]) => {
+    setActiveTimeSpan(timespan);
+    setDateRange(range);
   };
 
   return (
@@ -57,13 +66,19 @@ function Trends() {
           <div className="mt-2">
             <div className="is-flex is-align-items-center">
               <FoodValueDiff foodValue={dietGoalDiff} />
-              <button
-                onClick={() => setShowGoal((s) => !s)}
-                className="button is-small is-rounded"
-              >
-                <FaInfo />
-              </button>
             </div>
+          </div>
+          <div className="mt-4 is-flex is-justify-content-space-between is-align-items-center">
+            <TimeSpanSelect
+              activeTimespan={activeTimeSpan}
+              onChange={handleTimeSpanChange}
+            />
+            <button
+              onClick={() => setShowGoal((s) => !s)}
+              className="button is-small is-rounded "
+            >
+              <FaInfo />
+            </button>
           </div>
           {showGoal && (
             <Message
