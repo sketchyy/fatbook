@@ -8,10 +8,11 @@ import { updateDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 import { formatDate } from "@/utils/date-utils";
 import { IconPicker } from "@/components/dish/IconPicker";
+import { getDishIcon } from "@/utils/icon-utils";
 
 export type DishInputs = {
   name: string | null;
-  icon: string;
+  icon: string | null;
   proteins: number | null;
   fats: number | null;
   carbs: number | null;
@@ -24,14 +25,14 @@ function DishEdit() {
   const params = useParams();
   const navigate = useNavigate();
   const { dish } = useOutletContext<{ dish: Dish }>();
-  const { register, reset, handleSubmit, getValues, setValue } =
-    useForm<DishInputs>();
+  const { register, reset, handleSubmit, setValue } = useForm<DishInputs>();
   const [icon, setIcon] = useState<string>("");
 
   useEffect(() => {
+    const icon = getDishIcon(dish);
     reset({
       name: dish.name,
-      icon: dish.icon,
+      icon: null,
       defaultPortion: dish.defaultPortion,
       cookedWeight: dish.cookedWeight,
       calories: format(dish.calories),
@@ -39,7 +40,7 @@ function DishEdit() {
       fats: format(dish.fats),
       carbs: format(dish.carbs),
     });
-    setIcon(dish.icon);
+    setIcon(icon);
   }, [dish]);
 
   const hasIngredients = dish?.ingredients?.length! > 0;
