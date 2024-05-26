@@ -48,7 +48,7 @@ function EatingsSummary() {
       <div className="box mb-4">
         <div className="is-flex is-flex-wrap-wrap is-justify-content-space-between is-gap-2 mb-5">
           <div
-            className="level is-mobile is-flex-grow-1 mb-0"
+            className="level is-mobile flex-1 mb-0"
             style={{ height: "40px" }}
           >
             <div className="level-left is-flex-direction-row">
@@ -69,7 +69,7 @@ function EatingsSummary() {
               </div>
             </div>
           </div>
-          <div className="level is-mobile is-flex-grow-1 is-gap-0 mb-0">
+          <div className="level is-mobile is-gap-0 mb-0 flex-1">
             <button className="button" onClick={handleBackClick}>
               <span className="icon is-small">
                 <FaChevronLeft />
