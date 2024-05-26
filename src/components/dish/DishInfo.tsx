@@ -14,7 +14,7 @@ function DishInfo({ dish, servingSize }: Props) {
     <div className="is-flex-grow-1">
       <div className="is-flex is-align-items-center">
         <div className="is-flex-grow-1">
-          <p className="title is-6 pb-1 is-flex is-align-items-center">
+          <p className="title has-text-weight-semibold is-6 mb-2 is-flex is-align-items-center">
             <DishIcon className="mr-2" dish={dish} />
             <span data-testid="dishListName">{renderedName}</span>
           </p>

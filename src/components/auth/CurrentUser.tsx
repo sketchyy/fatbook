@@ -18,7 +18,7 @@ function CurrentUser() {
 
   return (
     <div className="level is-mobile">
-      <div className="level-left">
+      <div className="level-left level is-mobile mb-0">
         <div className="level-item mr-2">
           <figure className="image">
             <img className="is-rounded" src={avatarUrl} alt="" />

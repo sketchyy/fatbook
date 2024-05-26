@@ -46,43 +46,46 @@ function EatingsSummary() {
   return (
     <>
       <div className="box mb-4">
-        <div className="level block">
-          <div className="level-left">
-            <div className="level is-mobile mb-0" style={{ height: "40px" }}>
-              <div className="level-left">
-                <div className="level-item">
-                  <span className="is-size-5">📝</span>
-                </div>
-                <div className="level-item">
-                  <span className="is-size-5">Summary</span>
-                </div>
+        <div className="is-flex is-flex-wrap-wrap is-justify-content-space-between is-gap-2 mb-5">
+          <div
+            className="level is-mobile is-flex-grow-1 mb-0"
+            style={{ height: "40px" }}
+          >
+            <div className="level-left is-flex-direction-row">
+              <div className="level-item">
+                <span className="is-size-5">📝</span>
               </div>
-              <div className="level-right">
-                <div className="level-item">
-                  {!isToday && (
-                    <button className="button  ml-4" onClick={handleTodayClick}>
-                      To Today
-                    </button>
-                  )}
-                </div>
+              <div className="level-item">
+                <span className="is-size-5">Summary</span>
+              </div>
+            </div>
+            <div className="level-right">
+              <div className="level-item">
+                {!isToday && (
+                  <button className="button  ml-4" onClick={handleTodayClick}>
+                    To Today
+                  </button>
+                )}
               </div>
             </div>
           </div>
-          <div className="level-right">
-            <div className="level is-mobile mb-0">
-              <button className="button" onClick={handleBackClick}>
+          <div className="level is-mobile is-flex-grow-1 is-gap-0 mb-0">
+            <button className="button" onClick={handleBackClick}>
+              <span className="icon is-small">
                 <FaChevronLeft />
-              </button>
-              <DatePicker
-                selected={parsedDay}
-                onChange={(e) => handleDayChange(e)}
-                withIcon={true}
-                width={200}
-              />
-              <button className="button" onClick={handleForwardClick}>
+              </span>
+            </button>
+            <DatePicker
+              selected={parsedDay}
+              onChange={(e) => handleDayChange(e)}
+              withIcon={true}
+              width={200}
+            />
+            <button className="button" onClick={handleForwardClick}>
+              <span className="icon is-small">
                 <FaChevronRight />
-              </button>
-            </div>
+              </span>
+            </button>
           </div>
         </div>
         <div className="block level is-mobile">

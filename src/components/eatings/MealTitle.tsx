@@ -19,13 +19,9 @@ function MealTitle({ dailyEatings, meal, day }: Props) {
   return (
     <div className="is-clickable">
       <div className="level mb-1 is-mobile">
-        <div className="level-left">
-          <div className="level-item">
-            <span className="is-size-4">{Meals[meal].icon}</span>
-          </div>
-          <div className="level-item">
-            <span className="is-size-5">{Meals[meal].title}</span>
-          </div>
+        <div className="level-left is-flex-direction-row">
+          <span className="is-size-4">{Meals[meal].icon}</span>
+          <span className="is-size-5">{Meals[meal].title}</span>
         </div>
         <div className="level-right">
           <Link

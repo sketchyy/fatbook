@@ -20,14 +20,14 @@ function Confirm({ visible, message, onConfirm, onClose }: ConfirmProps) {
       title="Confirm"
       body={<span>{message}</span>}
       footer={
-        <>
+        <div className="buttons">
           <button className="button" onClick={onClose}>
             Cancel
           </button>
           <button className="button is-success" onClick={onConfirm}>
             OK
           </button>
-        </>
+        </div>
       }
     ></Modal>
   );

@@ -56,7 +56,9 @@ function DishPortionListItem({
               onClick={() => handleDeleteClick()}
               type="button"
             >
-              <FaTimes />
+              <span className="icon is-small">
+                <FaTimes />
+              </span>
             </button>
           )}
           <div className="is-flex-grow-1">
@@ -80,7 +82,9 @@ function DishPortionListItem({
               className="button is-primary ml-3"
               onClick={() => handleAddClick()}
             >
-              <FaPlus />
+              <span className="icon is-small">
+                <FaPlus />
+              </span>
             </button>
           )}
           {isAdded(dishPortion) && (
@@ -88,7 +92,9 @@ function DishPortionListItem({
               className="button is-primary ml-3"
               onClick={() => handleUpdateClick()}
             >
-              <FaCheck />
+              <span className="icon is-small">
+                <FaCheck />
+              </span>
             </button>
           )}
         </div>

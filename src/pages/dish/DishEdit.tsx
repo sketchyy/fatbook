@@ -167,32 +167,36 @@ function DishEdit() {
           </div>
         </div>
 
-        <div className="field is-grouped is-grouped-centered">
-          <div className="is-size-7 is-align-self-flex-end mr-3">
-            <strong>Created</strong>
-            <p>{formatDate(dish.createdAt, "DD MMM YYYY")}</p>
+        <div className="level">
+          <div className="level-left level is-mobile mb-0 mr-auto">
+            <div className="is-size-7 is-align-self-flex-end">
+              <strong>Created</strong>
+              <p>{formatDate(dish.createdAt, "DD MMM YYYY")}</p>
+            </div>
+            <div className="is-size-7 is-align-self-flex-end is-flex-grow-1">
+              <strong>Updated</strong>
+              <p>{formatDate(dish.updatedAt, "DD MMM YYYY")}</p>
+            </div>
           </div>
-          <div className="is-size-7 is-align-self-flex-end is-flex-grow-1">
-            <strong>Updated</strong>
-            <p>{formatDate(dish.updatedAt, "DD MMM YYYY")}</p>
+          <div className="level-left level is-mobile ml-auto">
+            <p className="control">
+              <button
+                className="button is-light"
+                type="button"
+                onClick={onCancel}
+              >
+                Cancel
+              </button>
+            </p>
+            <p className="control">
+              <button className="button is-primary" type="submit">
+                <span className="icon">
+                  <FaSave />
+                </span>
+                <span>Save</span>
+              </button>
+            </p>
           </div>
-          <p className="control mr-5">
-            <button
-              className="button is-light"
-              type="button"
-              onClick={onCancel}
-            >
-              Cancel
-            </button>
-          </p>
-          <p className="control">
-            <button className="button is-primary" type="submit">
-              <span className="icon">
-                <FaSave />
-              </span>
-              <span>Save</span>
-            </button>
-          </p>
         </div>
       </div>
     </form>

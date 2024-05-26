@@ -37,7 +37,11 @@ function Message({
           )}
         </div>
       )}
-      <div className={clsx("message-body", bodyClassName)}>{children}</div>
+      <div
+        className={clsx("message-body has-background-info-95", bodyClassName)}
+      >
+        {children}
+      </div>
     </article>
   );
 }
