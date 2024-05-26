@@ -55,16 +55,17 @@ export async function searchDishes({
     .throwOnError();
 
   if (query) {
-    const tsQuery = query.includes(" ") ? query : query + ":*";
-    dbQuery = dbQuery
-      .textSearch("searchable", tsQuery, {
-        type: "websearch",
-        config: "russian",
-      })
-      .textSearch("searchable", tsQuery, {
-        type: "websearch",
-        config: "english",
-      });
+    dbQuery = dbQuery.ilike("name", `%${query}%`);
+    // const tsQuery = query.includes(" ") ? query : query + ":*";
+    // dbQuery = dbQuery
+    //   .textSearch("searchable", tsQuery, {
+    //     type: "websearch",
+    //     config: "russian",
+    //   })
+    //   .textSearch("searchable", tsQuery, {
+    //     type: "websearch",
+    //     config: "english",
+    //   });
   }
 
   if (filterEmpty) {
