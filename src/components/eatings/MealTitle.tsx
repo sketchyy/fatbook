@@ -4,17 +4,19 @@ import { formatDate } from "@/utils/date-utils";
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DailyEatings } from "@/types/eating";
+import { clsx } from "clsx";
 
 type Props = {
-  dailyEatings: DailyEatings;
+  dailyEatings?: DailyEatings | null;
   meal: MealType;
   day: string;
+  isLoading?: boolean;
 };
 
-function MealTitle({ dailyEatings, meal, day }: Props) {
+function MealTitle({ dailyEatings, meal, day, isLoading }: Props) {
   const eatingPath = `/eatings/${formatDate(day)}/${meal}`;
   const addEatingFormPath = eatingPath + "/add";
-  const mealData = dailyEatings.meals[meal];
+  const mealData = dailyEatings?.meals[meal];
 
   return (
     <div className="is-clickable">
@@ -26,7 +28,9 @@ function MealTitle({ dailyEatings, meal, day }: Props) {
         <div className="level-right">
           <Link
             to={addEatingFormPath}
-            className="button is-primary"
+            className={clsx("button is-primary", {
+              "is-skeleton": isLoading,
+            })}
             onClick={(e) => e.stopPropagation()}
           >
             <span className="icon">

@@ -14,6 +14,7 @@ import { useAuth } from "@/context/Auth";
 import { useState } from "react";
 import { calculateFoodValue } from "@/utils/food-value-utils";
 import { toast } from "react-toastify";
+import { DAILY_EATINGS_KEY } from "@/pages/eatings/Eatings";
 
 type OnMutate = (portion: DishPortion) => void;
 
@@ -43,7 +44,7 @@ export function useEatingMutations(
   };
   // Write actual value from the response
   const onSuccess = (response: DishPortion | void) => {
-    queryClient.invalidateQueries({ queryKey: ["dailyEatings", day] });
+    queryClient.invalidateQueries({ queryKey: [DAILY_EATINGS_KEY, day] });
     if (response) {
       setSelectedPortions((portions) => {
         const optimisticIndex = portions.findIndex(

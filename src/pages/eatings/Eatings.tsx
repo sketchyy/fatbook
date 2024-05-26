@@ -3,21 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchDailyEatings } from "@/services/eatings-service";
 import { useAuth } from "@/context/Auth";
 
+export const DAILY_EATINGS_KEY = "dailyEatings";
+
 /* EatingsPage */
 function Eatings() {
   const { userId } = useAuth();
   const params = useParams();
   const day = params.day;
 
-  const { data: dailyEatings, isLoading } = useQuery({
-    queryKey: ["dailyEatings", day],
+  const { data: dailyEatings } = useQuery({
+    queryKey: [DAILY_EATINGS_KEY, day],
     queryFn: () => fetchDailyEatings(userId, day!),
   });
-
-  if (isLoading) {
-    /* TODO: Meals page skeleton */
-    return <span>"Loading..."</span>;
-  }
 
   return <Outlet context={{ day, dailyEatings }} />;
 }

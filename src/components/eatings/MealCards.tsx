@@ -4,6 +4,8 @@ import { useOutletContext } from "react-router-dom";
 import MealContent from "./MealContent";
 import MealTitle from "./MealTitle";
 import { DailyEatings } from "@/types/eating";
+import { useIsLoading } from "@/hooks/use-is-loading";
+import { DAILY_EATINGS_KEY } from "@/pages/eatings/Eatings";
 
 interface Props {
   activeIndex: number;
@@ -15,18 +17,21 @@ function MealCards({ activeIndex, setActiveIndex }: Props) {
     day: string;
     dailyEatings: DailyEatings;
   }>();
+  const isLoading = useIsLoading(DAILY_EATINGS_KEY);
 
   return (
     <>
       <Accordion
         activeIndex={activeIndex}
         onTabChange={(e) => setActiveIndex(e.index)}
+        disabled={isLoading}
       >
         {Object.keys(Meals).map((meal) => (
           <AccordionItem
             key={meal}
             title={
               <MealTitle
+                isLoading={isLoading}
                 dailyEatings={dailyEatings}
                 meal={meal as MealType}
                 day={day}
@@ -38,7 +43,12 @@ function MealCards({ activeIndex, setActiveIndex }: Props) {
               marginLeft: "-2%",
             }}
           >
-            <MealContent dailyEatings={dailyEatings} meal={meal as MealType} />
+            {dailyEatings && (
+              <MealContent
+                dailyEatings={dailyEatings}
+                meal={meal as MealType}
+              />
+            )}
           </AccordionItem>
         ))}
       </Accordion>

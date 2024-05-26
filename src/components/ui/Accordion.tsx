@@ -1,4 +1,10 @@
-import React, { Children, CSSProperties, ReactNode, useRef } from "react";
+import React, {
+  Children,
+  CSSProperties,
+  ReactElement,
+  ReactNode,
+  useRef,
+} from "react";
 
 interface AccordionItemProps {
   title: ReactNode;
@@ -48,10 +54,22 @@ export function AccordionItem({
   );
 }
 
-function Accordion({ activeIndex, onTabChange, children }) {
-  /* const [selectedIndex, setSelectedIndex] = useState(activeIndex); */
-
+type AccordionProps = {
+  activeIndex: number;
+  onTabChange: ({ index }: { index: number }) => void;
+  children: ReactElement[];
+  disabled?: boolean;
+};
+function Accordion({
+  activeIndex,
+  onTabChange,
+  children,
+  disabled,
+}: AccordionProps) {
   const toggle = (itemIndex) => {
+    if (disabled) {
+      return;
+    }
     if (activeIndex === itemIndex) {
       onTabChange({ index: -1 });
     } else {

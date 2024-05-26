@@ -12,10 +12,6 @@ body {
   cursor: wait;
 }
 
-.has-border-bottom-grey {
-  border-bottom: 2px solid hsl(0, 0%, 48%);
-}
-
 .box {
   padding: 1rem;
 }
@@ -39,6 +35,15 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 
+/* Utility classes */
 .flex-1 {
   flex: 1;
+}
+
+.has-background-none {
+  background: none;
+}
+
+.has-border-bottom-grey {
+  border-bottom: 2px solid hsl(0, 0%, 48%);
 }
