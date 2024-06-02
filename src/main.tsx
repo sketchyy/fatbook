@@ -15,8 +15,6 @@ import ErrorPage from "@/pages/ErrorPage";
 import "./index.css";
 import Dish from "@/pages/dish/Dish";
 import DishEdit from "@/pages/dish/DishEdit";
-import DishIngredientAdd from "@/pages/dish/DishIngredientAdd";
-import DishIngredients from "@/pages/dish/DishIngredients";
 import Dishes from "@/pages/dishes/Dishes";
 import EatingsAdd from "@/pages/eatings/EatingsAdd";
 import Eatings from "@/pages/eatings/Eatings";
