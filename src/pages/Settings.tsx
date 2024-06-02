@@ -7,11 +7,10 @@ import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";
 import { FoodValue } from "@/types/food-value";
 import { saveSettings } from "@/services/settings-service";
-import Skeleton from "react-loading-skeleton";
 
 function Settings() {
   const { userId } = useAuth();
-  const { data, isLoading: queryLoading } = useSettings();
+  const { data, isLoading } = useSettings();
   const { register, handleSubmit } = useForm<FoodValue>({
     values: data,
     resetOptions: {
@@ -27,14 +26,11 @@ function Settings() {
       toast.error(`Saving is failed: ${err}`);
     },
   });
+  const inputClasses = clsx("input", { "is-skeleton": isLoading });
 
   const onSubmit: SubmitHandler<FoodValue> = async (data) => {
     saveMutation.mutate(data);
   };
-
-  if (queryLoading) {
-    return <Skeleton height={316} />;
-  }
 
   return (
     <form
@@ -49,7 +45,7 @@ function Settings() {
             <div className="control">
               <input
                 {...register("proteins")}
-                className="input"
+                className={inputClasses}
                 type="number"
                 placeholder="per 100g."
               />
@@ -60,7 +56,7 @@ function Settings() {
             <div className="control">
               <input
                 {...register("fats")}
-                className="input"
+                className={inputClasses}
                 type="number"
                 placeholder="per 100g."
               />
@@ -71,7 +67,7 @@ function Settings() {
             <div className="control">
               <input
                 {...register("carbs")}
-                className="input"
+                className={inputClasses}
                 type="number"
                 placeholder="per 100g."
               />
@@ -84,7 +80,7 @@ function Settings() {
           <div className="control">
             <input
               {...register("calories")}
-              className="input"
+              className={inputClasses}
               type="number"
               placeholder="per 100g."
             />
