@@ -4,18 +4,18 @@ import { Dish } from "@/types/dish";
 import { SimplifiedDish } from "@/types/dish-portion";
 
 const IconSkeleton = () => (
-  <p
+  <span
     className="image is-32x32 is-skeleton mr-2"
     style={{ width: 27, height: 27 }}
   >
     Icon
-  </p>
+  </span>
 );
 
 const TextSkeleton = () => (
-  <h2 className="subtitle is-skeleton" style={{ height: 18, width: 200 }}>
+  <p className="subtitle is-skeleton" style={{ height: 18, width: 200 }}>
     Dish Name
-  </h2>
+  </p>
 );
 
 type Props = {
@@ -31,18 +31,18 @@ export default function DishTitle({ dish, isLoading, children }: Props) {
 
   if (isLoading) {
     return (
-      <p className={wrapperClass}>
+      <div className={wrapperClass}>
         <IconSkeleton />
         <TextSkeleton />
-      </p>
+      </div>
     );
   }
 
   return (
-    <p className={wrapperClass}>
+    <div className={wrapperClass}>
       <DishIcon className="mr-2" dish={dish} />
-      <div className="is-flex-grow-1">{renderedName}</div>
+      <p className="is-flex-grow-1">{renderedName}</p>
       {children}
-    </p>
+    </div>
   );
 }

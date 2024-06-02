@@ -16,14 +16,6 @@ function Dish() {
   const deleteMutation = useMutation({ mutationFn: deleteDish });
   const isCreate = isNil(params.id);
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
-
-  if (isNil(dish)) {
-    return <div>No data found.</div>;
-  }
-
   const handleBackClick = () => {
     if (location.state?.backUrl) {
       navigate(location.state.backUrl);
@@ -65,7 +57,7 @@ function Dish() {
           </button>
         )}
       </div>
-      <Outlet context={{ dish }} />
+      <Outlet context={{ dish, isLoading }} />
     </>
   );
 }

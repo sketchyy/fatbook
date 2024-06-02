@@ -29,6 +29,8 @@ import RequireAuth from "@/components/auth/RequireAuth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/context/Auth";
 import { formatDate, now } from "@/utils/date-utils";
+import DishIngredientsLoader from "@/pages/dish/DishIngredientsLoader";
+import DishIngredientAddLoader from "@/pages/dish/DishIngredientAddLoader";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -79,11 +81,11 @@ const router = createBrowserRouter([
           },
           {
             path: "ingredients",
-            element: <DishIngredients />,
+            element: <DishIngredientsLoader />,
           },
           {
             path: "ingredients/add",
-            element: <DishIngredientAdd />,
+            element: <DishIngredientAddLoader />,
           },
         ],
       },

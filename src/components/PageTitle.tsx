@@ -9,6 +9,7 @@ interface PageTitleProps {
   backPath?: number;
   children?: ReactNode;
   className?: string;
+  isLoading?: boolean;
 }
 
 function PageTitle({
@@ -17,6 +18,7 @@ function PageTitle({
   backPath,
   children,
   className,
+  isLoading,
 }: PageTitleProps) {
   const navigate = useNavigate();
 
@@ -32,8 +34,12 @@ function PageTitle({
         </div>
       )}
       <div className="column">
-        <p className="title is-size-5">{title}</p>
-        <p className="subtitle is-size-6">{subtitle}</p>
+        <p className={clsx("title is-size-5", { "is-skeleton": isLoading })}>
+          {title ?? "loading..."}
+        </p>
+        <p className={clsx("subtitle is-size-6", { "is-skeleton": isLoading })}>
+          {subtitle}
+        </p>
       </div>
       <div className="column is-narrow">{children}</div>
     </div>

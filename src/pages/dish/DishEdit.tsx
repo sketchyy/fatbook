@@ -9,6 +9,7 @@ import { isNil } from "@/utils/is-nil";
 import { formatDate } from "@/utils/date-utils";
 import { IconPicker } from "@/components/dish/IconPicker";
 import { getDishIcon } from "@/utils/icon-utils";
+import { clsx } from "clsx";
 
 export type DishInputs = {
   name: string | null;
@@ -24,11 +25,16 @@ export type DishInputs = {
 function DishEdit() {
   const params = useParams();
   const navigate = useNavigate();
-  const { dish } = useOutletContext<{ dish: Dish }>();
+  const { dish, isLoading } = useOutletContext<{
+    dish?: Dish;
+    isLoading: boolean;
+  }>();
   const { register, reset, handleSubmit, setValue } = useForm<DishInputs>();
   const [icon, setIcon] = useState<string>("");
-
   useEffect(() => {
+    if (!dish) {
+      return;
+    }
     const icon = getDishIcon(dish);
     reset({
       name: dish.name,
@@ -55,7 +61,7 @@ function DishEdit() {
 
   const handleNameChange = ({ target }) => {
     // Update outlet context to save when navigate to ingredients
-    dish.name = target.value;
+    dish!.name = target.value;
   };
 
   const handleIconChange = (icon: string) => {
@@ -70,14 +76,18 @@ function DishEdit() {
           <div className="field mr-3">
             <label className="label">Icon</label>
             <div className="control">
-              <IconPicker value={icon} onChange={handleIconChange} />
+              <IconPicker
+                value={icon}
+                onChange={handleIconChange}
+                isLoading={isLoading}
+              />
             </div>
           </div>
           <div className="field is-flex-grow-1">
             <label className="label">Name</label>
             <div className="control is-expanded">
               <input
-                className="input"
+                className={clsx("input", { "is-skeleton": isLoading })}
                 type="text"
                 {...register("name", { onChange: handleNameChange })}
               />
@@ -101,7 +111,7 @@ function DishEdit() {
             <label className="label">Proteins</label>
             <div className="control">
               <input
-                className="input"
+                className={clsx("input", { "is-skeleton": isLoading })}
                 type="number"
                 step=".01"
                 placeholder="per 100g."
@@ -116,7 +126,7 @@ function DishEdit() {
             <label className="label">Fats</label>
             <div className="control">
               <input
-                className="input"
+                className={clsx("input", { "is-skeleton": isLoading })}
                 type="number"
                 step=".01"
                 placeholder="per 100g."
@@ -129,7 +139,7 @@ function DishEdit() {
             <label className="label">Carbs</label>
             <div className="control">
               <input
-                className="input"
+                className={clsx("input", { "is-skeleton": isLoading })}
                 type="number"
                 step=".01"
                 placeholder="per 100g."
@@ -145,7 +155,7 @@ function DishEdit() {
             <label className="label">KCal</label>
             <div className="control">
               <input
-                className="input"
+                className={clsx("input", { "is-skeleton": isLoading })}
                 type="number"
                 step=".01"
                 placeholder="per 100g."
@@ -158,7 +168,7 @@ function DishEdit() {
             <label className="label">Portion Size</label>
             <div className="control">
               <input
-                className="input"
+                className={clsx("input", { "is-skeleton": isLoading })}
                 type="number"
                 placeholder="gramms"
                 {...register("defaultPortion", { valueAsNumber: true })}
@@ -171,11 +181,15 @@ function DishEdit() {
           <div className="level-left level is-mobile mb-0 mr-auto">
             <div className="is-size-7 is-align-self-flex-end">
               <strong>Created</strong>
-              <p>{formatDate(dish.createdAt, "DD MMM YYYY")}</p>
+              <p className={clsx({ "is-skeleton": isLoading })}>
+                {formatDate(dish?.createdAt, "DD MMM YYYY")}
+              </p>
             </div>
             <div className="is-size-7 is-align-self-flex-end is-flex-grow-1">
               <strong>Updated</strong>
-              <p>{formatDate(dish.updatedAt, "DD MMM YYYY")}</p>
+              <p className={clsx({ "is-skeleton": isLoading })}>
+                {formatDate(dish?.updatedAt, "DD MMM YYYY")}
+              </p>
             </div>
           </div>
           <div className="level-left level is-mobile ml-auto">

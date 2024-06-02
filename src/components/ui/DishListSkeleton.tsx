@@ -14,8 +14,8 @@ export default function DishListSkeleton() {
     <>
       <Divider />
 
-      {mockDishes.map((dish) => (
-        <Fragment key={dish.id}>
+      {mockDishes.map((_, index) => (
+        <Fragment key={index}>
           <div className="py-4 px-2">
             <div className="is-flex-grow-1">
               <div className="is-flex is-align-items-center">

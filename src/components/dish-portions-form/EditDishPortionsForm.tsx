@@ -5,9 +5,15 @@ interface Props {
   dishPortions?: DishPortion[];
   onSave: (portion: DishPortion) => void;
   onDelete: (portion: DishPortion) => void;
+  isLoading?: boolean;
 }
 
-function EditDishPortionsForm({ dishPortions, onSave, onDelete }: Props) {
+function EditDishPortionsForm({
+  dishPortions,
+  onSave,
+  onDelete,
+  isLoading,
+}: Props) {
   const handleSaveClick = (portion) => {
     onSave(portion);
   };
@@ -18,6 +24,7 @@ function EditDishPortionsForm({ dishPortions, onSave, onDelete }: Props) {
 
   return (
     <DishPortionList
+      isLoading={isLoading}
       dishPortions={dishPortions}
       onUpdate={handleSaveClick}
       onDelete={handleDeleteClick}

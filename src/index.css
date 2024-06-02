@@ -6,12 +6,6 @@ body {
   margin: 0;
 }
 
-.loading {
-  opacity: 0.5;
-  pointer-events: none;
-  cursor: wait;
-}
-
 .box {
   padding: 1rem;
 }
