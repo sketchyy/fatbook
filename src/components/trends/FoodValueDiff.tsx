@@ -1,8 +1,11 @@
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
-import { FoodValue } from "@/types/food-value";
+import { FoodValue as FoodValueType } from "@/types/food-value";
+import FoodValue from "@/components/FoodValue";
+import { clsx } from "clsx";
 
 interface FoodValueDiffProps {
-  foodValue: FoodValue;
+  foodValue?: FoodValueType;
+  isLoading?: boolean;
 }
 
 const FoodValueDiffItem = ({
@@ -14,13 +17,17 @@ const FoodValueDiffItem = ({
   const className = value >= 0 ? failColor : successColor;
   const icon = value >= 0 ? <FaArrowUp /> : <FaArrowDown />;
   return (
-    <strong className={"mr-3 is-size-7 " + className}>
+    <strong className={clsx("tag is-size-7 px-0", className)}>
       {icon} {Math.round(value)} {measure}
     </strong>
   );
 };
 
-function FoodValueDiff({ foodValue }: FoodValueDiffProps) {
+function FoodValueDiff({ foodValue, isLoading }: FoodValueDiffProps) {
+  if (isLoading || !foodValue) {
+    return <FoodValue isLoading />;
+  }
+
   return (
     <span className="level level-left mb-0">
       <FoodValueDiffItem value={foodValue.calories} measure="kcal" />

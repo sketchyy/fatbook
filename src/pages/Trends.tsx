@@ -27,11 +27,6 @@ function Trends() {
     settings,
   } = useTrendsData(startDate, endDate);
 
-  // TODO: proper loading state (skeleton)
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
-
   const handleDateChange = (range: [Date, Date]) => {
     setActiveTimeSpan(null);
     setDateRange(range);
@@ -59,13 +54,14 @@ function Trends() {
         <div>
           <div className="mt-2">
             <FoodValue
+              isLoading={isLoading}
               source={totalFoodValue}
               className="level-left is-size-7"
             />
           </div>
           <div className="mt-2">
             <div className="is-flex is-align-items-center">
-              <FoodValueDiff foodValue={dietGoalDiff} />
+              <FoodValueDiff foodValue={dietGoalDiff} isLoading={isLoading} />
             </div>
           </div>
           <div className="mt-4 is-flex is-justify-content-space-between is-align-items-center">
@@ -88,6 +84,7 @@ function Trends() {
             >
               <FoodValue
                 source={dietGoal}
+                isLoading={isLoading}
                 className="level-left is-size-7 has-text-dark"
               />
             </Message>
@@ -98,7 +95,8 @@ function Trends() {
         title="⚡ Calories"
         data={chartData}
         barFill="hsl(171, 100%, 41%)"
-        referenceValue={settings.calories}
+        isLoading={isLoading}
+        referenceValue={settings?.calories}
         xKey="date"
         yKey="calories"
       />
@@ -106,7 +104,8 @@ function Trends() {
         title="🥩 Proteins"
         data={chartData}
         barFill="hsl(204, 86%, 53%)"
-        referenceValue={settings.proteins}
+        isLoading={isLoading}
+        referenceValue={settings?.proteins}
         xKey="date"
         yKey="proteins"
       />
@@ -114,7 +113,8 @@ function Trends() {
         title="🧈 Fats"
         data={chartData}
         barFill="hsl(48, 100%, 67%)"
-        referenceValue={settings.fats}
+        isLoading={isLoading}
+        referenceValue={settings?.fats}
         xKey="date"
         yKey="fats"
       />
@@ -122,7 +122,8 @@ function Trends() {
         title="🍚 Carbs"
         data={chartData}
         barFill="hsl(348, 100%, 61%)"
-        referenceValue={settings.carbs}
+        isLoading={isLoading}
+        referenceValue={settings?.carbs}
         xKey="date"
         yKey="carbs"
       />
