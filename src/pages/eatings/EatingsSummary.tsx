@@ -13,6 +13,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import MealCards from "../../components/eatings/MealCards";
 import { DailyEatings } from "@/types/eating";
+import { useIsLoading } from "@/hooks/use-is-loading";
+import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/Eatings";
 
 function EatingsSummary() {
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ function EatingsSummary() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const isToday = checkIsToday(day);
   const parsedDay = parse(day);
+  const isLoading = useIsLoading(DAILY_EATINGS_QUERY_KEY);
 
   const handleDayChange = (date) => {
     const selectedDay = formatDate(date);
@@ -89,7 +92,11 @@ function EatingsSummary() {
           </div>
         </div>
         <div className="block level is-mobile">
-          <FoodValue source={dailyEatings} className="level-left is-size-7" />
+          <FoodValue
+            source={dailyEatings}
+            isLoading={isLoading}
+            className="level-left is-size-7"
+          />
         </div>
       </div>
       <MealCards activeIndex={activeIndex} setActiveIndex={setActiveIndex} />

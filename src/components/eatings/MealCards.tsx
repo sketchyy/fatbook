@@ -5,7 +5,7 @@ import MealContent from "./MealContent";
 import MealTitle from "./MealTitle";
 import { DailyEatings } from "@/types/eating";
 import { useIsLoading } from "@/hooks/use-is-loading";
-import { DAILY_EATINGS_KEY } from "@/pages/eatings/Eatings";
+import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/Eatings";
 
 interface Props {
   activeIndex: number;
@@ -17,7 +17,7 @@ function MealCards({ activeIndex, setActiveIndex }: Props) {
     day: string;
     dailyEatings: DailyEatings;
   }>();
-  const isLoading = useIsLoading(DAILY_EATINGS_KEY);
+  const isLoading = useIsLoading(DAILY_EATINGS_QUERY_KEY);
 
   return (
     <>

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchDailyEatings } from "@/services/eatings-service";
 import { useAuth } from "@/context/Auth";
 
-export const DAILY_EATINGS_KEY = "dailyEatings";
+export const DAILY_EATINGS_QUERY_KEY = "dailyEatings";
 
 /* EatingsPage */
 function Eatings() {
@@ -12,7 +12,7 @@ function Eatings() {
   const day = params.day;
 
   const { data: dailyEatings } = useQuery({
-    queryKey: [DAILY_EATINGS_KEY, day],
+    queryKey: [DAILY_EATINGS_QUERY_KEY, day],
     queryFn: () => fetchDailyEatings(userId, day!),
   });
 
