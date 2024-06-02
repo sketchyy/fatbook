@@ -55,7 +55,7 @@ export async function searchDishes({
     .throwOnError();
 
   if (query) {
-    dbQuery = dbQuery.ilike("name", `%${query}%`);
+    dbQuery = dbQuery.ilike("name", `%${query.trim()}%`);
     // * Below is the implementation of full text search
     // * The limitation is that it only search by full words
     // const tsQuery = query.includes(" ") ? query : query + ":*";
