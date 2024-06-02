@@ -29,7 +29,7 @@ function FoodValueDiff({ foodValue, isLoading }: FoodValueDiffProps) {
   }
 
   return (
-    <span className="level level-left mb-0">
+    <span className="level level-left is-mobile mb-0">
       <FoodValueDiffItem value={foodValue.calories} measure="kcal" />
       <FoodValueDiffItem
         value={foodValue.proteins}
