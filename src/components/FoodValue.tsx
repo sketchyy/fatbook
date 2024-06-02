@@ -14,7 +14,7 @@ function FoodValue({ source, className = "", isLoading }: Props) {
   const rendered = source ?? emptyFoodValue();
 
   const cls = clsx("tag", {
-    "is-skeleton": isLoading,
+    "is-skeleton px-1": isLoading,
     "has-background-none px-0": !isLoading,
   });
 

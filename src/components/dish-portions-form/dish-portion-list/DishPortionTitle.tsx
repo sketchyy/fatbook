@@ -3,6 +3,7 @@ import DishIcon from "../../dish/DishIcon";
 import FoodValue from "../../FoodValue";
 import { DishPortion } from "@/types/dish-portion";
 import { FoodWeight } from "@/components/FoodWeight";
+import DishTitle from "@/components/ui/DishTitle";
 
 type Props = {
   dishPortion: DishPortion;
@@ -24,20 +25,13 @@ function DishPortionTitle({ dishPortion }: Props) {
           <div className="is-flex is-align-items-center">
             <div className="is-flex-grow-1">
               <div>
-                <div className="mb-1 is-flex is-align-items-center">
-                  <DishIcon className="mr-2" dish={dishPortion.dish} />
-                  <div
-                    className="is-flex-grow-1"
-                    data-testid="dishPortionTitle"
-                  >
-                    {dishPortion.dish.name}
-                  </div>
+                <DishTitle dish={dishPortion.dish}>
                   {dishPortion.selected ? (
                     <FaCheckCircle className="has-text-success is-size-4" />
                   ) : (
                     ""
                   )}
-                </div>
+                </DishTitle>
                 <div className="is-flex is-justify-content-space-between">
                   <FoodValue
                     source={dishPortion}

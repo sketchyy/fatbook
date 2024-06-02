@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import Divider from "../ui/Divider";
 import DishInfo from "./DishInfo";
 import { Dish } from "@/types/dish";
+import DishListSkeleton from "@/components/ui/DishListSkeleton";
 
 type ListItemProps = { dish: Dish; onClick: (dish: Dish) => void };
 
@@ -37,10 +38,15 @@ function DishListItem({ dish, onClick }: ListItemProps) {
 
 type Props = {
   dishes: Dish[];
+  isLoading?: boolean;
   onDishClick: (dish: Dish) => void;
 };
 
-function DishList({ dishes, onDishClick }: Props) {
+function DishList({ dishes, isLoading, onDishClick }: Props) {
+  if (isLoading) {
+    return <DishListSkeleton />;
+  }
+
   return (
     <>
       <Divider />

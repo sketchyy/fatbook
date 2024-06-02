@@ -22,7 +22,8 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
   } = useQuery({
     queryKey: ["dishes", query, { filterEmpty }],
     queryFn: () => searchDishes({ query, filterDishId, filterEmpty }),
-    placeholderData: keepPreviousData,
+    // Skeleton is currently used. This is how to keep previous data:
+    // placeholderData: keepPreviousData,
   });
 
   const runSearch = (query: string, { replace }: RunSearchOptions = {}) => {

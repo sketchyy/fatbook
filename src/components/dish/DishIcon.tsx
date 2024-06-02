@@ -4,7 +4,7 @@ import { SimplifiedDish } from "@/types/dish-portion";
 import { getDishIcon } from "@/utils/icon-utils";
 
 type Props = {
-  dish: Dish | SimplifiedDish;
+  dish?: Dish | SimplifiedDish;
   className: string;
 };
 

@@ -42,7 +42,11 @@ function Dishes() {
         onChange={handleSearch}
       />
 
-      {dishes && <DishList dishes={dishes} onDishClick={handleDishClick} />}
+      <DishList
+        dishes={dishes}
+        isLoading={isLoading}
+        onDishClick={handleDishClick}
+      />
     </div>
   );
 }

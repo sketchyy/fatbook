@@ -59,6 +59,7 @@ function SelectDishPortionsForm({
           onUpdate={onUpdate ?? (() => null)}
           onDelete={onDelete}
           isAdded={(p) => p.selected!}
+          isLoading={isLoading}
         />
       </div>
     </div>

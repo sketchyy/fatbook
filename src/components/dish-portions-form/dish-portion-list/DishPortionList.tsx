@@ -7,6 +7,7 @@ import DishPortionTitle from "./DishPortionTitle";
 import { isNil } from "@/utils/is-nil";
 import { DishPortion } from "@/types/dish-portion";
 import { clsx } from "clsx";
+import DishListSkeleton from "@/components/ui/DishListSkeleton";
 
 interface Props {
   dishPortions?: DishPortion[];
@@ -14,6 +15,7 @@ interface Props {
   onUpdate: (p: DishPortion) => void;
   onDelete: (p: DishPortion) => void;
   isAdded: (p: DishPortion) => boolean;
+  isLoading?: boolean;
 }
 
 function DishPortionList({
@@ -22,9 +24,14 @@ function DishPortionList({
   onUpdate,
   onDelete,
   isAdded,
+  isLoading,
 }: Props) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [prevItems, setPrevItems] = useState(dishPortions);
+
+  if (isLoading) {
+    return <DishListSkeleton />;
+  }
 
   if (isNil(dishPortions) || dishPortions.length === 0) {
     return (
