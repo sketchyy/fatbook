@@ -11,7 +11,7 @@ import {
 } from "@/services/eatings-service";
 import { useParams } from "react-router-dom";
 import { useAuth } from "@/context/Auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { calculateFoodValue } from "@/utils/food-value-utils";
 import { toast } from "react-toastify";
 import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/Eatings";
@@ -25,15 +25,23 @@ type UseEatingMutations = {
   selectedPortions: DishPortion[];
 };
 
+/* Ref to an empty array to avoid creating new array on every render
+ * As it's used in useEffect dependency array, [] will get new array each time ->
+ * Max rendering depth exceeded  */
+const EMPTY_ARRAY = [];
+
 export function useEatingMutations(
   meal: string,
-  initialPortions: DishPortion[] = [],
-) {
+  portions: DishPortion[] = EMPTY_ARRAY,
+): UseEatingMutations {
   const queryClient = useQueryClient();
   const { day } = useParams();
   const { userId } = useAuth();
-  const [selectedPortions, setSelectedPortions] =
-    useState<DishPortion[]>(initialPortions);
+  const [selectedPortions, setSelectedPortions] = useState<DishPortion[]>([]);
+
+  useEffect(() => {
+    setSelectedPortions(portions);
+  }, [portions]);
 
   // Optimistic update
   const createOnMutate = (optimisticMutation: OnMutate) => (portion) => {
