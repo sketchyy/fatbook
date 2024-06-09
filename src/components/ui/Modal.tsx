@@ -26,7 +26,7 @@ function Modal({ visible, onClose, body, footer, title }: ModalProps) {
     <div className={"modal" + (visible ? " is-active" : "")}>
       <div className="modal-background" onClick={onClose}></div>
       <div className="modal-card px-2">
-        <header className="modal-card-head">
+        <header className="modal-card-head p-5">
           <p className="modal-card-title">{title}</p>
           <button
             className="delete"
@@ -35,7 +35,7 @@ function Modal({ visible, onClose, body, footer, title }: ModalProps) {
           ></button>
         </header>
         <section className="modal-card-body">{body}</section>
-        <footer className="modal-card-foot is-justify-content-end">
+        <footer className="modal-card-foot is-justify-content-end p-4">
           {footer}
         </footer>
       </div>
