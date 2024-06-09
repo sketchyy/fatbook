@@ -1,5 +1,6 @@
-create view
-  "eatings_by_day" as
+create view "eatings_by_day"
+  with (security_invoker=on)
+  as
 select
   eatings."userId" as "userId",
   day,
