@@ -10,7 +10,8 @@ import { useTrendsData } from "@/hooks/use-trends-data";
 import { TimeSpan, TimeSpanSelect } from "@/components/trends/TimeSpanSelect";
 import AppLayout from "@/components/AppLayout";
 
-function Trends() {
+// Component name is for react router lazy loading
+function Component() {
   const [showGoal, setShowGoal] = useState(false);
   const [activeTimeSpan, setActiveTimeSpan] = useState<TimeSpan | null>("Week");
   const [dateRange, setDateRange] = useState([
@@ -131,5 +132,3 @@ function Trends() {
     </AppLayout>
   );
 }
-
-export default Trends;
