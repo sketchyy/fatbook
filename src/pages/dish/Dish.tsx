@@ -16,6 +16,10 @@ function Dish() {
   const deleteMutation = useMutation({ mutationFn: deleteDish });
   const isCreate = isNil(params.id);
 
+  if (!isLoading && !dish) {
+    navigate("/not-found");
+  }
+
   const handleBackClick = () => {
     if (location.state?.backUrl) {
       navigate(location.state.backUrl);

@@ -29,6 +29,7 @@ import { AuthProvider } from "@/context/Auth";
 import { formatDate, now } from "@/utils/date-utils";
 import DishIngredientsLoader from "@/pages/dish/DishIngredientsLoader";
 import DishIngredientAddLoader from "@/pages/dish/DishIngredientAddLoader";
+import NotFound from "@/pages/NotFound";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -100,6 +101,14 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/not-found",
+    element: <NotFound />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
