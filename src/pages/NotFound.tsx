@@ -10,14 +10,14 @@ export default function NotFound() {
             className="image is-square ml-auto mr-auto"
             style={{ width: 350, height: 350 }}
           >
-            <img src="/public/404.png" alt="empty plate" />
+            <img src="/404.png" alt="empty plate" />
           </figure>
           <p className="title">Page Not Found</p>
           <p className="subtitle mt-4 ">
             Sorry, the page you are looking for could not be found.
           </p>
           <p>
-            <Link className="button is-text" to="/">
+            <Link className="button" to="/">
               <span className="icon">
                 <FaHome />
               </span>
