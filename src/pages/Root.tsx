@@ -11,7 +11,9 @@ function Root() {
     <>
       <Navbar />
       <div
-        className={clsx("container is-max-desktop ", { loading: isLoading })}
+        className={clsx("container is-max-desktop is-overflow-hidden ", {
+          loading: isLoading,
+        })}
       >
         <div className="column is-8 is-offset-2">
           <Outlet />
