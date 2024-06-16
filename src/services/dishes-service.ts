@@ -39,19 +39,27 @@ type SearchProps = {
   query: string;
   filterDishId?: number;
   filterEmpty?: boolean;
+  page: number;
 };
+
+export const PAGE_SIZE = 25;
 
 export async function searchDishes({
   query,
   filterDishId,
   filterEmpty,
+  page,
 }: SearchProps): Promise<Dish[]> {
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
   let dbQuery = supabase
     .from("dishes")
     .select()
     .is("deleted", false)
-    .limit(50)
+    .range(from, to)
     .order("updatedAt", { ascending: false })
+    .order("id", { ascending: true })
     .throwOnError();
 
   if (query) {

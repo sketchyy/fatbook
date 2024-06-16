@@ -7,10 +7,19 @@ import { createDish } from "@/services/dishes-service";
 import { Dish } from "@/types/dish";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { ChangeEvent } from "react";
+import { clsx } from "clsx";
 
 function Dishes() {
   const navigate = useNavigate();
-  const { dishes, isLoading, query, runSearch } = useDishesSearch();
+  const {
+    dishes,
+    isLoading,
+    isFetching,
+    query,
+    runSearch,
+    fetchNextPage,
+    hasNextPage,
+  } = useDishesSearch();
   const createMutation = useMutation({
     mutationFn: () => createDish({ name: "" }),
     onSuccess: (dish) =>
@@ -47,6 +56,18 @@ function Dishes() {
         isLoading={isLoading}
         onDishClick={handleDishClick}
       />
+
+      {hasNextPage && (
+        <div className="is-flex is-justify-content-center">
+          <button
+            className={clsx("button mt-4", { "is-loading": isFetching })}
+            disabled={isFetching}
+            onClick={() => fetchNextPage()}
+          >
+            Load more
+          </button>
+        </div>
+      )}
     </div>
   );
 }

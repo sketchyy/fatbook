@@ -5,6 +5,7 @@ import DishPortionList from "./dish-portion-list/DishPortionList";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { DishPortion } from "@/types/dish-portion";
 import { Dish } from "@/types/dish";
+import { clsx } from "clsx";
 
 type Props = {
   title: string;
@@ -25,7 +26,15 @@ function SelectDishPortionsForm({
   onDelete,
   filterDishId,
 }: Props) {
-  const { dishes, isLoading, query, runSearch } = useDishesSearch({
+  const {
+    dishes,
+    isLoading,
+    isFetching,
+    query,
+    runSearch,
+    fetchNextPage,
+    hasNextPage,
+  } = useDishesSearch({
     filterEmpty: true,
     filterDishId: filterDishId,
   });
@@ -61,6 +70,18 @@ function SelectDishPortionsForm({
           isAdded={(p) => p.selected!}
           isLoading={isLoading}
         />
+
+        {hasNextPage && (
+          <div className="is-flex is-justify-content-center">
+            <button
+              className={clsx("button mt-4", { "is-loading": isFetching })}
+              disabled={isFetching}
+              onClick={() => fetchNextPage()}
+            >
+              Load more
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
