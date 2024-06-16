@@ -8,6 +8,7 @@ import { useSettings } from "@/hooks/use-settings";
 import { FoodValue } from "@/types/food-value";
 import { saveSettings } from "@/services/settings-service";
 import About from "@/components/About";
+import AppLayout from "@/components/AppLayout";
 
 function Settings() {
   const { userId } = useAuth();
@@ -34,81 +35,81 @@ function Settings() {
   };
 
   return (
-    <div
-      className="is-flex is-flex-direction-column is-justify-content-space-between"
-      style={{ height: "calc(100vh - 80px)" }}
-    >
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className={clsx({ loading: saveMutation.isPending })}
-      >
-        <div className="box">
-          <div className="is-size-4 mb-4">My Daily Goals</div>
-          <div className="field is-grouped">
-            <div className="field mr-3">
-              <label className="label">Proteins</label>
-              <div className="control">
-                <input
-                  {...register("proteins")}
-                  className={inputClasses}
-                  type="number"
-                  placeholder="per 100g."
-                />
+    <div className="is-flex is-flex-direction-column is-justify-content-space-between">
+      <AppLayout>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={clsx({ loading: saveMutation.isPending })}
+        >
+          <div className="box">
+            <div className="is-size-4 mb-4">My Daily Goals</div>
+            <div className="field is-grouped">
+              <div className="field mr-3">
+                <label className="label">Proteins</label>
+                <div className="control">
+                  <input
+                    {...register("proteins")}
+                    className={inputClasses}
+                    type="number"
+                    placeholder="per 100g."
+                  />
+                </div>
+              </div>
+              <div className="field mr-3">
+                <label className="label">Fats</label>
+                <div className="control">
+                  <input
+                    {...register("fats")}
+                    className={inputClasses}
+                    type="number"
+                    placeholder="per 100g."
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <label className="label">Carbs</label>
+                <div className="control">
+                  <input
+                    {...register("carbs")}
+                    className={inputClasses}
+                    type="number"
+                    placeholder="per 100g."
+                  />
+                </div>
               </div>
             </div>
-            <div className="field mr-3">
-              <label className="label">Fats</label>
-              <div className="control">
-                <input
-                  {...register("fats")}
-                  className={inputClasses}
-                  type="number"
-                  placeholder="per 100g."
-                />
-              </div>
-            </div>
+
             <div className="field">
-              <label className="label">Carbs</label>
+              <label className="label">KCal</label>
               <div className="control">
                 <input
-                  {...register("carbs")}
+                  {...register("calories")}
                   className={inputClasses}
                   type="number"
                   placeholder="per 100g."
                 />
               </div>
             </div>
-          </div>
 
-          <div className="field">
-            <label className="label">KCal</label>
-            <div className="control">
-              <input
-                {...register("calories")}
-                className={inputClasses}
-                type="number"
-                placeholder="per 100g."
-              />
+            <div className="field mt-5">
+              <p className="control is-clearfix">
+                <button
+                  className={clsx("button is-primary is-pulled-right", {
+                    "is-loading": saveMutation.isPending,
+                  })}
+                  type="submit"
+                >
+                  <span className="icon">
+                    <FaSave />
+                  </span>
+                  <span>Save</span>
+                </button>
+              </p>
             </div>
           </div>
+        </form>
+      </AppLayout>
 
-          <div className="field mt-5">
-            <p className="control is-clearfix">
-              <button
-                className={clsx("button is-primary is-pulled-right", {
-                  "is-loading": saveMutation.isPending,
-                })}
-                type="submit"
-              >
-                <span className="icon">
-                  <FaSave />
-                </span>
-                <span>Save</span>
-              </button>
-            </p>
-          </div>
-        </div>
-      </form>
       <About />
     </div>
   );

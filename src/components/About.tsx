@@ -1,8 +1,8 @@
 export default function About() {
   return (
     <footer
-      className="footer p-5"
-      style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}
+      className="footer p-5 has-text-centered"
+      style={{ position: "absolute", bottom: 0, width: "100%" }}
     >
       <p className="block">
         <strong>Fatbook</strong> by{" "}

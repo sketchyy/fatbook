@@ -8,6 +8,7 @@ import { Dish } from "@/types/dish";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { ChangeEvent } from "react";
 import { clsx } from "clsx";
+import AppLayout from "@/components/AppLayout";
 
 function Dishes() {
   const navigate = useNavigate();
@@ -38,37 +39,39 @@ function Dishes() {
     runSearch(event.target.value);
 
   return (
-    <div className="box">
-      <PageTitle title="My Dishes" subtitle="Recently used">
-        <button className="button is-success" onClick={handleNewClick}>
-          New
-        </button>
-      </PageTitle>
-
-      <SearchBar
-        isLoading={isLoading}
-        defaultValue={query}
-        onChange={handleSearch}
-      />
-
-      <DishList
-        dishes={dishes}
-        isLoading={isLoading}
-        onDishClick={handleDishClick}
-      />
-
-      {hasNextPage && (
-        <div className="is-flex is-justify-content-center">
-          <button
-            className={clsx("button mt-4", { "is-loading": isFetching })}
-            disabled={isFetching}
-            onClick={() => fetchNextPage()}
-          >
-            Load more
+    <AppLayout>
+      <div className="box">
+        <PageTitle title="My Dishes" subtitle="Recently used">
+          <button className="button is-success" onClick={handleNewClick}>
+            New
           </button>
-        </div>
-      )}
-    </div>
+        </PageTitle>
+
+        <SearchBar
+          isLoading={isLoading}
+          defaultValue={query}
+          onChange={handleSearch}
+        />
+
+        <DishList
+          dishes={dishes}
+          isLoading={isLoading}
+          onDishClick={handleDishClick}
+        />
+
+        {hasNextPage && (
+          <div className="is-flex is-justify-content-center">
+            <button
+              className={clsx("button mt-4", { "is-loading": isFetching })}
+              disabled={isFetching}
+              onClick={() => fetchNextPage()}
+            >
+              Load more
+            </button>
+          </div>
+        )}
+      </div>
+    </AppLayout>
   );
 }
 

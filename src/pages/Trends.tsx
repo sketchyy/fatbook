@@ -8,6 +8,7 @@ import DailyTrendChart from "../components/trends/DailyTrendChart";
 import FoodValueDiff from "../components/trends/FoodValueDiff";
 import { useTrendsData } from "@/hooks/use-trends-data";
 import { TimeSpan, TimeSpanSelect } from "@/components/trends/TimeSpanSelect";
+import AppLayout from "@/components/AppLayout";
 
 function Trends() {
   const [showGoal, setShowGoal] = useState(false);
@@ -38,7 +39,7 @@ function Trends() {
   };
 
   return (
-    <>
+    <AppLayout>
       <div className="box mb-2">
         <div className="is-flex is-justify-content-space-between mb-4">
           <div className="is-size-4 mr-2">Trends</div>
@@ -127,7 +128,7 @@ function Trends() {
         xKey="date"
         yKey="carbs"
       />
-    </>
+    </AppLayout>
   );
 }
 

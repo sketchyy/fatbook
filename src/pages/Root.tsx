@@ -11,13 +11,11 @@ function Root() {
     <>
       <Navbar />
       <div
-        className={clsx("container is-max-desktop is-overflow-hidden ", {
+        className={clsx({
           loading: isLoading,
         })}
       >
-        <div className="column is-8 is-offset-2">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
     </>
   );

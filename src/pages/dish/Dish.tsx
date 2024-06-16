@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteDish, fetchDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
+import AppLayout from "@/components/AppLayout";
 
 function Dish() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ function Dish() {
   };
 
   return (
-    <>
+    <AppLayout>
       <div className="tabs is-boxed is-centered mb-0">
         <button className="button is-text" onClick={handleBackClick}>
           <FaChevronLeft />
@@ -62,7 +63,7 @@ function Dish() {
         )}
       </div>
       <Outlet context={{ dish, isLoading }} />
-    </>
+    </AppLayout>
   );
 }
 
