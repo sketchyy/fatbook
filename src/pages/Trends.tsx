@@ -11,7 +11,7 @@ import { TimeSpan, TimeSpanSelect } from "@/components/trends/TimeSpanSelect";
 import AppLayout from "@/components/AppLayout";
 
 // Component name is for react router lazy loading
-function Component() {
+export function Component() {
   const [showGoal, setShowGoal] = useState(false);
   const [activeTimeSpan, setActiveTimeSpan] = useState<TimeSpan | null>("Week");
   const [dateRange, setDateRange] = useState([

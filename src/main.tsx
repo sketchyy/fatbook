@@ -1,5 +1,5 @@
 import "bulma/css/bulma.min.css";
-import enGB from "date-fns/locale/en-GB";
+import { enGB } from "date-fns/locale/en-GB";
 import React from "react";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -89,7 +89,7 @@ const router = createBrowserRouter([
       },
       {
         path: "trends",
-        lazy: () => import("./pages/Trends"),
+        lazy: () => import("@/pages/Trends"),
       },
       {
         path: "settings",
