@@ -7,9 +7,9 @@ import { Dish } from "@/types/dish";
 import { updateDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 import { formatDate } from "@/utils/date-utils";
-import { IconPicker } from "@/components/dish/IconPicker";
 import { getDishIcon } from "@/utils/icon-utils";
 import { clsx } from "clsx";
+import EmojiPicker from "@/components/ui/EmojiPicker";
 
 export type DishInputs = {
   name: string | null;
@@ -78,7 +78,7 @@ function DishEdit() {
           <div className="field mr-3">
             <label className="label">Icon</label>
             <div className="control">
-              <IconPicker
+              <EmojiPicker
                 value={icon}
                 onChange={handleIconChange}
                 isLoading={isLoading}
