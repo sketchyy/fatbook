@@ -23,7 +23,7 @@ export default function EmojiPicker({ value, onChange, isLoading }: Props) {
       content={() => (
         <div
           className="box is-flex is-flex-wrap-wrap is-gap-0.5 is-overflow-y-auto"
-          style={{ width: "380px", height: "500px" }}
+          style={{ width: "380px", height: "500px", maxWidth: "95vw" }}
         >
           {emojis.map(([emoji, label]) => (
             <button
