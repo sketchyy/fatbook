@@ -1,5 +1,5 @@
 import "bulma/css/bulma.min.css";
-import { enGB } from "date-fns/locale/en-GB";
+// import { enGB } from "date-fns/locale/en-GB";
 import React from "react";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -30,7 +30,7 @@ import DishIngredientsLoader from "@/pages/dish/DishIngredientsLoader";
 import DishIngredientAddLoader from "@/pages/dish/DishIngredientAddLoader";
 import NotFound from "@/pages/NotFound";
 
-registerLocale("en-GB", enGB);
+// registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
 
 const today = formatDate(now());
