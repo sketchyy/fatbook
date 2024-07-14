@@ -47,10 +47,11 @@ export function Component() {
 
           <DatePicker
             width={230}
-            selectsRange={true}
             startDate={startDate}
+            selectsRange={true}
             endDate={endDate}
-            onChange={handleDateChange as any}
+            // @ts-expect-error - TS fails to infer the type of `onChange` based on `selectsRange`
+            onChange={handleDateChange}
           />
         </div>
         <div>
