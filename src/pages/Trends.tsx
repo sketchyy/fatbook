@@ -50,7 +50,7 @@ export function Component() {
             selectsRange={true}
             startDate={startDate}
             endDate={endDate}
-            onChange={handleDateChange}
+            onChange={handleDateChange as any}
           />
         </div>
         <div>

@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
-import ReactDatePicker, { ReactDatePickerProps } from "react-datepicker";
+import ReactDatePicker, { DatePickerProps as ReactDatePickerProps } from "react-datepicker";
 import { FaCalendar } from "react-icons/fa";
 
-interface DatePickerProps extends ReactDatePickerProps<boolean, boolean> {
+type DatePickerProps = ReactDatePickerProps &  {
   width: number;
   withIcon?: boolean;
 }
@@ -30,7 +30,7 @@ function DatePicker({ width, withIcon, onChange, ...props }: DatePickerProps) {
 
   return (
     <ReactDatePicker
-      onChange={onChange}
+      onChange={onChange as any}
       customInput={<ExampleCustomInput />}
       withPortal
       dateFormat="dd MMM yyyy"
