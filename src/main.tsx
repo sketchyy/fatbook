@@ -1,7 +1,6 @@
 import "bulma/css/bulma.min.css";
-// import { enGB } from "date-fns/locale/en-GB";
 import React from "react";
-import { registerLocale, setDefaultLocale } from "react-datepicker";
+import { setDefaultLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReactDOM from "react-dom/client";
 import {
