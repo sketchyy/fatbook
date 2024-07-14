@@ -4,16 +4,22 @@ Small app to track calories for personal use.
 
 ## Using Vite
 
+Install dependencies:
+
+```bash
+pnpm i
+```
+
 Run in development mode:
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 Prod build:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ## Infra
