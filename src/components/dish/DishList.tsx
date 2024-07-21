@@ -3,6 +3,7 @@ import Divider from "../ui/Divider";
 import DishInfo from "./DishInfo";
 import { Dish } from "@/types/dish";
 import DishListSkeleton from "@/components/ui/DishListSkeleton";
+import { clsx } from "clsx";
 
 type ListItemProps = { dish: Dish; onClick: (dish: Dish) => void };
 
@@ -19,12 +20,11 @@ function DishListItem({ dish, onClick }: ListItemProps) {
 
   return (
     <div
-      className={
-        "is-clickable" +
-        (hovered ? " has-background-white-ter" : "") +
-        (active ? " has-background-link-light" : "") +
-        (noName ? " has-background-danger-light" : "")
-      }
+      className={clsx("is-clickable", {
+        "background-white-ter-use-theme": hovered,
+        "background-success-use-theme": active,
+        "background-danger-use-theme": noName,
+      })}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
       onClick={handleClick}

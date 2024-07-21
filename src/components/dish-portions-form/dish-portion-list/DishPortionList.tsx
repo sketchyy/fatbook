@@ -78,7 +78,7 @@ function DishPortionList({
             key={dishPortion.dish.id + "-" + i}
             title={<DishPortionTitle dishPortion={dishPortion} />}
             className={clsx("has-border-bottom-grey", {
-              "has-background-success-light": dishPortion.selected,
+              "background-success-use-theme": dishPortion.selected,
             })}
             selectedClassName="background-info-use-theme"
           >

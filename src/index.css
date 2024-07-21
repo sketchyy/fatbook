@@ -6,11 +6,6 @@ body {
   margin: 0;
 }
 
-.main-background {
-  /* https://bulma.io/documentation/features/dark-mode/ */
-  background-color: hsl(0, 0%, var(--bulma-scheme-main-ter-l));
-}
-
 .loading {
   opacity: 0.5;
   pointer-events: none;
@@ -54,6 +49,23 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 /* Classes for auto switch between dark and light modes */
+.background-white-ter-use-theme {
+  /* https://bulma.io/documentation/features/dark-mode/ */
+  background-color: hsl(0, 0%, var(--bulma-scheme-main-ter-l));
+}
+
 .background-info-use-theme {
   background-color: hsl(206, 70%, var(--bulma-border-l));
+}
+
+.background-link-use-theme {
+  background-color: hsl(219, 70%, var(--bulma-border-l));
+}
+
+.background-danger-use-theme {
+  background-color: hsl(347, 90%, var(--bulma-background-l));
+}
+
+.background-success-use-theme {
+  background-color: hsl(142, 52%, var(--bulma-border-l));
 }
