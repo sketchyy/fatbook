@@ -17,7 +17,9 @@ const FoodValueDiffItem = ({
   const className = value >= 0 ? failColor : successColor;
   const icon = value >= 0 ? <FaArrowUp /> : <FaArrowDown />;
   return (
-    <strong className={clsx("tag is-size-7 px-0", className)}>
+    <strong
+      className={clsx("tag has-background-none is-size-7 px-0", className)}
+    >
       {icon} {Math.round(value)} {measure}
     </strong>
   );
