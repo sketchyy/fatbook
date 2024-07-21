@@ -11,7 +11,7 @@ export default function ThemeSwitcher() {
 
   return (
     <button className="button is-dark is-rounded" onClick={toggleTheme}>
-      <span className="icon is-size-5">
+      <span className="icon is-size-6">
         {theme === "light" ? <FaMoon /> : <FaSun />}
       </span>
     </button>
