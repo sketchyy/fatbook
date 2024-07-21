@@ -6,6 +6,11 @@ body {
   margin: 0;
 }
 
+.main-background {
+  /* https://bulma.io/documentation/features/dark-mode/ */
+  background-color: hsl(0, 0%, var(--bulma-scheme-main-ter-l));
+}
+
 .loading {
   opacity: 0.5;
   pointer-events: none;
