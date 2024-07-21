@@ -52,3 +52,8 @@ input[type="search"]::-webkit-search-results-decoration {
 .has-border-bottom-grey {
   border-bottom: 2px solid hsl(0, 0%, 48%);
 }
+
+/* Classes for auto switch between dark and light modes */
+.background-info-use-theme {
+  background-color: hsl(206, 70%, var(--bulma-border-l));
+}

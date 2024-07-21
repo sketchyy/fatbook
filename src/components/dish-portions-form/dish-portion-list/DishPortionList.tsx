@@ -80,7 +80,7 @@ function DishPortionList({
             className={clsx("has-border-bottom-grey", {
               "has-background-success-light": dishPortion.selected,
             })}
-            selectedClassName="has-background-info-light"
+            selectedClassName="background-info-use-theme"
           >
             <DishPortionListItem
               focused={i === activeIndex}
