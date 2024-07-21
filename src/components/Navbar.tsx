@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import CurrentUser from "@/components/auth/CurrentUser";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -72,6 +73,9 @@ function Navbar() {
         </div>
 
         <div className="navbar-end">
+          <div className="navbar-item">
+            <ThemeSwitcher />
+          </div>
           <div className="navbar-item">
             <CurrentUser />
           </div>

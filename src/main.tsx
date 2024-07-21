@@ -28,6 +28,7 @@ import { formatDate, now } from "@/utils/date-utils";
 import DishIngredientsLoader from "@/pages/dish/DishIngredientsLoader";
 import DishIngredientAddLoader from "@/pages/dish/DishIngredientAddLoader";
 import NotFound from "@/pages/NotFound";
+import { ThemeProvider } from "@/context/Theme";
 
 // registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -117,11 +118,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </AuthProvider>
+    </ThemeProvider>
     <ToastContainer position="top-center" />
   </React.StrictMode>,
 );
