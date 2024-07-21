@@ -26,9 +26,12 @@ function Navbar() {
           <h1 className="is-size-4 has-text-weight-bold ml-2">Fatbook</h1>
         </a>
 
+        <p className="navbar-item ml-auto is-hidden-desktop">
+          <ThemeSwitcher />
+        </p>
         <a
           role="button"
-          className={"navbar-burger" + dropdownActiveClassName}
+          className={"navbar-burger ml-0" + dropdownActiveClassName}
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarMenu"
@@ -73,7 +76,7 @@ function Navbar() {
         </div>
 
         <div className="navbar-end">
-          <div className="navbar-item">
+          <div className="navbar-item is-hidden-touch">
             <ThemeSwitcher />
           </div>
           <div className="navbar-item">
