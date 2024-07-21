@@ -58,6 +58,10 @@ input[type="search"]::-webkit-search-results-decoration {
   background-color: hsl(206, 70%, var(--bulma-border-l));
 }
 
+.background-info-95-use-theme {
+  background-color: hsl(206, 70%, var(--bulma-background-l));
+}
+
 .background-link-use-theme {
   background-color: hsl(219, 70%, var(--bulma-border-l));
 }

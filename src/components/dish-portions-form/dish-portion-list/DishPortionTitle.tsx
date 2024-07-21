@@ -4,6 +4,7 @@ import FoodValue from "../../FoodValue";
 import { DishPortion } from "@/types/dish-portion";
 import { FoodWeight } from "@/components/FoodWeight";
 import DishTitle from "@/components/ui/DishTitle";
+import { clsx } from "clsx";
 
 type Props = {
   dishPortion: DishPortion;
@@ -14,11 +15,9 @@ function DishPortionTitle({ dishPortion }: Props) {
 
   return (
     <div
-      className={
-        "is-clickable" +
-        // (hovered ? " has-background-white-ter" : "") +
-        (noName ? " has-background-danger-light" : "")
-      }
+      className={clsx("is-clickable", {
+        "background-danger-use-theme": noName,
+      })}
     >
       <div className="py-4 px-2">
         <div className="is-flex-grow-1">

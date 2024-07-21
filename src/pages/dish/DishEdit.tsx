@@ -196,11 +196,7 @@ function DishEdit() {
           </div>
           <div className="level-left level is-mobile ml-auto">
             <p className="control">
-              <button
-                className="button is-light"
-                type="button"
-                onClick={onCancel}
-              >
+              <button className="button" type="button" onClick={onCancel}>
                 Cancel
               </button>
             </p>
