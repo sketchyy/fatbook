@@ -22,6 +22,7 @@ export async function fetchDish(id: number): Promise<Dish | null> {
         cookedWeight,
         updatedAt,
         createdAt,
+        collectionId,
         ingredients!public_dishIngredients_ingredient_fkey (
           *,
           dish:dishes!public_dishIngredients_dish_fkey (*)
@@ -37,17 +38,20 @@ export async function fetchDish(id: number): Promise<Dish | null> {
 
 type SearchProps = {
   query: string;
+  collectionId: number | null;
   filterDishId?: number;
   filterEmpty?: boolean;
   page: number;
 };
 
 export const PAGE_SIZE = 25;
+const SHARED_COLLECTION_ID = 1;
 
 export async function searchDishes({
   query,
   filterDishId,
   filterEmpty,
+  collectionId,
   page,
 }: SearchProps): Promise<Dish[]> {
   const from = (page - 1) * PAGE_SIZE;
@@ -77,6 +81,13 @@ export async function searchDishes({
     //     config: "english",
     //   });
   }
+
+  // All users can see SHARED dishes
+  const collections = [SHARED_COLLECTION_ID];
+  if (collectionId !== null) {
+    collections.push(collectionId);
+  }
+  dbQuery = dbQuery.in("collectionId", collections);
 
   if (filterEmpty) {
     dbQuery = dbQuery

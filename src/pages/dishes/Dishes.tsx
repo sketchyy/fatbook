@@ -9,8 +9,10 @@ import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { ChangeEvent } from "react";
 import { clsx } from "clsx";
 import AppLayout from "@/components/AppLayout";
+import { useAuth } from "@/context/Auth";
 
 function Dishes() {
+  const { collectionId } = useAuth();
   const navigate = useNavigate();
   const {
     dishes,
@@ -22,7 +24,7 @@ function Dishes() {
     hasNextPage,
   } = useDishesSearch();
   const createMutation = useMutation({
-    mutationFn: () => createDish({ name: "" }),
+    mutationFn: () => createDish({ name: "", collectionId }),
     onSuccess: (dish) =>
       dish ? navigate(`/dishes/${dish.id}/edit`) : navigate(`/dishes/`),
   });

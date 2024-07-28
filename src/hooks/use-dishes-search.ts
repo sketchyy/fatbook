@@ -2,6 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { PAGE_SIZE, searchDishes } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
+import { useAuth } from "@/context/Auth";
 
 type RunSearchOptions = {
   replace?: boolean;
@@ -15,6 +16,7 @@ type Props = {
 export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.has("q") ? searchParams.getAll("q")[0] : "";
+  const { collectionId } = useAuth();
 
   const {
     fetchNextPage,
@@ -26,7 +28,13 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
   } = useInfiniteQuery({
     queryKey: ["dishes", query, { filterEmpty }],
     queryFn: ({ pageParam }) =>
-      searchDishes({ query, filterDishId, filterEmpty, page: pageParam }),
+      searchDishes({
+        query,
+        collectionId,
+        filterDishId,
+        filterEmpty,
+        page: pageParam,
+      }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages, lastPageParam) =>
       lastPage.length < PAGE_SIZE ? null : lastPageParam + 1,

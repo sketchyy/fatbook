@@ -9,10 +9,37 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      collections: {
+        Row: {
+          id: number
+          name: string | null
+          userId: string | null
+        }
+        Insert: {
+          id?: number
+          name?: string | null
+          userId?: string | null
+        }
+        Update: {
+          id?: number
+          name?: string | null
+          userId?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "collections_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "user_metadata"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dishes: {
         Row: {
           calories: number | null
           carbs: number | null
+          collectionId: number | null
           cookedWeight: number | null
           createdAt: string
           defaultPortion: number | null
@@ -31,6 +58,7 @@ export type Database = {
         Insert: {
           calories?: number | null
           carbs?: number | null
+          collectionId?: number | null
           cookedWeight?: number | null
           createdAt?: string
           defaultPortion?: number | null
@@ -49,6 +77,7 @@ export type Database = {
         Update: {
           calories?: number | null
           carbs?: number | null
+          collectionId?: number | null
           cookedWeight?: number | null
           createdAt?: string
           defaultPortion?: number | null
@@ -64,7 +93,15 @@ export type Database = {
           test?: boolean | null
           updatedAt?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "dishes_collectionId_fkey"
+            columns: ["collectionId"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       eatings: {
         Row: {
@@ -209,6 +246,39 @@ export type Database = {
           },
         ]
       }
+      user_metadata: {
+        Row: {
+          collectionId: number | null
+          id: string
+          role: Database["public"]["Enums"]["role"]
+        }
+        Insert: {
+          collectionId?: number | null
+          id: string
+          role?: Database["public"]["Enums"]["role"]
+        }
+        Update: {
+          collectionId?: number | null
+          id?: string
+          role?: Database["public"]["Enums"]["role"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "users_collectionId_fkey"
+            columns: ["collectionId"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "users_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       eatings_by_day: {
@@ -236,6 +306,7 @@ export type Database = {
     }
     Enums: {
       meal: "breakfast" | "lunch" | "dinner" | "snack"
+      role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never

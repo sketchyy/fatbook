@@ -2,10 +2,13 @@ import { OAuthResponse, User } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/services/supabase";
 import IceCreamSpinner from "@/components/ui/IceCreamSpinner";
+import { setUserMetadata } from "@/services/user-metadata-service";
 
 interface AuthContextType {
   user: User | null;
   userId: string;
+  collectionId: number | null;
+  role: "user" | "admin";
   signIn: () => Promise<OAuthResponse>;
   signOut: () => void;
 }
@@ -13,6 +16,8 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   userId: "guest",
+  role: "user",
+  collectionId: null,
   signIn: () =>
     supabase.auth.signInWithOAuth({
       provider: "google",
@@ -20,6 +25,7 @@ const AuthContext = createContext<AuthContextType>({
     }),
   signOut: () => supabase.auth.signOut(),
 });
+
 export function AuthProvider({ children }) {
   const defaultContextValue = useAuth();
   const [user, setUser] = useState<User | null>(null);
@@ -27,15 +33,20 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
+      if (session?.user) {
+        await setUserMetadata(session?.user);
+      }
       setUser(session?.user ?? null);
       setLoading(false);
     });
 
     // Listen for changes on auth state (logged in, signed out, etc.)
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
+    const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "SIGNED_OUT") {
+        setUser(session?.user ?? null);
+        setLoading(false);
+      }
     });
 
     return () => {
@@ -47,6 +58,8 @@ export function AuthProvider({ children }) {
   const value: AuthContextType = {
     ...defaultContextValue,
     user,
+    role: user?.user_metadata?.role ?? "user",
+    collectionId: user?.user_metadata?.collectionId ?? null,
     userId: user?.id!,
   };
 
