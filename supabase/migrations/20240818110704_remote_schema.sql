@@ -46,6 +46,9 @@ ALTER TYPE "public"."role" OWNER TO "postgres";
 
 COMMENT ON TYPE "public"."role" IS 'user role';
 
+-- It's safe and in some cases necessary to use a security definer attribute on trigger functions.
+-- Trigger functions can only be called by table events.
+-- see https://www.reddit.com/r/Supabase/comments/1aw1jqo/comment/kreut02
 CREATE OR REPLACE FUNCTION "public"."handle_new_user"() RETURNS "trigger"
     LANGUAGE "plpgsql" SECURITY DEFINER
     SET "search_path" TO ''
