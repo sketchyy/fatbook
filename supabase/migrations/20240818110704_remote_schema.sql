@@ -53,7 +53,7 @@ CREATE OR REPLACE FUNCTION "public"."handle_new_user"() RETURNS "trigger"
 declare
   new_collection_id bigint;
 begin
-  insert into public.collections (name, userId)
+  insert into public.collections (name, "userId")
   values ('Collection for user ' || new.email, new.id)
   returning id into new_collection_id;
 
@@ -235,14 +235,12 @@ ALTER TABLE ONLY "public"."user_metadata"
 
 CREATE INDEX "dishes_searchable_idx" ON "public"."dishes" USING "gin" ("searchable");
 
-ALTER TABLE ONLY "public"."collections"
-    ADD CONSTRAINT "collections_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."user_metadata"("id") ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY "public"."collections"
-    ADD CONSTRAINT "collections_userId_fkey1" FOREIGN KEY ("userId") REFERENCES "auth"."users"("id");
+    ADD CONSTRAINT "collections_userId_fkey" FOREIGN KEY ("userId") REFERENCES "auth"."users"("id") ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY "public"."dishes"
-    ADD CONSTRAINT "dishes_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "public"."collections"("id");
+    ADD CONSTRAINT "dishes_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "public"."collections"("id")  ON DELETE CASCADE;
 
 ALTER TABLE ONLY "public"."ingredients"
     ADD CONSTRAINT "public_dishIngredients_dish_fkey" FOREIGN KEY ("dishId") REFERENCES "public"."dishes"("id") ON DELETE CASCADE;
@@ -269,7 +267,7 @@ CREATE POLICY "Enable access for authenticated users only" ON "public"."dishes" 
 
 CREATE POLICY "Enable access for authenticated users only" ON "public"."ingredients" TO "authenticated" USING (true);
 
-CREATE POLICY "User can access only their own records" ON "public"."collections" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
+--TODO user can't acccess collection table
 
 CREATE POLICY "User can access only their own records" ON "public"."eatings" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
 
