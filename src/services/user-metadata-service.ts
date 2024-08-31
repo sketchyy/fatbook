@@ -5,25 +5,27 @@ import { Tables } from "@/types/supabase.types";
 export type UserMetadata = Omit<Tables<"user_metadata">, "id">;
 
 /* Adds collectionId and role fields to user */
-export async function setUserMetadata(user: User): Promise<void> {
+export async function setUserMetadata(user: User): Promise<boolean> {
   const metadata = await getUserMetadata(user);
+
+  if (!metadata) {
+    return false;
+  }
 
   user.user_metadata = {
     ...user.user_metadata,
     ...metadata,
   };
-  console.log("metadata", metadata);
+  return true;
 }
 
-export async function getUserMetadata(user: User): Promise<UserMetadata> {
+export async function getUserMetadata(
+  user: User,
+): Promise<UserMetadata | null | undefined> {
   const userRecords = await supabase
     .from("user_metadata")
     .select()
     .eq("id", user.id);
 
-  if (!userRecords.data || userRecords.data.length === 0) {
-    throw new Error("Error reading user data. Please try log in again.");
-  }
-
-  return userRecords.data[0];
+  return userRecords?.data?.[0];
 }
