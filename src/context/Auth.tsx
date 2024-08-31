@@ -35,9 +35,11 @@ export function AuthProvider({ children }) {
     // Check active sessions and sets the user
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (session?.user) {
-        await setUserMetadata(session?.user);
+        const metadataFound = await setUserMetadata(session.user);
+        setUser(metadataFound ? session?.user : null);
+      } else {
+        setUser(null);
       }
-      setUser(session?.user ?? null);
       setLoading(false);
     });
 
