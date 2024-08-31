@@ -267,13 +267,9 @@ CREATE POLICY "Enable access for authenticated users only" ON "public"."dishes" 
 
 CREATE POLICY "Enable access for authenticated users only" ON "public"."ingredients" TO "authenticated" USING (true);
 
---TODO user can't acccess collection table
-
 CREATE POLICY "User can access only their own records" ON "public"."eatings" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
 
 CREATE POLICY "User can access only their own records" ON "public"."settings" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
-
-CREATE POLICY "User can create only their own policy" ON "public"."user_metadata" FOR INSERT WITH CHECK ((( SELECT "auth"."uid"() AS "uid") = "id"));
 
 CREATE POLICY "User can select only their own record" ON "public"."user_metadata" FOR SELECT USING ((( SELECT "auth"."uid"() AS "uid") = "id"));
 
