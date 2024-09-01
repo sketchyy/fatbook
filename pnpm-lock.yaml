@@ -12,8 +12,8 @@ importers:
         specifier: ^2.44.3
         version: 2.44.3
       '@tanstack/react-query':
-        specifier: ^5.51.1
-        version: 5.51.1(react@18.3.1)
+        specifier: ^5.53.1
+        version: 5.53.1(react@18.3.1)
       bulma:
         specifier: ^1.0.1
         version: 1.0.1
@@ -1219,13 +1219,13 @@ packages:
     peerDependencies:
       eslint: ^8 || ^9
 
-  '@tanstack/query-core@5.51.1':
-    resolution: {integrity: sha512-fJBMQMpo8/KSsWW5ratJR5+IFr7YNJ3K2kfP9l5XObYHsgfVy1w3FJUWU4FT2fj7+JMaEg33zOcNDBo0LMwHnw==}
+  '@tanstack/query-core@5.53.1':
+    resolution: {integrity: sha512-mvLG7s4Zy3Yvc2LsKm8BVafbmPrsReKgqwhmp4XKVmRW9us3KbWRqu3qBBfhVavcUUEHfNK7PvpTchvQpVdFpw==}
 
-  '@tanstack/react-query@5.51.1':
-    resolution: {integrity: sha512-s47HKFnQ4HOJAHoIiXcpna/roMMPZJPy6fJ6p4ZNVn8+/onlLBEDd1+xc8OnDuwgvecqkZD7Z2mnSRbcWefrKw==}
+  '@tanstack/react-query@5.53.1':
+    resolution: {integrity: sha512-35HU4836Ey1/W74BxmS8p9KHXcDRGPdkw6w3VX0Tc5S9v5acFl80oi/yc6nsmoLhu68wQkWMyX0h7y7cOtY5OA==}
     peerDependencies:
-      react: ^18.0.0
+      react: ^18 || ^19
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -4341,11 +4341,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@tanstack/query-core@5.51.1': {}
+  '@tanstack/query-core@5.53.1': {}
 
-  '@tanstack/react-query@5.51.1(react@18.3.1)':
+  '@tanstack/react-query@5.53.1(react@18.3.1)':
     dependencies:
-      '@tanstack/query-core': 5.51.1
+      '@tanstack/query-core': 5.53.1
       react: 18.3.1
 
   '@types/babel__core@7.20.5':
