@@ -11,7 +11,10 @@ import { DishIngredientsDetails } from "@/components/dish/DishIngredientsDetails
 
 function DishIngredients() {
   const navigate = useNavigate();
-  const { dish } = useOutletContext<{ dish: Dish }>();
+  const { dish, isDishShared } = useOutletContext<{
+    dish: Dish;
+    isDishShared: boolean;
+  }>();
   const [showDetails, setShowDetails] = useState(false);
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
@@ -43,12 +46,14 @@ function DishIngredients() {
   return (
     <div className="box">
       <PageTitle title={dish.name} className="mb-0 pb-4">
-        <button className="button is-primary" onClick={handleAdd}>
-          <span className="icon">
-            <FaPlus />
-          </span>
-          <span>Add</span>
-        </button>
+        {!isDishShared && (
+          <button className="button is-primary" onClick={handleAdd}>
+            <span className="icon">
+              <FaPlus />
+            </span>
+            <span>Add</span>
+          </button>
+        )}
       </PageTitle>
 
       {dish.ingredients.length > 0 && !showDetails && (
@@ -64,12 +69,14 @@ function DishIngredients() {
       )}
 
       <DishIngredientsDetails
+        disabled={isDishShared}
         visible={showDetails}
         setVisible={setShowDetails}
         dish={dish}
       />
 
       <EditDishPortionsForm
+        disabled={isDishShared}
         dishPortions={ingredients}
         onSave={handleUpgradeIngredient}
         onDelete={handleDeleteIngredient}

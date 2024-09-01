@@ -4,6 +4,7 @@ import { Tables } from "@/types/supabase.types";
 export type Dish = {
   id: number;
   name: string;
+  collectionId: number;
   icon: string | null;
   proteins: number;
   fats: number;

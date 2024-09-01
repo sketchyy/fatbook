@@ -6,6 +6,7 @@ interface Props {
   onSave: (portion: DishPortion) => void;
   onDelete: (portion: DishPortion) => void;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
 function EditDishPortionsForm({
@@ -13,6 +14,7 @@ function EditDishPortionsForm({
   onSave,
   onDelete,
   isLoading,
+  disabled,
 }: Props) {
   const handleSaveClick = (portion) => {
     onSave(portion);
@@ -24,6 +26,7 @@ function EditDishPortionsForm({
 
   return (
     <DishPortionList
+      disabled={disabled}
       isLoading={isLoading}
       dishPortions={dishPortions}
       onUpdate={handleSaveClick}

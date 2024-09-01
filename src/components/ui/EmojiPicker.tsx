@@ -6,9 +6,15 @@ import { FaChevronDown } from "react-icons/fa";
 type Props = {
   value: string;
   isLoading: boolean;
+  disabled?: boolean;
   onChange: (value: string) => void;
 };
-export default function EmojiPicker({ value, onChange, isLoading }: Props) {
+export default function EmojiPicker({
+  value,
+  onChange,
+  isLoading,
+  disabled,
+}: Props) {
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const handleEmojiClick = (emoji: string) => {
     onChange(emoji);
@@ -48,6 +54,7 @@ export default function EmojiPicker({ value, onChange, isLoading }: Props) {
         className={clsx("button", { "is-skeleton": isLoading })}
         style={{ width: 68 }}
         type="button"
+        disabled={disabled}
         onClick={() => setIsPopoverOpen(!isPopoverOpen)}
       >
         <span>{value}</span>

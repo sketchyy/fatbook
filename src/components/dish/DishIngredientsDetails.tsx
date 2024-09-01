@@ -19,12 +19,14 @@ type Props = {
   visible: boolean;
   setVisible: (value: boolean) => void;
   dish: Dish;
+  disabled?: boolean;
 };
 
 export const DishIngredientsDetails = ({
   visible,
   setVisible,
   dish,
+  disabled,
 }: Props) => {
   const { register, reset, getValues, handleSubmit } =
     useForm<CookedWeightInput>();
@@ -79,21 +81,24 @@ export const DishIngredientsDetails = ({
               className="input"
               type="number"
               placeholder="gramms"
+              disabled={disabled}
               {...register("cookedWeight", { valueAsNumber: true })}
             />
           </p>
 
-          <p className="control">
-            <button
-              className={clsx("button is-info", {
-                "is-loading": update.isPending,
-              })}
-            >
-              <span className={clsx("icon is-small")}>
-                <FaCheck />
-              </span>
-            </button>
-          </p>
+          {!disabled && (
+            <p className="control">
+              <button
+                className={clsx("button is-info", {
+                  "is-loading": update.isPending,
+                })}
+              >
+                <span className={clsx("icon is-small")}>
+                  <FaCheck />
+                </span>
+              </button>
+            </p>
+          )}
         </div>
       </form>
 

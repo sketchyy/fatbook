@@ -8,14 +8,16 @@ import { clsx } from "clsx";
 
 type Props = {
   dishPortion: DishPortion;
+  disabled?: boolean;
 };
 
-function DishPortionTitle({ dishPortion }: Props) {
+function DishPortionTitle({ dishPortion, disabled }: Props) {
   const noName = !dishPortion.dish.name;
 
   return (
     <div
-      className={clsx("is-clickable", {
+      className={clsx({
+        "is-clickable": !disabled,
         "background-danger-use-theme": noName,
       })}
     >

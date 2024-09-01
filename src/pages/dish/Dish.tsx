@@ -5,6 +5,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteDish, fetchDish } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 import AppLayout from "@/components/AppLayout";
+import { useAuth } from "@/context/Auth";
+import { SHARED_COLLECTION_ID } from "@/constants";
 
 function Dish() {
   const navigate = useNavigate();
@@ -16,6 +18,8 @@ function Dish() {
   });
   const deleteMutation = useMutation({ mutationFn: deleteDish });
   const isCreate = isNil(params.id);
+  const isDishShared = dish?.collectionId === SHARED_COLLECTION_ID;
+  const canDelete = !isCreate && !isDishShared;
 
   if (!isLoading && !dish) {
     navigate("/not-found");
@@ -52,7 +56,7 @@ function Dish() {
             Ingredients ({dish?.ingredients.length ?? 0})
           </NavLinkTab>
         </ul>
-        {!isCreate && (
+        {canDelete && (
           <button
             type="submit"
             className="button is-text"
@@ -62,7 +66,7 @@ function Dish() {
           </button>
         )}
       </div>
-      <Outlet context={{ dish, isLoading }} />
+      <Outlet context={{ dish, isDishShared, isLoading }} />
     </AppLayout>
   );
 }

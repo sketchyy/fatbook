@@ -16,6 +16,7 @@ interface Props {
   onDelete: (p: DishPortion) => void;
   isAdded: (p: DishPortion) => boolean;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
 function DishPortionList({
@@ -25,6 +26,7 @@ function DishPortionList({
   onDelete,
   isAdded,
   isLoading,
+  disabled,
 }: Props) {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [prevItems, setPrevItems] = useState(dishPortions);
@@ -71,12 +73,14 @@ function DishPortionList({
 
       <Accordion
         activeIndex={activeIndex}
-        onTabChange={(e) => setActiveIndex(e.index)}
+        onTabChange={(e) => !disabled && setActiveIndex(e.index)}
       >
         {dishPortions.map((dishPortion, i) => (
           <AccordionItem
             key={dishPortion.dish.id + "-" + i}
-            title={<DishPortionTitle dishPortion={dishPortion} />}
+            title={
+              <DishPortionTitle disabled={disabled} dishPortion={dishPortion} />
+            }
             className={clsx("has-border-bottom-grey", {
               "background-success-use-theme": dishPortion.selected,
             })}

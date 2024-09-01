@@ -16,7 +16,7 @@ type Props = {
 export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.has("q") ? searchParams.getAll("q")[0] : "";
-  const { collectionId } = useAuth();
+  const { userCollectionId } = useAuth();
 
   const {
     fetchNextPage,
@@ -30,7 +30,7 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
     queryFn: ({ pageParam }) =>
       searchDishes({
         query,
-        collectionId,
+        collectionId: userCollectionId,
         filterDishId,
         filterEmpty,
         page: pageParam,

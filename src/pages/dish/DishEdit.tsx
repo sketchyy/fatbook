@@ -10,6 +10,7 @@ import { formatDate } from "@/utils/date-utils";
 import { getDishIcon } from "@/utils/icon-utils";
 import { clsx } from "clsx";
 import EmojiPicker from "@/components/ui/EmojiPicker";
+import { useCreateDish } from "@/hooks/use-create-dish";
 
 export type DishInputs = {
   name: string | null;
@@ -25,10 +26,12 @@ export type DishInputs = {
 function DishEdit() {
   const params = useParams();
   const navigate = useNavigate();
-  const { dish, isLoading } = useOutletContext<{
+  const { dish, isDishShared, isLoading } = useOutletContext<{
     dish?: Dish;
+    isDishShared: boolean;
     isLoading: boolean;
   }>();
+  const { create: createDish } = useCreateDish();
   const { register, reset, handleSubmit, setValue, formState } =
     useForm<DishInputs>();
   const [icon, setIcon] = useState<string>("");
@@ -52,6 +55,7 @@ function DishEdit() {
   }, [dish]);
 
   const hasIngredients = dish?.ingredients?.length! > 0;
+  const inputsDisabled = hasIngredients || isDishShared;
 
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
     await updateDish(+params.id!, data);
@@ -71,6 +75,8 @@ function DishEdit() {
     setIcon(icon);
   };
 
+  const onCreateClick = () => createDish.mutate();
+
   return (
     <form id="dish-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="box">
@@ -82,6 +88,7 @@ function DishEdit() {
                 value={icon}
                 onChange={handleIconChange}
                 isLoading={isLoading}
+                disabled={isDishShared}
               />
             </div>
           </div>
@@ -91,6 +98,7 @@ function DishEdit() {
               <input
                 className={clsx("input", { "is-skeleton": isLoading })}
                 type="text"
+                disabled={isDishShared}
                 {...register("name", { onChange: handleNameChange })}
               />
             </div>
@@ -108,6 +116,28 @@ function DishEdit() {
           </Message>
         )}
 
+        {isDishShared && (
+          <Message>
+            <p className="is-flex is-align-items-center">
+              <span className="icon is-medium">
+                <FaInfoCircle />
+              </span>
+              <span>
+                This is a shared dish, it can not be modified. <br />
+                You can
+                <button
+                  className="button is-ghost p-0"
+                  style={{ marginLeft: "0.3rem", lineHeight: "1.4rem" }}
+                  onClick={onCreateClick}
+                >
+                  create
+                </button>{" "}
+                your own dishes
+              </span>
+            </p>
+          </Message>
+        )}
+
         <div className="field is-grouped">
           <div className="field mr-3">
             <label className="label">Proteins</label>
@@ -117,7 +147,7 @@ function DishEdit() {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={hasIngredients}
+                disabled={inputsDisabled}
                 {...register("proteins", {
                   valueAsNumber: true,
                 })}
@@ -132,7 +162,7 @@ function DishEdit() {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={hasIngredients}
+                disabled={inputsDisabled}
                 {...register("fats", { valueAsNumber: true })}
               />
             </div>
@@ -145,7 +175,7 @@ function DishEdit() {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={hasIngredients}
+                disabled={inputsDisabled}
                 {...register("carbs", { valueAsNumber: true })}
               />
             </div>
@@ -161,7 +191,7 @@ function DishEdit() {
                 type="number"
                 step=".01"
                 placeholder="per 100g."
-                disabled={hasIngredients}
+                disabled={inputsDisabled}
                 {...register("calories", { valueAsNumber: true })}
               />
             </div>
@@ -173,6 +203,7 @@ function DishEdit() {
                 className={clsx("input", { "is-skeleton": isLoading })}
                 type="number"
                 placeholder="gramms"
+                disabled={isDishShared}
                 {...register("defaultPortion", { valueAsNumber: true })}
               />
             </div>
@@ -200,14 +231,16 @@ function DishEdit() {
                 Cancel
               </button>
             </p>
-            <p className="control">
-              <button className="button is-primary" type="submit">
-                <span className="icon">
-                  <FaSave />
-                </span>
-                <span>Save</span>
-              </button>
-            </p>
+            {!isDishShared && (
+              <p className="control">
+                <button className="button is-primary" type="submit">
+                  <span className="icon">
+                    <FaSave />
+                  </span>
+                  <span>Save</span>
+                </button>
+              </p>
+            )}
           </div>
         </div>
       </div>

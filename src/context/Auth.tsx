@@ -7,7 +7,7 @@ import { setUserMetadata } from "@/services/user-metadata-service";
 interface AuthContextType {
   user: User | null;
   userId: string;
-  collectionId: number | null;
+  userCollectionId: number | null;
   role: "user" | "admin";
   signIn: () => Promise<OAuthResponse>;
   signOut: () => void;
@@ -17,7 +17,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   userId: "guest",
   role: "user",
-  collectionId: null,
+  userCollectionId: null,
   signIn: () =>
     supabase.auth.signInWithOAuth({
       provider: "google",
@@ -61,7 +61,7 @@ export function AuthProvider({ children }) {
     ...defaultContextValue,
     user,
     role: user?.user_metadata?.role ?? "user",
-    collectionId: user?.user_metadata?.collectionId ?? null,
+    userCollectionId: user?.user_metadata?.collectionId ?? null,
     userId: user?.id!,
   };
 

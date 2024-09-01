@@ -2,17 +2,15 @@ import DishList from "@/components/dish/DishList";
 import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/ui/SearchBar";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { createDish } from "@/services/dishes-service";
 import { Dish } from "@/types/dish";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { ChangeEvent } from "react";
 import { clsx } from "clsx";
 import AppLayout from "@/components/AppLayout";
-import { useAuth } from "@/context/Auth";
+import { supabase } from "@/services/supabase";
+import { useCreateDish } from "@/hooks/use-create-dish";
 
 function Dishes() {
-  const { collectionId } = useAuth();
   const navigate = useNavigate();
   const {
     dishes,
@@ -23,18 +21,14 @@ function Dishes() {
     fetchNextPage,
     hasNextPage,
   } = useDishesSearch();
-  const createMutation = useMutation({
-    mutationFn: () => createDish({ name: "", collectionId }),
-    onSuccess: (dish) =>
-      dish ? navigate(`/dishes/${dish.id}/edit`) : navigate(`/dishes/`),
-  });
+  const { create: createDish } = useCreateDish();
 
   const handleDishClick = (dish: Dish) => {
     navigate(`/dishes/${dish.id}`);
   };
 
   const handleNewClick = () => {
-    createMutation.mutate();
+    createDish.mutate();
   };
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>
