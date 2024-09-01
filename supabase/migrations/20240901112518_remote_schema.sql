@@ -236,14 +236,15 @@ ALTER TABLE ONLY "public"."ingredients"
 ALTER TABLE ONLY "public"."user_metadata"
     ADD CONSTRAINT "users_pkey" PRIMARY KEY ("id");
 
-CREATE INDEX "dishes_searchable_idx" ON "public"."dishes" USING "gin" ("searchable");
+CREATE INDEX "dishes_collectionId_idx" ON "public"."dishes" USING "btree" ("collectionId");
 
+CREATE INDEX "dishes_searchable_idx" ON "public"."dishes" USING "gin" ("searchable");
 
 ALTER TABLE ONLY "public"."collections"
     ADD CONSTRAINT "collections_userId_fkey" FOREIGN KEY ("userId") REFERENCES "auth"."users"("id") ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY "public"."dishes"
-    ADD CONSTRAINT "dishes_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "public"."collections"("id")  ON DELETE CASCADE;
+    ADD CONSTRAINT "dishes_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "public"."collections"("id") ON DELETE CASCADE;
 
 ALTER TABLE ONLY "public"."ingredients"
     ADD CONSTRAINT "public_dishIngredients_dish_fkey" FOREIGN KEY ("dishId") REFERENCES "public"."dishes"("id") ON DELETE CASCADE;
@@ -266,15 +267,21 @@ ALTER TABLE ONLY "public"."user_metadata"
 ALTER TABLE ONLY "public"."user_metadata"
     ADD CONSTRAINT "users_id_fkey" FOREIGN KEY ("id") REFERENCES "auth"."users"("id") ON UPDATE CASCADE ON DELETE CASCADE;
 
-CREATE POLICY "Enable access for authenticated users only" ON "public"."dishes" TO "authenticated" USING (true);
-
 CREATE POLICY "Enable access for authenticated users only" ON "public"."ingredients" TO "authenticated" USING (true);
 
-CREATE POLICY "User can access only their own records" ON "public"."eatings" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
+CREATE POLICY "User can READ only their own COLLECTION" ON "public"."collections" FOR SELECT TO "authenticated" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
 
-CREATE POLICY "User can access only their own records" ON "public"."settings" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
+CREATE POLICY "User can READ only their own METADATA" ON "public"."user_metadata" FOR SELECT TO "authenticated" USING ((( SELECT "auth"."uid"() AS "uid") = "id"));
 
-CREATE POLICY "User can select only their own record" ON "public"."user_metadata" FOR SELECT USING ((( SELECT "auth"."uid"() AS "uid") = "id"));
+CREATE POLICY "User can do ALL only with their own EATINGS" ON "public"."eatings" TO "authenticated" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
+
+CREATE POLICY "User can do ALL with DISHES only from their COLLECTION" ON "public"."dishes" TO "authenticated" USING (("collectionId" IN ( SELECT "u"."collectionId"
+   FROM "public"."user_metadata" "u"
+  WHERE ("u"."id" = ( SELECT "auth"."uid"() AS "uid")))));
+
+CREATE POLICY "User can do ALL with only their own SETTINGS" ON "public"."settings" TO "authenticated" USING ((( SELECT "auth"."uid"() AS "uid") = "userId"));
+
+CREATE POLICY "Users can READ DISHES from shared COLLECTION" ON "public"."dishes" FOR SELECT TO "authenticated" USING (("collectionId" = 1));
 
 ALTER TABLE "public"."collections" ENABLE ROW LEVEL SECURITY;
 
