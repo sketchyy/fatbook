@@ -96,6 +96,7 @@ function mapDishToPortionInputs(dish: Dish): DishPortion {
     dish: {
       id: dish.id,
       name: dish.name,
+      collectionId: dish.collectionId,
       icon: dish.icon,
       proteins: dish.proteins,
       fats: dish.fats,
