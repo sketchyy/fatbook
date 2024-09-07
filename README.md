@@ -1,4 +1,4 @@
-# Fatbook
+# 🍔 Fatbook
 
 Small app to track calories for personal use.
 
