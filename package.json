@@ -9,8 +9,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "typegen": "supabase gen types --lang=typescript --project-id zmbjnozcpleixwterhad > ./src/types/supabase.types.ts",
-    "typegen:local": "supabase gen types --lang=typescript --local > ./src/types/supabase.types.ts",
-    "preinstall": "npx only-allow pnpm"
+    "typegen:local": "supabase gen types --lang=typescript --local > ./src/types/supabase.types.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.44.3",

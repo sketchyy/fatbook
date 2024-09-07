@@ -2,31 +2,35 @@
 
 Small app to track calories for personal use.
 
-## Using Vite
+Use google account to login:
 
-Install dependencies:
-
-```bash
-pnpm i
-```
-
-Run in development mode:
-
-```bash
-pnpm dev
-```
-
-Prod build:
-
-```bash
-pnpm build
-```
+https://fatbook.pages.dev/
 
 ## Infra
 
 * **Cloudflare Pages** - web hosting
 * **Supabase** - DB, Auth
 * **Google** - Auth Provider
+
+## Running app locally
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run in development mode:
+
+```bash
+npm dev
+```
+
+Prod build:
+
+```bash
+npm build
+```
 
 ## Check bundle size
 
