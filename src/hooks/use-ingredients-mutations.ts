@@ -4,11 +4,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { DishPortion } from "@/types/dish-portion";
-import {
-  addIngredient,
-  deleteIngredient,
-  updateIngredient,
-} from "@/services/ingredients-service";
+import { ingredientsService } from "@/services/ingredients-service";
 import { Dish } from "@/types/dish";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -65,7 +61,8 @@ export function useIngredientMutations(
   };
 
   const add = useMutation({
-    mutationFn: (ingredient: DishPortion) => addIngredient(dish, ingredient),
+    mutationFn: (ingredient: DishPortion) =>
+      ingredientsService.addIngredient(dish, ingredient),
     onMutate: createOnMutate((newIngredient) => {
       newIngredient.selected = true;
       const foodValue = calculateFoodValue(newIngredient);
@@ -79,7 +76,8 @@ export function useIngredientMutations(
   });
 
   const update = useMutation({
-    mutationFn: (ingredient: DishPortion) => updateIngredient(dish, ingredient),
+    mutationFn: (ingredient: DishPortion) =>
+      ingredientsService.updateIngredient(dish, ingredient),
     onMutate: createOnMutate((updatedIngredient) => {
       setSelectedPortions((portions) => {
         const foodValue = calculateFoodValue(updatedIngredient);
@@ -95,7 +93,8 @@ export function useIngredientMutations(
   });
 
   const remove = useMutation({
-    mutationFn: (ingredient: DishPortion) => deleteIngredient(dish, ingredient),
+    mutationFn: (ingredient: DishPortion) =>
+      ingredientsService.deleteIngredient(dish, ingredient),
     onMutate: createOnMutate((deletedIngredient) => {
       setSelectedPortions((portions) => {
         return portions.filter((p) => p.dish.id !== deletedIngredient.dish.id);
