@@ -242,19 +242,16 @@ export type Database = {
           collectionId: number | null
           email: string | null
           id: string
-          role: Database["public"]["Enums"]["role"]
         }
         Insert: {
           collectionId?: number | null
           email?: string | null
           id: string
-          role?: Database["public"]["Enums"]["role"]
         }
         Update: {
           collectionId?: number | null
           email?: string | null
           id?: string
-          role?: Database["public"]["Enums"]["role"]
         }
         Relationships: [
           {

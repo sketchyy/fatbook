@@ -196,7 +196,6 @@ ALTER TABLE "public"."settings" OWNER TO "postgres";
 
 CREATE TABLE IF NOT EXISTS "public"."user_metadata" (
     "id" "uuid" NOT NULL,
-    "role" "public"."role" DEFAULT 'user'::"public"."role" NOT NULL,
     "collectionId" bigint,
     "email" "text"
 );

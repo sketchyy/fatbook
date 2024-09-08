@@ -8,7 +8,6 @@ interface AuthContextType {
   user: User | null;
   userId: string;
   userCollectionId: number | null;
-  role: "user" | "admin";
   signIn: () => Promise<OAuthResponse>;
   signOut: () => void;
 }
@@ -16,7 +15,6 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   userId: "guest",
-  role: "user",
   userCollectionId: null,
   signIn: () =>
     supabase.auth.signInWithOAuth({
@@ -60,7 +58,6 @@ export function AuthProvider({ children }) {
   const value: AuthContextType = {
     ...defaultContextValue,
     user,
-    role: user?.user_metadata?.role ?? "user",
     userCollectionId: user?.user_metadata?.collectionId ?? null,
     userId: user?.id!,
   };

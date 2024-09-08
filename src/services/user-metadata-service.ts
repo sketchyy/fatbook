@@ -4,7 +4,7 @@ import { Tables } from "@/types/supabase.types";
 
 export type UserMetadata = Omit<Tables<"user_metadata">, "id">;
 
-/* Adds collectionId and role fields to user */
+/* Adds collectionId to user */
 export async function setUserMetadata(user: User): Promise<boolean> {
   const metadata = await getUserMetadata(user);
 
