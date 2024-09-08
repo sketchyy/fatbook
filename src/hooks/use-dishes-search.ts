@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
-import { PAGE_SIZE, searchDishes } from "@/services/dishes-service";
+import { dishesService, PAGE_SIZE } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 import { useAuth } from "@/context/Auth";
 
@@ -28,7 +28,7 @@ export function useDishesSearch({ filterDishId, filterEmpty }: Props = {}) {
   } = useInfiniteQuery({
     queryKey: ["dishes", query, { filterEmpty }],
     queryFn: ({ pageParam }) =>
-      searchDishes({
+      dishesService.searchDishes({
         query,
         collectionId: userCollectionId,
         filterDishId,

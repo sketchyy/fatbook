@@ -5,7 +5,7 @@ import {
   calculateDishValuePer100g,
   calculateFoodValueForPortion,
 } from "@/utils/food-value-utils";
-import { updateDish } from "@/services/dishes-service";
+import { dishesService } from "@/services/dishes-service";
 import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 
 const SELECT_INGREDIENT_WITH_DISH = `*, dish:dishes!public_dishIngredients_dish_fkey (*)`;
@@ -85,7 +85,7 @@ async function updateDishFoodValue(dish: Dish) {
   const dishFoodValue = calculateDishValuePer100g(ingredients ?? []);
 
   // Update dish table
-  await updateDish(dish.id, {
+  await dishesService.updateDish(dish.id, {
     name: dish.name,
     hasIngredients: Boolean(ingredients && ingredients.length > 0),
     cookedWeight: null, // Reset cooked weight, as the ingredients were changed

@@ -4,7 +4,7 @@ import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Dish } from "@/types/dish";
-import { updateDish } from "@/services/dishes-service";
+import { dishesService } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 import { formatDate } from "@/utils/date-utils";
 import { getDishIcon } from "@/utils/icon-utils";
@@ -58,7 +58,7 @@ function DishEdit() {
   const inputsDisabled = hasIngredients || isDishShared;
 
   const onSubmit: SubmitHandler<DishInputs> = async (data) => {
-    await updateDish(+params.id!, data);
+    await dishesService.updateDish(+params.id!, data);
 
     navigate("/dishes");
   };

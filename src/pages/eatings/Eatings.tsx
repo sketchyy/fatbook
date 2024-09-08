@@ -1,6 +1,6 @@
 import { Outlet, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchDailyEatings } from "@/services/eatings-service";
+import { eatingsService } from "@/services/eatings-service";
 import { useAuth } from "@/context/Auth";
 import AppLayout from "@/components/AppLayout";
 
@@ -14,7 +14,7 @@ function Eatings() {
 
   const { data: dailyEatings } = useQuery({
     queryKey: [DAILY_EATINGS_QUERY_KEY, day],
-    queryFn: () => fetchDailyEatings(userId, day!),
+    queryFn: () => eatingsService.fetchDailyEatings(userId, day!),
   });
 
   return (

@@ -2,10 +2,9 @@ import NavLinkTab from "@/components/ui/NavLinkTab";
 import { FaChevronLeft, FaTrash } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { deleteDish, fetchDish } from "@/services/dishes-service";
+import { dishesService } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 import AppLayout from "@/components/AppLayout";
-import { useAuth } from "@/context/Auth";
 import { SHARED_COLLECTION_ID } from "@/constants";
 
 function Dish() {
@@ -14,9 +13,9 @@ function Dish() {
   const params = useParams();
   const { data: dish, isLoading } = useQuery({
     queryKey: ["dish", +params.id!],
-    queryFn: () => fetchDish(+params.id!),
+    queryFn: () => dishesService.fetchDish(+params.id!),
   });
-  const deleteMutation = useMutation({ mutationFn: deleteDish });
+  const deleteMutation = useMutation({ mutationFn: dishesService.deleteDish });
   const isCreate = isNil(params.id);
   const isDishShared = dish?.collectionId === SHARED_COLLECTION_ID;
   const canDelete = !isCreate && !isDishShared;
