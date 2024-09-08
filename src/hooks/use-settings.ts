@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchSettings } from "@/services/settings-service";
+import { settingsService } from "@/services/settings-service";
 import { useAuth } from "@/context/Auth";
 
 export function useSettings() {
@@ -7,6 +7,6 @@ export function useSettings() {
 
   return useQuery({
     queryKey: ["settings"],
-    queryFn: () => fetchSettings(userId),
+    queryFn: () => settingsService.fetchSettings(userId),
   });
 }

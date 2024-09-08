@@ -19,7 +19,7 @@ export async function setUserMetadata(user: User): Promise<boolean> {
   return true;
 }
 
-export async function getUserMetadata(
+async function getUserMetadata(
   user: User,
 ): Promise<UserMetadata | null | undefined> {
   const userRecords = await supabase

@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useSettings } from "@/hooks/use-settings";
 import { FoodValue } from "@/types/food-value";
-import { saveSettings } from "@/services/settings-service";
+import { settingsService } from "@/services/settings-service";
 import About from "@/components/About";
 import AppLayout from "@/components/AppLayout";
 
@@ -20,7 +20,8 @@ function Settings() {
     },
   });
   const saveMutation = useMutation({
-    mutationFn: (values: FoodValue) => saveSettings(userId, values),
+    mutationFn: (values: FoodValue) =>
+      settingsService.saveSettings(userId, values),
     onSuccess: () => {
       toast.success("Settings saved");
     },
