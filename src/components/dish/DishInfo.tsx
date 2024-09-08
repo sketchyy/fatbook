@@ -8,8 +8,6 @@ type Props = {
 };
 
 function DishInfo({ dish, servingSize }: Props) {
-  const renderedName = dish.name || "<No Name>";
-
   return (
     <div className="is-flex-grow-1">
       <div className="is-flex is-align-items-center">

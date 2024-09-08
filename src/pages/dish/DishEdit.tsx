@@ -52,7 +52,7 @@ function DishEdit() {
       carbs: format(dish.carbs),
     });
     setIcon(icon);
-  }, [dish]);
+  }, [dish, formState.isDirty]);
 
   const hasIngredients = dish?.ingredients?.length! > 0;
   const inputsDisabled = hasIngredients || isDishShared;

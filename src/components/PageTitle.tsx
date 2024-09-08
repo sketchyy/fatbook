@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { FaChevronLeft, FaInfo } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { clsx } from "clsx";
 

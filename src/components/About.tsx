@@ -6,7 +6,7 @@ export default function About() {
     >
       <p className="block">
         <strong>Fatbook</strong> by{" "}
-        <a href="https://github.com/sketchyy" title="github" target="_blank">
+        <a href="https://github.com/sketchyy" title="github" target="_blank" rel="noreferrer">
           sketchyy
         </a>
       </p>
@@ -18,6 +18,7 @@ export default function About() {
             href="https://www.flaticon.com/free-icons/plate"
             title="plate icons"
             target="_blank"
+            rel="noreferrer"
           >
             Plate icons created by Freepik - Flaticon
           </a>
@@ -27,6 +28,7 @@ export default function About() {
             href="https://www.flaticon.com/free-icons/food"
             title="food icons"
             target="_blank"
+            rel="noreferrer"
           >
             Food icons created by Freepik - Flaticon
           </a>

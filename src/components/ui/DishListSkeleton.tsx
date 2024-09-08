@@ -3,10 +3,6 @@ import React, { Fragment } from "react";
 import FoodValue from "@/components/FoodValue";
 import DishTitle from "@/components/ui/DishTitle";
 
-type Props = {
-  rowHeight?: number;
-};
-
 export default function DishListSkeleton() {
   const mockDishes = Array(10).fill(0);
 

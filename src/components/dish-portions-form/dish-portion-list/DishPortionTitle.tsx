@@ -1,5 +1,4 @@
 import { FaCheckCircle } from "react-icons/fa";
-import DishIcon from "../../dish/DishIcon";
 import FoodValue from "../../FoodValue";
 import { DishPortion } from "@/types/dish-portion";
 import { FoodWeight } from "@/components/FoodWeight";

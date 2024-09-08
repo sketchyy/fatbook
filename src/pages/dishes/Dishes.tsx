@@ -7,7 +7,6 @@ import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { ChangeEvent } from "react";
 import { clsx } from "clsx";
 import AppLayout from "@/components/AppLayout";
-import { supabase } from "@/services/supabase";
 import { useCreateDish } from "@/hooks/use-create-dish";
 
 function Dishes() {
