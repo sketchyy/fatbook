@@ -50,7 +50,7 @@ Details: https://supabase.com/docs/guides/auth/social-login/auth-google#prerequi
 
 ### 2. Supabase
 
-#### 2.1 Local Supabase Project
+#### Local Supabase Project
 
 It is possible to develop using locally run Supabase ([supabase/local-development](https://supabase.com/docs/guides/cli/local-development)),
 
@@ -67,7 +67,7 @@ It is possible to develop using locally run Supabase ([supabase/local-developmen
 1. Run `npm run dev`
 1. Login with Google account
 
-#### 2.2 Cloud Project
+#### Cloud Project
 
 1. Go to https://supabase.com/ and click "Start your project"
    1. Fill the form, save database password
