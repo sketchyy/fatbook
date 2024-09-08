@@ -27,6 +27,11 @@ Useful commands
 - **Supabase** - DB, Auth
 - **Google** - Auth Provider
 
+## 📚 History
+
+- [v1](https://github.com/sketchyy/fatbook/tree/a2cf01f5d91fef150284d5c77a9d17f3d76422a7) - Angular + Firebase
+- [v2](https://github.com/sketchyy/fatbook/tree/v2) - React + Firebase
+- [v3](https://github.com/sketchyy/fatbook/tree/v3) - React + Supabase
 
 ## 🏗️ Creating your own Supabase project 
 
