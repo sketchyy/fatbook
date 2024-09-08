@@ -6,18 +6,33 @@ https://fatbook.pages.dev/
 
 ℹ️ _Use google account to login_
 
-## 🤖 Infra
+## ▶️ Running app locally
+
+When running app locally, one will connect to my Supabase project (same as here https://fatbook.pages.dev/).
+
+1. copy `.env.production` to `.env.local`
+1. `npm install`
+1. `npm run dev`
+
+## 🛠️ Development
+
+Useful commands
+
+1. Prod build: `npm run build`
+2. Check bundle size: `npx vite-bundle-visualizer`
+
+## 🏭 Infra
 
 * **Cloudflare Pages** - web hosting
 * **Supabase** - DB, Auth
 * **Google** - Auth Provider
 
-## ▶️ Running app locally
 
-To run the app locally you need following prerequisites:
-- installed nodejs + npm
+## 🏗️ Creating your own Supabase project 
+
+To use Fatbook with your own Supabase project you need following prerequisites:
 - configured Google Cloud project with Oauth ClientID
-- Supabase project (either local or cloud one)
+- configured Supabase project with Fatbook schema (either local or cloud one)
 
 ### 1. Setup Google Cloud Project for Authentication
 
@@ -37,7 +52,9 @@ Details: https://supabase.com/docs/guides/auth/social-login/auth-google#prerequi
 
 #### 2.1 Local Supabase Project
 
-1. Install docker (docker desktop, rancher desktop)
+It is possible to develop using locally run Supabase ([supabase/local-development](https://supabase.com/docs/guides/cli/local-development)),
+
+1. Install docker (e.g. docker desktop or rancher desktop)
 1. Install [Supabase CLI](https://supabase.com/docs/guides/cli/getting-started)
 1. Launch Supabase: `supabase start`
 1. Supabase will output URLs for resources
@@ -49,8 +66,6 @@ Details: https://supabase.com/docs/guides/auth/social-login/auth-google#prerequi
 1. Run `npm install`
 1. Run `npm run dev`
 1. Login with Google account
-
-Details: https://supabase.com/docs/guides/cli/local-development
 
 #### 2.2 Cloud Project
 
@@ -73,15 +88,3 @@ Details: https://supabase.com/docs/guides/cli/local-development
 1. run `npm run dev`
 1. Login with Google account
 
-## 🛠️ Development
-
-### Prod build
-```bash
-npm run build
-```
-
-### Check bundle size
-
-```bash
-npx vite-bundle-visualizer
-```
