@@ -10,22 +10,22 @@ https://fatbook.pages.dev/
 
 When running app locally, one will connect to my Supabase project (same as here https://fatbook.pages.dev/).
 
-1. copy `.env.production` to `.env.local`
-1. `npm install`
-1. `npm run dev`
+1. Copy `.env.production` to `.env.local`
+1. Run `npm install`
+1. Run `npm run dev`
 
 ## 🛠️ Development
 
 Useful commands
 
-1. Prod build: `npm run build`
-2. Check bundle size: `npx vite-bundle-visualizer`
+- Prod build: `npm run build`
+- Check bundle size: `npx vite-bundle-visualizer`
 
 ## 🏭 Infra
 
-* **Cloudflare Pages** - web hosting
-* **Supabase** - DB, Auth
-* **Google** - Auth Provider
+- **Cloudflare Pages** - web hosting
+- **Supabase** - DB, Auth
+- **Google** - Auth Provider
 
 
 ## 🏗️ Creating your own Supabase project 
