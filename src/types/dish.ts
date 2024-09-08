@@ -19,9 +19,6 @@ export type Dish = {
 };
 
 /* DB model - internal fields */
-export type DishModel = Omit<
-  Tables<"dishes">,
-  "deleted" | "legacyId" | "searchable" | "test"
-> & {
+export type DishModel = Omit<Tables<"dishes">, "deleted" | "searchable"> & {
   ingredients?: Tables<"ingredients">[];
 };

@@ -7,31 +7,6 @@ export type Json =
   | Json[]
 
 export type Database = {
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          operationName?: string
-          query?: string
-          variables?: Json
-          extensions?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
       collections: {
@@ -73,11 +48,9 @@ export type Database = {
           hasIngredients: boolean
           icon: string | null
           id: number
-          legacyId: string | null
           name: string | null
           proteins: number | null
           searchable: unknown | null
-          test: boolean | null
           updatedAt: string | null
         }
         Insert: {
@@ -92,11 +65,9 @@ export type Database = {
           hasIngredients?: boolean
           icon?: string | null
           id?: number
-          legacyId?: string | null
           name?: string | null
           proteins?: number | null
           searchable?: unknown | null
-          test?: boolean | null
           updatedAt?: string | null
         }
         Update: {
@@ -111,11 +82,9 @@ export type Database = {
           hasIngredients?: boolean
           icon?: string | null
           id?: number
-          legacyId?: string | null
           name?: string | null
           proteins?: number | null
           searchable?: unknown | null
-          test?: boolean | null
           updatedAt?: string | null
         }
         Relationships: [
@@ -196,7 +165,6 @@ export type Database = {
           parentDishId: number
           portion: number
           proteins: number
-          test: boolean | null
         }
         Insert: {
           calories: number
@@ -208,7 +176,6 @@ export type Database = {
           parentDishId: number
           portion: number
           proteins: number
-          test?: boolean | null
         }
         Update: {
           calories?: number
@@ -220,7 +187,6 @@ export type Database = {
           parentDishId?: number
           portion?: number
           proteins?: number
-          test?: boolean | null
         }
         Relationships: [
           {
@@ -423,4 +389,3 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
     : never
-
