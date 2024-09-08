@@ -15,9 +15,9 @@ import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/Eatings";
 type OnMutate = (portion: DishPortion) => void;
 
 type UseEatingMutations = {
-  add: UseMutationResult<DishPortion, unknown, DishPortion>;
-  update: UseMutationResult<DishPortion, unknown, DishPortion>;
-  remove: UseMutationResult<void, unknown, DishPortion>;
+  addEating: UseMutationResult<DishPortion, unknown, DishPortion>;
+  updateEating: UseMutationResult<DishPortion, unknown, DishPortion>;
+  removeEating: UseMutationResult<void, unknown, DishPortion>;
   selectedPortions: DishPortion[];
 };
 
@@ -66,7 +66,7 @@ export function useEatingMutations(
     setSelectedPortions(context!.previousValue);
   };
 
-  const add = useMutation({
+  const addEating = useMutation({
     mutationFn: (portion: DishPortion) =>
       eatingsService.createEating(userId, day!, meal!, portion),
     onMutate: createOnMutate((newPortion) => {
@@ -81,7 +81,7 @@ export function useEatingMutations(
     onError,
   });
 
-  const update = useMutation({
+  const updateEating = useMutation({
     mutationFn: (portion: DishPortion) => eatingsService.updateEating(portion),
     onMutate: createOnMutate((updatedPortion) => {
       setSelectedPortions((portions) => {
@@ -97,7 +97,7 @@ export function useEatingMutations(
     onError,
   });
 
-  const remove = useMutation({
+  const removeEating = useMutation({
     mutationFn: (portion: DishPortion) => eatingsService.deleteEating(portion),
     onMutate: createOnMutate((deletedPortion) => {
       setSelectedPortions((portions) => {
@@ -109,9 +109,9 @@ export function useEatingMutations(
   });
 
   return {
-    add,
-    update,
-    remove,
+    addEating,
+    updateEating,
+    removeEating,
     selectedPortions,
   };
 }

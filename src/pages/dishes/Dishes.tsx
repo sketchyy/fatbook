@@ -21,7 +21,7 @@ function Dishes() {
     fetchNextPage,
     hasNextPage,
   } = useDishesSearch();
-  const { create: createDish } = useCreateDish();
+  const { createDish } = useCreateDish();
 
   const handleDishClick = (dish: Dish) => {
     navigate(`/dishes/${dish.id}`);

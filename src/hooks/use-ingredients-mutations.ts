@@ -14,9 +14,9 @@ import { PostgrestError } from "@supabase/supabase-js";
 type OnMutate = (portion: DishPortion) => void;
 
 type UseIngredientMutations = {
-  add: UseMutationResult<DishPortion, unknown, DishPortion>;
-  update: UseMutationResult<DishPortion, unknown, DishPortion>;
-  remove: UseMutationResult<void, unknown, DishPortion>;
+  addIngredient: UseMutationResult<DishPortion, unknown, DishPortion>;
+  updateIngredient: UseMutationResult<DishPortion, unknown, DishPortion>;
+  removeIngredient: UseMutationResult<void, unknown, DishPortion>;
   selectedPortions: DishPortion[];
   setSelectedPortions: React.Dispatch<React.SetStateAction<DishPortion[]>>;
 };
@@ -60,7 +60,7 @@ export function useIngredientMutations(
     setSelectedPortions(context!.previousValue);
   };
 
-  const add = useMutation({
+  const addIngredient = useMutation({
     mutationFn: (ingredient: DishPortion) =>
       ingredientsService.addIngredient(dish, ingredient),
     onMutate: createOnMutate((newIngredient) => {
@@ -75,7 +75,7 @@ export function useIngredientMutations(
     onError,
   });
 
-  const update = useMutation({
+  const updateIngredient = useMutation({
     mutationFn: (ingredient: DishPortion) =>
       ingredientsService.updateIngredient(dish, ingredient),
     onMutate: createOnMutate((updatedIngredient) => {
@@ -92,7 +92,7 @@ export function useIngredientMutations(
     onError,
   });
 
-  const remove = useMutation({
+  const removeIngredient = useMutation({
     mutationFn: (ingredient: DishPortion) =>
       ingredientsService.deleteIngredient(dish, ingredient),
     onMutate: createOnMutate((deletedIngredient) => {
@@ -105,9 +105,9 @@ export function useIngredientMutations(
   });
 
   return {
-    add,
-    update,
-    remove,
+    addIngredient,
+    updateIngredient,
+    removeIngredient,
     selectedPortions,
     setSelectedPortions,
   };

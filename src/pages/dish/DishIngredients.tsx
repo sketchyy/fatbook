@@ -19,10 +19,8 @@ function DishIngredients() {
   const [confirm, setConfirm] = useState<Confirmation>({
     visible: false,
   });
-  const { update, remove, selectedPortions } = useIngredientMutations(
-    dish,
-    dish.ingredients,
-  );
+  const { updateIngredient, removeIngredient, selectedPortions } =
+    useIngredientMutations(dish, dish.ingredients);
   const ingredients = selectedPortions.map((p) => ({ ...p, selected: false }));
 
   const handleAdd = (e) => {
@@ -30,14 +28,14 @@ function DishIngredients() {
   };
 
   const handleUpgradeIngredient = async (ingredient: DishPortion) => {
-    update.mutate(ingredient);
+    updateIngredient.mutate(ingredient);
   };
 
   const handleDeleteIngredient = async (ingredient: DishPortion) => {
     setConfirm({
       visible: true,
       accept: async () => {
-        remove.mutate(ingredient);
+        removeIngredient.mutate(ingredient);
         setConfirm({ visible: false });
       },
     });

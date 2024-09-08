@@ -31,7 +31,7 @@ function DishEdit() {
     isDishShared: boolean;
     isLoading: boolean;
   }>();
-  const { create: createDish } = useCreateDish();
+  const { createDish } = useCreateDish();
   const { register, reset, handleSubmit, setValue, formState } =
     useForm<DishInputs>();
   const [icon, setIcon] = useState<string>("");

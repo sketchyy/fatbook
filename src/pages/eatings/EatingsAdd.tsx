@@ -6,18 +6,19 @@ import { useEatingMutations } from "@/hooks/use-eating-mutations";
 
 function EatingsAdd() {
   const { day, meal } = useParams();
-  const { add, update, remove, selectedPortions } = useEatingMutations(meal!);
+  const { addEating, updateEating, removeEating, selectedPortions } =
+    useEatingMutations(meal!);
 
   const handleAddEating = async (portion: DishPortion) => {
-    add.mutate(portion);
+    addEating.mutate(portion);
   };
 
   const handleUpdateEatings = async (portion: DishPortion) => {
-    update.mutate(portion);
+    updateEating.mutate(portion);
   };
 
   const handleDeleteEatings = async (portion: DishPortion) => {
-    remove.mutate(portion);
+    removeEating.mutate(portion);
   };
 
   const getSubtitle = () => {

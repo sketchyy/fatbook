@@ -8,7 +8,7 @@ import { dishesService } from "@/services/dishes-service";
 import { TablesUpdate } from "@/types/supabase.types";
 
 type UseDishMutations = {
-  update: UseMutationResult<Dish | null, unknown, TablesUpdate<"dishes">>;
+  updateDish: UseMutationResult<Dish | null, unknown, TablesUpdate<"dishes">>;
 };
 
 export function useDishMutations(id: number): UseDishMutations {
@@ -16,13 +16,13 @@ export function useDishMutations(id: number): UseDishMutations {
 
   const onSuccess = () => queryClient.invalidateQueries({ queryKey: ["dish"] });
 
-  const update = useMutation({
+  const updateDish = useMutation({
     mutationFn: (values: TablesUpdate<"dishes">) =>
       dishesService.updateDish(id, values),
     onSuccess,
   });
 
   return {
-    update,
+    updateDish,
   };
 }

@@ -12,11 +12,16 @@ function DishIngredientAdd() {
     visible: false,
   });
   const { dish } = useOutletContext<{ dish: Dish }>();
-  const { add, update, remove, selectedPortions, setSelectedPortions } =
-    useIngredientMutations(dish);
+  const {
+    addIngredient,
+    updateIngredient,
+    removeIngredient,
+    selectedPortions,
+    setSelectedPortions,
+  } = useIngredientMutations(dish);
 
   const handleAddIngredients = async (ingredient: DishPortion) => {
-    add.mutate(ingredient, {
+    addIngredient.mutate(ingredient, {
       onError: (error) => {
         // code:"23505" means "uniqueingredient" violated
         if ((error as PostgrestError).code === "23505") {
@@ -37,11 +42,11 @@ function DishIngredientAdd() {
   };
 
   const handleUpgradeIngredient = async (ingredient: DishPortion) => {
-    update.mutate(ingredient);
+    updateIngredient.mutate(ingredient);
   };
 
   const handleDeleteIngredient = async (ingredient: DishPortion) => {
-    remove.mutate(ingredient);
+    removeIngredient.mutate(ingredient);
   };
 
   return (

@@ -30,7 +30,7 @@ export const DishIngredientsDetails = ({
 }: Props) => {
   const { register, reset, getValues, handleSubmit } =
     useForm<CookedWeightInput>();
-  const { update } = useDishMutations(dish.id);
+  const { updateDish } = useDishMutations(dish.id);
 
   // When ingredients changed, we need to reset cookedWeight value in DB, and reset it in UI.
   useEffect(() => {
@@ -52,7 +52,7 @@ export const DishIngredientsDetails = ({
     );
     const dishUpdate = { ...newFoodValue, cookedWeight };
 
-    update.mutate(dishUpdate, {
+    updateDish.mutate(dishUpdate, {
       onSuccess: () => toast.success("Saved!"),
       onError: () =>
         toast.error("Error while saving!", { position: "top-center" }),
@@ -90,7 +90,7 @@ export const DishIngredientsDetails = ({
             <p className="control">
               <button
                 className={clsx("button is-info", {
-                  "is-loading": update.isPending,
+                  "is-loading": updateDish.isPending,
                 })}
               >
                 <span className={clsx("icon is-small")}>

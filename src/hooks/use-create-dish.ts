@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { DishModel } from "@/types/dish";
 
 type UseCreateDish = {
-  create: UseMutationResult<DishModel | null, Error, void>;
+  createDish: UseMutationResult<DishModel | null, Error, void>;
 };
 
 export function useCreateDish(): UseCreateDish {
   const { userCollectionId } = useAuth();
   const navigate = useNavigate();
 
-  const create = useMutation({
+  const createDish = useMutation({
     mutationFn: () =>
       dishesService.createDish({ name: "", collectionId: userCollectionId }),
     onSuccess: (dish: DishModel | null) =>
@@ -20,6 +20,6 @@ export function useCreateDish(): UseCreateDish {
   });
 
   return {
-    create,
+    createDish,
   };
 }
