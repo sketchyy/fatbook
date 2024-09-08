@@ -39,15 +39,6 @@ CREATE TYPE "public"."meal" AS ENUM (
 
 ALTER TYPE "public"."meal" OWNER TO "postgres";
 
-CREATE TYPE "public"."role" AS ENUM (
-    'admin',
-    'user'
-);
-
-ALTER TYPE "public"."role" OWNER TO "postgres";
-
-COMMENT ON TYPE "public"."role" IS 'user role';
-
 CREATE OR REPLACE FUNCTION "public"."handle_new_user"() RETURNS "trigger"
     LANGUAGE "plpgsql" SECURITY DEFINER
     SET "search_path" TO ''
