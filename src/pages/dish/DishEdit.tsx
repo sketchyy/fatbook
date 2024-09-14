@@ -43,7 +43,7 @@ function DishEdit() {
     const icon = getDishIcon(dish);
     reset({
       name: dish.name,
-      icon: null,
+      icon: dish.icon,
       defaultPortion: dish.defaultPortion,
       cookedWeight: dish.cookedWeight,
       calories: format(dish.calories),
