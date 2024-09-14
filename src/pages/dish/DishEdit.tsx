@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { Dish } from "@/types/dish";
 import { dishesService } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
-import { formatDate } from "@/utils/date-utils";
 import { getDishIcon } from "@/utils/icon-utils";
 import { clsx } from "clsx";
 import EmojiPicker from "@/components/ui/EmojiPicker";
 import { useCreateDish } from "@/hooks/use-create-dish";
+import { useCopyDish } from "@/hooks/use-copy-dish";
+import { formatDate } from "@/utils/date-utils";
 
 export type DishInputs = {
   name: string | null;
@@ -32,6 +33,7 @@ function DishEdit() {
     isLoading: boolean;
   }>();
   const { createDish } = useCreateDish();
+  const { copyDish } = useCopyDish();
   const { register, reset, handleSubmit, setValue, formState } =
     useForm<DishInputs>();
   const [icon, setIcon] = useState<string>("");
@@ -64,6 +66,12 @@ function DishEdit() {
   };
 
   const onCancel = () => navigate("/dishes");
+
+  const onCopy = () => {
+    if (dish) {
+      copyDish.mutate(dish);
+    }
+  };
 
   const handleNameChange = ({ target }) => {
     // Update outlet context to save when navigate to ingredients
@@ -132,7 +140,15 @@ function DishEdit() {
                 >
                   create
                 </button>{" "}
-                your own dishes
+                your own dishes or{" "}
+                <button
+                  className="button is-ghost p-0"
+                  style={{ lineHeight: "1.4rem" }}
+                  onClick={onCopy}
+                >
+                  copy
+                </button>{" "}
+                this one
               </span>
             </p>
           </Message>
