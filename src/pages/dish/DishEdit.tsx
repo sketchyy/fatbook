@@ -34,12 +34,12 @@ function DishEdit() {
   }>();
   const { createDish } = useCreateDish();
   const { copyDish } = useCopyDish();
-  const { register, reset, handleSubmit, setValue, formState } =
+  const { register, reset, handleSubmit, setValue, getValues, formState } =
     useForm<DishInputs>();
   const [icon, setIcon] = useState<string>("");
   useEffect(() => {
     // When user made changes, we don't want to reset the form
-    if (!dish || formState.isDirty) {
+    if (!dish || (getValues("name") !== "" && formState.isDirty)) {
       return;
     }
     const icon = getDishIcon(dish);
