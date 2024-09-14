@@ -1,5 +1,5 @@
 import Message from "@/components/ui/Message";
-import { FaCopy, FaInfoCircle, FaSave } from "react-icons/fa";
+import { FaInfoCircle, FaSave } from "react-icons/fa";
 import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -228,12 +228,6 @@ function DishEdit() {
 
         <div className="level">
           <div className="level-left level is-mobile mb-0 mr-auto">
-            <button className="button" type="button" onClick={onCopy}>
-              <span className="icon">
-                <FaCopy />
-              </span>
-              <span>Copy</span>
-            </button>
             <div className="is-size-7 is-align-self-flex-end">
               <strong>Created</strong>
               <p className={clsx({ "is-skeleton": isLoading })}>

@@ -1,11 +1,12 @@
 import NavLinkTab from "@/components/ui/NavLinkTab";
-import { FaChevronLeft, FaTrash } from "react-icons/fa";
+import { FaChevronLeft, FaCopy, FaTrash } from "react-icons/fa";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { dishesService } from "@/services/dishes-service";
 import { isNil } from "@/utils/is-nil";
 import AppLayout from "@/components/AppLayout";
 import { SHARED_COLLECTION_ID } from "@/constants";
+import { useCopyDish } from "@/hooks/use-copy-dish";
 
 // TODO: rename DishPage
 function Dish() {
@@ -16,6 +17,7 @@ function Dish() {
     queryKey: ["dish", +params.id!],
     queryFn: () => dishesService.fetchDish(+params.id!),
   });
+  const { copyDish } = useCopyDish();
   const deleteMutation = useMutation({ mutationFn: dishesService.deleteDish });
   const isCreate = isNil(params.id);
   const isDishShared = dish?.collectionId === SHARED_COLLECTION_ID;
@@ -44,6 +46,12 @@ function Dish() {
     });
   };
 
+  const handleCopy = () => {
+    if (dish) {
+      copyDish.mutate(dish);
+    }
+  };
+
   return (
     <AppLayout>
       <div className="tabs is-boxed is-centered mb-0">
@@ -56,6 +64,11 @@ function Dish() {
             Ingredients ({dish?.ingredients.length ?? 0})
           </NavLinkTab>
         </ul>
+
+        <button type="submit" className="button is-text" onClick={handleCopy}>
+          <FaCopy />
+        </button>
+
         {canDelete && (
           <button
             type="submit"
