@@ -7,6 +7,7 @@ import { isNil } from "@/utils/is-nil";
 import AppLayout from "@/components/AppLayout";
 import { SHARED_COLLECTION_ID } from "@/constants";
 
+// TODO: rename DishPage
 function Dish() {
   const navigate = useNavigate();
   const location = useLocation();

@@ -4,6 +4,7 @@ import { Dish, DishModel } from "@/types/dish";
 import { isNil } from "@/utils/is-nil";
 import { DishPortion } from "@/types/dish-portion";
 import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
+import { ingredientsService } from "@/services/ingredients-service";
 
 type SearchProps = {
   query: string;
@@ -110,9 +111,35 @@ class DishesService {
       .map((d) => this.mapDishToUi(d)) as Dish[];
   }
 
-  async createDish(dish: TablesInsert<"dishes">) {
+  async createDish(dish: TablesInsert<"dishes">): Promise<DishModel | null> {
     const { data } = await supabase.from("dishes").insert(dish).select();
-    return data ? data[0] : null;
+    return data && data[0] ? { ...data[0], ingredients: [] } : null;
+  }
+
+  async copyDish(originalDish: Dish, collectionId: number | null) {
+    const newDish = await this.createDish({
+      name: originalDish.name + " (Copy)",
+      proteins: originalDish.proteins,
+      fats: originalDish.fats,
+      carbs: originalDish.carbs,
+      calories: originalDish.calories,
+      defaultPortion: originalDish.defaultPortion,
+      collectionId: collectionId ?? SHARED_COLLECTION_ID,
+      icon: originalDish.icon,
+      hasIngredients: originalDish.hasIngredients,
+    });
+
+    if (
+      newDish &&
+      originalDish.hasIngredients &&
+      originalDish.ingredients.length > 0
+    ) {
+      originalDish.ingredients.forEach((ingredient) => {
+        ingredientsService.addIngredient(newDish, ingredient);
+      });
+    }
+
+    return newDish;
   }
 
   async updateDish(
