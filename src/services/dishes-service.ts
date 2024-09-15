@@ -111,9 +111,9 @@ class DishesService {
       .map((d) => this.mapDishToUi(d)) as Dish[];
   }
 
-  async createDish(dish: TablesInsert<"dishes">): Promise<DishModel | null> {
+  async createDish(dish: TablesInsert<"dishes">): Promise<Dish | null> {
     const { data } = await supabase.from("dishes").insert(dish).select();
-    return data && data[0] ? { ...data[0], ingredients: [] } : null;
+    return data && data[0] ? this.mapDishToUi(data[0]) : null;
   }
 
   async copyDish(originalDish: Dish, collectionId: number | null) {

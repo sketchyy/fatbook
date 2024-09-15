@@ -1,4 +1,4 @@
-import { Dish, DishModel } from "@/types/dish";
+import { Dish } from "@/types/dish";
 import { DishPortion } from "@/types/dish-portion";
 import { supabase } from "@/services/supabase";
 import {
@@ -11,10 +11,7 @@ import { TablesInsert, TablesUpdate } from "@/types/supabase.types";
 const SELECT_INGREDIENT_WITH_DISH = `*, dish:dishes!public_dishIngredients_dish_fkey (*)`;
 
 class IngredientsService {
-  async addIngredient(
-    dish: DishModel,
-    inputs: DishPortion,
-  ): Promise<DishPortion> {
+  async addIngredient(dish: Dish, inputs: DishPortion): Promise<DishPortion> {
     const foodValue = calculateFoodValueForPortion(inputs);
     const newIngredient: TablesInsert<"ingredients"> = {
       portion: inputs.portion ?? 0,
