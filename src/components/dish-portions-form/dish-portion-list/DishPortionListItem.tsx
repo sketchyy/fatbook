@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { FaCheck, FaPlus, FaTimes } from "react-icons/fa";
-import { Form } from "react-router-dom";
+import { FaCheck, FaExternalLinkAlt, FaPlus, FaTimes } from "react-icons/fa";
+import { Form, useLocation, useNavigate } from "react-router-dom";
 import { DishPortion } from "@/types/dish-portion";
 
 type Props = {
@@ -20,6 +20,8 @@ function DishPortionListItem({
   onDelete,
   isAdded,
 }: Props) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [size, setSize] = useState<number | undefined>(
     dishPortion.portion ?? dishPortion.dish.defaultPortion ?? undefined,
   );
@@ -42,6 +44,12 @@ function DishPortionListItem({
     onDelete(dishPortion);
   };
 
+  const handleOpenDishClick = () => {
+    navigate(`/dishes/${dishPortion.dish.id}/edit`, {
+      state: { backUrl: location.pathname },
+    });
+  };
+
   if (inputRef.current && focused) {
     inputRef.current.focus();
   }
@@ -50,20 +58,34 @@ function DishPortionListItem({
     <div className="pb-4 px-4">
       <Form onSubmit={(e) => e.preventDefault()}>
         <div className="is-flex is-align-items-end">
-          {isAdded(dishPortion) && (
-            <button
-              className="button is-danger mr-3"
-              onClick={() => handleDeleteClick()}
-              type="button"
-            >
-              <span className="icon is-small">
-                <FaTimes />
-              </span>
-            </button>
-          )}
+          <div className="is-flex is-flex-direction-column is-gap-1">
+            {isAdded(dishPortion) && (
+              <button
+                className="button is-danger mr-3"
+                onClick={handleDeleteClick}
+                type="button"
+              >
+                <span className="icon is-small">
+                  <FaTimes />
+                </span>
+              </button>
+            )}
+          </div>
           <div className="is-flex-grow-1">
             <div className="field">
-              <label className="label">Portion Size (g.)</label>
+              <div className="is-flex is-gap-1 is-justify-content-space-between is-align-items-center">
+                <label className="label">Portion Size (g.)</label>
+                <button
+                  className="button is-ghost p-0 mb-2"
+                  onClick={handleOpenDishClick}
+                  type="button"
+                >
+                  <span>Open</span>
+                  <span className="icon is-small">
+                    <FaExternalLinkAlt />
+                  </span>
+                </button>
+              </div>
               <p className="control">
                 <input
                   ref={inputRef}
