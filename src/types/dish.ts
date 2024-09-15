@@ -3,7 +3,7 @@ import { Tables } from "@/types/supabase.types";
 
 export type Dish = {
   id: number;
-  name: string;
+  name: number;
   collectionId: number | null;
   icon: string | null;
   proteins: number;
