@@ -9,7 +9,7 @@ import { DishPortion } from "@/types/dish-portion";
 import { useIngredientMutations } from "@/hooks/use-ingredients-mutations";
 import { DishIngredientsDetails } from "@/components/dish/DishIngredientsDetails";
 
-function DishIngredients() {
+function DishIngredientsPage() {
   const navigate = useNavigate();
   const { dish, isDishShared } = useOutletContext<{
     dish: Dish;
@@ -90,4 +90,4 @@ function DishIngredients() {
   );
 }
 
-export default DishIngredients;
+export default DishIngredientsPage;

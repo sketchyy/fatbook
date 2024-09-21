@@ -24,7 +24,7 @@ export type DishInputs = {
   cookedWeight: number | null;
 };
 
-function DishEdit() {
+function EditDishPage() {
   const params = useParams();
   const navigate = useNavigate();
   const { dish, isDishShared, isLoading } = useOutletContext<{
@@ -268,4 +268,4 @@ const format = (numb: number | null): number | null => {
   return isNil(numb) ? null : Math.round(numb);
 };
 
-export default DishEdit;
+export default EditDishPage;

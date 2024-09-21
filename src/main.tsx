@@ -12,22 +12,22 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorPage from "@/pages/ErrorPage";
 import "./index.css";
-import Dish from "@/pages/dish/Dish";
-import DishEdit from "@/pages/dish/DishEdit";
-import Dishes from "@/pages/dishes/Dishes";
-import EatingsAdd from "@/pages/eatings/EatingsAdd";
-import Eatings from "@/pages/eatings/Eatings";
-import EatingsSummary from "@/pages/eatings/EatingsSummary";
-import Login from "@/pages/Login";
+import DishPage from "@/pages/dish/DishPage";
+import EditDishPage from "@/pages/dish/EditDishPage";
+import DishesPage from "@/pages/dishes/DishesPage";
+import AddEatingsPage from "@/pages/eatings/AddEatingsPage";
+import EatingsPage from "@/pages/eatings/EatingsPage";
+import EatingsSummaryPage from "@/pages/eatings/EatingsSummaryPage";
+import LoginPage from "@/pages/LoginPage";
 import Root from "@/pages/Root";
-import Settings from "@/pages/Settings";
+import SettingsPage from "@/pages/SettingsPage";
 import RequireAuth from "@/components/auth/RequireAuth";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthProvider } from "@/context/Auth";
 import { formatDate, now } from "@/utils/date-utils";
 import DishIngredientsLoader from "@/pages/dish/DishIngredientsLoader";
 import DishIngredientAddLoader from "@/pages/dish/DishIngredientAddLoader";
-import NotFound from "@/pages/NotFound";
+import NotFoundPage from "@/pages/NotFoundPage";
 import { ThemeProvider } from "@/context/Theme";
 
 // registerLocale("en-GB", enGB);
@@ -52,30 +52,30 @@ const router = createBrowserRouter([
       },
       {
         path: "eatings/:day",
-        element: <Eatings />,
+        element: <EatingsPage />,
         children: [
           {
             path: "",
-            element: <EatingsSummary />,
+            element: <EatingsSummaryPage />,
           },
           {
             path: ":meal/add",
-            element: <EatingsAdd />,
+            element: <AddEatingsPage />,
           },
         ],
       },
       {
         path: "dishes",
-        element: <Dishes />,
+        element: <DishesPage />,
       },
       {
         path: "dishes/:id",
-        element: <Dish />,
+        element: <DishPage />,
         children: [
           { path: "", element: <Navigate to={`edit`} replace /> },
           {
             path: "edit", // edit/delete
-            element: <DishEdit />,
+            element: <EditDishPage />,
           },
           {
             path: "ingredients",
@@ -89,25 +89,25 @@ const router = createBrowserRouter([
       },
       {
         path: "trends",
-        lazy: () => import("@/pages/Trends"),
+        lazy: () => import("@/pages/TrendsPage"),
       },
       {
         path: "settings",
-        element: <Settings />,
+        element: <SettingsPage />,
       },
     ],
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <LoginPage />,
   },
   {
     path: "/not-found",
-    element: <NotFound />,
+    element: <NotFoundPage />,
   },
   {
     path: "*",
-    element: <NotFound />,
+    element: <NotFoundPage />,
   },
 ]);
 

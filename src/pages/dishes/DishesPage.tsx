@@ -9,7 +9,7 @@ import { clsx } from "clsx";
 import AppLayout from "@/components/AppLayout";
 import { useCreateDish } from "@/hooks/use-create-dish";
 
-function Dishes() {
+function DishesPage() {
   const navigate = useNavigate();
   const {
     dishes,
@@ -70,4 +70,4 @@ function Dishes() {
   );
 }
 
-export default Dishes;
+export default DishesPage;

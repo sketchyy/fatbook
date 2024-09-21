@@ -8,8 +8,7 @@ import AppLayout from "@/components/AppLayout";
 import { SHARED_COLLECTION_ID } from "@/constants";
 import { useCopyDish } from "@/hooks/use-copy-dish";
 
-// TODO: rename DishPage
-function Dish() {
+function DishPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
@@ -88,4 +87,4 @@ function Dish() {
   );
 }
 
-export default Dish;
+export default DishPage;
