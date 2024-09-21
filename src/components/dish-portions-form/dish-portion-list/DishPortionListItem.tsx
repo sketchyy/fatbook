@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { FaCheck, FaExternalLinkAlt, FaPlus, FaTimes } from "react-icons/fa";
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import { DishPortion } from "@/types/dish-portion";
+import Button from "@/components/ui/Button";
 
 type Props = {
   focused: boolean;
@@ -60,31 +61,28 @@ function DishPortionListItem({
         <div className="is-flex is-align-items-end">
           <div className="is-flex is-flex-direction-column is-gap-1">
             {isAdded(dishPortion) && (
-              <button
-                className="button is-danger mr-3"
-                onClick={handleDeleteClick}
+              <Button
                 type="button"
-              >
-                <span className="icon is-small">
-                  <FaTimes />
-                </span>
-              </button>
+                icon={<FaTimes />}
+                color="danger"
+                className="mr-3"
+                onClick={handleDeleteClick}
+              />
             )}
           </div>
           <div className="is-flex-grow-1">
             <div className="field">
               <div className="is-flex is-gap-1 is-justify-content-space-between is-align-items-center">
                 <label className="label">Portion (g.)</label>
-                <button
-                  className="button is-ghost p-0 mb-2"
-                  onClick={handleOpenDishClick}
+                <Button
                   type="button"
+                  variant="ghost"
+                  iconRight={<FaExternalLinkAlt />}
+                  className="p-0 mb-2"
+                  onClick={handleOpenDishClick}
                 >
-                  <span>Open</span>
-                  <span className="icon is-small">
-                    <FaExternalLinkAlt />
-                  </span>
-                </button>
+                  Open
+                </Button>
               </div>
               <p className="control">
                 <input
@@ -100,24 +98,20 @@ function DishPortionListItem({
             </div>
           </div>
           {!isAdded(dishPortion) && (
-            <button
-              className="button is-primary ml-3"
+            <Button
+              icon={<FaPlus />}
+              color="primary"
+              className="ml-3"
               onClick={() => handleAddClick()}
-            >
-              <span className="icon is-small">
-                <FaPlus />
-              </span>
-            </button>
+            />
           )}
           {isAdded(dishPortion) && (
-            <button
-              className="button is-primary ml-3"
+            <Button
+              color="primary"
+              icon={<FaCheck />}
+              className="ml-3"
               onClick={() => handleUpdateClick()}
-            >
-              <span className="icon is-small">
-                <FaCheck />
-              </span>
-            </button>
+            />
           )}
         </div>
       </Form>

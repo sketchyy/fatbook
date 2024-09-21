@@ -1,4 +1,5 @@
 import Modal from "./Modal";
+import Button from "@/components/ui/Button";
 
 export interface Confirmation {
   visible: boolean;
@@ -21,12 +22,10 @@ function Confirm({ visible, message, onConfirm, onClose }: ConfirmProps) {
       body={<span>{message}</span>}
       footer={
         <div className="buttons">
-          <button className="button" onClick={onClose}>
-            Cancel
-          </button>
-          <button className="button is-success" onClick={onConfirm}>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button color="success" onClick={onConfirm}>
             OK
-          </button>
+          </Button>
         </div>
       }
     ></Modal>

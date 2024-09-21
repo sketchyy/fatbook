@@ -2,6 +2,7 @@ import React from "react";
 import { Popover } from "react-tiny-popover";
 import { clsx } from "clsx";
 import { FaChevronDown } from "react-icons/fa";
+import Button from "@/components/ui/Button";
 
 type Props = {
   value: string;
@@ -32,10 +33,11 @@ export default function EmojiPicker({
           style={{ width: "395px", height: "500px", maxWidth: "95vw" }}
         >
           {emojis.map(([emoji, label]) => (
-            <button
+            <Button
               key={emoji}
-              onClick={() => handleEmojiClick(emoji)}
-              className="button is-text p-1"
+              icon={emoji}
+              variant="text"
+              className="p-1"
               style={{
                 width: "40px",
                 height: "40px",
@@ -43,25 +45,22 @@ export default function EmojiPicker({
                 textDecoration: "none",
               }}
               title={label}
-            >
-              <span className="icon">{emoji}</span>
-            </button>
+              onClick={() => handleEmojiClick(emoji)}
+            />
           ))}
         </div>
       )}
     >
-      <button
-        className={clsx("button", { "is-skeleton": isLoading })}
-        style={{ width: 68 }}
+      <Button
         type="button"
         disabled={disabled}
+        iconRight={<FaChevronDown />}
+        className={clsx({ "is-skeleton": isLoading })}
+        style={{ width: 68 }}
         onClick={() => setIsPopoverOpen(!isPopoverOpen)}
       >
-        <span>{value}</span>
-        <span className="icon">
-          <FaChevronDown />
-        </span>
-      </button>
+        {value}
+      </Button>
     </Popover>
   );
 }

@@ -11,7 +11,7 @@ import { FaCheck } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDishMutations } from "@/hooks/use-dish-mutations";
-import { clsx } from "clsx";
+import Button from "@/components/ui/Button";
 
 type CookedWeightInput = { cookedWeight: number | null };
 
@@ -88,15 +88,11 @@ export const DishIngredientsDetails = ({
 
           {!disabled && (
             <p className="control">
-              <button
-                className={clsx("button is-info", {
-                  "is-loading": updateDish.isPending,
-                })}
-              >
-                <span className={clsx("icon is-small")}>
-                  <FaCheck />
-                </span>
-              </button>
+              <Button
+                icon={<FaCheck />}
+                color="info"
+                loading={updateDish.isPending}
+              ></Button>
             </p>
           )}
         </div>

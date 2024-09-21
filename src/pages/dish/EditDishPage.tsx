@@ -12,6 +12,7 @@ import EmojiPicker from "@/components/ui/EmojiPicker";
 import { useCreateDish } from "@/hooks/use-create-dish";
 import { useCopyDish } from "@/hooks/use-copy-dish";
 import { formatDate } from "@/utils/date-utils";
+import Button from "@/components/ui/Button";
 
 export type DishInputs = {
   name: string | null;
@@ -133,21 +134,23 @@ function EditDishPage() {
               <span>
                 This is a shared dish, it can not be modified. <br />
                 You can
-                <button
-                  className="button is-ghost p-0"
+                <Button
+                  variant="ghost"
+                  className="p-0"
                   style={{ marginLeft: "0.3rem", lineHeight: "1.4rem" }}
                   onClick={onCreateClick}
                 >
                   create
-                </button>{" "}
+                </Button>{" "}
                 your own dishes or{" "}
-                <button
-                  className="button is-ghost p-0"
+                <Button
+                  variant="ghost"
+                  className="p-0"
                   style={{ lineHeight: "1.4rem" }}
                   onClick={onCopy}
                 >
                   copy
-                </button>{" "}
+                </Button>{" "}
                 this one
               </span>
             </p>
@@ -243,18 +246,15 @@ function EditDishPage() {
           </div>
           <div className="level-left level is-mobile ml-auto">
             <p className="control">
-              <button className="button" type="button" onClick={onCancel}>
+              <Button type="button" onClick={onCancel}>
                 Cancel
-              </button>
+              </Button>
             </p>
             {!isDishShared && (
               <p className="control">
-                <button className="button is-primary" type="submit">
-                  <span className="icon">
-                    <FaSave />
-                  </span>
-                  <span>Save</span>
-                </button>
+                <Button icon={<FaSave />} color="primary" type="submit">
+                  Save
+                </Button>
               </p>
             )}
           </div>

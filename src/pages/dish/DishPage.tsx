@@ -7,6 +7,7 @@ import { isNil } from "@/utils/is-nil";
 import AppLayout from "@/components/AppLayout";
 import { SHARED_COLLECTION_ID } from "@/constants";
 import { useCopyDish } from "@/hooks/use-copy-dish";
+import Button from "@/components/ui/Button";
 
 function DishPage() {
   const navigate = useNavigate();
@@ -54,9 +55,12 @@ function DishPage() {
   return (
     <AppLayout>
       <div className="tabs is-boxed is-centered mb-0">
-        <button className="button is-text p-3" onClick={handleBackClick}>
-          <FaChevronLeft />
-        </button>
+        <Button
+          icon={<FaChevronLeft />}
+          variant="text"
+          className="px-4 py-2"
+          onClick={handleBackClick}
+        />
         <ul>
           <NavLinkTab to="edit">Dish</NavLinkTab>
           <NavLinkTab to="ingredients">
@@ -64,22 +68,22 @@ function DishPage() {
           </NavLinkTab>
         </ul>
 
-        <button
+        <Button
           type="submit"
-          className="button is-text p-3"
+          iconRight={<FaCopy />}
+          variant="text"
+          className="px-4 py-2"
           onClick={handleCopy}
-        >
-          <FaCopy />
-        </button>
+        />
 
         {canDelete && (
-          <button
+          <Button
             type="submit"
-            className="button is-text p-3"
+            icon={<FaTrash />}
+            variant="text"
+            className="px-4 py-2"
             onClick={handleDelete}
-          >
-            <FaTrash />
-          </button>
+          />
         )}
       </div>
       <Outlet context={{ dish, isDishShared, isLoading }} />
