@@ -1,4 +1,5 @@
 import { useAuth } from "@/context/Auth";
+import Button from "@/components/ui/Button";
 
 function CurrentUser() {
   const { user, signOut } = useAuth();
@@ -30,9 +31,9 @@ function CurrentUser() {
       </div>
       <div className="level-right">
         <div className="level-item">
-          <button className="button is-link  mb-0" onClick={handleLogout}>
+          <Button color="link" className="mb-0" onClick={handleLogout}>
             Logout
-          </button>
+          </Button>
         </div>
       </div>
     </div>

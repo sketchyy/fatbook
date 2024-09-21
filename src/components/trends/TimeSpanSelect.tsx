@@ -2,6 +2,7 @@ import React from "react";
 import { clsx } from "clsx";
 import { nowAsDate } from "@/utils/date-utils";
 import dayjs from "dayjs";
+import Button from "@/components/ui/Button";
 
 type Props = {
   activeTimespan: TimeSpan | null;
@@ -31,16 +32,16 @@ export const TimeSpanSelect = ({ activeTimespan, onChange }: Props) => {
   return (
     <div className="buttons has-addons mb-0">
       {timeSpans.map((timespan) => (
-        <button
+        <Button
           key={timespan}
           type="button"
-          className={clsx("button mb-0", {
+          className={clsx("mb-0", {
             "is-selected is-primary": activeTimespan === timespan,
           })}
           onClick={() => handleClick(timespan)}
         >
           {timespan}
-        </button>
+        </Button>
       ))}
     </div>
   );

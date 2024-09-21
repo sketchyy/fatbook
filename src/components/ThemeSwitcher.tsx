@@ -1,6 +1,7 @@
 import { useTheme } from "@/context/Theme";
 import React from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
+import Button from "@/components/ui/Button";
 
 export default function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -10,10 +11,11 @@ export default function ThemeSwitcher() {
   };
 
   return (
-    <button className="button is-dark is-rounded" onClick={toggleTheme}>
-      <span className="icon is-size-6">
-        {theme === "light" ? <FaMoon /> : <FaSun />}
-      </span>
-    </button>
+    <Button
+      color="dark"
+      variant="rounded"
+      icon={theme === "light" ? <FaMoon /> : <FaSun />}
+      onClick={toggleTheme}
+    />
   );
 }

@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { Dish } from "@/types/dish";
 import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { ChangeEvent } from "react";
-import { clsx } from "clsx";
 import AppLayout from "@/components/AppLayout";
 import { useCreateDish } from "@/hooks/use-create-dish";
+import Button from "@/components/ui/Button";
 
 function DishesPage() {
   const navigate = useNavigate();
@@ -37,9 +37,9 @@ function DishesPage() {
     <AppLayout>
       <div className="box">
         <PageTitle title="My Dishes" subtitle="Recently used">
-          <button className="button is-success" onClick={handleNewClick}>
+          <Button color="success" onClick={handleNewClick}>
             New
-          </button>
+          </Button>
         </PageTitle>
 
         <SearchBar
@@ -56,13 +56,14 @@ function DishesPage() {
 
         {hasNextPage && (
           <div className="is-flex is-justify-content-center">
-            <button
-              className={clsx("button mt-4", { "is-loading": isFetching })}
+            <Button
+              loading={isFetching}
               disabled={isFetching}
+              className="mt-4"
               onClick={() => fetchNextPage()}
             >
               Load more
-            </button>
+            </Button>
           </div>
         )}
       </div>

@@ -8,6 +8,7 @@ import { Dish } from "@/types/dish";
 import { DishPortion } from "@/types/dish-portion";
 import { useIngredientMutations } from "@/hooks/use-ingredients-mutations";
 import { DishIngredientsDetails } from "@/components/dish/DishIngredientsDetails";
+import Button from "@/components/ui/Button";
 
 function DishIngredientsPage() {
   const navigate = useNavigate();
@@ -45,24 +46,22 @@ function DishIngredientsPage() {
     <div className="box">
       <PageTitle title={dish.name} className="mb-0 pb-4">
         {!isDishShared && (
-          <button className="button is-primary" onClick={handleAdd}>
-            <span className="icon">
-              <FaPlus />
-            </span>
-            <span>Add</span>
-          </button>
+          <Button icon={<FaPlus />} color="primary" onClick={handleAdd}>
+            Add
+          </Button>
         )}
       </PageTitle>
 
       {dish.ingredients.length > 0 && !showDetails && (
         <div className="is-flex is-justify-content-end mt-4 mb-2">
-          <button
+          <Button
+            iconRight={<FaChevronDown />}
+            size="small"
+            variant="rounded"
             onClick={() => setShowDetails((s) => !s)}
-            className="button is-small is-rounded"
           >
-            <span className="mr-2">Cooking</span>
-            <FaChevronDown />
-          </button>
+            Cooking
+          </Button>
         </div>
       )}
 

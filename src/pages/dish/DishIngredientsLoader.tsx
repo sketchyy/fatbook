@@ -3,24 +3,26 @@ import DishIngredientsPage from "@/pages/dish/DishIngredientsPage";
 import PageTitle from "@/components/PageTitle";
 import { FaChevronDown, FaPlus } from "react-icons/fa";
 import DishListSkeleton from "@/components/ui/DishListSkeleton";
+import Button from "@/components/ui/Button";
 
 const DishIngredientsSkeleton = () => {
   return (
     <div className="box">
       <PageTitle className="mb-0 pb-4" isLoading>
-        <button className="button is-primary is-skeleton">
-          <span className="icon">
-            <FaPlus />
-          </span>
-          <span>Add</span>
-        </button>
+        <Button color="primary" icon={<FaPlus />} className="is-skeleton">
+          Add
+        </Button>
       </PageTitle>
 
       <div className="is-flex is-justify-content-end mt-4 mb-2">
-        <button className="button is-small is-rounded is-skeleton">
-          <span className="mr-2">Cooking</span>
-          <FaChevronDown />
-        </button>
+        <Button
+          size="small"
+          variant="rounded"
+          iconRight={<FaChevronDown />}
+          className="is-skeleton"
+        >
+          Cooking
+        </Button>
       </div>
 
       <DishListSkeleton />

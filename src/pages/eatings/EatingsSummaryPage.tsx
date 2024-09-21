@@ -15,6 +15,7 @@ import MealCards from "../../components/eatings/MealCards";
 import { DailyEatings } from "@/types/eating";
 import { useIsLoading } from "@/hooks/use-is-loading";
 import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/EatingsPage";
+import Button from "@/components/ui/Button";
 
 function EatingsSummaryPage() {
   const navigate = useNavigate();
@@ -65,30 +66,22 @@ function EatingsSummaryPage() {
             <div className="level-right">
               <div className="level-item">
                 {!isToday && (
-                  <button className="button  ml-4" onClick={handleTodayClick}>
+                  <Button className="ml-4" onClick={handleTodayClick}>
                     To Today
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>
           </div>
           <div className="level is-mobile is-gap-0 mb-0 flex-1">
-            <button className="button" onClick={handleBackClick}>
-              <span className="icon is-small">
-                <FaChevronLeft />
-              </span>
-            </button>
+            <Button icon={<FaChevronLeft />} onClick={handleBackClick} />
             <DatePicker
               selected={parsedDay}
               onChange={(e) => handleDayChange(e)}
               withIcon={true}
               width={200}
             />
-            <button className="button" onClick={handleForwardClick}>
-              <span className="icon is-small">
-                <FaChevronRight />
-              </span>
-            </button>
+            <Button icon={<FaChevronRight />} onClick={handleForwardClick} />
           </div>
         </div>
         <div className="block level is-mobile">

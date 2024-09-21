@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { clsx } from "clsx";
+import Button from "@/components/ui/Button";
 
 interface PageTitleProps {
   title?: string | null;
@@ -26,11 +27,11 @@ function PageTitle({
     <div className={clsx("block columns is-mobile is-vcentered", className)}>
       {backPath && (
         <div className="column is-narrow">
-          <button className="button is-text" onClick={() => navigate(backPath)}>
-            <span className="icon">
-              <FaChevronLeft />
-            </span>
-          </button>
+          <Button
+            variant="text"
+            icon={<FaChevronLeft />}
+            onClick={() => navigate(backPath)}
+          />
         </div>
       )}
       <div className="column">

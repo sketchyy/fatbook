@@ -9,6 +9,7 @@ import { FoodValue } from "@/types/food-value";
 import { settingsService } from "@/services/settings-service";
 import About from "@/components/About";
 import AppLayout from "@/components/AppLayout";
+import Button from "@/components/ui/Button";
 
 function SettingsPage() {
   const { userId } = useAuth();
@@ -94,17 +95,15 @@ function SettingsPage() {
 
             <div className="field mt-5">
               <p className="control is-clearfix">
-                <button
-                  className={clsx("button is-primary is-pulled-right", {
-                    "is-loading": saveMutation.isPending,
-                  })}
+                <Button
                   type="submit"
+                  color="primary"
+                  icon={<FaSave />}
+                  loading={saveMutation.isPending}
+                  className="is-pulled-right"
                 >
-                  <span className="icon">
-                    <FaSave />
-                  </span>
-                  <span>Save</span>
-                </button>
+                  Save
+                </Button>
               </p>
             </div>
           </div>
