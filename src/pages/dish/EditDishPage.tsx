@@ -13,6 +13,9 @@ import { useCreateDish } from "@/hooks/use-create-dish";
 import { useCopyDish } from "@/hooks/use-copy-dish";
 import { formatDate } from "@/utils/date-utils";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
+import FormField from "@/components/ui/FormField";
+import GroupedFormField from "@/components/ui/GroupedFormField";
 
 export type DishInputs = {
   name: string | null;
@@ -88,31 +91,25 @@ function EditDishPage() {
 
   return (
     <form id="dish-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="box">
-        <div className="is-flex is-align-items-start">
-          <div className="field mr-3">
-            <label className="label">Icon</label>
-            <div className="control">
-              <EmojiPicker
-                value={icon}
-                onChange={handleIconChange}
-                isLoading={isLoading}
-                disabled={isDishShared}
-              />
-            </div>
-          </div>
-          <div className="field is-flex-grow-1">
-            <label className="label">Name</label>
-            <div className="control is-expanded">
-              <input
-                className={clsx("input", { "is-skeleton": isLoading })}
-                type="text"
-                disabled={isDishShared}
-                {...register("name", { onChange: handleNameChange })}
-              />
-            </div>
-          </div>
-        </div>
+      <Box>
+        <GroupedFormField>
+          <FormField label="Icon" className="mr-3">
+            <EmojiPicker
+              value={icon}
+              onChange={handleIconChange}
+              isLoading={isLoading}
+              disabled={isDishShared}
+            />
+          </FormField>
+          <FormField label="Name" className="is-flex-grow-1">
+            <input
+              className={clsx("input", { "is-skeleton": isLoading })}
+              type="text"
+              disabled={isDishShared}
+              {...register("name", { onChange: handleNameChange })}
+            />
+          </FormField>
+        </GroupedFormField>
 
         {hasIngredients && (
           <Message>
@@ -157,77 +154,62 @@ function EditDishPage() {
           </Message>
         )}
 
-        <div className="field is-grouped">
-          <div className="field mr-3">
-            <label className="label">Proteins</label>
-            <div className="control">
-              <input
-                className={clsx("input", { "is-skeleton": isLoading })}
-                type="number"
-                step=".01"
-                placeholder="per 100g."
-                disabled={inputsDisabled}
-                {...register("proteins", {
-                  valueAsNumber: true,
-                })}
-              />
-            </div>
-          </div>
-          <div className="field mr-3">
-            <label className="label">Fats</label>
-            <div className="control">
-              <input
-                className={clsx("input", { "is-skeleton": isLoading })}
-                type="number"
-                step=".01"
-                placeholder="per 100g."
-                disabled={inputsDisabled}
-                {...register("fats", { valueAsNumber: true })}
-              />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Carbs</label>
-            <div className="control">
-              <input
-                className={clsx("input", { "is-skeleton": isLoading })}
-                type="number"
-                step=".01"
-                placeholder="per 100g."
-                disabled={inputsDisabled}
-                {...register("carbs", { valueAsNumber: true })}
-              />
-            </div>
-          </div>
-        </div>
+        <GroupedFormField>
+          <FormField label="Proteins" className="mr-3">
+            <input
+              className={clsx("input", { "is-skeleton": isLoading })}
+              type="number"
+              step=".01"
+              placeholder="per 100g."
+              disabled={inputsDisabled}
+              {...register("proteins", {
+                valueAsNumber: true,
+              })}
+            />
+          </FormField>
+          <FormField label="Fats" className="mr-3">
+            <input
+              className={clsx("input", { "is-skeleton": isLoading })}
+              type="number"
+              step=".01"
+              placeholder="per 100g."
+              disabled={inputsDisabled}
+              {...register("fats", { valueAsNumber: true })}
+            />
+          </FormField>
+          <FormField label="Carbs">
+            <input
+              className={clsx("input", { "is-skeleton": isLoading })}
+              type="number"
+              step=".01"
+              placeholder="per 100g."
+              disabled={inputsDisabled}
+              {...register("carbs", { valueAsNumber: true })}
+            />
+          </FormField>
+        </GroupedFormField>
 
-        <div className="field is-grouped is-grouped-centered">
-          <div className="field mr-3">
-            <label className="label">KCal</label>
-            <div className="control">
-              <input
-                className={clsx("input", { "is-skeleton": isLoading })}
-                type="number"
-                step=".01"
-                placeholder="per 100g."
-                disabled={inputsDisabled}
-                {...register("calories", { valueAsNumber: true })}
-              />
-            </div>
-          </div>
-          <div className="field">
-            <label className="label">Portion Size</label>
-            <div className="control">
-              <input
-                className={clsx("input", { "is-skeleton": isLoading })}
-                type="number"
-                placeholder="gramms"
-                disabled={isDishShared}
-                {...register("defaultPortion", { valueAsNumber: true })}
-              />
-            </div>
-          </div>
-        </div>
+        <GroupedFormField align="centered">
+          <FormField label="KCal" className="mr-3">
+            <input
+              className={clsx("input", { "is-skeleton": isLoading })}
+              type="number"
+              step=".01"
+              placeholder="per 100g."
+              disabled={inputsDisabled}
+              {...register("calories", { valueAsNumber: true })}
+            />
+          </FormField>
+          <FormField label="Portion Size">
+            <input
+              className={clsx("input", { "is-skeleton": isLoading })}
+              type="number"
+              placeholder="gramms"
+              disabled={isDishShared}
+              {...register("defaultPortion", { valueAsNumber: true })}
+            />
+          </FormField>
+        </GroupedFormField>
 
         <div className="level">
           <div className="level-left level is-mobile mb-0 mr-auto">
@@ -259,7 +241,7 @@ function EditDishPage() {
             )}
           </div>
         </div>
-      </div>
+      </Box>
     </form>
   );
 }

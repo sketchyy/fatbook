@@ -9,6 +9,7 @@ import { DishPortion } from "@/types/dish-portion";
 import { useIngredientMutations } from "@/hooks/use-ingredients-mutations";
 import { DishIngredientsDetails } from "@/components/dish/DishIngredientsDetails";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
 
 function DishIngredientsPage() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function DishIngredientsPage() {
   };
 
   return (
-    <div className="box">
+    <Box>
       <PageTitle title={dish.name} className="mb-0 pb-4">
         {!isDishShared && (
           <Button icon={<FaPlus />} color="primary" onClick={handleAdd}>
@@ -85,7 +86,7 @@ function DishIngredientsPage() {
         onConfirm={confirm.accept}
         onClose={() => setConfirm({ visible: false })}
       />
-    </div>
+    </Box>
   );
 }
 

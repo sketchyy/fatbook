@@ -23,6 +23,7 @@ type Props = {
   loading?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
+// https://bulma.io/documentation/elements/button/
 // See example with custom component: https://github.com/alexkatz/react-tiny-popover?tab=readme-ov-file#examples
 const Button = React.forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
   (

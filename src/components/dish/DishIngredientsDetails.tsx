@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDishMutations } from "@/hooks/use-dish-mutations";
 import Button from "@/components/ui/Button";
+import GroupedFormField from "@/components/ui/GroupedFormField";
+import FormField from "@/components/ui/FormField";
 
 type CookedWeightInput = { cookedWeight: number | null };
 
@@ -74,9 +76,8 @@ export const DishIngredientsDetails = ({
       bodyClassName="py-4 px-2"
     >
       <form onSubmit={handleSubmit(recalculateFoodValue)} className="mb-4">
-        <div className="field is-grouped is-align-items-end">
-          <p className="control is-expanded">
-            <label className="label">Cooked Weight (g.)</label>
+        <GroupedFormField className="is-align-items-end">
+          <FormField label="Cooked Weight (g.)" className="is-flex-grow-1">
             <input
               className="input"
               type="number"
@@ -84,18 +85,18 @@ export const DishIngredientsDetails = ({
               disabled={disabled}
               {...register("cookedWeight", { valueAsNumber: true })}
             />
-          </p>
+          </FormField>
 
           {!disabled && (
-            <p className="control">
+            <FormField className="mb-3">
               <Button
                 icon={<FaCheck />}
                 color="info"
                 loading={updateDish.isPending}
               ></Button>
-            </p>
+            </FormField>
           )}
-        </div>
+        </GroupedFormField>
       </form>
 
       <p className="mb-1">🍗 Cooked:</p>

@@ -9,9 +9,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src/"),
-      core: `${path.resolve(__dirname, "./src/core/")}`,
-      routes: `${path.resolve(__dirname, "./src/routes/")}`,
-      shared: path.resolve(__dirname, "./src/shared"),
     },
   },
   build: {
