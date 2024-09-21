@@ -7,6 +7,7 @@ import { DishPortion } from "@/types/dish-portion";
 import { Dish } from "@/types/dish";
 import Button from "@/components/ui/Button";
 import Box from "@/components/ui/Box";
+import Block from "@/components/ui/Block";
 
 type Props = {
   title: string;
@@ -53,7 +54,7 @@ function SelectDishPortionsForm({
     runSearch(event.target.value, { replace: true });
 
   return (
-    <div className="block">
+    <Block>
       <Box>
         <PageTitle title={title} subtitle={subtitle} backPath={-1} />
 
@@ -85,7 +86,7 @@ function SelectDishPortionsForm({
           </div>
         )}
       </Box>
-    </div>
+    </Block>
   );
 }
 

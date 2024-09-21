@@ -1,15 +1,22 @@
+import Block from "@/components/ui/Block";
+
 export default function About() {
   return (
     <footer
       className="footer p-5 has-text-centered"
       style={{ position: "absolute", bottom: 0, width: "100%" }}
     >
-      <p className="block">
+      <Block>
         <strong>Fatbook</strong> by{" "}
-        <a href="https://github.com/sketchyy" title="github" target="_blank" rel="noreferrer">
+        <a
+          href="https://github.com/sketchyy"
+          title="github"
+          target="_blank"
+          rel="noreferrer"
+        >
           sketchyy
         </a>
-      </p>
+      </Block>
       <p className="mb-2">Following art assets are used in this app:</p>
 
       <ul>
