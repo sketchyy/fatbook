@@ -6,8 +6,7 @@ import AppLayout from "@/components/AppLayout";
 
 export const DAILY_EATINGS_QUERY_KEY = "dailyEatings";
 
-/* EatingsPage */
-function Eatings() {
+function EatingsPage() {
   const { userId } = useAuth();
   const params = useParams();
   const day = params.day;
@@ -24,4 +23,4 @@ function Eatings() {
   );
 }
 
-export default Eatings;
+export default EatingsPage;

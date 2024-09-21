@@ -10,7 +10,7 @@ import { useAuth } from "@/context/Auth";
 import { useEffect, useState } from "react";
 import { calculateFoodValue } from "@/utils/food-value-utils";
 import { toast } from "react-toastify";
-import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/Eatings";
+import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/EatingsPage";
 
 type OnMutate = (portion: DishPortion) => void;
 

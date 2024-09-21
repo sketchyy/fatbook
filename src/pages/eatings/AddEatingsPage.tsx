@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { DishPortion } from "@/types/dish-portion";
 import { useEatingMutations } from "@/hooks/use-eating-mutations";
 
-function EatingsAdd() {
+function AddEatingsPage() {
   const { day, meal } = useParams();
   const { addEating, updateEating, removeEating, selectedPortions } =
     useEatingMutations(meal!);
@@ -45,4 +45,4 @@ function EatingsAdd() {
   );
 }
 
-export default EatingsAdd;
+export default AddEatingsPage;

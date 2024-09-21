@@ -3,7 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/Auth";
 
-function Login() {
+function LoginPage() {
   const { user, signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,4 +52,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginPage;
