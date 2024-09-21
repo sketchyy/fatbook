@@ -5,6 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DailyEatings } from "@/types/eating";
 import { clsx } from "clsx";
+import { Level, LevelLeft, LevelRight } from "@/components/ui/Level";
 
 type Props = {
   dailyEatings?: DailyEatings | null;
@@ -20,12 +21,12 @@ function MealTitle({ dailyEatings, meal, day, isLoading }: Props) {
 
   return (
     <div className="is-clickable">
-      <div className="level mb-1 is-mobile">
-        <div className="level-left is-flex-direction-row">
+      <Level className="mb-1">
+        <LevelLeft className="is-flex-direction-row">
           <span className="is-size-4">{Meals[meal].icon}</span>
           <span className="is-size-5">{Meals[meal].title}</span>
-        </div>
-        <div className="level-right">
+        </LevelLeft>
+        <LevelRight>
           <Link
             to={addEatingFormPath}
             className={clsx("button is-primary", {
@@ -37,8 +38,8 @@ function MealTitle({ dailyEatings, meal, day, isLoading }: Props) {
               <FaPlus />
             </span>
           </Link>
-        </div>
-      </div>
+        </LevelRight>
+      </Level>
       <FoodValue
         source={mealData}
         isLoading={isLoading}

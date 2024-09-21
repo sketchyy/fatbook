@@ -17,6 +17,7 @@ import { useIsLoading } from "@/hooks/use-is-loading";
 import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/EatingsPage";
 import Button from "@/components/ui/Button";
 import Box from "@/components/ui/Box";
+import { Level, LevelItem, LevelLeft, LevelRight } from "@/components/ui/Level";
 
 function EatingsSummaryPage() {
   const navigate = useNavigate();
@@ -52,29 +53,26 @@ function EatingsSummaryPage() {
     <>
       <Box className="mb-4">
         <div className="is-flex is-flex-wrap-wrap is-justify-content-space-between is-gap-2 mb-5">
-          <div
-            className="level is-mobile flex-1 mb-0"
-            style={{ height: "40px" }}
-          >
-            <div className="level-left is-flex-direction-row">
-              <div className="level-item">
+          <Level className="flex-1 mb-0" style={{ height: "40px" }}>
+            <LevelLeft className="is-flex-direction-row">
+              <LevelItem>
                 <span className="is-size-5">📝</span>
-              </div>
-              <div className="level-item">
+              </LevelItem>
+              <LevelItem>
                 <span className="is-size-5">Summary</span>
-              </div>
-            </div>
-            <div className="level-right">
-              <div className="level-item">
+              </LevelItem>
+            </LevelLeft>
+            <LevelRight>
+              <LevelItem>
                 {!isToday && (
                   <Button className="ml-4" onClick={handleTodayClick}>
                     To Today
                   </Button>
                 )}
-              </div>
-            </div>
-          </div>
-          <div className="level is-mobile is-gap-0 mb-0 flex-1">
+              </LevelItem>
+            </LevelRight>
+          </Level>
+          <Level className="is-gap-0 mb-0 flex-1">
             <Button icon={<FaChevronLeft />} onClick={handleBackClick} />
             <DatePicker
               selected={parsedDay}
@@ -83,15 +81,15 @@ function EatingsSummaryPage() {
               width={200}
             />
             <Button icon={<FaChevronRight />} onClick={handleForwardClick} />
-          </div>
+          </Level>
         </div>
-        <div className="block level is-mobile">
+        <Level className="block">
           <FoodValue
             source={dailyEatings}
             isLoading={isLoading}
             className="level-left is-size-7"
           />
-        </div>
+        </Level>
       </Box>
       <MealCards activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
     </>
