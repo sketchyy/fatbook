@@ -74,7 +74,7 @@ function DishPortionListItem({
           <div className="is-flex-grow-1">
             <div className="field">
               <div className="is-flex is-gap-1 is-justify-content-space-between is-align-items-center">
-                <label className="label">Portion Size (g.)</label>
+                <label className="label">Portion (g.)</label>
                 <button
                   className="button is-ghost p-0 mb-2"
                   onClick={handleOpenDishClick}

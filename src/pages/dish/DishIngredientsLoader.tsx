@@ -1,5 +1,5 @@
 import { useOutletContext } from "react-router-dom";
-import DishIngredients from "@/pages/dish/DishIngredients";
+import DishIngredientsPage from "@/pages/dish/DishIngredientsPage";
 import PageTitle from "@/components/PageTitle";
 import { FaChevronDown, FaPlus } from "react-icons/fa";
 import DishListSkeleton from "@/components/ui/DishListSkeleton";
@@ -36,5 +36,5 @@ export default function DishIngredientsLoader() {
     return <DishIngredientsSkeleton />;
   }
 
-  return <DishIngredients />;
+  return <DishIngredientsPage />;
 }

@@ -14,9 +14,9 @@ import { useNavigate, useOutletContext } from "react-router-dom";
 import MealCards from "../../components/eatings/MealCards";
 import { DailyEatings } from "@/types/eating";
 import { useIsLoading } from "@/hooks/use-is-loading";
-import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/Eatings";
+import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/EatingsPage";
 
-function EatingsSummary() {
+function EatingsSummaryPage() {
   const navigate = useNavigate();
   const { day, dailyEatings } = useOutletContext<{
     day: string;
@@ -104,4 +104,4 @@ function EatingsSummary() {
   );
 }
 
-export default EatingsSummary;
+export default EatingsSummaryPage;

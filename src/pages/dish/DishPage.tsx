@@ -8,8 +8,7 @@ import AppLayout from "@/components/AppLayout";
 import { SHARED_COLLECTION_ID } from "@/constants";
 import { useCopyDish } from "@/hooks/use-copy-dish";
 
-// TODO: rename DishPage
-function Dish() {
+function DishPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
@@ -55,7 +54,7 @@ function Dish() {
   return (
     <AppLayout>
       <div className="tabs is-boxed is-centered mb-0">
-        <button className="button is-text" onClick={handleBackClick}>
+        <button className="button is-text p-3" onClick={handleBackClick}>
           <FaChevronLeft />
         </button>
         <ul>
@@ -65,14 +64,18 @@ function Dish() {
           </NavLinkTab>
         </ul>
 
-        <button type="submit" className="button is-text" onClick={handleCopy}>
+        <button
+          type="submit"
+          className="button is-text p-3"
+          onClick={handleCopy}
+        >
           <FaCopy />
         </button>
 
         {canDelete && (
           <button
             type="submit"
-            className="button is-text"
+            className="button is-text p-3"
             onClick={handleDelete}
           >
             <FaTrash />
@@ -84,4 +87,4 @@ function Dish() {
   );
 }
 
-export default Dish;
+export default DishPage;

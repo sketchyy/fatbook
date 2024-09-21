@@ -10,7 +10,7 @@ import { settingsService } from "@/services/settings-service";
 import About from "@/components/About";
 import AppLayout from "@/components/AppLayout";
 
-function Settings() {
+function SettingsPage() {
   const { userId } = useAuth();
   const { data, isLoading } = useSettings();
   const { register, handleSubmit } = useForm<FoodValue>({
@@ -116,4 +116,4 @@ function Settings() {
   );
 }
 
-export default Settings;
+export default SettingsPage;

@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import DishListSkeleton from "@/components/ui/DishListSkeleton";
-import DishIngredientAdd from "@/pages/dish/DishIngredientAdd";
+import AddDishIngredientPage from "@/pages/dish/AddDishIngredientPage";
 
 const DishIngredientAddSkeleton = () => (
   <div className="block">
@@ -23,5 +23,5 @@ export default function DishIngredientAddLoader() {
     return <DishIngredientAddSkeleton />;
   }
 
-  return <DishIngredientAdd />;
+  return <AddDishIngredientPage />;
 }
