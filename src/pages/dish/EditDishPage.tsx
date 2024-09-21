@@ -16,6 +16,7 @@ import Button from "@/components/ui/Button";
 import Box from "@/components/ui/Box";
 import FormField from "@/components/ui/FormField";
 import GroupedFormField from "@/components/ui/GroupedFormField";
+import { Level, LevelLeft } from "@/components/ui/Level";
 
 export type DishInputs = {
   name: string | null;
@@ -211,8 +212,8 @@ function EditDishPage() {
           </FormField>
         </GroupedFormField>
 
-        <div className="level">
-          <div className="level-left level is-mobile mb-0 mr-auto">
+        <Level>
+          <LevelLeft className="level is-mobile mb-0 mr-auto">
             <div className="is-size-7 is-align-self-flex-end">
               <strong>Created</strong>
               <p className={clsx({ "is-skeleton": isLoading })}>
@@ -225,8 +226,8 @@ function EditDishPage() {
                 {formatDate(dish?.updatedAt, "DD MMM YYYY")}
               </p>
             </div>
-          </div>
-          <div className="level-left level is-mobile ml-auto">
+          </LevelLeft>
+          <LevelLeft className="level is-mobile ml-auto">
             <p className="control">
               <Button type="button" onClick={onCancel}>
                 Cancel
@@ -239,8 +240,8 @@ function EditDishPage() {
                 </Button>
               </p>
             )}
-          </div>
-        </div>
+          </LevelLeft>
+        </Level>
       </Box>
     </form>
   );

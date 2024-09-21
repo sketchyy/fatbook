@@ -1,6 +1,7 @@
 import { FoodValue as FoodValueType } from "@/types/food-value";
 import { emptyFoodValue } from "@/utils/food-value-utils";
 import { clsx } from "clsx";
+import { Level } from "@/components/ui/Level";
 
 type Props = {
   source?: FoodValueType | null;
@@ -19,12 +20,12 @@ function FoodValue({ source, className = "", isLoading }: Props) {
   });
 
   return (
-    <span className={clsx("level", "is-mobile", "mb-0", className)}>
+    <Level className={clsx("mb-0", className)}>
       <span className={cls}>⚡ {format(rendered.calories)} kcal</span>
       <span className={cls}>🥩 {format(rendered.proteins)} g</span>
       <span className={cls}>🧈 {format(rendered.fats)} g</span>
       <span className={cls}>🍚 {format(rendered.carbs)} g</span>
-    </span>
+    </Level>
   );
 }
 

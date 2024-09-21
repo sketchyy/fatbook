@@ -1,5 +1,6 @@
 import { useAuth } from "@/context/Auth";
 import Button from "@/components/ui/Button";
+import { Level, LevelItem, LevelLeft, LevelRight } from "@/components/ui/Level";
 
 function CurrentUser() {
   const { user, signOut } = useAuth();
@@ -18,25 +19,25 @@ function CurrentUser() {
     : user.email;
 
   return (
-    <div className="level is-mobile">
-      <div className="level-left level is-mobile mb-0">
-        <div className="level-item mr-2">
+    <Level>
+      <LevelLeft className="level is-mobile mb-0">
+        <LevelItem className="mr-2">
           <figure className="image">
             <img className="is-rounded" src={avatarUrl} alt="" />
           </figure>
-        </div>
-        <div className="level-item mr-4">
+        </LevelItem>
+        <LevelItem className="mr-4">
           <div>Hello, {displayName}</div>
-        </div>
-      </div>
-      <div className="level-right">
-        <div className="level-item">
+        </LevelItem>
+      </LevelLeft>
+      <LevelRight>
+        <LevelItem>
           <Button color="link" className="mb-0" onClick={handleLogout}>
             Logout
           </Button>
-        </div>
-      </div>
-    </div>
+        </LevelItem>
+      </LevelRight>
+    </Level>
   );
 }
 
