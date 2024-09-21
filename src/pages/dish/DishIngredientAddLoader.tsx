@@ -1,10 +1,11 @@
 import { useOutletContext } from "react-router-dom";
 import DishListSkeleton from "@/components/ui/DishListSkeleton";
 import AddDishIngredientPage from "@/pages/dish/AddDishIngredientPage";
+import Box from "@/components/ui/Box";
 
 const DishIngredientAddSkeleton = () => (
   <div className="block">
-    <div className="box">
+    <Box>
       <div className="is-skeleton mb-3" style={{ height: 54 }}></div>
 
       <div className="content">
@@ -12,7 +13,7 @@ const DishIngredientAddSkeleton = () => (
       </div>
 
       <DishListSkeleton />
-    </div>
+    </Box>
   </div>
 );
 

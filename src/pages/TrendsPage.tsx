@@ -10,6 +10,7 @@ import { useTrendsData } from "@/hooks/use-trends-data";
 import { TimeSpan, TimeSpanSelect } from "@/components/trends/TimeSpanSelect";
 import AppLayout from "@/components/AppLayout";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
 
 // Component name is for react router lazy loading
 export function Component() {
@@ -42,7 +43,7 @@ export function Component() {
 
   return (
     <AppLayout>
-      <div className="box mb-2">
+      <Box className="mb-2">
         <div className="is-flex is-justify-content-space-between mb-4">
           <div className="is-size-4 mr-2">Trends</div>
 
@@ -94,7 +95,7 @@ export function Component() {
             </Message>
           )}
         </div>
-      </div>
+      </Box>
       <DailyTrendChart
         title="⚡ Calories"
         data={chartData}

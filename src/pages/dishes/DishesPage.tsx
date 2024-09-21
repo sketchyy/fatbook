@@ -8,6 +8,7 @@ import { ChangeEvent } from "react";
 import AppLayout from "@/components/AppLayout";
 import { useCreateDish } from "@/hooks/use-create-dish";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
 
 function DishesPage() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function DishesPage() {
 
   return (
     <AppLayout>
-      <div className="box">
+      <Box>
         <PageTitle title="My Dishes" subtitle="Recently used">
           <Button color="success" onClick={handleNewClick}>
             New
@@ -66,7 +67,7 @@ function DishesPage() {
             </Button>
           </div>
         )}
-      </div>
+      </Box>
     </AppLayout>
   );
 }

@@ -16,6 +16,7 @@ import { DailyEatings } from "@/types/eating";
 import { useIsLoading } from "@/hooks/use-is-loading";
 import { DAILY_EATINGS_QUERY_KEY } from "@/pages/eatings/EatingsPage";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
 
 function EatingsSummaryPage() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ function EatingsSummaryPage() {
 
   return (
     <>
-      <div className="box mb-4">
+      <Box className="mb-4">
         <div className="is-flex is-flex-wrap-wrap is-justify-content-space-between is-gap-2 mb-5">
           <div
             className="level is-mobile flex-1 mb-0"
@@ -91,7 +92,7 @@ function EatingsSummaryPage() {
             className="level-left is-size-7"
           />
         </div>
-      </div>
+      </Box>
       <MealCards activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
     </>
   );

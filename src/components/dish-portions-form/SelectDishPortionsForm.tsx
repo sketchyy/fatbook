@@ -6,6 +6,7 @@ import { useDishesSearch } from "@/hooks/use-dishes-search";
 import { DishPortion } from "@/types/dish-portion";
 import { Dish } from "@/types/dish";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
 
 type Props = {
   title: string;
@@ -53,7 +54,7 @@ function SelectDishPortionsForm({
 
   return (
     <div className="block">
-      <div className="box">
+      <Box>
         <PageTitle title={title} subtitle={subtitle} backPath={-1} />
 
         <SearchBar
@@ -83,7 +84,7 @@ function SelectDishPortionsForm({
             </Button>
           </div>
         )}
-      </div>
+      </Box>
     </div>
   );
 }

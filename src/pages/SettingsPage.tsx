@@ -10,6 +10,7 @@ import { settingsService } from "@/services/settings-service";
 import About from "@/components/About";
 import AppLayout from "@/components/AppLayout";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
 
 function SettingsPage() {
   const { userId } = useAuth();
@@ -43,7 +44,7 @@ function SettingsPage() {
           onSubmit={handleSubmit(onSubmit)}
           className={clsx({ loading: saveMutation.isPending })}
         >
-          <div className="box">
+          <Box>
             <div className="is-size-4 mb-4">My Daily Goals</div>
             <div className="field is-grouped">
               <div className="field mr-3">
@@ -106,7 +107,7 @@ function SettingsPage() {
                 </Button>
               </p>
             </div>
-          </div>
+          </Box>
         </form>
       </AppLayout>
 

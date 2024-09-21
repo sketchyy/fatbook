@@ -4,10 +4,11 @@ import PageTitle from "@/components/PageTitle";
 import { FaChevronDown, FaPlus } from "react-icons/fa";
 import DishListSkeleton from "@/components/ui/DishListSkeleton";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
 
 const DishIngredientsSkeleton = () => {
   return (
-    <div className="box">
+    <Box>
       <PageTitle className="mb-0 pb-4" isLoading>
         <Button color="primary" icon={<FaPlus />} className="is-skeleton">
           Add
@@ -26,7 +27,7 @@ const DishIngredientsSkeleton = () => {
       </div>
 
       <DishListSkeleton />
-    </div>
+    </Box>
   );
 };
 

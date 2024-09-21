@@ -13,6 +13,7 @@ import { useCreateDish } from "@/hooks/use-create-dish";
 import { useCopyDish } from "@/hooks/use-copy-dish";
 import { formatDate } from "@/utils/date-utils";
 import Button from "@/components/ui/Button";
+import Box from "@/components/ui/Box";
 
 export type DishInputs = {
   name: string | null;
@@ -88,7 +89,7 @@ function EditDishPage() {
 
   return (
     <form id="dish-form" onSubmit={handleSubmit(onSubmit)}>
-      <div className="box">
+      <Box>
         <div className="is-flex is-align-items-start">
           <div className="field mr-3">
             <label className="label">Icon</label>
@@ -259,7 +260,7 @@ function EditDishPage() {
             )}
           </div>
         </div>
-      </div>
+      </Box>
     </form>
   );
 }
