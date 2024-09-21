@@ -1,4 +1,5 @@
 import { ReactNode, useEffect } from "react";
+import CloseButton from "@/components/ui/CloseButton";
 
 interface ModalProps {
   visible: boolean;
@@ -28,11 +29,7 @@ function Modal({ visible, onClose, body, footer, title }: ModalProps) {
       <div className="modal-card px-2">
         <header className="modal-card-head p-5">
           <p className="modal-card-title">{title}</p>
-          <button
-            className="delete"
-            aria-label="close"
-            onClick={onClose}
-          ></button>
+          <CloseButton onClick={onClose} />
         </header>
         <section className="modal-card-body">{body}</section>
         <footer className="modal-card-foot is-justify-content-end p-4">

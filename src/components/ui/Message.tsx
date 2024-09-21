@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { clsx } from "clsx";
+import CloseButton from "@/components/ui/CloseButton";
 
 interface MessageProps {
   title?: string;
@@ -28,13 +29,7 @@ function Message({
             </span>
             {title}
           </p>
-          {onClose && (
-            <button
-              className="delete"
-              aria-label="delete"
-              onClick={onClose}
-            ></button>
-          )}
+          {onClose && <CloseButton onClick={onClose} />}
         </div>
       )}
       <div

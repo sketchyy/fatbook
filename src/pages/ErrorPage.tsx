@@ -1,4 +1,5 @@
 import { useNavigate, useRouteError } from "react-router-dom";
+import CloseButton from "@/components/ui/CloseButton";
 
 export default function ErrorPage() {
   const navigate = useNavigate();
@@ -15,11 +16,7 @@ export default function ErrorPage() {
         <article className="box p-0 message is-danger mx-4 mt-4">
           <div className="message-header">
             <p>Sorry, an unexpected error has occurred.</p>
-            <button
-              className="delete"
-              aria-label="delete"
-              onClick={handleCloseClick}
-            ></button>
+            <CloseButton onClick={handleCloseClick} />
           </div>
           <div className="message-body">
             {error.statusText || error.message}
