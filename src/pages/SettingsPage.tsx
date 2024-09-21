@@ -11,6 +11,8 @@ import About from "@/components/About";
 import AppLayout from "@/components/AppLayout";
 import Button from "@/components/ui/Button";
 import Box from "@/components/ui/Box";
+import FormField from "@/components/ui/FormField";
+import GroupedFormField from "@/components/ui/GroupedFormField";
 
 function SettingsPage() {
   const { userId } = useAuth();
@@ -46,67 +48,54 @@ function SettingsPage() {
         >
           <Box>
             <div className="is-size-4 mb-4">My Daily Goals</div>
-            <div className="field is-grouped">
-              <div className="field mr-3">
-                <label className="label">Proteins</label>
-                <div className="control">
-                  <input
-                    {...register("proteins")}
-                    className={inputClasses}
-                    type="number"
-                    placeholder="per 100g."
-                  />
-                </div>
-              </div>
-              <div className="field mr-3">
-                <label className="label">Fats</label>
-                <div className="control">
-                  <input
-                    {...register("fats")}
-                    className={inputClasses}
-                    type="number"
-                    placeholder="per 100g."
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <label className="label">Carbs</label>
-                <div className="control">
-                  <input
-                    {...register("carbs")}
-                    className={inputClasses}
-                    type="number"
-                    placeholder="per 100g."
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="field">
-              <label className="label">KCal</label>
-              <div className="control">
+            <GroupedFormField>
+              <FormField label="Proteins" className="mr-3">
                 <input
-                  {...register("calories")}
+                  {...register("proteins")}
                   className={inputClasses}
                   type="number"
                   placeholder="per 100g."
                 />
-              </div>
-            </div>
+              </FormField>
+              <FormField label="Fats" className="mr-3">
+                <input
+                  {...register("fats")}
+                  className={inputClasses}
+                  type="number"
+                  placeholder="per 100g."
+                />
+              </FormField>
+              <FormField label="Carbs">
+                <input
+                  {...register("carbs")}
+                  className={inputClasses}
+                  type="number"
+                  placeholder="per 100g."
+                />
+              </FormField>
+            </GroupedFormField>
 
-            <div className="field mt-5">
-              <p className="control is-clearfix">
+            <FormField label="KCal">
+              <input
+                {...register("calories")}
+                className={inputClasses}
+                type="number"
+                placeholder="per 100g."
+              />
+            </FormField>
+
+            <GroupedFormField align="right">
+              <FormField className="mt-3">
                 <Button
                   type="submit"
                   color="primary"
                   icon={<FaSave />}
                   loading={saveMutation.isPending}
-                  className="is-pulled-right"
                 >
                   Save
                 </Button>
-              </p>
-            </div>
+              </FormField>
+            </GroupedFormField>
           </Box>
         </form>
       </AppLayout>
