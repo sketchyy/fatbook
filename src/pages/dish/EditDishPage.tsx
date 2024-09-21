@@ -92,7 +92,7 @@ function EditDishPage() {
   return (
     <form id="dish-form" onSubmit={handleSubmit(onSubmit)}>
       <Box>
-        <div className="is-flex is-align-items-start">
+        <GroupedFormField>
           <FormField label="Icon" className="mr-3">
             <EmojiPicker
               value={icon}
@@ -109,7 +109,7 @@ function EditDishPage() {
               {...register("name", { onChange: handleNameChange })}
             />
           </FormField>
-        </div>
+        </GroupedFormField>
 
         {hasIngredients && (
           <Message>
