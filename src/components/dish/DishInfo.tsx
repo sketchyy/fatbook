@@ -28,12 +28,10 @@ function DishInfo({ dish }: Props) {
                 <span
                   className="icon"
                   data-tooltip-id="shared-tooltip"
-                  data-tooltip-content="This dish is shared between all users"
+                  data-tooltip-content="This dish is available to all users"
                 >
                   <FaUsers />
-                  {!isTouchDevice && (
-                    <Tooltip id="shared-tooltip" place="left" />
-                  )}
+                  {!isTouchDevice && <Tooltip id="shared-tooltip" />}
                 </span>
               )}
             </span>
