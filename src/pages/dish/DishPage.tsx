@@ -17,7 +17,7 @@ function DishPage() {
     queryKey: ["dish", +params.id!],
     queryFn: () => dishesService.fetchDish(+params.id!),
   });
-  const { copyDish } = useCopyDish();
+  const { copyDish } = useCopyDish({ shouldNavigate: true });
   const deleteMutation = useMutation({ mutationFn: dishesService.deleteDish });
   const isCreate = isNil(params.id);
   const isDishShared = dish?.collectionId === SHARED_COLLECTION_ID;
