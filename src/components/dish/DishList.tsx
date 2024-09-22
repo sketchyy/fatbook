@@ -1,4 +1,4 @@
-import React, { EventHandler, Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import Divider from "../ui/Divider";
 import DishInfo from "./DishInfo";
 import { Dish } from "@/types/dish";
@@ -14,18 +14,16 @@ import { SHARED_COLLECTION_ID } from "@/constants";
 
 type ListItemProps = {
   dish: Dish;
+  active: boolean;
   onClick: (dish: Dish) => void;
-  onContextMenu: EventHandler<never>;
+  onContextMenu: (e: unknown) => void;
 };
 
-function DishListItem({ dish, onClick, onContextMenu }: ListItemProps) {
+function DishListItem({ dish, active, onClick, onContextMenu }: ListItemProps) {
   const [hovered, setHovered] = useState(false);
-  const [active, setActive] = useState(false);
   const noName = !dish.name;
 
-  const toggleHover = () => setHovered(!hovered);
   const handleClick = () => {
-    setActive(!active);
     onClick(dish);
   };
 
@@ -33,11 +31,11 @@ function DishListItem({ dish, onClick, onContextMenu }: ListItemProps) {
     <div
       className={clsx("is-clickable", {
         "background-white-ter-use-theme": hovered,
-        "background-success-use-theme": active,
+        "background-info-use-theme": active,
         "background-danger-use-theme": noName,
       })}
-      onMouseEnter={toggleHover}
-      onMouseLeave={toggleHover}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       onClick={handleClick}
       onContextMenu={onContextMenu}
     >
@@ -101,6 +99,7 @@ function DishList({ dishes, isLoading, onDishClick }: Props) {
         <Fragment key={dish.id}>
           <DishListItem
             dish={dish}
+            active={isOpened && dish.id === clickedDish?.id}
             onClick={() => onDishClick(dish)}
             onContextMenu={(e) => handleContextMenu(dish, e)}
           />
