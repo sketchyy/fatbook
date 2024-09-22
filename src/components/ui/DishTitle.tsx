@@ -41,7 +41,7 @@ export default function DishTitle({ dish, isLoading, children }: Props) {
   return (
     <div className={wrapperClass}>
       <DishIcon className="mr-2" dish={dish} />
-      <p className="is-flex-grow-1">{renderedName}</p>
+      <p className="is-flex-grow-1 is-unselectable">{renderedName}</p>
       {children}
     </div>
   );
