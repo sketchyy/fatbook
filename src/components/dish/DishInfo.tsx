@@ -3,6 +3,7 @@ import { Dish } from "@/types/dish";
 import DishTitle from "@/components/ui/DishTitle";
 import { SHARED_COLLECTION_ID } from "@/constants";
 import { FaUsers } from "react-icons/fa";
+import { Tooltip } from "react-tooltip";
 
 type Props = {
   dish: Dish;
@@ -22,8 +23,13 @@ function DishInfo({ dish }: Props) {
                 <FoodValue source={dish} />
               </span>
               {isShared && (
-                <span className="icon">
+                <span
+                  className="icon"
+                  data-tooltip-id="shared-tooltip"
+                  data-tooltip-content="This dish is shared between all users"
+                >
                   <FaUsers />
+                  <Tooltip id="shared-tooltip" place="left" />
                 </span>
               )}
             </span>
