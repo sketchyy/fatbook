@@ -4,6 +4,7 @@ import DishTitle from "@/components/ui/DishTitle";
 import { SHARED_COLLECTION_ID } from "@/constants";
 import { FaUsers } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
+import { useIsTouchDevice } from "@/hooks/use-is-touch-device";
 
 type Props = {
   dish: Dish;
@@ -11,6 +12,7 @@ type Props = {
 
 function DishInfo({ dish }: Props) {
   const isShared = dish.collectionId === SHARED_COLLECTION_ID;
+  const isTouchDevice = useIsTouchDevice();
 
   return (
     <div className="is-flex-grow-1">
@@ -29,7 +31,9 @@ function DishInfo({ dish }: Props) {
                   data-tooltip-content="This dish is shared between all users"
                 >
                   <FaUsers />
-                  <Tooltip id="shared-tooltip" place="left" />
+                  {!isTouchDevice && (
+                    <Tooltip id="shared-tooltip" place="left" />
+                  )}
                 </span>
               )}
             </span>

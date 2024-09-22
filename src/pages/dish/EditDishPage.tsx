@@ -212,7 +212,7 @@ function EditDishPage() {
           </FormField>
         </GroupedFormField>
 
-        <Level>
+        <Level className="is-flex-wrap-wrap">
           <LevelLeft className="level is-mobile mb-0 mr-auto">
             <div className="is-size-7 is-align-self-flex-end">
               <strong>Created</strong>
