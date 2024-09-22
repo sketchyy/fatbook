@@ -38,7 +38,7 @@ function EditDishPage() {
     isLoading: boolean;
   }>();
   const { createDish } = useCreateDish();
-  const { copyDish } = useCopyDish();
+  const { copyDish } = useCopyDish({ shouldNavigate: true });
   const { register, reset, handleSubmit, setValue, getValues, formState } =
     useForm<DishInputs>();
   const [icon, setIcon] = useState<string>("");
